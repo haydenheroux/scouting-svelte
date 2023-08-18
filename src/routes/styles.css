@@ -148,7 +148,7 @@ section button {
     border-radius: calc(var(--radius) - 2px);
 }
 
-section input {
+section input, section select {
     background-color: var(--clr-neutral-900);
     color: var(--clr-neutral-100);
 
@@ -158,6 +158,15 @@ section input {
 
     border: 1px solid var(--clr-neutral-700);
     border-radius: calc(var(--radius) - 2px);
+}
+
+section select option {
+    background-color: var(--clr-neutral-900);
+    color: var(--clr-neutral-100);
+
+    font-family: var(--ff-main);
+    font-weight: var(--fw-main);
+    font-size: var(--fs-100);
 }
 
 section input::placeholder {
@@ -241,7 +250,7 @@ section {
     padding: 1.5rem; /* TODO make own var */
 }
 
-section > * {
+section * {
     width: 100%;
 }
 
@@ -249,10 +258,6 @@ section > div {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-}
-
-section > div > * {
-    width: 100%;
 }
 
 section label {
@@ -264,6 +269,17 @@ section input {
 
     padding-inline: 0.75rem;
     padding-block: 0.25rem;
+}
+
+.split {
+    display: flex;
+    flex-direction: row;
+
+    gap: 1rem; /* TODO make own var */
+}
+
+.split > * {
+    flex: 1;
 }
 
 section button {

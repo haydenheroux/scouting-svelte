@@ -6,7 +6,15 @@
     </div>
     <div>
         <label for="match">Match</label>
-        <input id="match" type="text" placeholder="qm1">
+        <div class="split">
+            <select>
+                <option value="qualification">Qualification</option>
+                <option value="quarterfinal">Quarterfinal</option>
+                <option value="semifinal">Semifinal</option>
+                <option value="final">Final</option>
+            </select>
+            <input id="match" type="number" placeholder="1" min="1">
+        </div>
     </div>
     <div>
         <label for="team">Team</label>
