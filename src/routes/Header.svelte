@@ -1,10 +1,14 @@
+<script>
+    import NavLink from '../lib//NavLink.svelte';
+</script>
+
 <header>
     <div class="container">
         <nav>
-            <a class="title" href="/">scouting-svelte</a>
-            <a href="/2024">2024</a>
-            <a href="/2023">2023</a>
-            <a href="/2022">2022</a>
+            <a href="/"><em>scouting-svelte</em></a>
+            <NavLink href="/2024">2024</NavLink>
+            <NavLink href="/2023">2023</NavLink>
+            <NavLink href="/2022">2022</NavLink>
         </nav>
     </div>
 </header>
