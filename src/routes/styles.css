@@ -43,11 +43,9 @@
     --footer-gap: 0.5rem;
 
     /* layout sizes */
-    --layout-header-padding-inline: 2rem;
-    --layout-main-padding-inline: 4rem;
     --layout-gap: 2rem;
-
-    /* breakpoints */
+    --layout-width-tablet: 32em;
+    --layout-width-desktop: 60em;
 }
 
 /* reset */
@@ -144,6 +142,11 @@ footer {
     display: flex;
     flex-direction: column;
     gap: var(--layout-gap);
+}
+
+.container {
+    width: 90%;
+    max-width: 20em;
 
     margin-inline: auto;
 }
@@ -158,13 +161,9 @@ header {
 
     display: flex;
     align-items: center;
-
-    padding-inline: var(--layout-header-padding-inline);
 }
 
 header nav {
-    min-width: 100%;
-
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -172,19 +171,39 @@ header nav {
 }
 
 main {
-    padding-inline: var(--layout-main-padding-inline);
+    width: 100%;
 }
 
 footer {
     width: 100%;
     height: 6rem; /* TODO make own var */
+}
 
+footer .container {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
 
     gap: var(--footer-gap);
+}
 
-    padding-inline: var(--layout-main-padding-inline);
+/* layout media queries */
+
+@media screen and (max-width: 28rem) { /* phone */
+    header nav { /* hide normal nav */
+        display: none;
+    }
+}
+
+@media screen and (min-width: 40rem) { /* tablet */
+    .container {
+        max-width: var(--layout-width-tablet);
+    }
+}
+
+@media screen and (min-width: 100rem) { /* desktop */
+    .container {
+        max-width: var(--layout-width-desktop);
+    }
 }
