@@ -26,16 +26,16 @@
     --fs-900: 3rem;
 
     /* colors */
-    --clr-neutral-100: hsl(0, 0%, 98%); /* foreground, primary-background */
-    --clr-neutral-200: hsl(240, 5%, 64.9%); /* muted-foreground */
-    --clr-neutral-300: color-mix(in lch, var(--clr-neutral-200), var(--clr-neutral-900));
+    --clr-neutral-100: hsl(0 0% 98%); /* foreground, primary-background */
+    --clr-neutral-200: hsl(240 5% 64.9%); /* muted-foreground */
+    --clr-neutral-300: color-mix(in lch, var(--clr-neutral-200), var(--clr-neutral-900)); /* placeholder */
     --clr-neutral-400: red;
     --clr-neutral-500: red;
     --clr-neutral-600: red;
-    --clr-neutral-700: hsl(240, 3.7%, 15.9%); /* border, muted-background */
-    --clr-neutral-800: hsl(240, 5.9%, 10%); /* primary-foreground */
-    --clr-neutral-900: hsl(240, 10%, 3.9%); /* background */
-    --clr-accent-500: hsl(146.59, 100%, 32.75%);
+    --clr-neutral-700: hsl(240 3.7% 15.9%); /* border, muted-background */
+    --clr-neutral-800: hsl(240 5.9% 10%); /* primary-foreground */
+    --clr-neutral-900: hsl(240 10% 3.9%); /* background */
+    --clr-accent-500: hsl(146.59 100% 32.75%);
 
     /* element sizes */
     --radius: 0.5rem;
@@ -224,7 +224,6 @@ main .container {
 
     display: flex;
     flex-direction: column;
-    align-items: center;
 
     gap: 1.5rem; /* TODO make own var */
 }
