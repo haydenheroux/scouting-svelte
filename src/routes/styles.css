@@ -15,7 +15,7 @@
     --fw-mono: 400;
 
     /* font sizes */
-    --fs-100: 0.5rem;
+    --fs-100: 0.875rem;
     --fs-200: 1rem;
     --fs-300: 1.25rem;
     --fs-400: 1.5rem;
@@ -28,7 +28,7 @@
     /* colors */
     --clr-neutral-100: hsl(0, 0%, 98%); /* foreground, primary-background */
     --clr-neutral-200: hsl(240, 5%, 64.9%); /* muted-foreground */
-    --clr-neutral-300: red;
+    --clr-neutral-300: color-mix(in lch, var(--clr-neutral-200), var(--clr-neutral-900));
     --clr-neutral-400: red;
     --clr-neutral-500: red;
     --clr-neutral-600: red;
@@ -59,7 +59,6 @@
 }
 
 body {
-  line-height: 1.5;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -96,6 +95,8 @@ body {
     font-family: var(--ff-main);
     font-weight: var(--fw-main);
     font-size: var(--fs-300);
+
+    line-height: 1.5;
 }
 
 nav {
@@ -128,6 +129,55 @@ a {
     text-decoration: inherit;
     text-decoration-line: underline;
     text-underline-offset: 4px;
+}
+
+section {
+    border: 1px solid var(--clr-neutral-700);
+    border-radius: calc(var(--radius) + 4px);
+}
+
+section button {
+    background-color: var(--clr-neutral-100);
+    color: var(--clr-neutral-800);
+
+    font-family: var(--ff-main);
+    font-weight: var(--fw-main);
+    font-size: var(--fs-100);
+
+    border: none;
+    border-radius: calc(var(--radius) - 2px);
+}
+
+section input {
+    background-color: var(--clr-neutral-900);
+    color: var(--clr-neutral-100);
+
+    font-family: var(--ff-main);
+    font-weight: var(--fw-main);
+    font-size: var(--fs-100);
+
+    border: 1px solid var(--clr-neutral-700);
+    border-radius: calc(var(--radius) - 2px);
+}
+
+section input::placeholder {
+    color: var(--clr-neutral-300);
+
+    font-family: var(--ff-main);
+    font-weight: var(--fw-main);
+    font-size: var(--fs-100);
+}
+
+section h2 {
+    font-family: var(--ff-heading);
+    font-weight: var(--fw-heading);
+    font-size: var(--fs-400);
+}
+
+section label {
+    font-family: var(--ff-main);
+    font-weight: var(--fw-main);
+    font-size: var(--fs-300);
 }
 
 footer {
@@ -169,8 +219,58 @@ header nav {
     gap: var(--header-gap);
 }
 
-main {
+main .container {
     width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    gap: 1.5rem; /* TODO make own var */
+}
+
+section {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    gap: 1rem; /* TODO make own var */
+
+    padding: 1.5rem; /* TODO make own var */
+}
+
+section > * {
+    width: 100%;
+}
+
+section > div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+section > div > * {
+    width: 100%;
+}
+
+section label {
+    margin-bottom: 0.5rem; /* TODO make own var */
+}
+
+section input {
+    height: 2.5em;
+
+    padding-inline: 0.75rem;
+    padding-block: 0.25rem;
+}
+
+section button {
+    height: 2.5em;
+
+    padding-block: 0.5rem;
 }
 
 footer {
