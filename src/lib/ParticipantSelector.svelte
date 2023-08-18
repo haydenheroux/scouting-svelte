@@ -20,7 +20,7 @@
     <h2>Select Participant</h2>
     <div>
         <label for="event">Event</label>
-        <input id="event" type="text" placeholder="2023event" bind:value={event}>
+        <input id="event" type="text" placeholder="Event" bind:value={event}>
     </div>
     <div>
         <label for="match">Match</label>
