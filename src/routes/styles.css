@@ -184,15 +184,6 @@ section input, section select {
     border-radius: var(--radius-element);
 }
 
-section select option {
-    background-color: var(--clr-neutral-900);
-    color: var(--clr-neutral-100);
-
-    font-family: var(--ff-main);
-    font-weight: var(--fw-main);
-    font-size: var(--fs-100);
-}
-
 section input::placeholder {
     color: var(--clr-neutral-300);
 
@@ -290,7 +281,7 @@ section label {
     margin-bottom: 0.5rem;
 }
 
-section input {
+section input, section select {
     height: var(--section-input-height);
 
     padding-inline: var(--button-padding-inline);
