@@ -1,8 +1,9 @@
 <script lang="ts">
 	import MultipleOptionSelector from "$lib/components/MultipleOptionSelector.svelte";
+	import type { GamePiece } from "./Metrics";
 
     export let title: string;
-    export let selected: string;
+    export let selected: GamePiece;
 </script>
 
 <div class="cube_cone">

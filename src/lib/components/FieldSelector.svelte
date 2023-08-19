@@ -1,14 +1,10 @@
 <script lang="ts">
+	import type { Point } from '$lib/interfaces/Point';
     import { onMount } from 'svelte';
 
     export let title: string;
 
     export let field: string;
-
-    interface Point {
-        readonly x: number;
-        readonly y: number;
-    }
 
     export let points: Array<Point> = [];
     export let single = false;
@@ -104,12 +100,6 @@
                     break;
             }
         }
-    }
-
-    function normalize(p: Point): Point {
-        const x = p.x / canvas.width;
-        const y = p.y / canvas.height;
-        return { x, y }
     }
 </script>
 

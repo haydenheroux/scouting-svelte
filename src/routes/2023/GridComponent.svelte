@@ -1,7 +1,9 @@
 <script lang="ts">
+	import type { Grid } from "./Metrics";
+
     export let title: string;
 
-    export let grid = [
+    export let grid: Grid = [
         [false, false, false, false, false, false, false, false, false],
         [false, false, false, false, false, false, false, false, false],
         [false, false, false, false, false, false, false, false, false],

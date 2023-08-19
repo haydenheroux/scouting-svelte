@@ -8,10 +8,14 @@
 	import NumberSelector from '$lib/components/NumberSelector.svelte';
 	import Submit from '$lib/components/Submit.svelte';
 	import Notes from '$lib/components/Notes.svelte';
+	import type { MatchType, Participant } from '$lib/types/Participant';
+	import type { Defense } from '$lib/types/Metrics';
+	import type { AutoCargoScored, ClimbLevel } from './Metrics';
+	import type { Point } from '$lib/interfaces/Point';
 
 	/* participant */
 	let event: string;
-	let matchType: string; // TODO make type
+	let matchType: MatchType;
 	let matchNumber: number;
 	let team: string;
 
@@ -19,18 +23,13 @@
 	let isRedAlliance: boolean;
 
 	/* starting position */
-    interface Point {
-        readonly x: number;
-        readonly y: number;
-    }
-
 	let startingPoint: Array<Point>;
 
 	/* taxi */
 	let taxi: boolean;
 
 	/* auto cargo scored */
-	let autoCargoScored: string; // TODO make type 
+	let autoCargoScored: AutoCargoScored;
 
 	/* teleop score locations */
 	let teleopMakes: Array<Point>;
@@ -41,10 +40,10 @@
 	let teleopUpperCargoScored: number;
 
 	/* endgame climb level */
-	let climbLevel: string; // TODO make type
+	let climbLevel: ClimbLevel;
 
 	/* defense */
-	let defense: string; // TODO make type
+	let defense: Defense;
 
 	/* notes */
 	let notes: Array<string>;
@@ -53,12 +52,12 @@
 	let scouterName: string;
 
 	function handleSubmit() {
-		const participant = { // TODO make interface
+		const participant: Participant = {
 			event,
 			matchType,
 			matchNumber,
-			team,
-			isRedAlliance
+			teamNumber: Number(team),
+			alliance: isRedAlliance ? "Red" : "Blue"
 		};
 
 		const metrics = {

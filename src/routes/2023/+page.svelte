@@ -7,12 +7,16 @@
 	import MultipleOptionSelector from '$lib/components/MultipleOptionSelector.svelte';
 	import BooleanSelector from '$lib/components/BooleanSelector.svelte';
 	import CubeCone from './CubeCone.svelte';
-	import Grid from './Grid.svelte';
+	import GridComponent from './GridComponent.svelte';
 	import Notes from '$lib/components/Notes.svelte';
+	import type { Point } from '$lib/interfaces/Point';
+	import type { MatchType, Participant } from '$lib/types/Participant';
+	import type { ChargeStation, GamePiece, Grid, Substation } from './Metrics';
+	import type { Defense } from '$lib/types/Metrics';
 
 	/* participant */
 	let event: string;
-	let matchType: string; // TODO make type
+	let matchType: MatchType;
 	let matchNumber: number;
 	let team: string;
 
@@ -20,36 +24,31 @@
 	let isRedAlliance: boolean;
 
 	/* starting position */
-    interface Point {
-        readonly x: number;
-        readonly y: number;
-    }
-
 	let startingPoint: Array<Point>;
 
 	/* preloaded game piece */
-	let preload: string; // TODO make type
+	let preload: GamePiece;
 
 	/* mobility */
 	let mobility: boolean;
 
 	/* auto scores */
-	let autoScores: Array<Array<boolean>>; // TODO make type
+	let autoScores: Grid;
 
 	/* auto charge station */
-	let autoChargeStation: string; // TODO make type
+	let autoChargeStation: ChargeStation;
 
 	/* substation preference */
-	let substationPreference: string; // TODO make type
+	let substationPreference: Substation;
 
 	/* teleop scores */
-	let teleopScores: Array<Array<boolean>>; // TODO make type
+	let teleopScores: Grid;
 
 	/* endgame charge station */
-	let endgameChargeStation: string; // TODO make type
+	let endgameChargeStation: ChargeStation;
 
 	/* defense */
-	let defense: string; // TODO make type
+	let defense: Defense;
 
 	/* notes */
 	let notes: Array<string>;
@@ -58,12 +57,12 @@
 	let scouterName: string;
 
 	function handleSubmit() {
-		const participant = { // TODO make interface
+		const participant: Participant = {
 			event,
 			matchType,
 			matchNumber,
-			team,
-			isRedAlliance
+			teamNumber: Number(team),
+			alliance: isRedAlliance ? "Red" : "Blue"
 		};
 
 		const metrics = {
@@ -89,10 +88,10 @@
 <FieldSelector bind:points={startingPoint} field={field2023} title="Starting Position" single={true}/>
 <CubeCone bind:selected={preload} title="Preloaded Game Piece" />
 <BooleanSelector bind:value={mobility} title="Mobility" />
-<Grid bind:grid={autoScores} title="Auto Scores" />
+<GridComponent bind:grid={autoScores} title="Auto Scores" />
 <MultipleOptionSelector bind:selected={autoChargeStation} title="Auto Charge Station" options={["None", "Attempted", "Dock", "Engage"]} />
 <MultipleOptionSelector bind:selected={substationPreference} title="Substation Preference" options={["Single Substation", "Double Substation"]} /> 
-<Grid bind:grid={teleopScores} title="Teleop Scores" />
+<GridComponent bind:grid={teleopScores} title="Teleop Scores" />
 <MultipleOptionSelector bind:selected={endgameChargeStation} title="Endgame Charge Station" options={["None", "Attempted", "Dock", "Engage"]} />
 <MultipleOptionSelector bind:selected={defense} title="Defense" options={["None", "Attempted", "Effective", "Very Effective"]} />
 <Notes bind:notes />
