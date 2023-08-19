@@ -55,9 +55,9 @@
 }
 
 .grid > * {
-    background-color: var(--clr-neutral-900);
+    background-color: var(--clr-background);
 
-    border: 1px solid var(--clr-neutral-700);
+    border: 1px solid var(--clr-border);
 
     aspect-ratio: 1;
 }
@@ -87,6 +87,6 @@
 }
 
 .grid .floor.active {
-    background-color:var(--clr-neutral-100);
+    background-image: -webkit-linear-gradient(45deg, var(--clr-purple) 50%, var(--clr-yellow) 50%);
 }
 </style>

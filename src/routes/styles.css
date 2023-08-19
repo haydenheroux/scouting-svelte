@@ -74,8 +74,8 @@
 @media (prefers-color-scheme: light) {
     :root {
         --clr-neutral-100: black;
-        --clr-neutral-200: darkgray;
-        --clr-neutral-300: dimgray;
+        --clr-neutral-200: dimgray;
+        --clr-neutral-300: darkgray;
         --clr-neutral-400: red;
         --clr-neutral-500: red;
         --clr-neutral-600: red;
