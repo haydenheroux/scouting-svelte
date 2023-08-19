@@ -8,6 +8,7 @@
 	import BooleanSelector from '$lib/BooleanSelector.svelte';
 	import PreloadedGamePiece from './CubeCone.svelte';
 	import Grid from './Grid.svelte';
+	import Notes from '$lib/Notes.svelte';
 </script>
 
 <ParticipantSelector />
@@ -21,4 +22,5 @@
 <Grid title="Teleop Scores" />
 <MultipleOptionSelector title="Endgame Charge Station" options={["None", "Attempted", "Dock", "Engage"]} />
 <MultipleOptionSelector title="Defense" options={["None", "Attempted", "Effective", "Very Effective"]} />
+<Notes />
 <Submit />

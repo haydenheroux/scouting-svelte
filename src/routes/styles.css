@@ -50,6 +50,8 @@
     --section-gap: 1rem;
     --section-padding: 1.5rem;
     --section-input-height: 2.5rem;
+    --button-padding-inline: 0.75rem;
+    --button-padding-block: 0.5rem;
     --footer-gap: 0.5rem;
     --footer-height: 6rem;
 
@@ -288,11 +290,24 @@ section label {
     margin-bottom: 0.5rem;
 }
 
-section input, section .minus, section .plus {
+section input {
     height: var(--section-input-height);
 
-    padding-inline: 0.75rem;
-    padding-block: 0.25rem;
+    padding-inline: var(--button-padding-inline);
+    padding-block: var(--button-padding-block);
+}
+
+section .minus, section .plus, section .add, section .remove {
+    font-size: var(--fs-300);
+    font-weight: var(--fw-main);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    aspect-ratio: 1;
+    width: var(--section-input-height);
+    height: var(--section-input-height);
 }
 
 .split {

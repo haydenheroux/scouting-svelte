@@ -7,6 +7,7 @@
 	import MultipleOptionSelector from '$lib/MultipleOptionSelector.svelte';
 	import NumberSelector from '$lib/NumberSelector.svelte';
 	import Submit from '$lib/Submit.svelte';
+	import Notes from '$lib/Notes.svelte';
 </script>
 
 <ParticipantSelector />
@@ -20,4 +21,5 @@
 <FieldSelector field={field2022} title="Teleop Misses" drawStyle="cross" />
 <MultipleOptionSelector title="Climb Level" options={["Low", "Middle", "High", "Traversal"]} />
 <MultipleOptionSelector title="Defense" options={["None", "Attempted", "Effective", "Very Effective"]} />
+<Notes />
 <Submit />
