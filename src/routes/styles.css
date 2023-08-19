@@ -315,8 +315,12 @@ footer .container {
 /* layout media queries */
 
 @media screen and (max-width: 28rem) { /* phone */
-    header nav { /* hide normal nav */
+    header nav a { /* hide normal nav */
         display: none;
+    }
+
+    header nav a:has(em) { /* show title */
+        display: block;
     }
 }
 
