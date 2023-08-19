@@ -73,19 +73,19 @@
 
 @media (prefers-color-scheme: light) {
     :root {
-        --clr-neutral-100: black;
-        --clr-neutral-200: dimgray;
-        --clr-neutral-300: darkgray;
+        --clr-neutral-100: #212121;
+        --clr-neutral-200: #757575;
+        --clr-neutral-300: #9E9E9E;
         --clr-neutral-400: red;
         --clr-neutral-500: red;
         --clr-neutral-600: red;
-        --clr-neutral-700: lightgray;
-        --clr-neutral-800: white;
-        --clr-neutral-900: white;
-        --clr-red: crimson;
-        --clr-blue: royalblue;
-        --clr-purple: purple;
-        --clr-yellow: goldenrod;
+        --clr-neutral-700: #BDBDBD;
+        --clr-neutral-800: #FAFAFA;
+        --clr-neutral-900: #FAFAFA;
+        --clr-red: #B71C1C;
+        --clr-blue: #0D47A1;
+        --clr-purple: #6200EA;
+        --clr-yellow: #FFB700;
     }
 }
 
