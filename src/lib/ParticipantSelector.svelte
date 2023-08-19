@@ -1,19 +1,8 @@
 <script lang="ts">
-    let event = "";
-    let matchType = "qualification";
-    let matchNumber = 1;
-    let team = "";
-
-    function handleSubmit() {
-        const query = {
-            "team": Number(team),
-            "event": event,
-            "matchType": matchType,
-            "matchNumber": matchNumber
-        };
-
-        console.log(query);
-    }
+    export let event = "";
+    export let matchType = "qualification";
+    export let matchNumber = 1;
+    export let team = "";
 </script>
 
 <section>
@@ -38,5 +27,4 @@
         <label for="team">Team</label>
         <input id="team" type="text" placeholder="5112" bind:value={team}>
     </div>
-    <button class="primary" on:click={handleSubmit}>Confirm</button>
 </section>

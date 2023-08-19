@@ -1,7 +1,7 @@
 <script lang="ts">
     export let title: string;
-    export let options: Array<string>;
-    export let selected = "";
+    export let options: Array<string | number>;
+    export let selected: string | number = "";
 </script>
 
 <section>
