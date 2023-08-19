@@ -1,12 +1,8 @@
 <script>
 	import field2022 from '$lib/images/fields/2022.jpg';
-	// @ts-ignore
 	import ParticipantSelector from '$lib/ParticipantSelector.svelte';
-	// @ts-ignore
 	import AllianceSelector from '$lib/AllianceSelector.svelte';
-	// @ts-ignore
 	import FieldSelector from '$lib/FieldSelector.svelte';
-	// @ts-ignore
 	import BooleanSelector from '$lib/BooleanSelector.svelte';
 	import MultipleOptionSelector from '$lib/MultipleOptionSelector.svelte';
 	import NumberSelector from '$lib/NumberSelector.svelte';
