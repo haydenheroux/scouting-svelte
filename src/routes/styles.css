@@ -35,15 +35,22 @@
     --clr-neutral-700: hsl(240 3.7% 15.9%); /* border, muted-background */
     --clr-neutral-800: hsl(240 5.9% 10%); /* primary-foreground */
     --clr-neutral-900: hsl(240 10% 3.9%); /* background */
-    --clr-accent-500: hsl(146.59 100% 32.75%);
 
     /* element sizes */
-    --radius: 0.5rem;
+    --radius-base: 0.5rem;
+    --radius-element: calc(var(--radius-base) - 2px);
+    --radius-layout: calc(var(--radius-base) + 4px);
     --header-gap: 1rem;
+    --header-height: 3.5rem;
+    --main-gap: 1.5rem;
+    --section-gap: 1rem;
+    --section-padding: 1.5rem;
     --footer-gap: 0.5rem;
+    --footer-height: 6rem;
 
     /* layout sizes */
     --layout-gap: 2rem;
+    --layout-width-phone: 20em;
     --layout-width-tablet: 32em;
     --layout-width-desktop: 60em;
 }
@@ -110,7 +117,6 @@ nav {
 nav em {
     color: var(--clr-neutral-100);
 
-    font-weight: var(--fw-heading); /* TODO make own var */
     font-size: var(--fs-400);
     font-style: normal;
 }
@@ -133,7 +139,7 @@ a {
 
 section {
     border: 1px solid var(--clr-neutral-700);
-    border-radius: calc(var(--radius) + 4px);
+    border-radius: var(--radius-layout);
 }
 
 section button {
@@ -145,7 +151,7 @@ section button {
     font-size: var(--fs-100);
 
     border: none;
-    border-radius: calc(var(--radius) - 2px);
+    border-radius: var(--radius-element);
 }
 
 section input, section select {
@@ -157,7 +163,7 @@ section input, section select {
     font-size: var(--fs-100);
 
     border: 1px solid var(--clr-neutral-700);
-    border-radius: calc(var(--radius) - 2px);
+    border-radius: var(--radius-element);
 }
 
 section select option {
@@ -175,6 +181,10 @@ section input::placeholder {
     font-family: var(--ff-main);
     font-weight: var(--fw-main);
     font-size: var(--fs-100);
+}
+
+section canvas {
+    border-radius: var(--radius-element);
 }
 
 section h2 {
@@ -204,7 +214,7 @@ footer {
 
 .container {
     width: 90%;
-    max-width: 20em;
+    max-width: var(--layout-width-phone);
 
     margin-inline: auto;
 }
@@ -215,7 +225,7 @@ header {
     z-index: 999;
 
     width: 100%;
-    height: 3.5rem; /* TODO make own var */
+    height: var(--header-height);
 
     display: flex;
     align-items: center;
@@ -234,7 +244,7 @@ main .container {
     display: flex;
     flex-direction: column;
 
-    gap: 1.5rem; /* TODO make own var */
+    gap: var(--main-gap);
 }
 
 section {
@@ -245,9 +255,9 @@ section {
     align-items: center;
     justify-content: center;
 
-    gap: 1rem; /* TODO make own var */
+    gap: var(--section-gap);
 
-    padding: 1.5rem; /* TODO make own var */
+    padding: var(--section-padding);
 }
 
 section * {
@@ -261,7 +271,7 @@ section > div {
 }
 
 section label {
-    margin-bottom: 0.5rem; /* TODO make own var */
+    margin-bottom: 0.5rem;
 }
 
 section input {
@@ -275,7 +285,7 @@ section input {
     display: flex;
     flex-direction: row;
 
-    gap: 1rem; /* TODO make own var */
+    gap: var(--section-gap);
 }
 
 .split > * {
@@ -290,12 +300,16 @@ section button {
 
 footer {
     width: 100%;
-    height: 6rem; /* TODO make own var */
+    height: var(--footer-height);
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
 
 footer .container {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
 
@@ -313,6 +327,10 @@ footer .container {
 @media screen and (min-width: 40rem) { /* tablet */
     .container {
         max-width: var(--layout-width-tablet);
+    }
+
+    footer .container {
+        flex-direction: row;
     }
 }
 

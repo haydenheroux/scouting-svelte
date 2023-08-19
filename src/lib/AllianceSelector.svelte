@@ -11,7 +11,7 @@
 </section>
 
 <style>
-button {
+button { /* inactive button */
     background-color: var(--clr-neutral-900);
     color: var(--clr-neutral-300);
 
@@ -20,11 +20,11 @@ button {
 
 .red {
     background-color: #E11D48;
-    color: var(--clr-neutral-900);
+    color: var(--clr-neutral-800);
 }
 
 .blue {
     background-color: #2563EB;
-    color: var(--clr-neutral-900);
+    color: var(--clr-neutral-800);
 }
 </style>
