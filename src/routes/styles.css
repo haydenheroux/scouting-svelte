@@ -298,7 +298,7 @@ section input {
 }
 
 section .minus, section .plus, section .add, section .remove {
-    font-size: var(--fs-300);
+    font-size: var(--fs-400);
     font-weight: var(--fw-main);
 
     display: flex;
