@@ -1,6 +1,15 @@
 <script lang="ts">
     export let title: string;
+
     export let field;
+
+    interface Point {
+        readonly x: number;
+        readonly y: number;
+    }
+
+    export let points: Array<Point> = [];
+    export let single = false;
 
     const img = new Image();
     img.src = field;
@@ -12,23 +21,23 @@
 
     let canvas: HTMLCanvasElement;
 
-    interface Point {
-        readonly x: number;
-        readonly y: number;
-    }
-
-    let point: Point | null = null;
-
-    $: point && draw()
+    $: points && draw()
 
     function handleMouse(event: MouseEvent) {
-        point = { x: event.offsetX, y: event.offsetY }
+        if (single) points = [];
+        const point = { x: event.offsetX, y: event.offsetY };
+
+        points = [...points, point]
     }
 
     function handleTouch(event: TouchEvent) {
         const left = canvas.offsetLeft;
         const top = canvas.offsetTop;
-        point = { x: event.touches[0].clientX - left, y: event.touches[0].clientY - top }
+
+        if (single) points = [];
+        const point = { x: event.touches[0].clientX - left, y: event.touches[0].clientY - top };
+
+        points = [...points, point]
     }
 
     function draw() {
@@ -40,7 +49,7 @@
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 
-        if (point != null) {
+        for (let point of points) {
             ctx.fillStyle = "#ddd";
             ctx.beginPath();
             ctx.arc(point.x, point.y, 8, 0, 2 * Math.PI, false);
@@ -49,9 +58,8 @@
     }
 
     function normalize(p: Point): Point {
-        if (point == null) return { x: 0, y: 0 };
-        const x = point.x / canvas.width;
-        const y = point.y / canvas.height;
+        const x = p.x / canvas.width;
+        const y = p.y / canvas.height;
         return { x, y }
     }
 </script>
@@ -59,4 +67,5 @@
 <section>
     <h2>{title}</h2>
     <canvas on:click={handleMouse} on:touchstart={handleTouch} on:touchmove={handleTouch} bind:this={canvas}></canvas>
+    <button on:click={(e) => points = points.slice(0, points.length - 1)}>Undo</button>
 </section>
