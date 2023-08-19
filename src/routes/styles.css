@@ -282,12 +282,17 @@ section input {
 .split {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
 
     gap: var(--section-gap);
 }
 
 .split > * {
     flex: 1;
+}
+
+.split * {
+    min-width: 8em;
 }
 
 section button {

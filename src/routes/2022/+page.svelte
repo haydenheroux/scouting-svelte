@@ -8,9 +8,11 @@
 	import FieldSelector from '$lib/FieldSelector.svelte';
 	// @ts-ignore
 	import BooleanSelector from '$lib/BooleanSelector.svelte';
+	import MultipleOptionSelector from '$lib/MultipleOptionSelector.svelte';
 </script>
 
 <ParticipantSelector />
 <AllianceSelector />
 <FieldSelector field={field2022} title="Starting Position" single={true}/>
-<BooleanSelector  title="Auto Taxi" />
+<BooleanSelector title="Auto Taxi" />
+<MultipleOptionSelector title="Climb Level" options={["Low", "Middle", "High", "Traversal"]} />
