@@ -40,6 +40,15 @@
     --clr-purple: #673AB7;
     --clr-yellow: #FFC400;
 
+    /* element colors */
+    --clr-background: var(--clr-neutral-900);
+    --clr-foreground: var(--clr-neutral-100);
+    --clr-inverted-background: var(--clr-neutral-100);
+    --clr-inverted-foreground: var(--clr-neutral-800);
+    --clr-border: var(--clr-neutral-700);
+    --clr-muted: var(--clr-neutral-200);
+    --clr-faded: var(--clr-neutral-300);
+
     /* element sizes */
     --radius-base: 0.5rem;
     --radius-element: calc(var(--radius-base) - 2px);
@@ -92,19 +101,19 @@ p, h1, h2, h3, h4, h5, h6 {
 /* sections */
 
 body {
-    background-color: var(--clr-neutral-900);
+    background-color: var(--clr-background);
 }
 
 header {
-    background-color: var(--clr-neutral-900);
+    background-color: var(--clr-background);
 
-    border-bottom: 1px solid var(--clr-neutral-700);
+    border-bottom: 1px solid var(--clr-border);
 }
 
 /* typography */
 
 body {
-    color: var(--clr-neutral-100);
+    color: var(--clr-foreground);
 
     font-family: var(--ff-main);
     font-weight: var(--fw-main);
@@ -114,7 +123,7 @@ body {
 }
 
 nav {
-    color: var(--clr-neutral-200);
+    color: var(--clr-muted);
 
     font-family: var(--ff-heading);
     font-weight: var(--fw-heading);
@@ -122,7 +131,7 @@ nav {
 }
 
 nav em {
-    color: var(--clr-neutral-100);
+    color: var(--clr-foreground);
 
     font-size: var(--fs-400);
     font-style: normal;
@@ -133,7 +142,7 @@ nav a {
 }
 
 nav a.active {
-    color: var(--clr-neutral-100);
+    color: var(--clr-foreground);
 }
 
 a {
@@ -145,15 +154,15 @@ a {
 }
 
 section {
-    border: 1px solid var(--clr-neutral-700);
+    border: 1px solid var(--clr-border);
     border-radius: var(--radius-layout);
 }
 
 section button {
-    background-color: var(--clr-neutral-900);
-    color: var(--clr-neutral-300);
+    background-color: var(--clr-background);
+    color: var(--clr-faded);
 
-    border: 1px solid var(--clr-neutral-700);
+    border: 1px solid var(--clr-border);
 
     font-family: var(--ff-main);
     font-weight: var(--fw-main);
@@ -163,29 +172,29 @@ section button {
 }
 
 section button.primary {
-    background-color: var(--clr-neutral-100);
-    color: var(--clr-neutral-800);
+    background-color: var(--clr-inverted-background);
+    color: var(--clr-inverted-foreground);
 }
 
 section button.active {
-    background-color: var(--clr-neutral-100);
-    color: var(--clr-neutral-800);
+    background-color: var(--clr-inverted-background);
+    color: var(--clr-inverted-foreground);
 }
 
 section input, section select {
-    background-color: var(--clr-neutral-900);
-    color: var(--clr-neutral-100);
+    background-color: var(--clr-background);
+    color: var(--clr-foreground);
 
     font-family: var(--ff-main);
     font-weight: var(--fw-main);
     font-size: var(--fs-100);
 
-    border: 1px solid var(--clr-neutral-700);
+    border: 1px solid var(--clr-border);
     border-radius: var(--radius-element);
 }
 
 section input::placeholder {
-    color: var(--clr-neutral-300);
+    color: var(--clr-faded);
 
     font-family: var(--ff-main);
     font-weight: var(--fw-main);
@@ -215,7 +224,8 @@ section label {
 }
 
 footer {
-    color: var(--clr-neutral-200);
+    color: var(--clr-muted);
+
     font-size: var(--fs-200);
 }
 
