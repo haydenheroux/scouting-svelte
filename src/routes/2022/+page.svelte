@@ -16,8 +16,8 @@
 <MultipleOptionSelector title="Auto Cargo Scored" options={["0", "1 - 2", "3 - 4", "5 - 6"]} />
 <NumberSelector title="Teleop Lower Hub Cargo" />
 <NumberSelector title="Teleop Upper Hub Cargo" />
-<FieldSelector field={field2022} title="Teleop Hub Makes" drawStyle="triangle" />
-<FieldSelector field={field2022} title="Teleop Hub Misses" drawStyle="cross" />
+<FieldSelector field={field2022} title="Teleop Makes" drawStyle="triangle" />
+<FieldSelector field={field2022} title="Teleop Misses" drawStyle="cross" />
 <MultipleOptionSelector title="Climb Level" options={["Low", "Middle", "High", "Traversal"]} />
 <MultipleOptionSelector title="Defense" options={["None", "Attempted", "Effective", "Very Effective"]} />
 <Submit />
