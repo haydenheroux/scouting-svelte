@@ -196,6 +196,12 @@ section canvas {
     border-radius: var(--radius-element);
 }
 
+section .minus, section .plus, section .add, section .remove {
+    font-family: var(--ff-main);
+    font-weight: var(--fw-main);
+    font-size: var(--fs-300);
+}
+
 section h2 {
     font-family: var(--ff-heading);
     font-weight: var(--fw-heading);
@@ -289,9 +295,6 @@ section input, section select {
 }
 
 section .minus, section .plus, section .add, section .remove {
-    font-size: var(--fs-400);
-    font-weight: var(--fw-main);
-
     display: flex;
     justify-content: center;
     align-items: center;
