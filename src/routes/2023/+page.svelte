@@ -1,14 +1,14 @@
 <script lang="ts">
 	import field2023 from '$lib/images/fields/2023.jpg';
-	import ParticipantSelector from '$lib/ParticipantSelector.svelte';
-	import AllianceSelector from '$lib/AllianceSelector.svelte';
-	import FieldSelector from '$lib/FieldSelector.svelte';
-	import Submit from '$lib/Submit.svelte';
-	import MultipleOptionSelector from '$lib/MultipleOptionSelector.svelte';
-	import BooleanSelector from '$lib/BooleanSelector.svelte';
+	import ParticipantSelector from '$lib/components/ParticipantSelector.svelte';
+	import AllianceSelector from '$lib/components/AllianceSelector.svelte';
+	import FieldSelector from '$lib/components/FieldSelector.svelte';
+	import Submit from '$lib/components/Submit.svelte';
+	import MultipleOptionSelector from '$lib/components/MultipleOptionSelector.svelte';
+	import BooleanSelector from '$lib/components/BooleanSelector.svelte';
 	import CubeCone from './CubeCone.svelte';
 	import Grid from './Grid.svelte';
-	import Notes from '$lib/Notes.svelte';
+	import Notes from '$lib/components/Notes.svelte';
 
 	/* participant */
 	let event: string;

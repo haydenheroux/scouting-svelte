@@ -1,5 +1,5 @@
 <script lang="ts">
-	import MultipleOptionSelector from "$lib/MultipleOptionSelector.svelte";
+	import MultipleOptionSelector from "$lib/components/MultipleOptionSelector.svelte";
 
     export let title: string;
     export let selected: string;
