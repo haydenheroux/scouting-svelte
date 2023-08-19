@@ -2,10 +2,11 @@
 	import MultipleOptionSelector from "$lib/MultipleOptionSelector.svelte";
 
     export let title: string;
+    export let selected: string;
 </script>
 
 <div class="cube_cone">
-    <MultipleOptionSelector title={title} options={["Cube", "Cone"]}/>
+    <MultipleOptionSelector bind:selected title={title} options={["Cube", "Cone"]}/>
 </div>
 
 <style>
