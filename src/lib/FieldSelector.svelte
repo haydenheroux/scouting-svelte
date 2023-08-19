@@ -1,7 +1,9 @@
 <script lang="ts">
+    import { onMount } from 'svelte';
+
     export let title: string;
 
-    export let field;
+    export let field: string;
 
     interface Point {
         readonly x: number;
@@ -11,13 +13,20 @@
     export let points: Array<Point> = [];
     export let single = false;
 
-    const img = new Image();
-    img.src = field;
-    img.onload = () => {
-        canvas.width = canvas.offsetWidth;
-        canvas.height = canvas.offsetWidth * (img.height / img.width); 
-        draw();
-    }
+    let img: CanvasImageSource | null = null;
+
+    onMount(() => {
+        img = new Image();
+        img.src = field;
+        img.onload = () => {
+            if (!img) return;
+
+            canvas.width = canvas.offsetWidth;
+            // TODO
+            canvas.height = canvas.offsetWidth * (img.height / img.width); 
+            draw();
+        }
+    });
 
     let canvas: HTMLCanvasElement;
 
@@ -42,6 +51,7 @@
 
     function draw() {
         if (!canvas) return;
+        if (!img) return;
 
         const ctx = canvas.getContext("2d");
         if (!ctx) return;
