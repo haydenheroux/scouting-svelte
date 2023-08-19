@@ -144,7 +144,7 @@ nav {
     color: var(--clr-muted);
 
     font-family: var(--ff-heading);
-    font-weight: var(--fw-heading);
+    font-weight: var(--fw-main);
     font-size: var(--fs-300);
 }
 
