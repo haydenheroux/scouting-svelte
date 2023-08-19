@@ -16,3 +16,4 @@
 <FieldSelector field={field2022} title="Starting Position" single={true}/>
 <BooleanSelector title="Auto Taxi" />
 <MultipleOptionSelector title="Climb Level" options={["Low", "Middle", "High", "Traversal"]} />
+<MultipleOptionSelector title="Defense" options={["None", "Attempted", "Effective", "Very Effective"]} />
