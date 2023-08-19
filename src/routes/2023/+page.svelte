@@ -10,4 +10,4 @@
 
 <ParticipantSelector />
 <AllianceSelector />
-<FieldSelector field={field2023} title="Starting Position"/>
+<FieldSelector field={field2023} title="Starting Position" single={true}/>

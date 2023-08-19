@@ -33,20 +33,20 @@
     $: points && draw()
 
     function handleMouse(event: MouseEvent) {
-        if (single) points = [];
         const point = { x: event.offsetX, y: event.offsetY };
 
-        points = [...points, point]
+        if (single) points = [ point ]
+        else points = [...points, point]
     }
 
     function handleTouch(event: TouchEvent) {
         const left = canvas.offsetLeft;
         const top = canvas.offsetTop;
 
-        if (single) points = [];
         const point = { x: event.touches[0].clientX - left, y: event.touches[0].clientY - top };
 
-        points = [...points, point]
+        if (single) points = [ point ]
+        else points = [...points, point]
     }
 
     function draw() {

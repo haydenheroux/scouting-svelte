@@ -12,5 +12,5 @@
 
 <ParticipantSelector />
 <AllianceSelector />
-<FieldSelector field={field2022} title="Starting Position"/>
+<FieldSelector field={field2022} title="Starting Position" single={true}/>
 <BooleanSelector  title="Auto Taxi" />
