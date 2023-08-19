@@ -1,4 +1,5 @@
 <script lang="ts">
+    export let title: string;
     export let field;
 
     const img = new Image();
@@ -56,6 +57,6 @@
 </script>
 
 <section>
-    <h2>Starting Position</h2>
+    <h2>{title}</h2>
     <canvas on:click={handleMouse} on:touchstart={handleTouch} on:touchmove={handleTouch} bind:this={canvas}></canvas>
 </section>

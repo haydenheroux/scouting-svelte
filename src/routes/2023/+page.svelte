@@ -5,9 +5,9 @@
 	// @ts-ignore
 	import AllianceSelector from '$lib/AllianceSelector.svelte';
 	// @ts-ignore
-	import StartingPosition from '$lib/StartingPosition.svelte';
+	import FieldSelector from '$lib/FieldSelector.svelte';
 </script>
 
 <ParticipantSelector />
 <AllianceSelector />
-<StartingPosition field={field2023} />
+<FieldSelector field={field2023} title="Starting Position"/>

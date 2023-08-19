@@ -5,9 +5,12 @@
 	// @ts-ignore
 	import AllianceSelector from '$lib/AllianceSelector.svelte';
 	// @ts-ignore
-	import StartingPosition from '$lib/StartingPosition.svelte';
+	import FieldSelector from '$lib/FieldSelector.svelte';
+	// @ts-ignore
+	import BooleanSelector from '$lib/BooleanSelector.svelte';
 </script>
 
 <ParticipantSelector />
 <AllianceSelector />
-<StartingPosition field={field2022} />
+<FieldSelector field={field2022} title="Starting Position"/>
+<BooleanSelector  title="Auto Taxi" />
