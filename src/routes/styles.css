@@ -239,8 +239,6 @@ header nav {
 }
 
 main .container {
-    width: 100%;
-
     display: flex;
     flex-direction: column;
 
@@ -293,8 +291,6 @@ section input {
 }
 
 section button {
-    height: 2.5em;
-
     padding-block: 0.5rem;
 }
 
