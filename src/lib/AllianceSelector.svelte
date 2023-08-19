@@ -11,20 +11,13 @@
 </section>
 
 <style>
-button { /* inactive button */
-    background-color: var(--clr-neutral-900);
-    color: var(--clr-neutral-300);
-
-    border: 1px solid var(--clr-neutral-700);
-}
-
 .red {
-    background-color: #E11D48;
+    background-color: var(--clr-red);
     color: var(--clr-neutral-800);
 }
 
 .blue {
-    background-color: #2563EB;
+    background-color: var(--clr-blue);
     color: var(--clr-neutral-800);
 }
 </style>

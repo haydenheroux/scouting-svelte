@@ -4,5 +4,5 @@
         <label for="scouter">Scouter Name</label>
         <input id="scouter" type="text" placeholder="Scouter Name">
     </div>
-    <button>Submit</button>
+    <button class="primary">Submit</button>
 </section>

@@ -38,5 +38,5 @@
         <label for="team">Team</label>
         <input id="team" type="text" placeholder="5112" bind:value={team}>
     </div>
-    <button on:click={handleSubmit}>Confirm</button>
+    <button class="primary" on:click={handleSubmit}>Confirm</button>
 </section>

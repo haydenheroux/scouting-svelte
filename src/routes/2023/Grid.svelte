@@ -67,9 +67,9 @@
 }
 
 .grid .cube.active {
-    background-color: #AB17B5;
+    background-color: var(--clr-purple);
 
-    border: 1px solid #AB17B5;
+    border: 1px solid var(--clr-purple);
 }
 
 .grid .cone {
@@ -77,9 +77,9 @@
 }
 
 .grid .cone.active {
-    background-color: #EFDF0D;
+    background-color: var(--clr-yellow);
 
-    border: 1px solid #EFDF0D;
+    border: 1px solid var(--clr-yellow);
 }
 
 .grid .floor {

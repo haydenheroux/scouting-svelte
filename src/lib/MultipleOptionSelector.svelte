@@ -12,17 +12,3 @@
         {/each}
     </div>
 </section>
-
-<style>
-button {
-    background-color: var(--clr-neutral-900);
-    color: var(--clr-neutral-300);
-
-    border: 1px solid var(--clr-neutral-700);
-}
-
-.active {
-    background-color: var(--clr-neutral-100);
-    color: var(--clr-neutral-900);
-}
-</style>

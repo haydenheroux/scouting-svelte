@@ -116,5 +116,5 @@
 <section>
     <h2>{title}</h2>
     <canvas on:click={handleMouse} on:touchstart={handleTouch} on:touchmove={handleTouch} bind:this={canvas}></canvas>
-    <button on:click={(e) => points = points.slice(0, points.length - 1)}>Undo</button>
+    <button class="primary" on:click={(e) => points = points.slice(0, points.length - 1)}>Undo</button>
 </section>

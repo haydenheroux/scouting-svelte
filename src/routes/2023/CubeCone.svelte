@@ -10,12 +10,10 @@
 
 <style>
 :global(.cube_cone button:nth-of-type(1).active) { /* cube */
-    background-color: #AB17B5;
-    color: var(--clr-neutral-800);
+    background-color: var(--clr-purple);
 }
 
 :global(.cube_cone button:nth-of-type(2).active) { /* cone */
-    background-color: #EFDF0D;
-    color: var(--clr-neutral-800);
+    background-color: var(--clr-yellow);
 }
 </style>

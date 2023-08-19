@@ -14,9 +14,9 @@
 <section>
     <h2>{title}</h2>
     <div>
-        <button class="minus" on:click={minus}>-</button>
+        <button class="primary minus" on:click={minus}>-</button>
         <input type="number" min=0 bind:value={value}>
-        <button class="plus" on:click={plus}>+</button>
+        <button class="primary plus" on:click={plus}>+</button>
     </div>
 </section>
 

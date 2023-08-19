@@ -35,6 +35,10 @@
     --clr-neutral-700: hsl(240 3.7% 15.9%); /* border, muted-background */
     --clr-neutral-800: hsl(240 5.9% 10%); /* primary-foreground */
     --clr-neutral-900: hsl(240 10% 3.9%); /* background */
+    --clr-red: #FF1744;
+    --clr-blue: #2979FF;
+    --clr-purple: #673AB7;
+    --clr-yellow: #FFC400;
 
     /* element sizes */
     --radius-base: 0.5rem;
@@ -144,15 +148,26 @@ section {
 }
 
 section button {
-    background-color: var(--clr-neutral-100);
-    color: var(--clr-neutral-800);
+    background-color: var(--clr-neutral-900);
+    color: var(--clr-neutral-300);
+
+    border: 1px solid var(--clr-neutral-700);
 
     font-family: var(--ff-main);
     font-weight: var(--fw-main);
     font-size: var(--fs-100);
 
-    border: none;
     border-radius: var(--radius-element);
+}
+
+section button.primary {
+    background-color: var(--clr-neutral-100);
+    color: var(--clr-neutral-800);
+}
+
+section button.active {
+    background-color: var(--clr-neutral-100);
+    color: var(--clr-neutral-800);
 }
 
 section input, section select {
