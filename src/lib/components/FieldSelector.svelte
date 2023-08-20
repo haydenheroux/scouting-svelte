@@ -1,12 +1,14 @@
 <script lang="ts">
-	import type { Point } from '$lib/interfaces/Point';
+	import { normalize, type Point } from '$lib/interfaces/Point';
     import { onMount } from 'svelte';
 
     export let title: string;
 
     export let field: string;
 
-    export let points: Array<Point> = [];
+    let points: Array<Point> = [];
+
+    export let normalized: Array<Point> = [];
     export let single = false;
 
     type DrawStyle = 'dot' | 'cross' | 'triangle';
@@ -32,11 +34,17 @@
 
     $: points && draw()
 
+    function addPoint(point: Point) {
+        if (single) points = [ point ]
+        else points = [...points, point]
+
+        normalized = points.map(point => normalize(point, canvas.width, canvas.height));
+    }
+
     function handleMouse(event: MouseEvent) {
         const point = { x: event.offsetX, y: event.offsetY };
 
-        if (single) points = [ point ]
-        else points = [...points, point]
+        addPoint(point);
     }
 
     function handleTouch(event: TouchEvent) {
@@ -45,8 +53,7 @@
 
         const point = { x: event.touches[0].clientX - left, y: event.touches[0].clientY - top };
 
-        if (single) points = [ point ]
-        else points = [...points, point]
+        addPoint(point);
     }
 
     function draw() {

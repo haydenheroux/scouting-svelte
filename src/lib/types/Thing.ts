@@ -14,7 +14,6 @@ export interface Participant {
 }
 
 function serializeMatchType(matchType: MatchType): SerialMatchType {
-    console.log(`matchType: ${matchType}`);
     switch (matchType) {
         case "Qualification":
             return "qm";

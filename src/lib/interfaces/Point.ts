@@ -11,15 +11,13 @@ export function normalize(point: Point, width: number, height: number): Point {
 }
 
 export function pointToString(point: Point): string {
-    console.log(point);
     return `${point.x},${point.y}`;
 }
 
 export function pointsToString(points: Array<Point>): string {
-    let s = "";
+    let pointStrings = [];
     for (let point of points) {
-        s += pointToString(point);
-        s += ":";
+        pointStrings.push(pointToString(point));
     }
-    return s;
+    return pointStrings.join(":");
 }
