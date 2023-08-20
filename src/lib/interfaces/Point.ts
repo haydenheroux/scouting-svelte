@@ -11,7 +11,7 @@ export function normalize(point: Point, width: number, height: number): Point {
 }
 
 export function pointToString(point: Point): string {
-    return `${point.x},${point.y}`;
+    return `${point.x.toFixed(4)},${point.y.toFixed(4)}`;
 }
 
 export function pointsToString(points: Array<Point>): string {
