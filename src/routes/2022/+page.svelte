@@ -54,8 +54,6 @@
 	let scouterName: string;
 
 	function handleSubmit() {
-		console.log(`raw: ${matchType}`)
-
 		const participant: Participant = {
 			event,
 			matchType,
@@ -80,7 +78,8 @@
 
 		const serialParticipant = serialize(participant, metrics);
 
-		console.log(doPost(new URL("http://localhost/api/new-participant"), toMatchQuery(participant), serialParticipant));
+		// TODO notify user
+		doPost(new URL("http://localhost/api/new-participant"), toMatchQuery(participant), serialParticipant);
 	}
 </script>
 
