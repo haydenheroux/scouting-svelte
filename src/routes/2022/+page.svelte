@@ -86,11 +86,11 @@
 
 <ParticipantSelector bind:event bind:matchType bind:matchNumber bind:team />
 <AllianceSelector bind:isRedAlliance />
-<FieldSelector bind:normalized={startingPoint} field={field2022} title="Starting Position" single={true}/>
+<FieldSelector bind:points={startingPoint} field={field2022} title="Starting Position" single={true}/>
 <BooleanSelector bind:value={taxi} title="Auto Taxi" />
 <NumberSelector bind:value={autoCargoScored} title="Auto Cargo Scored" />
-<FieldSelector bind:normalized={teleopMakes} field={field2022} title="Teleop Makes" drawStyle="triangle" />
-<FieldSelector bind:normalized={teleopMisses} field={field2022} title="Teleop Misses" drawStyle="cross" />
+<FieldSelector bind:points={teleopMakes} field={field2022} title="Teleop Makes" drawStyle="triangle" />
+<FieldSelector bind:points={teleopMisses} field={field2022} title="Teleop Misses" drawStyle="cross" />
 <NumberSelector bind:value={teleopLowerCargoScored} title="Teleop Lower Hub Cargo Scored" />
 <NumberSelector bind:value={teleopUpperCargoScored} title="Teleop Upper Hub Cargo Scored" />
 <MultipleOptionSelector bind:selected={climbLevel} title="Climb Level" options={["Low", "Middle", "High", "Traversal"]} />

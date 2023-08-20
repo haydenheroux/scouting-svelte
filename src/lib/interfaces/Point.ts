@@ -3,6 +3,13 @@ export interface Point {
     readonly y: number;
 }
 
+export function scale(point: Point, width: number, height: number): Point {
+    return {
+        x: point.x * width,
+        y: point.y  * height
+    }
+}
+
 export function normalize(point: Point, width: number, height: number): Point {
     return {
         x: point.x / width,

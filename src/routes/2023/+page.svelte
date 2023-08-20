@@ -85,7 +85,7 @@
 
 <ParticipantSelector bind:event bind:matchType bind:matchNumber bind:team />
 <AllianceSelector bind:isRedAlliance />
-<FieldSelector bind:normalized={startingPoint} field={field2023} title="Starting Position" single={true}/>
+<FieldSelector bind:points={startingPoint} field={field2023} title="Starting Position" single={true}/>
 <CubeCone bind:selected={preload} title="Preloaded Game Piece" />
 <BooleanSelector bind:value={mobility} title="Mobility" />
 <GridComponent bind:grid={autoScores} title="Auto Scores" />

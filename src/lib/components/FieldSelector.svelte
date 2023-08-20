@@ -1,21 +1,19 @@
 <script lang="ts">
-	import { normalize, type Point } from '$lib/interfaces/Point';
+	import { normalize, scale, type Point } from '$lib/interfaces/Point';
     import { onMount } from 'svelte';
 
     export let title: string;
 
     export let field: string;
 
-    let points: Array<Point> = [];
-
-    export let normalized: Array<Point> = [];
+    export let points: Array<Point> = [];
     export let single = false;
 
     type DrawStyle = 'dot' | 'cross' | 'triangle';
 
     export let drawStyle: DrawStyle = 'dot';
 
-    let img: CanvasImageSource | null = null;
+    let img: HTMLImageElement | null = null;
 
     onMount(() => {
         img = new Image();
@@ -24,7 +22,6 @@
             if (!img) return;
 
             canvas.width = canvas.offsetWidth;
-            // TODO
             canvas.height = canvas.offsetWidth * (img.height / img.width); 
             draw();
         }
@@ -35,10 +32,10 @@
     $: points && draw()
 
     function addPoint(point: Point) {
-        if (single) points = [ point ]
-        else points = [...points, point]
+        const norm = normalize(point, canvas.width, canvas.height);
 
-        normalized = points.map(point => normalize(point, canvas.width, canvas.height));
+        if (single) points = [ norm ]
+        else points = [...points, norm ]
     }
 
     function handleMouse(event: MouseEvent) {
@@ -66,7 +63,10 @@
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 
-        for (let point of points) {
+        for (let norm of points) {
+
+            const point = scale(norm, canvas.width, canvas.height);
+
             const color = "#fafafa";
             const radius = 12;
             switch (drawStyle) {
