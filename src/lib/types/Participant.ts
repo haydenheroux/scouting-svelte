@@ -1,5 +1,5 @@
 import type { Metrics } from "./Metrics";
-import type { MatchQuery, SerialMatchType, SerialParticipant } from "./Serial";
+import type { ParticipantQuery, SerialMatchType, SerialMetric } from "./Serial";
 
 export type MatchType = "Qualification" | "Quarterfinal" | "Semifinal" | "Final";
 
@@ -26,8 +26,9 @@ function serializeMatchType(matchType: MatchType): SerialMatchType {
     }
 } 
 
-export function toMatchQuery(participant: Participant): MatchQuery {
+export function toParticipantQuery(participant: Participant): ParticipantQuery {
     return {
+        teamNumber: participant.teamNumber,
         set: 1, // TODO
         number: participant.matchNumber,
         type: serializeMatchType(participant.matchType),
@@ -35,10 +36,6 @@ export function toMatchQuery(participant: Participant): MatchQuery {
     }
 }
 
-export function serialize(participant: Participant, metrics: Metrics): SerialParticipant {
-    return {
-        alliance: (participant.alliance == "Red") ? "red" : "blue",
-        teamNumber: participant.teamNumber,
-        metrics: Array.from(metrics, ([key, value]) => { return {key, value} })
-    }
+export function serialize(metrics: Metrics): Array<SerialMetric> {
+    return Array.from(metrics, ([key, value]) => { return {key, value} });
 }

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { MatchType } from "$lib/types/Thing";
+	import type { MatchType } from "$lib/types/Participant";
 
     export let event = "";
     export let matchType: MatchType = "Qualification";

@@ -8,12 +8,12 @@
 	import NumberSelector from '$lib/components/NumberSelector.svelte';
 	import Submit from '$lib/components/Submit.svelte';
 	import Notes from '$lib/components/Notes.svelte';
-	import { toMatchQuery, type MatchType, type Participant } from '$lib/types/Thing';
+	import { toParticipantQuery, type MatchType, type Participant } from '$lib/types/Participant';
 	import type { Defense } from '$lib/types/Metrics';
 	import type { ClimbLevel } from './Metrics';
 	import { type Point, pointToString, pointsToString } from '$lib/interfaces/Point';
 	import { doPost } from '$lib/util/Fetch';
-	import { serialize } from '$lib/types/Thing';
+	import { serialize } from '$lib/types/Participant';
 	import { toObject } from '$lib/util/Array';
 
 	/* participant */
@@ -77,10 +77,10 @@
 			scouterName
 		}));
 
-		const serialParticipant = serialize(participant, metrics);
+		const serialParticipant = serialize(metrics);
 
 		// TODO notify user
-		doPost(new URL("http://localhost/api/new-participant"), toMatchQuery(participant), serialParticipant);
+		doPost(new URL("http://localhost/api/add-metrics"), toParticipantQuery(participant), serialParticipant);
 	}
 </script>
 

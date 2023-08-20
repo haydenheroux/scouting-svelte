@@ -1,11 +1,11 @@
-import { getQueryString, type MatchQuery, type SerialParticipant } from "$lib/types/Serial";
+import { getQueryString, type ParticipantQuery, type SerialMetric } from "$lib/types/Serial";
 
-export async function doPost(url: URL, matchQuery: MatchQuery, participant: SerialParticipant) {
-    return await fetch(`${url}?${getQueryString(matchQuery)}`, {
+export async function doPost(url: URL, participantQuery: ParticipantQuery, metrics: Array<SerialMetric>) {
+    return await fetch(`${url}?${getQueryString(participantQuery)}`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify(participant)
+        body: JSON.stringify(metrics)
     });
 }
