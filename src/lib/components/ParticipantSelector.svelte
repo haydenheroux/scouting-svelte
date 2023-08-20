@@ -10,8 +10,8 @@
 <section>
     <h2>Select Participant</h2>
     <div>
-        <label for="event">Event</label>
-        <input id="event" type="text" placeholder="Event" bind:value={event}>
+        <label for="event">Event Code</label>
+        <input id="event" type="text" placeholder="2023mawne" bind:value={event}>
     </div>
     <div>
         <label for="match">Match</label>
