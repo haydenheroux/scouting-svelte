@@ -14,6 +14,7 @@
 	import { type Point, pointToString, pointsToString } from '$lib/interfaces/Point';
 	import { doPost } from '$lib/util/Fetch';
 	import { serialize } from '$lib/types/Thing';
+	import { toObject } from '$lib/util/Array';
 
 	/* participant */
 	let event: string;
@@ -66,13 +67,13 @@
 			startingPoint: pointToString(startingPoint[0]),
 			taxi: taxi.toString(),
 			autoCargoScored: autoCargoScored.toString(),
-			teleopMakes: pointsToString(teleopMakes),
-			teleopMisses: pointsToString(teleopMisses),
+			...toObject("teleopMake", teleopMakes.map(pointToString)),
+			...toObject("teleopMiss", teleopMisses.map(pointToString)),
 			teleopLowerCargoScored: teleopLowerCargoScored.toString(),
 			teleopUpperCargoScored: teleopUpperCargoScored.toString(),
 			climbLevel,
 			defense,
-			notes: notes.join(":"),
+			...toObject("note", notes),
 			scouterName
 		}));
 
