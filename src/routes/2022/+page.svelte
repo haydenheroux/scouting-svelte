@@ -10,7 +10,7 @@
 	import Notes from '$lib/components/Notes.svelte';
 	import { toMatchQuery, type MatchType, type Participant } from '$lib/types/Thing';
 	import type { Defense } from '$lib/types/Metrics';
-	import type { AutoCargoScored, ClimbLevel } from './Metrics';
+	import type { ClimbLevel } from './Metrics';
 	import { type Point, pointToString, pointsToString } from '$lib/interfaces/Point';
 	import { doPost } from '$lib/util/Fetch';
 	import { serialize } from '$lib/types/Thing';
@@ -31,7 +31,7 @@
 	let taxi: boolean;
 
 	/* auto cargo scored */
-	let autoCargoScored: AutoCargoScored;
+	let autoCargoScored: number;
 
 	/* teleop score locations */
 	let teleopMakes: Array<Point>;
@@ -67,7 +67,7 @@
 		const metrics = new Map(Object.entries({
 			startingPoint: pointToString(startingPoint[0]),
 			taxi: taxi.toString(),
-			autoCargoScored,
+			autoCargoScored: autoCargoScored.toString(),
 			teleopMakes: pointsToString(teleopMakes),
 			teleopMisses: pointsToString(teleopMisses),
 			teleopLowerCargoScored: teleopLowerCargoScored.toString(),
@@ -88,7 +88,7 @@
 <AllianceSelector bind:isRedAlliance />
 <FieldSelector bind:points={startingPoint} field={field2022} title="Starting Position" single={true}/>
 <BooleanSelector bind:value={taxi} title="Auto Taxi" />
-<MultipleOptionSelector bind:selected={autoCargoScored} title="Auto Cargo Scored" options={["0", "1 - 2", "3 - 4", "5 - 6"]} />
+<NumberSelector bind:value={autoCargoScored} title="Auto Cargo Scored" />
 <FieldSelector bind:points={teleopMakes} field={field2022} title="Teleop Makes" drawStyle="triangle" />
 <FieldSelector bind:points={teleopMisses} field={field2022} title="Teleop Misses" drawStyle="cross" />
 <NumberSelector bind:value={teleopLowerCargoScored} title="Teleop Lower Hub Cargo Scored" />
