@@ -10,7 +10,7 @@
 	import GridComponent from './GridComponent.svelte';
 	import Notes from '$lib/components/Notes.svelte';
 	import type { Point } from '$lib/interfaces/Point';
-	import type { MatchType, Participant } from '$lib/types/Participant';
+	import type { MatchType, Participant } from '$lib/types/Thing';
 	import type { ChargeStation, GamePiece, Grid, Substation } from './Metrics';
 	import type { Defense } from '$lib/types/Metrics';
 

@@ -1,6 +1,8 @@
 <script lang="ts">
+	import type { MatchType } from "$lib/types/Thing";
+
     export let event = "";
-    export let matchType = "qualification";
+    export let matchType: MatchType = "Qualification";
     export let matchNumber = 1;
     export let team = "";
 </script>
@@ -15,10 +17,10 @@
         <label for="match">Match</label>
         <div class="split">
             <select bind:value={matchType}>
-                <option value="qualification">Qualification</option>
-                <option value="quarterfinal">Quarterfinal</option>
-                <option value="semifinal">Semifinal</option>
-                <option value="final">Final</option>
+                <option value="Qualification">Qualification</option>
+                <option value="Quarterfinal">Quarterfinal</option>
+                <option value="Semifinal">Semifinal</option>
+                <option value="Final">Final</option>
             </select>
             <input id="match" type="number" placeholder="1" min="1" bind:value={matchNumber}>
         </div>

@@ -8,10 +8,12 @@
 	import NumberSelector from '$lib/components/NumberSelector.svelte';
 	import Submit from '$lib/components/Submit.svelte';
 	import Notes from '$lib/components/Notes.svelte';
-	import type { MatchType, Participant } from '$lib/types/Participant';
+	import { toMatchQuery, type MatchType, type Participant } from '$lib/types/Thing';
 	import type { Defense } from '$lib/types/Metrics';
 	import type { AutoCargoScored, ClimbLevel } from './Metrics';
-	import type { Point } from '$lib/interfaces/Point';
+	import { type Point, pointToString, pointsToString } from '$lib/interfaces/Point';
+	import { doPost } from '$lib/util/Fetch';
+	import { serialize } from '$lib/types/Thing';
 
 	/* participant */
 	let event: string;
@@ -52,6 +54,8 @@
 	let scouterName: string;
 
 	function handleSubmit() {
+		console.log(`raw: ${matchType}`)
+
 		const participant: Participant = {
 			event,
 			matchType,
@@ -60,21 +64,23 @@
 			alliance: isRedAlliance ? "Red" : "Blue"
 		};
 
-		const metrics = {
-			startingPoint,
-			taxi,
+		const metrics = new Map(Object.entries({
+			startingPoint: pointToString(startingPoint[0]),
+			taxi: taxi.toString(),
 			autoCargoScored,
-			teleopMakes,
-			teleopMisses,
-			teleopLowerCargoScored,
-			teleopUpperCargoScored,
+			teleopMakes: pointsToString(teleopMakes),
+			teleopMisses: pointsToString(teleopMisses),
+			teleopLowerCargoScored: teleopLowerCargoScored.toString(),
+			teleopUpperCargoScored: teleopUpperCargoScored.toString(),
 			climbLevel,
 			defense,
-			notes,
+			notes: notes.join(":"),
 			scouterName
-		};
+		}));
 
-		console.log(participant, metrics); // TODO
+		const serialParticipant = serialize(participant, metrics);
+
+		console.log(doPost(new URL("http://localhost/api/new-participant"), toMatchQuery(participant), serialParticipant));
 	}
 </script>
 
