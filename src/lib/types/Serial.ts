@@ -5,12 +5,15 @@ export interface SerialMetric {
 
 export type SerialMatchType = "qm" | "qf" | "sf" | "f";
 
+export type SerialAlliance = "red" | "blue";
+
 export interface ParticipantQuery {
     readonly teamNumber: number;
     readonly set: number;
     readonly number: number;
     readonly type: SerialMatchType
     readonly event: string;
+    readonly alliance: SerialAlliance;
 }
 
 function toMatchCode(participantQuery: ParticipantQuery): string {
@@ -31,6 +34,7 @@ export function getQueryString(participantQuery: ParticipantQuery): URLSearchPar
     return new URLSearchParams({
         team: participantQuery.teamNumber.toString(),
         match: toMatchCode(participantQuery),
-        event: participantQuery.event
+        event: participantQuery.event,
+        alliance: participantQuery.alliance
     });
 }
