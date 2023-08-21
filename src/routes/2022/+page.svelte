@@ -11,10 +11,10 @@
 	import { toParticipantQuery, type MatchType, type Participant } from '$lib/types/Participant';
 	import type { Defense } from '$lib/types/Metrics';
 	import type { ClimbLevel } from './Metrics';
-	import { type Point, pointToString, pointsToString } from '$lib/interfaces/Point';
+	import { type Point, pointToString } from '$lib/interfaces/Point';
 	import { doPost } from '$lib/util/Fetch';
 	import { serialize } from '$lib/types/Participant';
-	import { toObject } from '$lib/util/Array';
+	import { arrayToObject } from '$lib/util/Array';
 
 	/* participant */
 	let event: string;
@@ -67,20 +67,20 @@
 			startingPoint: pointToString(startingPoint[0]),
 			taxi: taxi.toString(),
 			autoCargoScored: autoCargoScored.toString(),
-			...toObject("teleopMake", teleopMakes.map(pointToString)),
-			...toObject("teleopMiss", teleopMisses.map(pointToString)),
+			...arrayToObject("teleopMake", teleopMakes.map(pointToString)),
+			...arrayToObject("teleopMiss", teleopMisses.map(pointToString)),
 			teleopLowerCargoScored: teleopLowerCargoScored.toString(),
 			teleopUpperCargoScored: teleopUpperCargoScored.toString(),
 			climbLevel,
 			defense,
-			...toObject("note", notes),
+			...arrayToObject("note", notes),
 			scouterName
 		}));
 
-		const serialParticipant = serialize(metrics);
+		const serialMetrics = serialize(metrics);
 
 		// TODO notify user
-		doPost(new URL("http://localhost/api/add-metrics"), toParticipantQuery(participant), serialParticipant);
+		doPost(new URL("http://localhost/api/add-metrics"), toParticipantQuery(participant), serialMetrics);
 	}
 </script>
 

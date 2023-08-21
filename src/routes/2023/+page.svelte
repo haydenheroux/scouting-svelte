@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { serialize } from '$lib/types/Participant';
 	import field2023 from '$lib/images/fields/2023.jpg';
 	import ParticipantSelector from '$lib/components/ParticipantSelector.svelte';
 	import AllianceSelector from '$lib/components/AllianceSelector.svelte';
@@ -9,10 +10,12 @@
 	import CubeCone from './CubeCone.svelte';
 	import GridComponent from './GridComponent.svelte';
 	import Notes from '$lib/components/Notes.svelte';
-	import type { Point } from '$lib/interfaces/Point';
-	import type { MatchType, Participant } from '$lib/types/Participant';
-	import type { ChargeStation, GamePiece, Grid, Substation } from './Metrics';
+	import { pointToString, type Point } from '$lib/interfaces/Point';
+	import { toParticipantQuery, type MatchType, type Participant } from '$lib/types/Participant';
+	import { gridToObject, type ChargeStation, type GamePiece, type Grid, type Substation } from './Metrics';
 	import type { Defense } from '$lib/types/Metrics';
+	import { doPost } from '$lib/util/Fetch';
+	import { arrayToObject } from '$lib/util/Array';
 
 	/* participant */
 	let event: string;
@@ -65,21 +68,24 @@
 			alliance: isRedAlliance ? "Red" : "Blue"
 		};
 
-		const metrics = {
-			startingPoint,
+		const metrics = new Map(Object.entries({
+			startingPoint: pointToString(startingPoint[0]),
 			preload,
-			mobility,
-			autoScores,
+			mobility: mobility.toString(),
+			...gridToObject("autoScore", autoScores),
 			autoChargeStation,
 			substationPreference,
-			teleopScores,
+			...gridToObject("teleopScore", teleopScores),
 			endgameChargeStation,
 			defense,
-			notes,
+			...arrayToObject("note", notes),
 			scouterName
-		};
+		}));
 
-		console.log(participant, metrics); // TODO
+		const serialMetrics = serialize(metrics);
+
+		// TODO notify user
+		doPost(new URL("http://localhost/api/add-metrics"), toParticipantQuery(participant), serialMetrics);
 	}
 </script>
 

@@ -1,4 +1,4 @@
-export function toObject<T>(key: string, values: Array<T>): Record<string, T> {
+export function arrayToObject<T>(key: string, values: Array<T>): Record<string, T> {
     let object: Record<string, T> = {};
 
     for (const [index, value] of values.entries()) {
