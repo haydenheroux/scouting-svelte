@@ -2,12 +2,14 @@
 	import MultipleOptionSelector from "$lib/components/MultipleOptionSelector.svelte";
 	import type { GamePiece } from "./Metrics";
 
-    export let title: string;
+    export let name: string;
+    export let help: string;
+
     export let selected: GamePiece;
 </script>
 
 <div class="cube_cone">
-    <MultipleOptionSelector bind:selected title={title} options={["Cube", "Cone"]}/>
+    <MultipleOptionSelector bind:selected {name} {help} options={["Cube", "Cone"]}/>
 </div>
 
 <style>

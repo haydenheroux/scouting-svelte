@@ -1,7 +1,9 @@
 <script lang="ts">
-	import type { Grid } from "./Metrics";
+	import Metric from "$lib/components/Metric.svelte";
+import type { Grid } from "./Metrics";
 
-    export let title: string;
+    export let name: string;
+    export let help: string;
 
     export let grid: Grid = [
         [false, false, false, false, false, false, false, false, false],
@@ -14,8 +16,7 @@
     }
 </script>
 
-<section>
-    <h2>{title}</h2>
+<Metric {name} {help}>
     <div class="grid">
         <button class="cone" class:active={grid[0][0]} on:click={(e) => toggle(0, 0)} />
         <button class="cube" class:active={grid[0][1]} on:click={(e) => toggle(0, 1)} />
@@ -45,7 +46,7 @@
         <button class="floor" class:active={grid[2][7]} on:click={(e) => toggle(2, 7)} />
         <button class="floor" class:active={grid[2][8]} on:click={(e) => toggle(2, 8)} />
     </div>
-</section>
+</Metric>
 
 <style>
 .grid {

@@ -86,14 +86,14 @@
 
 <ParticipantSelector bind:event bind:matchType bind:matchNumber bind:team />
 <AllianceSelector bind:isRedAlliance />
-<FieldSelector bind:points={startingPoint} field={field2022} title="Starting Position" single={true}/>
-<BooleanSelector bind:value={taxi} title="Auto Taxi" />
-<NumberSelector bind:value={autoCargoScored} title="Auto Cargo Scored" />
-<FieldSelector bind:points={teleopMakes} field={field2022} title="Teleop Makes" drawStyle="triangle" />
-<FieldSelector bind:points={teleopMisses} field={field2022} title="Teleop Misses" drawStyle="cross" />
-<NumberSelector bind:value={teleopLowerCargoScored} title="Teleop Lower Hub Cargo Scored" />
-<NumberSelector bind:value={teleopUpperCargoScored} title="Teleop Upper Hub Cargo Scored" />
-<MultipleOptionSelector bind:selected={climbLevel} title="Climb Level" options={["Low", "Middle", "High", "Traversal"]} />
-<MultipleOptionSelector bind:selected={defense} title="Defense" options={["None", "Attempted", "Effective", "Very Effective"]} />
+<FieldSelector bind:points={startingPoint} field={field2022} name="Starting Position" help="Place where the robot starts the match." single={true}/>
+<BooleanSelector bind:value={taxi} name="Auto Taxi" help="The robot fully leaves the tarmac during auto." />
+<NumberSelector bind:value={autoCargoScored} name="Auto Cargo Scored" help="Number of cargo scored by the robot during auto." />
+<FieldSelector bind:points={teleopMakes} field={field2022} name="Teleop Makes" help="Places where the robot scores during teleop." drawStyle="triangle" />
+<FieldSelector bind:points={teleopMisses} field={field2022} name="Teleop Misses" help="Places where the robot tries scoring during teleop but misses." drawStyle="cross" />
+<NumberSelector bind:value={teleopLowerCargoScored} name="Teleop Lower Hub Cargo Scored" help="Cargo scored in the lower hub during teleop." />
+<NumberSelector bind:value={teleopUpperCargoScored} name="Teleop Upper Hub Cargo Scored" help="Cargo scored in the upper hub during teleop." />
+<MultipleOptionSelector bind:selected={climbLevel} name="Climb Level" options={["Low", "Middle", "High", "Traversal"]} help="Level the robot climbed to.<br/>Deselect if the robot does not climb." />
+<MultipleOptionSelector bind:selected={defense} name="Defense" options={["None", "Attempted", "Effective", "Very Effective"]} help="Quality of defense played.<br/>Effective defense prevents a score.<br/>Very effective defense prevents multiple scores." />
 <Notes bind:notes />
 <Submit on:click={handleSubmit} bind:scouterName />

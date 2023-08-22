@@ -1,5 +1,10 @@
 <script lang="ts">
-    export let title: string;
+	import Metric from "./Metric.svelte";
+
+    export let name: string;
+    export let help: string;
+
+
     export let value = 0;
 
     function minus() {
@@ -11,14 +16,14 @@
     }
 </script>
 
-<section>
-    <h2>{title}</h2>
+<Metric {name} {help}>
     <div>
         <button class="primary minus" on:click={minus}>-</button>
         <input type="number" min=0 bind:value={value}>
         <button class="primary plus" on:click={plus}>+</button>
     </div>
-</section>
+</Metric>
+
 
 <style>
 div {

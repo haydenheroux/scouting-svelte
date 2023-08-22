@@ -1,5 +1,7 @@
 <script lang="ts">
-    let note= "";
+	import Metric from "./Metric.svelte";
+
+    let note = "";
 
     export let notes: Array<string> = [];
 
@@ -14,8 +16,7 @@
     }
 </script>
 
-<section>
-    <h2>Notes</h2>
+<Metric name="Notes">
     <div>
         <input type="text" placeholder="" bind:value={note}>
         <button class="primary add" on:click={add}>+</button>
@@ -26,7 +27,7 @@
             <button class="primary remove" on:click={_ => remove(index)}>-</button>
         </div>
     {/each}
-</section>
+</Metric>
 
 <style>
 div {

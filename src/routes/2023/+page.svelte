@@ -91,14 +91,14 @@
 
 <ParticipantSelector bind:event bind:matchType bind:matchNumber bind:team />
 <AllianceSelector bind:isRedAlliance />
-<FieldSelector bind:points={startingPoint} field={field2023} title="Starting Position" single={true}/>
-<CubeCone bind:selected={preload} title="Preloaded Game Piece" />
-<BooleanSelector bind:value={mobility} title="Mobility" />
-<GridComponent bind:grid={autoScores} title="Auto Scores" />
-<MultipleOptionSelector bind:selected={autoChargeStation} title="Auto Charge Station" options={["None", "Attempted", "Dock", "Engage"]} />
-<MultipleOptionSelector bind:selected={substationPreference} title="Substation Preference" options={["Single Substation", "Double Substation"]} /> 
-<GridComponent bind:grid={teleopScores} title="Teleop Scores" />
-<MultipleOptionSelector bind:selected={endgameChargeStation} title="Endgame Charge Station" options={["None", "Attempted", "Dock", "Engage"]} />
-<MultipleOptionSelector bind:selected={defense} title="Defense" options={["None", "Attempted", "Effective", "Very Effective"]} />
+<FieldSelector bind:points={startingPoint} field={field2023} name="Starting Position" help="Place where the robot starts the match." single={true}/>
+<CubeCone bind:selected={preload} name="Preloaded Game Piece" help="Game piece the robot stats the match with." />
+<BooleanSelector bind:value={mobility} name="Mobility" help="The robot fully leaves the community during auto." />
+<GridComponent bind:grid={autoScores} name="Auto Scores" help="Nodes where the robot scores during auto." />
+<MultipleOptionSelector bind:selected={autoChargeStation} name="Auto Charge Station" help="Interaction between the robot and the charge station during auto." options={["None", "Attempted", "Dock", "Engage"]} />
+<MultipleOptionSelector bind:selected={substationPreference} name="Substation Preference" help="The substation the robot most frequently uses during teleop." options={["Single Substation", "Double Substation"]} /> 
+<GridComponent bind:grid={teleopScores} name="Teleop Scores" help="Nodes where the robot scores during teleop." />
+<MultipleOptionSelector bind:selected={endgameChargeStation} name="Endgame Charge Station" help="Interaction between the robot and the charge station during endgame." options={["None", "Attempted", "Dock", "Engage"]} />
+<MultipleOptionSelector bind:selected={defense} name="Defense" options={["None", "Attempted", "Effective", "Very Effective"]} help="Quality of defense played.<br/>Effective defense prevents a score.<br/>Very effective defense prevents multiple scores." />
 <Notes bind:notes />
 <Submit on:click={handleSubmit} bind:scouterName />
