@@ -16,6 +16,7 @@
 	import type { Defense } from '$lib/types/Metrics';
 	import { doPost } from '$lib/util/Fetch';
 	import { arrayToObject } from '$lib/util/Array';
+	import QrCode from '$lib/components/QRCode.svelte';
 
 	/* participant */
 	let event: string;
@@ -59,6 +60,9 @@
 	/* scouter */
 	let scouterName: string;
 
+	/* QR code */
+	let qrCode = "";
+
 	function handleSubmit() {
 		const participant: Participant = {
 			event,
@@ -86,6 +90,8 @@
 
 		// TODO notify user
 		doPost(new URL("http://localhost/api/add-metrics"), toParticipantQuery(participant), serialMetrics);
+
+		qrCode = JSON.stringify([toParticipantQuery(participant), serialMetrics]);
 	}
 </script>
 
@@ -102,3 +108,6 @@
 <MultipleOptionSelector bind:selected={defense} name="Defense" options={["None", "Attempted", "Effective", "Very Effective"]} help="Quality of defense played.<br/>Effective defense prevents a score.<br/>Very effective defense prevents multiple scores." />
 <Notes bind:notes />
 <Submit on:click={handleSubmit} bind:scouterName />
+{#if qrCode.length > 0}
+	<QrCode value="{qrCode}" />
+{/if}
