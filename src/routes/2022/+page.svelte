@@ -16,6 +16,7 @@
 	import { serialize } from '$lib/types/Participant';
 	import { arrayToObject } from '$lib/util/Array';
 	import QrCode from '$lib/components/QRCode.svelte';
+	import { storable } from '$lib/util/storable';
 
 	/* participant */
 	let event: string;
@@ -58,6 +59,9 @@
 	/* QR code */
 	let qrCode = "";
 
+	// TODO add type
+	let scoutedMatches = storable<any>("2022matches", []);
+
 	function handleSubmit() {
 		const participant: Participant = {
 			event,
@@ -86,7 +90,14 @@
 		// TODO notify user
 		doPost(new URL("http://localhost/api/add-metrics"), toParticipantQuery(participant), serialMetrics);
 
-		qrCode = JSON.stringify([toParticipantQuery(participant), serialMetrics]);
+		const scouted = {
+			participantQuery: toParticipantQuery(participant),
+			serialMetrics
+		}
+
+		qrCode = JSON.stringify(scouted);
+
+		scoutedMatches.push(scouted);
 	}
 </script>
 

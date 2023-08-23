@@ -16,7 +16,9 @@
 	import type { Defense } from '$lib/types/Metrics';
 	import { doPost } from '$lib/util/Fetch';
 	import { arrayToObject } from '$lib/util/Array';
-	import QrCode from '$lib/components/QRCode.svelte';
+	import QRCode from '$lib/components/QRCode.svelte';
+	import { browser } from '$app/environment';
+	import { storable } from '$lib/util/storable';
 
 	/* participant */
 	let event: string;
@@ -63,6 +65,9 @@
 	/* QR code */
 	let qrCode = "";
 
+	// TODO add type
+	let scoutedMatches = storable<any>("2023matches", []);
+
 	function handleSubmit() {
 		const participant: Participant = {
 			event,
@@ -91,7 +96,14 @@
 		// TODO notify user
 		doPost(new URL("http://localhost/api/add-metrics"), toParticipantQuery(participant), serialMetrics);
 
-		qrCode = JSON.stringify([toParticipantQuery(participant), serialMetrics]);
+		const scouted = {
+			participantQuery: toParticipantQuery(participant),
+			serialMetrics
+		}
+
+		qrCode = JSON.stringify(scouted);
+
+		scoutedMatches.push(scouted);
 	}
 </script>
 
@@ -109,5 +121,5 @@
 <Notes bind:notes />
 <Submit on:click={handleSubmit} bind:scouterName />
 {#if qrCode.length > 0}
-	<QrCode value="{qrCode}" />
+	<QRCode value="{qrCode}" />
 {/if}
