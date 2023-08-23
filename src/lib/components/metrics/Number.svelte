@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Metric from "./Metric.svelte";
+	import Section from "../Section.svelte";
 
     export let name: string;
     export let help: string;
@@ -16,13 +16,13 @@
     }
 </script>
 
-<Metric {name} {help}>
+<Section {name} {help}>
     <div>
         <button class="primary minus" on:click={minus}>-</button>
         <input type="number" min=0 bind:value={value}>
         <button class="primary plus" on:click={plus}>+</button>
     </div>
-</Metric>
+</Section>
 
 
 <style>

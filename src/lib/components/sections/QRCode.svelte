@@ -2,7 +2,7 @@
 	import { onMount } from 'svelte';
 	// @ts-ignore
 	import { default as QrCode } from 'qrious';
-	import Metric from './Metric.svelte';
+	import Section from '../Section.svelte';
 
 	const QRcode = new QrCode();
 

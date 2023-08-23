@@ -1,21 +1,21 @@
 <script lang="ts">
 	import field2023 from '$lib/images/fields/2023.jpg';
-	import ParticipantSelector from '$lib/components/ParticipantSelector.svelte';
-	import AllianceSelector from '$lib/components/AllianceSelector.svelte';
-	import FieldSelector from '$lib/components/FieldSelector.svelte';
-	import Submit from '$lib/components/Submit.svelte';
-	import MultipleOptionSelector from '$lib/components/MultipleOptionSelector.svelte';
-	import BooleanSelector from '$lib/components/BooleanSelector.svelte';
+	import ParticipantSelector from '$lib/components/sections/Participant.svelte';
+	import AllianceSelector from '$lib/components/metrics/Alliance.svelte';
+	import FieldSelector from '$lib/components/metrics/Field.svelte';
+	import Submit from '$lib/components/sections/Submit.svelte';
+	import MultipleOptionSelector from '$lib/components/metrics/Selection.svelte';
+	import BooleanSelector from '$lib/components/metrics/Boolean.svelte';
 	import CubeCone from './CubeCone.svelte';
 	import GridComponent from './GridComponent.svelte';
-	import Notes from '$lib/components/Notes.svelte';
+	import Notes from '$lib/components/metrics/Notes.svelte';
 	import { pointToString, type Point } from '$lib/interfaces/Point';
 	import { toParticipantQuery, type MatchType, type Participant } from '$lib/types/Participant';
 	import { gridToObject, type ChargeStation, type GamePiece, type Grid, type Substation } from './Metrics';
 	import type { Defense } from '$lib/types/Metrics';
 	import { doPost } from '$lib/util/Fetch';
 	import { arrayToObject } from '$lib/util/Array';
-	import QRCode from '$lib/components/QRCode.svelte';
+	import QRCode from '$lib/components/sections/QRCode.svelte';
 	import { scoutedMatches } from '$lib/stores/stores';
 
 	/* participant */

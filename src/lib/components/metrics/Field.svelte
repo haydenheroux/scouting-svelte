@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { normalize, scale, type Point } from '$lib/interfaces/Point';
     import { onMount } from 'svelte';
-	import Metric from './Metric.svelte';
+	import Section from '../Section.svelte';
 
     export let name: string;
     export let help: string;
@@ -112,7 +112,7 @@
     }
 </script>
 
-<Metric {name} {help}>
+<Section {name} {help}>
     <canvas on:click={handleMouse} on:touchstart={handleTouch} on:touchmove={handleTouch} bind:this={canvas}></canvas>
     <button class="primary" on:click={(e) => points = points.slice(0, points.length - 1)}>Undo</button>
-</Metric>
+</Section>

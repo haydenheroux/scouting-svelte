@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Metric from './Metric.svelte';
+	import Section from '../Section.svelte';
     export let name: string;
     export let help: string;
 
@@ -10,9 +10,9 @@
 </script>
 
     
-<Metric {name} {help}>
+<Section {name} {help}>
     <div class="split">
         <button on:click={(e) => value = false} class:active={value === false}>{negative}</button>
         <button on:click={(e) => value = true} class:active={value}>{positive}</button>
     </div>
-</Metric>
+</Section>

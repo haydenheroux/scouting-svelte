@@ -1,4 +1,4 @@
-import type { Metrics } from "$lib/types/Metrics";
+import type { Metrics } from "$lib/types/Sections";
 import { getQueryString, type ParticipantQuery } from "$lib/types/Serial";
 
 export async function doPost(url: URL, participantQuery: ParticipantQuery, metrics: Metrics) {

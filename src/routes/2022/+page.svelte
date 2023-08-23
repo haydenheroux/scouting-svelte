@@ -1,20 +1,20 @@
 <script lang="ts">
 	import field2022 from '$lib/images/fields/2022.jpg';
-	import ParticipantSelector from '$lib/components/ParticipantSelector.svelte';
-	import AllianceSelector from '$lib/components/AllianceSelector.svelte';
-	import FieldSelector from '$lib/components/FieldSelector.svelte';
-	import BooleanSelector from '$lib/components/BooleanSelector.svelte';
-	import MultipleOptionSelector from '$lib/components/MultipleOptionSelector.svelte';
-	import NumberSelector from '$lib/components/NumberSelector.svelte';
-	import Submit from '$lib/components/Submit.svelte';
-	import Notes from '$lib/components/Notes.svelte';
+	import ParticipantSelector from '$lib/components/sections/Participant.svelte';
+	import AllianceSelector from '$lib/components/metrics/Alliance.svelte';
+	import FieldSelector from '$lib/components/metrics/Field.svelte';
+	import BooleanSelector from '$lib/components/metrics/Boolean.svelte';
+	import MultipleOptionSelector from '$lib/components/metrics/Selection.svelte';
+	import NumberSelector from '$lib/components/metrics/Number.svelte';
+	import Submit from '$lib/components/sections/Submit.svelte';
+	import Notes from '$lib/components/metrics/Notes.svelte';
 	import { toParticipantQuery, type MatchType, type Participant } from '$lib/types/Participant';
 	import type { Defense } from '$lib/types/Metrics';
 	import type { ClimbLevel } from './Metrics';
 	import { type Point, pointToString } from '$lib/interfaces/Point';
 	import { doPost } from '$lib/util/Fetch';
 	import { arrayToObject } from '$lib/util/Array';
-	import QRCode from '$lib/components/QRCode.svelte';
+	import QRCode from '$lib/components/sections/QRCode.svelte';
 	import { scoutedMatches } from '$lib/stores/stores';
 
 	/* participant */

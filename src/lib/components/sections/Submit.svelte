@@ -1,13 +1,13 @@
 <script lang="ts">
-	import Metric from "./Metric.svelte";
+	import Section from "../Section.svelte";
 
     export let scouterName = "";
 </script>
 
-<Metric name="Submit">
+<Section name="Submit">
     <div>
         <label for="scouter">Scouter Name</label>
         <input id="scouter" type="text" placeholder="Scouter Name" bind:value={scouterName}>
     </div>
     <button class="primary" on:click>Submit</button>
-</Metric>
+</Section>
