@@ -19,6 +19,7 @@
 	import QRCode from '$lib/components/QRCode.svelte';
 	import { browser } from '$app/environment';
 	import { storable } from '$lib/util/storable';
+	import { scoutedMatches } from '$lib/stores';
 
 	/* participant */
 	let event: string;
@@ -64,9 +65,6 @@
 
 	/* QR code */
 	let qrCode = "";
-
-	// TODO add type
-	let scoutedMatches = storable<any>("2023matches", []);
 
 	function handleSubmit() {
 		const participant: Participant = {
