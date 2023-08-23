@@ -2,7 +2,7 @@ import { browser } from "$app/environment";
 
 export function storable<T>(key: string, fallback: T) {
     return {
-        get: () => {
+        getOrNull: () => {
             if (!browser) return null;
 
             const valuesOrNull = localStorage.getItem(key);

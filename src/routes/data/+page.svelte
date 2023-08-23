@@ -4,11 +4,12 @@
     import { scoutedMatches } from "$lib/stores/stores";
 	import { toMatchCode } from "$lib/types/Serial";
 
-    let matches = scoutedMatches.get();
+    let matchesOrNull = scoutedMatches.getOrNull();
+    let matches = (matchesOrNull === null) ? [] : matchesOrNull; 
 </script>
 
 {#each matches as match}
-<Section name={`${match.participantQuery.event} ${toMatchCode(match.participantQuery)} - Team ${match.participantQuery.teamNumber}`}>
-    <QRCode value={JSON.stringify(match)}/>
-</Section>
+    <Section name={`${match.participantQuery.event} ${toMatchCode(match.participantQuery)} - Team ${match.participantQuery.teamNumber}`}>
+        <QRCode value={JSON.stringify(match)}/>
+    </Section>
 {/each}
