@@ -3,7 +3,7 @@
     export let name: string;
     export let help: string;
 
-    export let value: boolean | null = null;
+    export let value = false;
 
     export let negative = "No";
     export let positive = "Yes";

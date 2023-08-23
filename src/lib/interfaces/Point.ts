@@ -18,12 +18,14 @@ export function normalize(point: Point, width: number, height: number): Point {
 }
 
 export function pointToString(point: Point): string {
+    if (!point) return "";
     return `${point.x.toFixed(4)},${point.y.toFixed(4)}`;
 }
 
 export function pointsToString(points: Array<Point>): string {
     let pointStrings = [];
     for (let point of points) {
+        console.log(point);
         pointStrings.push(pointToString(point));
     }
     return pointStrings.join(":");
