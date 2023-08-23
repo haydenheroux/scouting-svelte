@@ -1,8 +1,3 @@
-export interface SerialMetric {
-    readonly key: string; 
-    readonly value: string;
-}
-
 export type SerialMatchType = "qm" | "qf" | "sf" | "f";
 
 export type SerialAlliance = "red" | "blue";
@@ -16,7 +11,7 @@ export interface ParticipantQuery {
     readonly alliance: SerialAlliance;
 }
 
-function toMatchCode(participantQuery: ParticipantQuery): string {
+export function toMatchCode(participantQuery: ParticipantQuery): string {
     let s = "";
 	s += participantQuery.type;
 

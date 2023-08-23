@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { serialize } from '$lib/types/Participant';
 	import field2023 from '$lib/images/fields/2023.jpg';
 	import ParticipantSelector from '$lib/components/ParticipantSelector.svelte';
 	import AllianceSelector from '$lib/components/AllianceSelector.svelte';
@@ -17,9 +16,7 @@
 	import { doPost } from '$lib/util/Fetch';
 	import { arrayToObject } from '$lib/util/Array';
 	import QRCode from '$lib/components/QRCode.svelte';
-	import { browser } from '$app/environment';
-	import { storable } from '$lib/util/storable';
-	import { scoutedMatches } from '$lib/stores';
+	import { scoutedMatches } from '$lib/stores/stores';
 
 	/* participant */
 	let event: string;
@@ -75,7 +72,7 @@
 			alliance: isRedAlliance ? "Red" : "Blue"
 		};
 
-		const metrics = new Map(Object.entries({
+		const metrics = {
 			startingPoint: pointToString(startingPoint[0]),
 			preload,
 			mobility: mobility.toString(),
@@ -87,16 +84,14 @@
 			defense,
 			...arrayToObject("note", notes),
 			scouterName
-		}));
-
-		const serialMetrics = serialize(metrics);
+		};
 
 		// TODO notify user
-		doPost(new URL("http://localhost/api/add-metrics"), toParticipantQuery(participant), serialMetrics);
+		doPost(new URL("http://localhost/api/add-metrics"), toParticipantQuery(participant), metrics);
 
 		const scouted = {
 			participantQuery: toParticipantQuery(participant),
-			serialMetrics
+			metrics
 		}
 
 		qrCode = JSON.stringify(scouted);
@@ -119,5 +114,7 @@
 <Notes bind:notes />
 <Submit on:click={handleSubmit} bind:scouterName />
 {#if qrCode.length > 0}
+<section>
 	<QRCode value="{qrCode}" />
+</section>
 {/if}

@@ -13,11 +13,9 @@
 	import type { ClimbLevel } from './Metrics';
 	import { type Point, pointToString } from '$lib/interfaces/Point';
 	import { doPost } from '$lib/util/Fetch';
-	import { serialize } from '$lib/types/Participant';
 	import { arrayToObject } from '$lib/util/Array';
-	import QrCode from '$lib/components/QRCode.svelte';
-	import { storable } from '$lib/util/storable';
-	import { scoutedMatches } from '$lib/stores';
+	import QRCode from '$lib/components/QRCode.svelte';
+	import { scoutedMatches } from '$lib/stores/stores';
 
 	/* participant */
 	let event: string;
@@ -69,7 +67,7 @@
 			alliance: isRedAlliance ? "Red" : "Blue"
 		};
 
-		const metrics = new Map(Object.entries({
+		const metrics = {
 			startingPoint: pointToString(startingPoint[0]),
 			taxi: taxi.toString(),
 			autoCargoScored: autoCargoScored.toString(),
@@ -81,16 +79,14 @@
 			defense,
 			...arrayToObject("note", notes),
 			scouterName
-		}));
-
-		const serialMetrics = serialize(metrics);
+		};
 
 		// TODO notify user
-		doPost(new URL("http://localhost/api/add-metrics"), toParticipantQuery(participant), serialMetrics);
+		doPost(new URL("http://localhost/api/add-metrics"), toParticipantQuery(participant), metrics);
 
 		const scouted = {
 			participantQuery: toParticipantQuery(participant),
-			serialMetrics
+			metrics
 		}
 
 		qrCode = JSON.stringify(scouted);
@@ -113,5 +109,7 @@
 <Notes bind:notes />
 <Submit on:click={handleSubmit} bind:scouterName />
 {#if qrCode.length > 0}
-	<QrCode value="{qrCode}" />
+	<section>
+		<QRCode value="{qrCode}" />
+	</section>
 {/if}

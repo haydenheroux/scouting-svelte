@@ -1,5 +1,5 @@
 import type { Metrics } from "./Metrics";
-import type { ParticipantQuery, SerialAlliance, SerialMatchType, SerialMetric } from "./Serial";
+import type { ParticipantQuery, SerialAlliance, SerialMatchType } from "./Serial";
 
 export type MatchType = "Qualification" | "Quarterfinal" | "Semifinal" | "Final";
 
@@ -39,8 +39,4 @@ export function toParticipantQuery(participant: Participant): ParticipantQuery {
         event: participant.event,
         alliance: serializeAlliance(participant.alliance)
     }
-}
-
-export function serialize(metrics: Metrics): Array<SerialMetric> {
-    return Array.from(metrics, ([key, value]) => { return {key, value} });
 }

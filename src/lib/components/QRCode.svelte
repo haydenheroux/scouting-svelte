@@ -37,6 +37,4 @@
 
 </script>
 
-<Metric name="QRCode">
-	<img src={image} alt={value}/>
-</Metric>
+<img src={image} alt={value}/>
