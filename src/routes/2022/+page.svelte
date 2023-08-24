@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { doPost } from '$lib/util/Fetch';
 	import field2022 from '$lib/images/fields/2022.jpg';
 	import ParticipantSelector from '$lib/components/sections/Participant.svelte';
 	import AllianceSelector from '$lib/components/metrics/Alliance.svelte';
@@ -12,7 +13,6 @@
 	import type { Defense } from '$lib/types/Metrics';
 	import type { ClimbLevel } from './Metrics';
 	import { type Point, pointToString } from '$lib/interfaces/Point';
-	import { doPost } from '$lib/util/fetch';
 	import { arrayToObject } from '$lib/util/Array';
 	import QRCode from '$lib/components/sections/QRCode.svelte';
 	import { scoutedMatches } from '$lib/stores/stores';

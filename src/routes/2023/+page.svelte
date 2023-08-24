@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { doPost } from '$lib/util/Fetch';
 	import field2023 from '$lib/images/fields/2023.jpg';
 	import ParticipantSelector from '$lib/components/sections/Participant.svelte';
 	import AllianceSelector from '$lib/components/metrics/Alliance.svelte';
@@ -13,7 +14,6 @@
 	import { toParticipantQuery, type MatchType, type Participant } from '$lib/types/Participant';
 	import { gridToObject, type ChargeStation, type GamePiece, type Grid, type Substation } from './Metrics';
 	import type { Defense } from '$lib/types/Metrics';
-	import { doPost } from '$lib/util/fetch';
 	import { arrayToObject } from '$lib/util/Array';
 	import QRCode from '$lib/components/sections/QRCode.svelte';
 	import { scoutedMatches } from '$lib/stores/stores';
