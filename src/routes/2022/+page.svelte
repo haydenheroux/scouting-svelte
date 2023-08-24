@@ -104,7 +104,7 @@
 <FieldSelector bind:points={teleopMisses} field={field2022} name="Teleop Misses" help="Places where the robot tries scoring during teleop but misses." drawStyle="cross" />
 <NumberSelector bind:value={teleopLowerCargoScored} name="Teleop Lower Hub Cargo Scored" help="Cargo scored in the lower hub during teleop." />
 <NumberSelector bind:value={teleopUpperCargoScored} name="Teleop Upper Hub Cargo Scored" help="Cargo scored in the upper hub during teleop." />
-<MultipleOptionSelector bind:selected={climbLevel} name="Climb Level" options={["Low", "Middle", "High", "Traversal"]} help="Level the robot climbed to.<br/>Deselect if the robot does not climb." />
+<MultipleOptionSelector bind:selected={climbLevel} name="Climb Level" options={["None", "Attempted", "Low", "Middle", "High", "Traversal"]} help="Level the robot climbed to." />
 <MultipleOptionSelector bind:selected={defense} name="Defense" options={["None", "Attempted", "Effective", "Very Effective"]} help="Quality of defense played.<br/>Effective defense prevents a score.<br/>Very effective defense prevents multiple scores." />
 <Notes bind:notes />
 <Submit on:click={handleSubmit} bind:scouterName />

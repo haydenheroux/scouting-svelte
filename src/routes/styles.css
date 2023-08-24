@@ -333,19 +333,10 @@ section .minus, section .plus, section .add, section .remove {
 }
 
 .split {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(8em, 1fr));
 
     gap: var(--section-gap);
-}
-
-.split > * {
-    flex: 1;
-}
-
-.split * {
-    min-width: 8em;
 }
 
 section button {
