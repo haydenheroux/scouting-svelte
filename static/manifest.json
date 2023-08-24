@@ -1,9 +1,0 @@
-{
-  "name": "Scouting App",
-  "theme_color": "#fafafa",
-  "background_color": "#09090b",
-  "display": "browser",
-  "orientation": "portrait",
-  "scope": "/",
-  "start_url": "/"
-}
