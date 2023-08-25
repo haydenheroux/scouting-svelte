@@ -9,5 +9,5 @@
         <label for="scouter">Scouter Name</label>
         <input id="scouter" type="text" placeholder="Scouter Name" bind:value={scouterName}>
     </div>
-    <button class="primary" on:click>Submit</button>
+    <button class="primary" on:click>Generate QR Code</button>
 </Section>

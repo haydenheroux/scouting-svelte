@@ -2,7 +2,6 @@
 	import { doPost } from '$lib/util/Fetch';
 	import field2022 from '$lib/images/fields/2022.jpg';
 	import ParticipantSelector from '$lib/components/sections/Participant.svelte';
-	import AllianceSelector from '$lib/components/metrics/Alliance.svelte';
 	import FieldSelector from '$lib/components/metrics/Field.svelte';
 	import BooleanSelector from '$lib/components/metrics/Boolean.svelte';
 	import MultipleOptionSelector from '$lib/components/metrics/Selection.svelte';
@@ -95,8 +94,7 @@
 	}
 </script>
 
-<ParticipantSelector bind:event bind:matchType bind:matchNumber bind:team />
-<AllianceSelector bind:isRedAlliance />
+<ParticipantSelector bind:event bind:matchType bind:matchNumber bind:team bind:isRedAlliance />
 <FieldSelector bind:points={startingPoint} field={field2022} name="Starting Position" help="Place where the robot starts the match." single={true}/>
 <BooleanSelector bind:value={taxi} name="Auto Taxi" help="The robot fully leaves the tarmac during auto." />
 <NumberSelector bind:value={autoCargoScored} name="Auto Cargo Scored" help="Number of cargo scored by the robot during auto." />

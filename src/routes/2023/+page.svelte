@@ -2,7 +2,6 @@
 	import { doPost } from '$lib/util/Fetch';
 	import field2023 from '$lib/images/fields/2023.jpg';
 	import ParticipantSelector from '$lib/components/sections/Participant.svelte';
-	import AllianceSelector from '$lib/components/metrics/Alliance.svelte';
 	import FieldSelector from '$lib/components/metrics/Field.svelte';
 	import Submit from '$lib/components/sections/Submit.svelte';
 	import MultipleOptionSelector from '$lib/components/metrics/Selection.svelte';
@@ -100,8 +99,7 @@
 	}
 </script>
 
-<ParticipantSelector bind:event bind:matchType bind:matchNumber bind:team />
-<AllianceSelector bind:isRedAlliance />
+<ParticipantSelector bind:event bind:matchType bind:matchNumber bind:team bind:isRedAlliance />
 <FieldSelector bind:points={startingPoint} field={field2023} name="Starting Position" help="Place where the robot starts the match." single={true}/>
 <CubeCone bind:selected={preload} name="Preloaded Game Piece" help="Game piece the robot stats the match with." />
 <BooleanSelector bind:value={mobility} name="Mobility" help="The robot fully leaves the community during auto." />
