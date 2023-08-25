@@ -238,7 +238,7 @@ section h2 {
 section label {
     font-family: var(--ff-main);
     font-weight: var(--fw-main);
-    font-size: var(--fs-300);
+    font-size: var(--fs-200);
 }
 
 footer {
@@ -312,6 +312,8 @@ section > div {
 }
 
 section label {
+    display: block;
+
     margin-bottom: 0.5rem;
 }
 

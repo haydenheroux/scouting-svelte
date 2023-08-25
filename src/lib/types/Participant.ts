@@ -7,6 +7,7 @@ export type Alliance = "Red" | "Blue";
 export interface Participant {
     event: string;
     matchType: MatchType;
+    setNumber: number;
     matchNumber: number;
     teamNumber: number;
     alliance: Alliance;
@@ -32,7 +33,7 @@ function serializeAlliance(alliance: Alliance): SerialAlliance {
 export function toParticipantQuery(participant: Participant): ParticipantQuery {
     return {
         teamNumber: participant.teamNumber,
-        set: 1, // TODO
+        set: participant.matchType != "Qualification" ? participant.setNumber : 1,
         number: participant.matchNumber,
         type: serializeMatchType(participant.matchType),
         event: participant.event,

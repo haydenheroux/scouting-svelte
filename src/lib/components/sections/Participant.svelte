@@ -5,6 +5,7 @@
     export let participant: Participant = {
         event: "",
         matchType: "Qualification",
+        setNumber: 1,
         matchNumber: 1,
         teamNumber: 1,
         alliance: "Red",
@@ -17,15 +18,26 @@
         <input id="event" type="text" placeholder="2023mawne" bind:value={participant.event}>
     </div>
     <div>
-        <label for="match">Match</label>
         <div class="split">
-            <select bind:value={participant.matchType}>
-                <option value="Qualification">Qualification</option>
-                <option value="Quarterfinal">Quarterfinal</option>
-                <option value="Semifinal">Semifinal</option>
-                <option value="Final">Final</option>
-            </select>
-            <input id="match" type="number" placeholder="1" min="1" bind:value={participant.matchNumber}>
+            <div>
+                <label for="type">Type</label>
+                <select bind:value={participant.matchType}>
+                    <option value="Qualification">Qualification</option>
+                    <option value="Quarterfinal">Quarterfinal</option>
+                    <option value="Semifinal">Semifinal</option>
+                    <option value="Final">Final</option>
+                </select>
+            </div>
+            {#if participant.matchType != "Qualification"}
+                <div>
+                    <label for="set">Set</label>
+                    <input id="set" type="number" placeholder="1" min="1" bind:value={participant.setNumber}>
+                </div>
+            {/if}
+            <div>
+                <label for="match">Match</label>
+                <input id="match" type="number" placeholder="1" min="1" bind:value={participant.matchNumber}>
+            </div>
         </div>
     </div>
     <div>
