@@ -22,8 +22,7 @@
     .header {
         display: flex;
         flex-direction: row;
-        align-items: center;
-        height: var(--section-input-height);
+        align-items: flex-start;
     }
 
     .help {

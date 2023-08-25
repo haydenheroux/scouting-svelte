@@ -307,12 +307,6 @@ section * {
     width: 100%;
 }
 
-section > div {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-}
-
 section label {
     display: block;
 
