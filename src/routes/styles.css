@@ -163,6 +163,10 @@ nav a.active {
     color: var(--clr-foreground);
 }
 
+header nav img {
+    border-radius: var(--radius-element);
+}
+
 a {
     color: inherit;
 
@@ -281,6 +285,10 @@ header nav {
     gap: var(--header-gap);
 }
 
+header nav img {
+    height: var(--fs-500);
+}
+
 main .container {
     display: flex;
     flex-direction: column;
@@ -363,13 +371,9 @@ footer .container {
 
 /* layout media queries */
 
-@media screen and (max-width: 28rem) { /* phone */
-    header nav a { /* hide normal nav */
+@media screen and (max-width: 40rem) { /* phone */
+    header nav > a:has(em) {
         display: none;
-    }
-
-    header nav a:has(em) { /* show title */
-        display: block;
     }
 }
 
