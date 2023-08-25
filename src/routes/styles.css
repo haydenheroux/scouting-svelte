@@ -157,6 +157,8 @@ nav em {
 
 nav a {
     text-decoration: none;
+
+    text-wrap: nowrap;
 }
 
 nav a.active {
