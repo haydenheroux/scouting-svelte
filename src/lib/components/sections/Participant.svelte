@@ -42,7 +42,7 @@
     </div>
     <div>
         <label for="team">Team</label>
-        <input id="team" type="text" placeholder="5112" bind:value={participant.teamNumber}>
+        <input id="team" type="number" placeholder="5112" bind:value={participant.teamNumber}>
     </div>
     <div class="split">
         <button on:click={() => participant.alliance = "Red"} class:red={participant.alliance == "Red"}>Red Alliance</button>
