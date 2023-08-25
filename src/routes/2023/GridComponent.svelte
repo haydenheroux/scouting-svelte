@@ -54,7 +54,8 @@
     grid-template-columns: repeat(9, 1fr);
     justify-content: center;
     align-items: center;
-    gap: 0.875rem;
+
+    gap: 0.25rem;
 }
 
 .grid > * {
@@ -63,6 +64,7 @@
     border: 1px solid var(--clr-border);
 
     aspect-ratio: 1;
+    min-width: 1.85rem;
 }
 
 .grid .cube {
