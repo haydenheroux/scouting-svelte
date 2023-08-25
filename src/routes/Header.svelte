@@ -1,7 +1,7 @@
 <script>
     import NavLink from '$lib/components/NavLink.svelte';
 
-    import { assets, base } from '$app/paths';
+    import { base } from '$app/paths';
 </script>
 
 <header>
@@ -11,7 +11,7 @@
             <NavLink href="{base}/2024">2024</NavLink>
             <NavLink href="{base}/2023">2023</NavLink>
             <NavLink href="{base}/2022">2022</NavLink>
-            <NavLink href="{base}/data">Data</NavLink>
+            <NavLink href="{base}/codes">QR Codes</NavLink>
         </nav>
     </div>
 </header>
