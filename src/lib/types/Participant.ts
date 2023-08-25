@@ -1,4 +1,3 @@
-import type { Metrics } from "./Sections";
 import type { ParticipantQuery, SerialAlliance, SerialMatchType } from "./Serial";
 
 export type MatchType = "Qualification" | "Quarterfinal" | "Semifinal" | "Final";

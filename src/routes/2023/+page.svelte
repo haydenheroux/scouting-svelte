@@ -18,13 +18,7 @@
 	import { scoutedMatches } from '$lib/stores/stores';
 
 	/* participant */
-	let event: string;
-	let matchType: MatchType;
-	let matchNumber: number;
-	let team: string;
-
-	/* alliance */
-	let isRedAlliance: boolean;
+	let participant: Participant;
 
 	/* starting position */
 	let startingPoint: Array<Point>;
@@ -63,14 +57,6 @@
 	let qrCode = "";
 
 	function handleSubmit() {
-		const participant: Participant = {
-			event,
-			matchType,
-			matchNumber,
-			teamNumber: Number(team),
-			alliance: isRedAlliance ? "Red" : "Blue"
-		};
-
 		const metrics = {
 			startingPoint: pointToString(startingPoint[0]),
 			preload,
@@ -99,7 +85,7 @@
 	}
 </script>
 
-<ParticipantSelector bind:event bind:matchType bind:matchNumber bind:team bind:isRedAlliance />
+<ParticipantSelector bind:participant />
 <FieldSelector bind:points={startingPoint} field={field2023} name="Starting Position" help="Place where the robot starts the match." single={true}/>
 <CubeCone bind:selected={preload} name="Preloaded Game Piece" help="Game piece the robot stats the match with." />
 <BooleanSelector bind:value={mobility} name="Mobility" help="The robot fully leaves the community during auto." />

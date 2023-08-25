@@ -17,13 +17,7 @@
 	import { scoutedMatches } from '$lib/stores/stores';
 
 	/* participant */
-	let event: string;
-	let matchType: MatchType;
-	let matchNumber: number;
-	let team: string;
-
-	/* alliance */
-	let isRedAlliance: boolean;
+	let participant: Participant;
 
 	/* starting position */
 	let startingPoint: Array<Point>;
@@ -58,14 +52,6 @@
 	let qrCode = "";
 
 	function handleSubmit() {
-		const participant: Participant = {
-			event,
-			matchType,
-			matchNumber,
-			teamNumber: Number(team),
-			alliance: isRedAlliance ? "Red" : "Blue"
-		};
-
 		const metrics = {
 			startingPoint: pointToString(startingPoint[0]),
 			taxi: taxi.toString(),
@@ -94,7 +80,7 @@
 	}
 </script>
 
-<ParticipantSelector bind:event bind:matchType bind:matchNumber bind:team bind:isRedAlliance />
+<ParticipantSelector bind:participant />
 <FieldSelector bind:points={startingPoint} field={field2022} name="Starting Position" help="Place where the robot starts the match." single={true}/>
 <BooleanSelector bind:value={taxi} name="Auto Taxi" help="The robot fully leaves the tarmac during auto." />
 <NumberSelector bind:value={autoCargoScored} name="Auto Cargo Scored" help="Number of cargo scored by the robot during auto." />
