@@ -3,7 +3,7 @@
 	import ParticipantSelector from '$lib/components/selectors/ParticipantSelector.svelte';
 	import { globalParticipant, schedule } from '$lib/stores';
 	import { serialize, type Participant } from '$lib/types/Participant';
-	import { toMatchCode } from '$lib/types/Serialized';
+	import { getMatchCode } from '$lib/types/Serialized';
 
     function previousMatch() {
         const participant = globalParticipant.get();
@@ -20,7 +20,7 @@
     }
 
     function updateParticipant(participant: Participant) {
-        const matchCode = toMatchCode(serialize(participant));
+        const matchCode = getMatchCode(serialize(participant));
         
         const newTeamNumber = schedule.get()[matchCode];
         participant.teamNumber = newTeamNumber;

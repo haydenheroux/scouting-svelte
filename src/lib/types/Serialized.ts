@@ -1,3 +1,5 @@
+import type { Participant } from "./Participant";
+
 export type SerialMatchType = "qm" | "qf" | "sf" | "f";
 
 export type SerialAlliance = "red" | "blue";
@@ -11,7 +13,7 @@ export interface SerializedParticipant {
     alliance: SerialAlliance;
 }
 
-export function toMatchCode(participant: SerializedParticipant): string {
+export function getMatchCode(participant: SerializedParticipant): string {
     let s = "";
 	s += participant.type;
 
@@ -28,7 +30,7 @@ export function toMatchCode(participant: SerializedParticipant): string {
 export function getQueryString(participant: SerializedParticipant): URLSearchParams {
     return new URLSearchParams({
         team: participant.teamNumber.toString(),
-        match: toMatchCode(participant),
+        match: getMatchCode(participant),
         event: participant.event,
         alliance: participant.alliance
     });
