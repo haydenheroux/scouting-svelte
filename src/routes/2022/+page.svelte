@@ -1,20 +1,20 @@
 <script lang="ts">
-	import { doPost } from '$lib/util/Fetch';
+	import { doPost } from '$lib/util/fetch';
 	import field2022 from '$lib/images/fields/2022.jpg';
 	import ParticipantSelector from '$lib/components/sections/Participant.svelte';
-	import FieldSelector from '$lib/components/metrics/Field.svelte';
-	import BooleanSelector from '$lib/components/metrics/Boolean.svelte';
-	import MultipleOptionSelector from '$lib/components/metrics/Selection.svelte';
-	import NumberSelector from '$lib/components/metrics/Number.svelte';
+	import FieldSelector from '$lib/components/selectors/FieldSelector.svelte';
+	import BooleanSelector from '$lib/components/selectors/BooleanSelector.svelte';
+	import MultipleOptionSelector from '$lib/components/selectors/OptionSelector.svelte';
+	import NumberSelector from '$lib/components/selectors/NumberSelector.svelte';
 	import Submit from '$lib/components/sections/Submit.svelte';
-	import Notes from '$lib/components/metrics/Notes.svelte';
-	import { toParticipantQuery, type MatchType, type Participant } from '$lib/types/Participant';
-	import type { Defense } from '$lib/types/Metrics';
-	import type { ClimbLevel } from './Metrics';
-	import { type Point, pointToString } from '$lib/interfaces/Point';
-	import { arrayToObject } from '$lib/util/Array';
+	import Notes from '$lib/components/selectors/NotesComposer.svelte';
+	import { serialize, type Participant } from '$lib/types/Participant';
+	import type { Defense } from '$lib/metrics/universal';
+	import type { ClimbLevel } from '$lib/metrics/2022';
+	import { type Point, pointToString } from '$lib/types/Point';
+	import { arrayToObject } from '$lib/util/array';
 	import QRCode from '$lib/components/sections/QRCode.svelte';
-	import { scoutedMatches } from '$lib/stores/stores';
+	import { scoutedMatches } from '$lib/stores';
 
 	/* participant */
 	let participant: Participant;
@@ -66,13 +66,13 @@
 			scouterName
 		};
 
-		// TODO notify user
-		doPost(new URL("http://localhost/api/add-metrics"), toParticipantQuery(participant), metrics);
-
 		const scouted = {
-			participantQuery: toParticipantQuery(participant),
+			participant: serialize(participant),
 			metrics
 		}
+
+		// TODO notify user
+		doPost(new URL("http://localhost/api/add-metrics"), scouted);
 
 		qrCode = JSON.stringify(scouted);
 

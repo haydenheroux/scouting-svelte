@@ -1,4 +1,4 @@
-import type { ParticipantQuery, SerialAlliance, SerialMatchType } from "./Serial";
+import type { SerializedParticipant, SerialAlliance, SerialMatchType } from "./Serialized";
 
 export type MatchType = "Qualification" | "Quarterfinal" | "Semifinal" | "Final";
 
@@ -30,7 +30,7 @@ function serializeAlliance(alliance: Alliance): SerialAlliance {
     return (alliance == "Red") ? "red" : "blue";
 }
 
-export function toParticipantQuery(participant: Participant): ParticipantQuery {
+export function serialize(participant: Participant): SerializedParticipant {
     return {
         teamNumber: participant.teamNumber,
         set: participant.matchType != "Qualification" ? participant.setNumber : 1,

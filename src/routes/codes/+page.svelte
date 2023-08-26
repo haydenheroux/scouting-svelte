@@ -1,8 +1,8 @@
 <script lang="ts">
 	import QRCode  from '$lib/components/sections/QRCode.svelte';
 	import Section from "$lib/components/Section.svelte";
-    import { scoutedMatches } from "$lib/stores/stores";
-	import { toMatchCode } from "$lib/types/Serial";
+    import { scoutedMatches } from "$lib/stores";
+	import { toMatchCode } from "$lib/types/Serialized";
 
     let matchesOrNull = scoutedMatches.getOrNull();
     let matches = (matchesOrNull === null) ? [] : matchesOrNull; 

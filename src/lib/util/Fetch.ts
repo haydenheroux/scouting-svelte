@@ -1,12 +1,11 @@
-import type { Metrics } from "$lib/types/Metrics";
-import { getQueryString, type ParticipantQuery } from "$lib/types/Serial";
+import { getQueryString, type Serialized } from "$lib/types/Serialized";
 
-export async function doPost(url: URL, participantQuery: ParticipantQuery, metrics: Metrics) {
-    return await fetch(`${url}?${getQueryString(participantQuery)}`, {
+export async function doPost(url: URL, serialized: Serialized) {
+    return await fetch(`${url}?${getQueryString(serialized.participant)}`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify(metrics)
+        body: JSON.stringify(serialized.metrics)
     });
 }

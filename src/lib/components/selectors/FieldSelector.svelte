@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { normalize, scale, type Point } from '$lib/interfaces/Point';
+	import { normalize, scale, type Point } from '$lib/types/Point';
     import { onMount } from 'svelte';
 	import Section from '../Section.svelte';
 

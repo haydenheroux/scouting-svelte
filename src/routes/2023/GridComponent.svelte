@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Section from "$lib/components/Section.svelte";
-    import type { Grid } from "./Metrics";
+    import type { Grid } from "$lib/metrics/2023";
 
     export let name: string;
     export let help: string;
