@@ -1,15 +1,10 @@
 <script lang="ts">
 	import Section from '../Section.svelte';
-	import type { Participant } from "$lib/types/Participant";
+	import { globalParticipant } from '$lib/stores';
 
-    export let participant: Participant = {
-        event: "",
-        matchType: "Qualification",
-        setNumber: 1,
-        matchNumber: 1,
-        teamNumber: 1,
-        alliance: "Red",
-    }
+    export let participant = globalParticipant.get();
+
+    $: participant && globalParticipant.set(participant);
 </script>
 
 <Section name="Select Participant">

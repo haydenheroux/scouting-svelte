@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { doPost } from '$lib/util/fetch';
 	import field2022 from '$lib/images/fields/2022.jpg';
-	import ParticipantSelector from '$lib/components/sections/Participant.svelte';
+	import ParticipantSelector from '$lib/components/selectors/ParticipantSelector.svelte';
 	import FieldSelector from '$lib/components/selectors/FieldSelector.svelte';
 	import BooleanSelector from '$lib/components/selectors/BooleanSelector.svelte';
 	import MultipleOptionSelector from '$lib/components/selectors/OptionSelector.svelte';
