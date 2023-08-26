@@ -81,7 +81,7 @@
 
 		qrCode = JSON.stringify(scouted);
 
-		scoutedMatches.push(scouted);
+		scoutedMatches.set([...scoutedMatches.get(), scouted]);
 	}
 </script>
 
