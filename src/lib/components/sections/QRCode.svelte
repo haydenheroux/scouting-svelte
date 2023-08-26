@@ -2,39 +2,51 @@
 	import { onMount } from 'svelte';
 	// @ts-ignore
 	import { default as QrCode } from 'qrious';
-	import Section from '../Section.svelte';
 
 	const QRcode = new QrCode();
 
-	export let errorCorrection = "L";
+	export let errorCorrection = "H";
 	export let background = "#fff";
 	export let color = "#000";
 	export let value = "";
 
-	let image = '';
+	export let showable = false;
+	let showing = showable ? false : true;
 
-	function generateQrCode() {
+	let dataURL = '';
+
+	function generateQRCode() {
+		if (!showing) console.log("Generated QR code while not showing.");
+
 		QRcode.set({
 			background,
 			foreground: color,
 			level: errorCorrection,
-			size: 2048, // TODO
+			size: 1024, // TODO
 			value,
 		});
 		
-		image = QRcode.toDataURL();
+		dataURL = QRcode.toDataURL();
+	}
+
+	function toggle() {
+		showing = !showing;
+
+		if (showing) generateQRCode();
 	}
 
 	$: {
-		if (value) {
-			generateQrCode();
-		}
+		if (value && showing) generateQRCode();
 	}
 
 	onMount(() => {
-		generateQrCode();
+		if (showing) generateQRCode();
 	});
-
 </script>
 
-<img src={image} alt={value}/>
+{#if showing}
+	<img src={dataURL} alt={value}/>
+{/if}
+{#if showable}
+	<button class="active" on:click={toggle}>{showing ? "Hide" : "Show"}</button>
+{/if}

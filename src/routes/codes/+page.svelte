@@ -10,6 +10,6 @@
 
 {#each matches as match}
     <Section name={`${match.participantQuery.event} ${toMatchCode(match.participantQuery)} - Team ${match.participantQuery.teamNumber}`}>
-        <QRCode value={JSON.stringify(match)}/>
+        <QRCode showable={true} value={JSON.stringify(match)}/>
     </Section>
 {/each}
