@@ -1,5 +1,9 @@
 import { browser } from "$app/environment";
+import { writable, type Subscriber } from "svelte/store";
+
 export function storable<T>(key: string, fallback: T) {
+    const store = writable(fallback);
+
     return {
         get: (): T => {
             if (!browser) return fallback;
@@ -19,9 +23,12 @@ export function storable<T>(key: string, fallback: T) {
         set: (value: T) => {
             if (!browser) return;
 
-            console.log(value);
-            
+            store.set(value);
+
             localStorage.setItem(key, JSON.stringify(value));
         },
+        subscribe: (subscriber: Subscriber<T>) => {
+            store.subscribe(subscriber);
+        }
     }
 }

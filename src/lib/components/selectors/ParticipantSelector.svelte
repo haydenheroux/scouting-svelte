@@ -5,6 +5,8 @@
     export let participant = globalParticipant.get();
 
     $: participant && globalParticipant.set(participant);
+
+    globalParticipant.subscribe(value => participant = value);
 </script>
 
 <Section name="Select Participant">
