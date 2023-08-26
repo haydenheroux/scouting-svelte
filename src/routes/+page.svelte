@@ -23,7 +23,7 @@
         const matchCode = toMatchCode(serialize(participant));
         
         const newTeamNumber = schedule.get()[matchCode];
-        participant.teamNumber = newTeamNumber === undefined ? 1000 : newTeamNumber;
+        participant.teamNumber = newTeamNumber;
 
         globalParticipant.set(participant);
     }
