@@ -2,6 +2,7 @@
 	import { onMount } from 'svelte';
 	// @ts-ignore
 	import { default as QrCode } from 'qrious';
+	import FullscreenableImage from '../FullscreenableImage.svelte';
 
 	const QRcode = new QrCode();
 
@@ -45,7 +46,7 @@
 </script>
 
 {#if showing}
-	<img src={dataURL} alt={value}/>
+	<FullscreenableImage src={dataURL} alt={value} />
 {/if}
 {#if showable}
 	<button class="active" on:click={toggle}>{showing ? "Hide" : "Show"}</button>
