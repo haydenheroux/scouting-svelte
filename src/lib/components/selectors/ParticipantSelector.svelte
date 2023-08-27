@@ -50,7 +50,7 @@
         <div class="split">
             <div>
                 <label for="type">Type</label>
-                <select bind:value={participant.matchType}>
+                <select id="type" bind:value={participant.matchType}>
                     <option value="Qualification">Qualification</option>
                     <option value="Quarterfinal">Quarterfinal</option>
                     <option value="Semifinal">Semifinal</option>
