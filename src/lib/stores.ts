@@ -6,9 +6,11 @@ export const scoutedMatches = storable<Array<Serialized>>("matches", [] as Array
 
 export const globalParticipant = storable<Participant>("participant", {} as Participant);
 
+export type MatchSchedule = Record<string, TeamNumberAndAlliance>;
+
 type TeamNumberAndAlliance = {
     teamNumber: number;
     alliance: SerializedAlliance;
 };
 
-export const schedule = storable<Record<string, TeamNumberAndAlliance>>("schedule", {})
+export const schedule = storable<MatchSchedule>("schedule", {})

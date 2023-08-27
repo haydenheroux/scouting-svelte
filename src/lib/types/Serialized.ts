@@ -4,6 +4,10 @@ export type SerializedMatchType = "qm" | "qf" | "sf" | "f";
 
 export type SerializedAlliance = "red" | "blue";
 
+export function deserializeAlliance(alliance: SerializedAlliance): Alliance {
+    return alliance == "red" ? "Red" : "Blue";
+}
+
 export type SerializedMatchCode = string;
 
 export interface SerializedParticipant {
@@ -13,10 +17,6 @@ export interface SerializedParticipant {
     type: SerializedMatchType;
     event: string;
     alliance: SerializedAlliance;
-}
-
-export function deserializeAlliance(alliance: SerializedAlliance): Alliance {
-    return alliance == "red" ? "Red" : "Blue";
 }
 
 export function getMatchCode(participant: SerializedParticipant): SerializedMatchCode {
@@ -40,6 +40,10 @@ export function getQueryString(participant: SerializedParticipant): URLSearchPar
         event: participant.event,
         alliance: participant.alliance
     });
+}
+
+export function getString(participant: SerializedParticipant): string {
+    return `${participant.event} ${getMatchCode(participant)} - Team ${participant.teamNumber}`
 }
 
 export type Metrics = Record<string, string>;

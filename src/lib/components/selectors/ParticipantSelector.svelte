@@ -90,13 +90,15 @@
 </Section>
 
 <style>
+.red, .blue {
+    color: var(--clr-foreground);
+}
+
 .red {
     background-color: var(--clr-red);
-    color: var(--clr-neutral-800);
 }
 
 .blue {
     background-color: var(--clr-blue);
-    color: var(--clr-neutral-800);
 }
 </style>

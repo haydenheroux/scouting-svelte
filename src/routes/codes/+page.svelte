@@ -2,13 +2,13 @@
 	import QRCode  from '$lib/components/sections/QRCodeDisplay.svelte';
 	import Section from "$lib/components/Section.svelte";
     import { scoutedMatches } from "$lib/stores";
-	import { getMatchCode } from "$lib/types/Serialized";
+	import { getString } from "$lib/types/Serialized";
 
     let matches = scoutedMatches.get();
 </script>
 
 {#each matches as match}
-    <Section name={`${match.participant.event} ${getMatchCode(match.participant)} - Team ${match.participant.teamNumber}`}>
+    <Section name={getString(match.participant)}>
         <QRCode showable={true} value={JSON.stringify(match)}/>
     </Section>
 {/each}

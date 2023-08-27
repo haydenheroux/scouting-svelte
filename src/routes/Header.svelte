@@ -12,6 +12,7 @@
             <NavLink href="{base}/2023">2023</NavLink>
             <NavLink href="{base}/2022">2022</NavLink>
             <NavLink href="{base}/codes">QR Codes</NavLink>
+            <NavLink href="{base}/schedule">Schedule</NavLink>
         </nav>
     </div>
 </header>
