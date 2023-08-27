@@ -4,6 +4,16 @@ import { writable, type Subscriber } from "svelte/store";
 export function storable<T>(key: string, fallback: T) {
     const store = writable(fallback);
 
+    if (browser) {
+        const valueOrNull = localStorage.getItem(key);
+        
+        if (valueOrNull != null) {
+            const value = JSON.parse(valueOrNull);
+
+            store.set(value);
+        }
+    }
+
     return {
         get: (): T => {
             if (!browser) return fallback;
@@ -11,6 +21,8 @@ export function storable<T>(key: string, fallback: T) {
             const valueOrNull = localStorage.getItem(key);
 
             if (valueOrNull === null) {
+                console.log(`Key ${key} was null`);
+
                 localStorage.setItem(key, JSON.stringify(fallback));
 
                 return fallback;
