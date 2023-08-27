@@ -8,7 +8,7 @@ export interface SerializedParticipant {
     teamNumber: number;
     set: number;
     number: number;
-    type: SerialMatchType
+    type: SerialMatchType;
     event: string;
     alliance: SerialAlliance;
 }
