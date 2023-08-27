@@ -13,28 +13,28 @@
 		<link href="./_app/immutable/assets/3.ed9fc012.css" rel="stylesheet">
 		<link href="./_app/immutable/assets/array.20e86b96.css" rel="stylesheet">
 		<link href="./_app/immutable/assets/Serialized.f67b3dcb.css" rel="stylesheet">
-		<link href="./_app/immutable/assets/QRCode.5e98f770.css" rel="stylesheet">
+		<link href="./_app/immutable/assets/QRCodeDisplay.5e98f770.css" rel="stylesheet">
 		<link href="./_app/immutable/assets/ParticipantSelector.63f29628.css" rel="stylesheet">
-		<link rel="modulepreload" href="./_app/immutable/entry/start.28d76764.js">
+		<link rel="modulepreload" href="./_app/immutable/entry/start.b97c2f04.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/scheduler.cc2b1be1.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/singletons.02a43ebd.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/singletons.8053428b.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/index.8ad9ff12.js">
-		<link rel="modulepreload" href="./_app/immutable/entry/app.61af16aa.js">
+		<link rel="modulepreload" href="./_app/immutable/entry/app.62ba68fb.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/index.dcec8585.js">
-		<link rel="modulepreload" href="./_app/immutable/nodes/0.d0730650.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/stores.1cea99b9.js">
-		<link rel="modulepreload" href="./_app/immutable/nodes/3.d7801022.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/array.34c9c8cb.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/Serialized.e699b113.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/QRCode.bb0a4777.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/ParticipantSelector.73ded163.js">
+		<link rel="modulepreload" href="./_app/immutable/nodes/0.e1f22cb6.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/stores.9aae1748.js">
+		<link rel="modulepreload" href="./_app/immutable/nodes/3.d033d78d.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/array.95eba9fd.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/Serialized.186bdc36.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/QRCodeDisplay.b30523a9.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/ParticipantSelector.222b0b51.js">
 	</head>
 	<body data-sveltekit-preload-data="hover">
 		<div style="display: contents">  <div class="app"><header><div class="container"><nav><a href="/" data-svelte-h="svelte-10k7ccz"><em>scouting-svelte</em></a> <a href="/2024">2024</a> <a href="/2023">2023</a> <a href="/2022" class="active">2022</a> <a href="/codes">QR Codes</a></nav></div></header> <main><div class="container"><section><div class="header svelte-1jqrabp"><h2>Select Event</h2> </div> <div><label for="event" data-svelte-h="svelte-c93zhd">Event Code</label> <input id="event" type="text" placeholder="2023mawne"></div> </section> <section><div class="header svelte-1jqrabp"><h2>Select Match</h2> </div> <div><div class="split"><div><label for="type" data-svelte-h="svelte-15475si">Type</label> <select id="type"><option value="Qualification" data-svelte-h="svelte-j9rxec">Qualification</option><option value="Quarterfinal" data-svelte-h="svelte-iblccu">Quarterfinal</option><option value="Semifinal" data-svelte-h="svelte-1h74wqm">Semifinal</option><option value="Final" data-svelte-h="svelte-1aomxam">Final</option></select></div> <div><label for="set" data-svelte-h="svelte-1wmixl6">Set</label> <input id="set" type="number" placeholder="1" min="1"></div> <div><label for="match" data-svelte-h="svelte-odx92s">Match</label> <input id="match" type="number" placeholder="1" min="1"></div></div></div> <div class="split"><button class="active" data-svelte-h="svelte-14efff9">Previous Match</button> <button class="active" data-svelte-h="svelte-w3g125">Next Match</button></div> </section> <section><div class="header svelte-1jqrabp"><h2>Select Team</h2> </div> <div><label for="team" data-svelte-h="svelte-vt8iuu">Team</label> <input id="team" type="number" placeholder="5112"></div> <div class="split"><button class="svelte-1voel0f" data-svelte-h="svelte-qhbisl">Red Alliance</button> <button class="svelte-1voel0f" data-svelte-h="svelte-18o0a45">Blue Alliance</button></div> </section> <section><div class="header svelte-1jqrabp"><h2>Starting Position</h2> <div class="help svelte-1jqrabp"><span class="icon svelte-1jqrabp" data-svelte-h="svelte-qca8pv">?</span> <div class="body svelte-1jqrabp"><!-- HTML_TAG_START -->Place where the robot starts the match.<!-- HTML_TAG_END --></div></div></div> <canvas></canvas> <button class="primary" data-svelte-h="svelte-1noky5v">Undo</button> </section> <section><div class="header svelte-1jqrabp"><h2>Auto Taxi</h2> <div class="help svelte-1jqrabp"><span class="icon svelte-1jqrabp" data-svelte-h="svelte-qca8pv">?</span> <div class="body svelte-1jqrabp"><!-- HTML_TAG_START -->The robot fully leaves the tarmac during auto.<!-- HTML_TAG_END --></div></div></div> <div class="split"><button class="active">No</button> <button>Yes</button></div> </section> <section><div class="header svelte-1jqrabp"><h2>Auto Cargo Scored</h2> <div class="help svelte-1jqrabp"><span class="icon svelte-1jqrabp" data-svelte-h="svelte-qca8pv">?</span> <div class="body svelte-1jqrabp"><!-- HTML_TAG_START -->Number of cargo scored by the robot during auto.<!-- HTML_TAG_END --></div></div></div> <div class="svelte-1yjogw8"><button class="primary minus svelte-1yjogw8" data-svelte-h="svelte-175tavg">-</button> <input type="number" min="0" value="0"> <button class="primary plus svelte-1yjogw8" data-svelte-h="svelte-9r9cs0">+</button></div> </section> <section><div class="header svelte-1jqrabp"><h2>Teleop Makes</h2> <div class="help svelte-1jqrabp"><span class="icon svelte-1jqrabp" data-svelte-h="svelte-qca8pv">?</span> <div class="body svelte-1jqrabp"><!-- HTML_TAG_START -->Places where the robot scores during teleop.<!-- HTML_TAG_END --></div></div></div> <canvas></canvas> <button class="primary" data-svelte-h="svelte-1noky5v">Undo</button> </section> <section><div class="header svelte-1jqrabp"><h2>Teleop Misses</h2> <div class="help svelte-1jqrabp"><span class="icon svelte-1jqrabp" data-svelte-h="svelte-qca8pv">?</span> <div class="body svelte-1jqrabp"><!-- HTML_TAG_START -->Places where the robot tries scoring during teleop but misses.<!-- HTML_TAG_END --></div></div></div> <canvas></canvas> <button class="primary" data-svelte-h="svelte-1noky5v">Undo</button> </section> <section><div class="header svelte-1jqrabp"><h2>Teleop Lower Hub Cargo Scored</h2> <div class="help svelte-1jqrabp"><span class="icon svelte-1jqrabp" data-svelte-h="svelte-qca8pv">?</span> <div class="body svelte-1jqrabp"><!-- HTML_TAG_START -->Cargo scored in the lower hub during teleop.<!-- HTML_TAG_END --></div></div></div> <div class="svelte-1yjogw8"><button class="primary minus svelte-1yjogw8" data-svelte-h="svelte-175tavg">-</button> <input type="number" min="0" value="0"> <button class="primary plus svelte-1yjogw8" data-svelte-h="svelte-9r9cs0">+</button></div> </section> <section><div class="header svelte-1jqrabp"><h2>Teleop Upper Hub Cargo Scored</h2> <div class="help svelte-1jqrabp"><span class="icon svelte-1jqrabp" data-svelte-h="svelte-qca8pv">?</span> <div class="body svelte-1jqrabp"><!-- HTML_TAG_START -->Cargo scored in the upper hub during teleop.<!-- HTML_TAG_END --></div></div></div> <div class="svelte-1yjogw8"><button class="primary minus svelte-1yjogw8" data-svelte-h="svelte-175tavg">-</button> <input type="number" min="0" value="0"> <button class="primary plus svelte-1yjogw8" data-svelte-h="svelte-9r9cs0">+</button></div> </section> <section><div class="header svelte-1jqrabp"><h2>Climb Level</h2> <div class="help svelte-1jqrabp"><span class="icon svelte-1jqrabp" data-svelte-h="svelte-qca8pv">?</span> <div class="body svelte-1jqrabp"><!-- HTML_TAG_START -->Level the robot climbed to.<!-- HTML_TAG_END --></div></div></div> <div class="split"><button>None</button><button>Attempted</button><button>Low</button><button>Middle</button><button>High</button><button>Traversal</button></div> </section> <section><div class="header svelte-1jqrabp"><h2>Defense</h2> <div class="help svelte-1jqrabp"><span class="icon svelte-1jqrabp" data-svelte-h="svelte-qca8pv">?</span> <div class="body svelte-1jqrabp"><!-- HTML_TAG_START -->Quality of defense played.<br/>Effective defense prevents a score.<br/>Very effective defense prevents multiple scores.<!-- HTML_TAG_END --></div></div></div> <div class="split"><button>None</button><button>Attempted</button><button>Effective</button><button>Very Effective</button></div> </section> <section><div class="header svelte-1jqrabp"><h2>Notes</h2> </div> <div class="svelte-tbpijv"><input type="text" placeholder="" value=""> <button class="primary add" data-svelte-h="svelte-1rhr61c">+</button></div>  </section> <section><div class="header svelte-1jqrabp"><h2>Submit</h2> </div> <div><label for="scouter" data-svelte-h="svelte-1dsqkj9">Scouter Name</label> <input id="scouter" type="text" placeholder="Scouter Name" value=""></div> <button class="primary" data-svelte-h="svelte-88s059">Generate QR Code</button> </section> </div></main> <footer data-svelte-h="svelte-bk05e3"><div class="container"><p>Built by <a href="https://github.com/haydenheroux/">Hayden Heroux</a>.</p> <p>Source code on <a href="https://github.com/haydenheroux/scouting-svelte/">GitHub</a>.</p></div></footer></div> 
 			
 			<script>
 				{
-					__sveltekit_1xdy9x9 = {
+					__sveltekit_1blxgsd = {
 						base: new URL(".", location).pathname.slice(0, -1),
 						env: {}
 					};
@@ -44,8 +44,8 @@
 					const data = [null,null];
 
 					Promise.all([
-						import("./_app/immutable/entry/start.28d76764.js"),
-						import("./_app/immutable/entry/app.61af16aa.js")
+						import("./_app/immutable/entry/start.b97c2f04.js"),
+						import("./_app/immutable/entry/app.62ba68fb.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 3],
