@@ -1,19 +1,25 @@
-import type { Participant } from "./Participant";
+import type { Alliance } from "./Participant";
 
-export type SerialMatchType = "qm" | "qf" | "sf" | "f";
+export type SerializedMatchType = "qm" | "qf" | "sf" | "f";
 
-export type SerialAlliance = "red" | "blue";
+export type SerializedAlliance = "red" | "blue";
+
+export type SerializedMatchCode = string;
 
 export interface SerializedParticipant {
     teamNumber: number;
     set: number;
     number: number;
-    type: SerialMatchType;
+    type: SerializedMatchType;
     event: string;
-    alliance: SerialAlliance;
+    alliance: SerializedAlliance;
 }
 
-export function getMatchCode(participant: SerializedParticipant): string {
+export function deserializeAlliance(alliance: SerializedAlliance): Alliance {
+    return alliance == "red" ? "Red" : "Blue";
+}
+
+export function getMatchCode(participant: SerializedParticipant): SerializedMatchCode {
     let s = "";
 	s += participant.type;
 

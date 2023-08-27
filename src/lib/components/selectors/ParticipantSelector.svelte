@@ -2,7 +2,7 @@
 	import Section from '../Section.svelte';
 	import { globalParticipant, schedule } from '$lib/stores';
 	import { serialize, type Participant } from '$lib/types/Participant';
-	import { getMatchCode } from '$lib/types/Serialized';
+	import { deserializeAlliance, getMatchCode } from '$lib/types/Serialized';
 
     export let participant = globalParticipant.get();
 
@@ -31,7 +31,7 @@
 
         if (teamNumberAndAllianceOrNull != null) {
             participant.teamNumber = teamNumberAndAllianceOrNull.teamNumber;
-            participant.alliance = teamNumberAndAllianceOrNull.alliance;
+            participant.alliance = deserializeAlliance(teamNumberAndAllianceOrNull.alliance);
         }
 
         globalParticipant.set(participant);

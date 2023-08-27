@@ -1,4 +1,4 @@
-import type { SerializedParticipant, SerialAlliance, SerialMatchType } from "./Serialized";
+import type { SerializedParticipant, SerializedAlliance, SerializedMatchType } from "./Serialized";
 
 export type MatchType = "Qualification" | "Quarterfinal" | "Semifinal" | "Final";
 
@@ -13,7 +13,7 @@ export interface Participant {
     alliance: Alliance;
 }
 
-function serializeMatchType(matchType: MatchType): SerialMatchType {
+function serializeMatchType(matchType: MatchType): SerializedMatchType {
     switch (matchType) {
         case "Qualification":
             return "qm";
@@ -26,7 +26,7 @@ function serializeMatchType(matchType: MatchType): SerialMatchType {
     }
 } 
 
-function serializeAlliance(alliance: Alliance): SerialAlliance {
+function serializeAlliance(alliance: Alliance): SerializedAlliance {
     return (alliance == "Red") ? "red" : "blue";
 }
 
