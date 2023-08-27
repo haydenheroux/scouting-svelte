@@ -13,7 +13,7 @@
 	import { gridToObject, type ChargeStation, type GamePiece, type Grid, type Substation } from '$lib/metrics/2023';
 	import type { Defense } from '$lib/metrics/universal';
 	import { arrayToObject } from '$lib/util/array';
-	import QRCode from '$lib/components/sections/QRCode.svelte';
+	import QRCode from '$lib/components/sections/QRCodeDisplay.svelte';
 	import { scoutedMatches } from '$lib/stores';
 	import { serialize, type Participant } from '$lib/types/Participant';
 

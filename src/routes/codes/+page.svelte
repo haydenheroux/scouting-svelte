@@ -1,5 +1,5 @@
 <script lang="ts">
-	import QRCode  from '$lib/components/sections/QRCode.svelte';
+	import QRCode  from '$lib/components/sections/QRCodeDisplay.svelte';
 	import Section from "$lib/components/Section.svelte";
     import { scoutedMatches } from "$lib/stores";
 	import { getMatchCode } from "$lib/types/Serialized";

@@ -13,7 +13,7 @@
 	import type { ClimbLevel } from '$lib/metrics/2022';
 	import { type Point, pointToString } from '$lib/types/Point';
 	import { arrayToObject } from '$lib/util/array';
-	import QRCode from '$lib/components/sections/QRCode.svelte';
+	import QRCode from '$lib/components/sections/QRCodeDisplay.svelte';
 	import { scoutedMatches } from '$lib/stores';
 
 	/* participant */

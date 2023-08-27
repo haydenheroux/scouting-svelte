@@ -24,7 +24,7 @@
 			foreground: color,
 			level: errorCorrection,
 			size: 1024, // TODO
-			padding: 32, // TODO
+			padding: 128, // TODO
 			value,
 		});
 		
