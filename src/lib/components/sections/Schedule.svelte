@@ -1,31 +1,38 @@
 <script lang="ts">
 	import { schedule } from "$lib/stores";
     import Section from "../Section.svelte";
+
+    function clear() {
+        schedule.clear();
+    }
 </script>
 
 <Section name="Schedule">
-<table>
-    <thead>
-        <tr>
-            <th>Match</th>
-            <th>Team</th>
-            <th>Alliance</th>
-        </tr>
-    </thead>
-{#each Object.entries(schedule.get()) as [match, participant]}
-<tr>
-    <td>{match}</td>
-    <td>{participant.teamNumber}</td>
-    {#if participant.alliance == "red"}
-        <td class="red">{participant.alliance}</td>
-    {:else if participant.alliance == "blue"}
-        <td class="blue">{participant.alliance}</td>
-    {:else}
-        <td>{participant.alliance}</td>
-    {/if}
-</tr>
-{/each}
-</table>
+    <table>
+        <thead>
+            <tr>
+                <th>Match</th>
+                <th>Team</th>
+                <th>Alliance</th>
+            </tr>
+        </thead>
+        <tbody>
+            {#each Object.entries(schedule.get()) as [match, participant]}
+                <tr>
+                    <td>{match}</td>
+                    <td>{participant.teamNumber}</td>
+                    {#if participant.alliance == "red"}
+                        <td class="red">{participant.alliance}</td>
+                    {:else if participant.alliance == "blue"}
+                        <td class="blue">{participant.alliance}</td>
+                    {:else}
+                        <td>{participant.alliance}</td>
+                    {/if}
+                </tr>
+            {/each}
+        </tbody>
+    </table>
+    <button class="active" on:click={clear}>Clear</button>
 </Section>
 
 <style>

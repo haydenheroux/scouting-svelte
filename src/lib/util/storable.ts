@@ -39,6 +39,13 @@ export function storable<T>(key: string, fallback: T) {
 
             localStorage.setItem(key, JSON.stringify(value));
         },
+        clear: () => {
+            if (!browser) return;
+
+            store.set(fallback);
+
+            localStorage.setItem(key, JSON.stringify(fallback));
+        },
         subscribe: (subscriber: Subscriber<T>) => {
             store.subscribe(subscriber);
         }
