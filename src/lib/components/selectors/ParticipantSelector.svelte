@@ -32,6 +32,9 @@
         if (teamNumberAndAllianceOrNull != null) {
             participant.teamNumber = teamNumberAndAllianceOrNull.teamNumber;
             participant.alliance = deserializeAlliance(teamNumberAndAllianceOrNull.alliance);
+        } else {
+            participant.teamNumber = null;
+            participant.alliance = null;
         }
 
         globalParticipant.set(participant);

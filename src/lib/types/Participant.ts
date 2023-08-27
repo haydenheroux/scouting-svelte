@@ -9,8 +9,8 @@ export interface Participant {
     matchType: MatchType;
     setNumber: number;
     matchNumber: number;
-    teamNumber: number;
-    alliance: Alliance;
+    teamNumber: number | null;
+    alliance: Alliance | null;
 }
 
 function serializeMatchType(matchType: MatchType): SerializedMatchType {
@@ -32,11 +32,11 @@ function serializeAlliance(alliance: Alliance): SerializedAlliance {
 
 export function serialize(participant: Participant): SerializedParticipant {
     return {
-        teamNumber: participant.teamNumber,
+        teamNumber: participant.teamNumber ?? -1, // TODO
         set: participant.matchType != "Qualification" ? participant.setNumber : 1,
         number: participant.matchNumber,
         type: serializeMatchType(participant.matchType),
         event: participant.event,
-        alliance: serializeAlliance(participant.alliance)
+        alliance: serializeAlliance(participant.alliance ?? "Red")
     }
 }
