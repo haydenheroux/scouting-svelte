@@ -33,9 +33,11 @@
             {/each}
         </tbody>
     </table>
-    <button class="active" on:click={clear}>Clear</button>
 </Section>
 {/each}
+<Section name="Clear">
+    <button class="active" on:click={clear}>Clear</button>
+</Section>
 
 <style>
 table tr {
