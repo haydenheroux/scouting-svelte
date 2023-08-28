@@ -14,7 +14,7 @@
 	import type { Defense } from '$lib/metrics/universal';
 	import { arrayToObject } from '$lib/util/array';
 	import QRCode from '$lib/components/sections/QRCodeDisplay.svelte';
-	import { scoutedMatches } from '$lib/stores';
+	import { matchesStore } from '$lib/stores';
 	import { serialize, type Participant } from '$lib/types/Participant';
 
 	/* participant */
@@ -81,7 +81,7 @@
 
 		qrCode = JSON.stringify(scouted);
 
-		scoutedMatches.set([...scoutedMatches.get(), scouted]);
+		matchesStore.set([...matchesStore.get(), scouted]);
 	}
 </script>
 

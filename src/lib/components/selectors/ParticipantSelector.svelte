@@ -1,43 +1,44 @@
 <script lang="ts">
 	import Section from '../Section.svelte';
-	import { globalParticipant, schedule } from '$lib/stores';
+	import { getTeamAndAllianceOrNull, participantStore } from '$lib/stores';
 	import { serialize, type Participant } from '$lib/types/Participant';
 	import { deserializeAlliance, getMatchCode } from '$lib/types/Serialized';
 
-    export let participant = globalParticipant.get();
+    export let participant = participantStore.get();
 
-    $: participant && globalParticipant.set(participant);
+    $: participant && updateParticipant(participant);
 
-    globalParticipant.subscribe(value => participant = value);
+    participantStore.subscribe(value => participant = value);
 
     function previousMatch() {
-        const participant = globalParticipant.get();
+        const participant = participantStore.get();
         if (participant.matchNumber > 1) participant.matchNumber -= 1;
 
         updateParticipant(participant);
     }
 
     function nextMatch() {
-        const participant = globalParticipant.get();
+        const participant = participantStore.get();
         participant.matchNumber += 1;
 
         updateParticipant(participant);
     }
 
     function updateParticipant(participant: Participant) {
+        const eventCode = participant.event;
         const matchCode = getMatchCode(serialize(participant));
         
-        const teamNumberAndAllianceOrNull = schedule.get()[matchCode] ?? null;
+        const teamAndAllianceOrNull = getTeamAndAllianceOrNull(eventCode, matchCode);
 
-        if (teamNumberAndAllianceOrNull != null) {
-            participant.teamNumber = teamNumberAndAllianceOrNull.teamNumber;
-            participant.alliance = deserializeAlliance(teamNumberAndAllianceOrNull.alliance);
+        if (teamAndAllianceOrNull != null) {
+            participant.teamNumber = teamAndAllianceOrNull.team;
+            participant.alliance = deserializeAlliance(teamAndAllianceOrNull.alliance);
         } else {
             participant.teamNumber = null;
             participant.alliance = null;
         }
 
-        globalParticipant.set(participant);
+        participantStore.set(participant);
     }
 </script>
 

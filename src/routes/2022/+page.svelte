@@ -14,7 +14,7 @@
 	import { type Point, pointToString } from '$lib/types/Point';
 	import { arrayToObject } from '$lib/util/array';
 	import QRCode from '$lib/components/sections/QRCodeDisplay.svelte';
-	import { scoutedMatches } from '$lib/stores';
+	import { matchesStore } from '$lib/stores';
 
 	/* participant */
 	let participant: Participant;
@@ -76,7 +76,7 @@
 
 		qrCode = JSON.stringify(scouted);
 
-		scoutedMatches.set([...scoutedMatches.get(), scouted]);
+		matchesStore.set([...matchesStore.get(), scouted]);
 	}
 </script>
 

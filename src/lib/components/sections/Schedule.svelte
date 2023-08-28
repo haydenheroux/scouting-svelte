@@ -1,13 +1,14 @@
 <script lang="ts">
-	import { schedule } from "$lib/stores";
+	import { schedulesStore } from "$lib/stores";
     import Section from "../Section.svelte";
 
     function clear() {
-        schedule.clear();
+        schedulesStore.clear();
     }
 </script>
 
-<Section name="Schedule">
+{#each Object.entries(schedulesStore.get()) as [eventCode, matchToTeamAndAlliance]}
+<Section name={eventCode}>
     <table>
         <thead>
             <tr>
@@ -17,16 +18,16 @@
             </tr>
         </thead>
         <tbody>
-            {#each Object.entries(schedule.get()) as [match, participant]}
+            {#each Object.entries(matchToTeamAndAlliance) as [match, teamAndAlliance]}
                 <tr>
                     <td>{match}</td>
-                    <td>{participant.teamNumber}</td>
-                    {#if participant.alliance == "red"}
-                        <td class="red">{participant.alliance}</td>
-                    {:else if participant.alliance == "blue"}
-                        <td class="blue">{participant.alliance}</td>
+                    <td>{teamAndAlliance.team}</td>
+                    {#if teamAndAlliance.alliance == "red"}
+                        <td class="red">{teamAndAlliance.alliance}</td>
+                    {:else if teamAndAlliance.alliance == "blue"}
+                        <td class="blue">{teamAndAlliance.alliance}</td>
                     {:else}
-                        <td>{participant.alliance}</td>
+                        <td>{teamAndAlliance.alliance}</td>
                     {/if}
                 </tr>
             {/each}
@@ -34,6 +35,7 @@
     </table>
     <button class="active" on:click={clear}>Clear</button>
 </Section>
+{/each}
 
 <style>
 table tr {
