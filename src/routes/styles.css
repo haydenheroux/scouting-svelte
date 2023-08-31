@@ -175,8 +175,8 @@ section {
 }
 
 section button {
-    background-color: var(--clr-background);
-    color: var(--clr-faded);
+    background-color: var(--clr-neutral-800);
+    color: var(--clr-neutral-300);
 
     border: 1px solid var(--clr-border);
 
