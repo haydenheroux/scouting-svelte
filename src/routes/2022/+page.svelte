@@ -37,10 +37,10 @@
 	let teleopUpperCargoScored: number;
 
 	/* endgame climb level */
-	let climbLevel: ClimbLevel;
+	let climbLevel: ClimbLevel = "None";
 
 	/* defense */
-	let defense: Defense;
+	let defense: Defense = "None";
 
 	/* notes */
 	let notes: Array<string>;

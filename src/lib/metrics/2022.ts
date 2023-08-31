@@ -1,1 +1,1 @@
-export type ClimbLevel = "Low" | "Middle" | "High" | "Traversal";
+export type ClimbLevel = "None" | "Attempted" | "Low" | "Middle" | "High" | "Traversal";

@@ -33,7 +33,7 @@
 	let autoScores: Grid;
 
 	/* auto charge station */
-	let autoChargeStation: ChargeStation;
+	let autoChargeStation: ChargeStation = "None";
 
 	/* substation preference */
 	let substationPreference: Substation;
@@ -42,10 +42,10 @@
 	let teleopScores: Grid;
 
 	/* endgame charge station */
-	let endgameChargeStation: ChargeStation;
+	let endgameChargeStation: ChargeStation = "None";
 
 	/* defense */
-	let defense: Defense;
+	let defense: Defense = "None";
 
 	/* notes */
 	let notes: Array<string>;
