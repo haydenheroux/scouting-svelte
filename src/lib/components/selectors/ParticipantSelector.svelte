@@ -97,9 +97,13 @@
 
 .red {
     background-color: var(--clr-red);
+
+    border-color: var(--clr-red);
 }
 
 .blue {
     background-color: var(--clr-blue);
+
+    border-color: var(--clr-blue);
 }
 </style>
