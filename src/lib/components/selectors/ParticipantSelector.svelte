@@ -6,7 +6,7 @@
 
     export let participant = participantStore.get();
 
-    $: participant && updateParticipant(participant);
+    $: participant && participantStore.set(participant);
 
     participantStore.subscribe(value => participant = value);
 
