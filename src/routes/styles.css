@@ -26,18 +26,18 @@
     --fs-900: 3rem;
 
     /* colors */
-    --clr-neutral-100: hsl(0 0% 98%);
-    --clr-neutral-200: hsl(240 5% 64.9%);
-    --clr-neutral-300: color-mix(in lch, var(--clr-neutral-200), var(--clr-neutral-900));
+    --clr-neutral-100: #FAFAFA;
+    --clr-neutral-200: #DADADA;
+    --clr-neutral-300: #A8A8A8;
     --clr-neutral-400: red;
     --clr-neutral-500: red;
     --clr-neutral-600: red;
-    --clr-neutral-700: hsl(240 3.7% 15.9%);
-    --clr-neutral-800: hsl(240 5.9% 10%);
-    --clr-neutral-900: hsl(240 10% 3.9%);
-    --clr-red: #FF1744;
-    --clr-blue: #2979FF;
-    --clr-purple: #673AB7;
+    --clr-neutral-700: #595959;
+    --clr-neutral-800: #373737;
+    --clr-neutral-900: #090909;
+    --clr-red: #FF4253;
+    --clr-blue: #5385FF;
+    --clr-purple: #8B2CA7;
     --clr-yellow: #FFC400;
 
     /* element colors */
@@ -46,7 +46,7 @@
     --clr-inverted-background: var(--clr-neutral-100);
     --clr-inverted-foreground: var(--clr-neutral-800);
     --clr-border: var(--clr-neutral-700);
-    --clr-muted: var(--clr-neutral-200);
+    --clr-muted: var(--clr-neutral-300);
     --clr-faded: var(--clr-neutral-300);
 
     /* element sizes */
@@ -73,19 +73,15 @@
 
 @media (prefers-color-scheme: light) {
     :root {
-        --clr-neutral-100: #212121;
-        --clr-neutral-200: #757575;
-        --clr-neutral-300: #9E9E9E;
+        --clr-neutral-100: #090909;
+        --clr-neutral-200: #373737;
+        --clr-neutral-300: #595959;
         --clr-neutral-400: red;
         --clr-neutral-500: red;
         --clr-neutral-600: red;
-        --clr-neutral-700: #BDBDBD;
-        --clr-neutral-800: #FAFAFA;
+        --clr-neutral-700: #A8A8A8;
+        --clr-neutral-800: #DADADA;
         --clr-neutral-900: #FAFAFA;
-        --clr-red: #B71C1C;
-        --clr-blue: #0D47A1;
-        --clr-purple: #6200EA;
-        --clr-yellow: #FFB700;
     }
 }
 
