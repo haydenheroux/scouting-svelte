@@ -187,14 +187,11 @@ section button {
     border-radius: var(--radius-element);
 }
 
-section button.primary {
+section button.primary, section button.active {
     background-color: var(--clr-inverted-background);
     color: var(--clr-inverted-foreground);
-}
 
-section button.active {
-    background-color: var(--clr-inverted-background);
-    color: var(--clr-inverted-foreground);
+    border-color: var(--clr-inverted-background);
 }
 
 section input, section select {

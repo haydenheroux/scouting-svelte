@@ -15,9 +15,15 @@
 <style>
 :global(.cube_cone button:nth-of-type(1).active) { /* cube */
     background-color: var(--clr-purple);
+    color: var(--clr-background);
+
+    border-color: var(--clr-purple);
 }
 
 :global(.cube_cone button:nth-of-type(2).active) { /* cone */
     background-color: var(--clr-yellow);
+    color: var(--clr-background);
+
+    border-color: var(--clr-yellow);
 }
 </style>
