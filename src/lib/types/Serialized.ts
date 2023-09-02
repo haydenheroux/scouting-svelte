@@ -1,14 +1,29 @@
-import type { Alliance } from "./Participant";
+import type { Alliance, MatchType, Participant } from "./Participant";
 
 export type SerializedMatchType = "qm" | "qf" | "sf" | "f";
 
+export function matchTypeToSerializedMatchType(matchType: MatchType): SerializedMatchType {
+    switch (matchType) {
+        case "Qualification":
+            return "qm";
+        case "Quarterfinal":
+            return "qf";
+        case "Semifinal":
+            return "sf";
+        case "Final":
+            return "f";
+    }
+} 
+
 export type SerializedAlliance = "red" | "blue";
+
+export function allianceToSerialAlliance(alliance: Alliance): SerializedAlliance {
+    return (alliance == "Red") ? "red" : "blue";
+}
 
 export function deserializeAlliance(alliance: SerializedAlliance): Alliance {
     return alliance == "red" ? "Red" : "Blue";
 }
-
-export type SerializedMatchCode = string;
 
 export interface SerializedParticipant {
     teamNumber: number;
@@ -18,6 +33,19 @@ export interface SerializedParticipant {
     event: string;
     alliance: SerializedAlliance;
 }
+
+export function participantToSerializedParticipant(participant: Participant): SerializedParticipant {
+    return {
+        teamNumber: participant.team ?? -1, // TODO
+        set: participant.type != "Qualification" ? participant.set : 1,
+        number: participant.match,
+        type: matchTypeToSerializedMatchType(participant.type),
+        event: participant.event,
+        alliance: allianceToSerialAlliance(participant.alliance ?? "Red")
+    }
+}
+
+export type SerializedMatchCode = string;
 
 export function getMatchCode(participant: SerializedParticipant): SerializedMatchCode {
     let s = "";
@@ -33,6 +61,7 @@ export function getMatchCode(participant: SerializedParticipant): SerializedMatc
 	return s;
 }
 
+
 export function getQueryString(participant: SerializedParticipant): URLSearchParams {
     return new URLSearchParams({
         team: participant.teamNumber.toString(),
@@ -40,10 +69,6 @@ export function getQueryString(participant: SerializedParticipant): URLSearchPar
         event: participant.event,
         alliance: participant.alliance
     });
-}
-
-export function getString(participant: SerializedParticipant): string {
-    return `${participant.event} ${getMatchCode(participant)} - Team ${participant.teamNumber}`
 }
 
 export type Metrics = Record<string, string>;

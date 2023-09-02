@@ -15,7 +15,7 @@
 	import { arrayToObject } from '$lib/util/array';
 	import QRCode from '$lib/components/sections/QRCodeDisplay.svelte';
 	import { matchesStore } from '$lib/stores';
-	import { serialize, type Participant } from '$lib/types/Participant';
+	import { participantToSerializedParticipant, type Participant } from '$lib/types/Participant';
 
 	/* participant */
 	let participant: Participant;
@@ -72,7 +72,7 @@
 		};
 
 		const scouted = {
-			participant: serialize(participant),
+			participant: participantToSerializedParticipant(participant),
 			metrics
 		}
 

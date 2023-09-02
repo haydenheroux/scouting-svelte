@@ -1,8 +1,8 @@
 <script lang="ts">
 	import Section from '$lib/components/Section.svelte';
 	import { getTeamAndAllianceOrNull, participantStore } from '$lib/stores';
-	import { serialize, type Participant } from '$lib/types/Participant';
-	import { deserializeAlliance, getMatchCode } from '$lib/types/Serialized';
+	import { participantToSerializedParticipant, type Participant } from '$lib/types/Participant';
+	import { serializedAllianceToSerialAlliance, getMatchCode } from '$lib/types/Serialized';
 
     // Defaults the participant to the stored participant. Attempts to autofill.
     export let participant = attemptAutofillTeamAndAlliance(participantStore.get(), true);
@@ -29,7 +29,7 @@
         if (manual) return participant;
 
         const event = participant.event;
-        const match = getMatchCode(serialize(participant));
+        const match = getMatchCode(participantToSerializedParticipant(participant));
         
         const teamAndAllianceOrNull = getTeamAndAllianceOrNull(event, match);
 
@@ -37,7 +37,7 @@
         if (teamAndAllianceOrNull == null) return participant;
 
         participant.team = teamAndAllianceOrNull.team;
-        participant.alliance = deserializeAlliance(teamAndAllianceOrNull.alliance);
+        participant.alliance = serializedAllianceToSerialAlliance(teamAndAllianceOrNull.alliance);
 
         return participant;
     }

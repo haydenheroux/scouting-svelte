@@ -8,7 +8,7 @@
 	import NumberSelector from '$lib/components/selectors/NumberSelector.svelte';
 	import Submit from '$lib/components/sections/Submit.svelte';
 	import Notes from '$lib/components/selectors/NotesComposer.svelte';
-	import { serialize, type Participant } from '$lib/types/Participant';
+	import { participantToSerializedParticipant, type Participant } from '$lib/types/Participant';
 	import type { Defense } from '$lib/metrics/universal';
 	import type { ClimbLevel } from '$lib/metrics/2022';
 	import { type Point, pointToString } from '$lib/types/Point';
@@ -67,7 +67,7 @@
 		};
 
 		const scouted = {
-			participant: serialize(participant),
+			participant: participantToSerializedParticipant(participant),
 			metrics
 		}
 
