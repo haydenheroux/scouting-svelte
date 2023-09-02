@@ -6,10 +6,10 @@ export type Alliance = "Red" | "Blue";
 
 export interface Participant {
     event: string;
-    matchType: MatchType;
-    setNumber: number;
-    matchNumber: number;
-    teamNumber: number | null;
+    type: MatchType;
+    set: number;
+    match: number;
+    team: number | null;
     alliance: Alliance | null;
 }
 
@@ -32,10 +32,10 @@ function serializeAlliance(alliance: Alliance): SerializedAlliance {
 
 export function serialize(participant: Participant): SerializedParticipant {
     return {
-        teamNumber: participant.teamNumber ?? -1, // TODO
-        set: participant.matchType != "Qualification" ? participant.setNumber : 1,
-        number: participant.matchNumber,
-        type: serializeMatchType(participant.matchType),
+        teamNumber: participant.team ?? -1, // TODO
+        set: participant.type != "Qualification" ? participant.set : 1,
+        number: participant.match,
+        type: serializeMatchType(participant.type),
         event: participant.event,
         alliance: serializeAlliance(participant.alliance ?? "Red")
     }

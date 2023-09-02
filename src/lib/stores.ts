@@ -4,7 +4,7 @@ import { storable } from "./util/storable";
 
 export const matchesStore = storable<Array<Serialized>>("matches", [] as Array<Serialized>);
 
-export const participantStore = storable<Participant>("participant", { matchType: "Qualification", matchNumber: 1 } as Participant);
+export const participantStore = storable<Participant>("participant", { type: "Qualification", match: 1 } as Participant);
 
 export type EventSchedules = Record<string, MatchSchedule>;
 

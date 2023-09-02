@@ -4,39 +4,42 @@
 	import { serialize, type Participant } from '$lib/types/Participant';
 	import { deserializeAlliance, getMatchCode } from '$lib/types/Serialized';
 
-    export let participant = participantStore.get();
+    export let participant = autofill(participantStore.get());
 
-    $: participant && participantStore.set(participant);
-
-    participantStore.subscribe(value => participant = value);
+    $: participant, autofillAndStore();
 
     function previousMatch() {
-        const participant = participantStore.get();
-        if (participant.matchNumber > 1) participant.matchNumber -= 1;
+        const storedParticipant = participantStore.get();
 
-        updateParticipant(participant);
+        if (storedParticipant.match > 1) storedParticipant.match -= 1;
+
+        participant = autofill(storedParticipant);
     }
 
     function nextMatch() {
-        const participant = participantStore.get();
-        participant.matchNumber += 1;
+        const storedParticipant = participantStore.get();
 
-        updateParticipant(participant);
+        storedParticipant.match += 1;
+
+        participant = autofill(storedParticipant);
     }
 
-    function updateParticipant(participant: Participant) {
+    function autofill(participant: Participant): Participant {
         const eventCode = participant.event;
         const matchCode = getMatchCode(serialize(participant));
         
         const teamAndAllianceOrNull = getTeamAndAllianceOrNull(eventCode, matchCode);
 
-        if (teamAndAllianceOrNull != null) {
-            participant.teamNumber = teamAndAllianceOrNull.team;
-            participant.alliance = deserializeAlliance(teamAndAllianceOrNull.alliance);
-        } else {
-            participant.teamNumber = null;
-            participant.alliance = null;
-        }
+        if (teamAndAllianceOrNull == null) return participant;
+
+        participant.team = teamAndAllianceOrNull.team;
+        participant.alliance = deserializeAlliance(teamAndAllianceOrNull.alliance);
+
+        return participant;
+    }
+
+    function autofillAndStore() {
+        participant = autofill(participant);
 
         participantStore.set(participant);
     }
@@ -54,22 +57,22 @@
         <div class="split">
             <div>
                 <label for="type">Type</label>
-                <select id="type" bind:value={participant.matchType}>
+                <select id="type" bind:value={participant.type}>
                     <option value="Qualification">Qualification</option>
                     <option value="Quarterfinal">Quarterfinal</option>
                     <option value="Semifinal">Semifinal</option>
                     <option value="Final">Final</option>
                 </select>
             </div>
-            {#if participant.matchType != "Qualification"}
+            {#if participant.type != "Qualification"}
                 <div>
                     <label for="set">Set</label>
-                    <input id="set" type="number" placeholder="1" min="1" bind:value={participant.setNumber}>
+                    <input id="set" type="number" placeholder="1" min="1" bind:value={participant.set}>
                 </div>
             {/if}
             <div>
                 <label for="match">Match</label>
-                <input id="match" type="number" placeholder="1" min="1" bind:value={participant.matchNumber}>
+                <input id="match" type="number" placeholder="1" min="1" bind:value={participant.match}>
             </div>
         </div>
     </div>
@@ -82,7 +85,7 @@
 <Section name="Select Team">
     <div>
         <label for="team">Team</label>
-        <input id="team" type="number" placeholder="5112" bind:value={participant.teamNumber}>
+        <input id="team" type="number" placeholder="5112" bind:value={participant.team}>
     </div>
     <div class="split">
         <button on:click={() => participant.alliance = "Red"} class:red={participant.alliance == "Red"}>Red Alliance</button>
