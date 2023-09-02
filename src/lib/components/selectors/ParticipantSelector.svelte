@@ -5,10 +5,16 @@
 	import { deserializeAlliance, getMatchCode } from '$lib/types/Serialized';
 
     // Defaults the participant to the stored participant. Attempts to autofill.
-    export let participant = attemptAutofillTeamAndAlliance(participantStore.get());
+    export let participant = attemptAutofillTeamAndAlliance(participantStore.get(), true);
 
     // Whenever the participant is updated, attempt to autofill, then store the updated participant.
     $: participant, attemptAutofillTeamAndAllianceThenStore();
+
+    // Allows the user to manually override autofilling.
+    let manuallyOverriding: boolean = false;
+
+    // Whenever the manual override is changed, attempt to autofill, then store the updated participant.
+    $: manuallyOverriding, attemptAutofillTeamAndAllianceThenStore();
 
     /**
      * Attempts to automatically set a participant's team and alliance fields depending on the participant's event and match fields.
@@ -16,9 +22,12 @@
      * Mutates the provided participant.
      * 
      * @param participant The participant to mutate.
+     * @param manual If true, then the participant is not mutated.
      * @returns The participant with mutated team and alliance fields. 
      */
-    function attemptAutofillTeamAndAlliance(participant: Participant): Participant {
+    function attemptAutofillTeamAndAlliance(participant: Participant, manual: boolean): Participant {
+        if (manual) return participant;
+
         const event = participant.event;
         const match = getMatchCode(serialize(participant));
         
@@ -27,7 +36,6 @@
         // TODO Null team and alliance if not in schedule?
         if (teamAndAllianceOrNull == null) return participant;
 
-        // TODO Allow manual override
         participant.team = teamAndAllianceOrNull.team;
         participant.alliance = deserializeAlliance(teamAndAllianceOrNull.alliance);
 
@@ -40,7 +48,7 @@
      * @see attemptAutofillTeamAndAlliance
      */
     function attemptAutofillTeamAndAllianceThenStore() {
-        participant = attemptAutofillTeamAndAlliance(participant);
+        participant = attemptAutofillTeamAndAlliance(participant, manuallyOverriding);
 
         participantStore.set(participant);
     }
@@ -54,7 +62,7 @@
     function previousMatch() {
         if (participant.match > 1) participant.match -= 1;
 
-        participant = attemptAutofillTeamAndAlliance(participant);
+        participant = attemptAutofillTeamAndAlliance(participant, manuallyOverriding);
     }
 
     /**
@@ -66,7 +74,7 @@
     function nextMatch() {
         participant.match += 1;
 
-        participant = attemptAutofillTeamAndAlliance(participant);
+        participant = attemptAutofillTeamAndAlliance(participant, manuallyOverriding);
     }
 </script>
 
@@ -116,6 +124,7 @@
         <button on:click={() => participant.alliance = "Red"} class:red={participant.alliance == "Red"}>Red Alliance</button>
         <button on:click={() => participant.alliance = "Blue"} class:blue={participant.alliance == "Blue"}>Blue Alliance</button>
     </div>
+    <button on:click={() => manuallyOverriding = !manuallyOverriding} class:active={manuallyOverriding}>Manual Override</button>
 </Section>
 
 <style>
