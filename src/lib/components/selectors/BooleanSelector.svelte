@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Section from '../Section.svelte';
+	import Section from '$lib/components/Section.svelte'
     export let name: string;
     export let help: string;
 
