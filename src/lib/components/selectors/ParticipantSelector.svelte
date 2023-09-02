@@ -1,47 +1,72 @@
 <script lang="ts">
-	import Section from '../Section.svelte';
+	import Section from '$lib/components/Section.svelte';
 	import { getTeamAndAllianceOrNull, participantStore } from '$lib/stores';
 	import { serialize, type Participant } from '$lib/types/Participant';
 	import { deserializeAlliance, getMatchCode } from '$lib/types/Serialized';
 
-    export let participant = autofill(participantStore.get());
+    // Defaults the participant to the stored participant. Attempts to autofill.
+    export let participant = attemptAutofillTeamAndAlliance(participantStore.get());
 
-    $: participant, autofillAndStore();
+    // Whenever the participant is updated, attempt to autofill, then store the updated participant.
+    $: participant, attemptAutofillTeamAndAllianceThenStore();
 
-    function previousMatch() {
-        const storedParticipant = participantStore.get();
-
-        if (storedParticipant.match > 1) storedParticipant.match -= 1;
-
-        participant = autofill(storedParticipant);
-    }
-
-    function nextMatch() {
-        const storedParticipant = participantStore.get();
-
-        storedParticipant.match += 1;
-
-        participant = autofill(storedParticipant);
-    }
-
-    function autofill(participant: Participant): Participant {
-        const eventCode = participant.event;
-        const matchCode = getMatchCode(serialize(participant));
+    /**
+     * Attempts to automatically set a participant's team and alliance fields depending on the participant's event and match fields.
+     * 
+     * Mutates the provided participant.
+     * 
+     * @param participant The participant to mutate.
+     * @returns The participant with mutated team and alliance fields. 
+     */
+    function attemptAutofillTeamAndAlliance(participant: Participant): Participant {
+        const event = participant.event;
+        const match = getMatchCode(serialize(participant));
         
-        const teamAndAllianceOrNull = getTeamAndAllianceOrNull(eventCode, matchCode);
+        const teamAndAllianceOrNull = getTeamAndAllianceOrNull(event, match);
 
+        // TODO Null team and alliance if not in schedule?
         if (teamAndAllianceOrNull == null) return participant;
 
+        // TODO Allow manual override
         participant.team = teamAndAllianceOrNull.team;
         participant.alliance = deserializeAlliance(teamAndAllianceOrNull.alliance);
 
         return participant;
     }
 
-    function autofillAndStore() {
-        participant = autofill(participant);
+    /**
+     * Attempts to autofill the participant then stores.
+     * 
+     * @see attemptAutofillTeamAndAlliance
+     */
+    function attemptAutofillTeamAndAllianceThenStore() {
+        participant = attemptAutofillTeamAndAlliance(participant);
 
         participantStore.set(participant);
+    }
+
+    /**
+     * Sets the participant to the previous match.
+     * 
+     * Guards against invalid matches.
+     * Attemps to autofill the participant.
+     */
+    function previousMatch() {
+        if (participant.match > 1) participant.match -= 1;
+
+        participant = attemptAutofillTeamAndAlliance(participant);
+    }
+
+    /**
+     * Sets the participant to the next match.
+     * 
+     * Guards against invalid matches.
+     * Attemps to autofill the participant.
+     */
+    function nextMatch() {
+        participant.match += 1;
+
+        participant = attemptAutofillTeamAndAlliance(participant);
     }
 </script>
 
