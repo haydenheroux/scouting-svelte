@@ -1,8 +1,8 @@
 <script lang="ts">
 	import Section from '$lib/components/Section.svelte';
 	import { getTeamAndAllianceOrNull, participantStore } from '$lib/stores';
-	import { participantToSerializedParticipant, type Participant } from '$lib/types/Participant';
-	import { serializedAllianceToSerialAlliance, getMatchCode } from '$lib/types/Serialized';
+	import type { Participant } from '$lib/types/Participant';
+	import { getMatchCode, participantToSerializedParticipant } from '$lib/types/Serialized';
 
     // Defaults the participant to the stored participant. Attempts to autofill.
     export let participant = attemptAutofillTeamAndAlliance(participantStore.get(), true);
@@ -76,6 +76,11 @@
 
         participant = attemptAutofillTeamAndAlliance(participant, manuallyOverriding);
     }
+
+
+	function serializedAllianceToSerialAlliance(alliance: string): import("$lib/types/Participant").Alliance | null {
+		throw new Error('Function not implemented.');
+	}
 </script>
 
 <Section name="Select Event">
