@@ -8,13 +8,14 @@
 	import NumberSelector from '$lib/components/selectors/NumberSelector.svelte';
 	import Submit from '$lib/components/sections/Submit.svelte';
 	import Notes from '$lib/components/selectors/NotesComposer.svelte';
-	import { participantToSerializedParticipant, type Participant } from '$lib/types/Participant';
 	import type { Defense } from '$lib/metrics/universal';
 	import type { ClimbLevel } from '$lib/metrics/2022';
-	import { type Point, pointToString } from '$lib/types/Point';
 	import { arrayToObject } from '$lib/util/array';
 	import QRCode from '$lib/components/sections/QRCodeDisplay.svelte';
 	import { matchesStore } from '$lib/stores';
+	import type { Participant } from '$lib/types/Participant';
+	import type { Point } from '$lib/types/Point';
+	import { participantToSerializedParticipant } from '$lib/types/Serialized';
 
 	/* participant */
 	let participant: Participant;
@@ -53,11 +54,11 @@
 
 	function handleSubmit() {
 		const metrics = {
-			startingPoint: pointToString(startingPoint[0]),
+			startingPoint: startingPoint[0].toString(),
 			taxi: taxi.toString(),
 			autoCargoScored: autoCargoScored.toString(),
-			...arrayToObject("teleopMake", teleopMakes.map(pointToString)),
-			...arrayToObject("teleopMiss", teleopMisses.map(pointToString)),
+			...arrayToObject("teleopMake", teleopMakes.map(point => point.toString())),
+			...arrayToObject("teleopMiss", teleopMisses.map(point => point.toString())),
 			teleopLowerCargoScored: teleopLowerCargoScored.toString(),
 			teleopUpperCargoScored: teleopUpperCargoScored.toString(),
 			climbLevel,

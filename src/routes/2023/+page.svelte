@@ -9,13 +9,14 @@
 	import CubeCone from './CubeCone.svelte';
 	import GridComponent from './GridComponent.svelte';
 	import Notes from '$lib/components/selectors/NotesComposer.svelte';
-	import { pointToString, type Point } from '$lib/types/Point';
 	import { gridToObject, type ChargeStation, type GamePiece, type Grid, type Substation } from '$lib/metrics/2023';
 	import type { Defense } from '$lib/metrics/universal';
 	import { arrayToObject } from '$lib/util/array';
 	import QRCode from '$lib/components/sections/QRCodeDisplay.svelte';
 	import { matchesStore } from '$lib/stores';
-	import { participantToSerializedParticipant, type Participant } from '$lib/types/Participant';
+	import type { Participant } from '$lib/types/Participant';
+	import type { Point } from '$lib/types/Point';
+	import { participantToSerializedParticipant, type Serialized } from '$lib/types/Serialized';
 
 	/* participant */
 	let participant: Participant;
@@ -58,7 +59,7 @@
 
 	function handleSubmit() {
 		const metrics = {
-			startingPoint: pointToString(startingPoint[0]),
+			startingPoint: startingPoint[0].toString(),
 			preload,
 			mobility: mobility.toString(),
 			...gridToObject("autoScore", autoScores),
@@ -71,7 +72,7 @@
 			scouterName
 		};
 
-		const scouted = {
+		const scouted: Serialized = {
 			participant: participantToSerializedParticipant(participant),
 			metrics
 		}
