@@ -1,11 +1,11 @@
 <script lang="ts">
 	import Section from '$lib/components/Section.svelte';
-	import { getTeamAndAllianceOrNull, participantStore } from '$lib/stores';
+	import { getTeamAndAllianceOrNull, storedParticipant } from '$lib/stores';
 	import type { Participant } from '$lib/types/Participant';
 	import { getMatchCode, participantToSerializedParticipant } from '$lib/types/Serialized';
 
     // Defaults the participant to the stored participant. Attempts to autofill.
-    export let participant = attemptAutofillTeamAndAlliance(participantStore.get(), true);
+    export let participant = attemptAutofillTeamAndAlliance(storedParticipant.get(), true);
 
     // Whenever the participant is updated, attempt to autofill, then store the updated participant.
     $: participant, attemptAutofillTeamAndAllianceThenStore();
@@ -50,7 +50,7 @@
     function attemptAutofillTeamAndAllianceThenStore() {
         participant = attemptAutofillTeamAndAlliance(participant, manuallyOverriding);
 
-        participantStore.set(participant);
+        storedParticipant.set(participant);
     }
 
     /**

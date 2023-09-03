@@ -1,13 +1,13 @@
 <script lang="ts">
-	import { schedulesStore } from "$lib/stores";
+	import { storedSchedules } from "$lib/stores";
     import Section from "../Section.svelte";
 
     function clear() {
-        schedulesStore.clear();
+        storedSchedules.clear();
     }
 </script>
 
-{#each Object.entries(schedulesStore.get()) as [eventCode, matchToTeamAndAlliance]}
+{#each Object.entries(storedSchedules.get()) as [eventCode, matchToTeamAndAlliance]}
 <Section name={eventCode}>
     <table>
         <thead>

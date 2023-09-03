@@ -1,10 +1,10 @@
 <script lang="ts">
 	import QRCode  from '$lib/components/sections/QRCodeDisplay.svelte';
 	import Section from "$lib/components/Section.svelte";
-    import { matchesStore } from "$lib/stores";
+    import { storedMatches } from "$lib/stores";
 	import { getMatchCode } from '$lib/types/Serialized';
 
-    let matches = matchesStore.get();
+    let matches = storedMatches.get();
 </script>
 
 {#each matches as match}

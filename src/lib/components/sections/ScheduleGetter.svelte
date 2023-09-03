@@ -1,10 +1,10 @@
 <script lang="ts">
 	import QRCodeScanner from '$lib/components/sections/QRCodeScanner.svelte';
-	import { schedulesStore } from '$lib/stores';
+	import { storedSchedules } from '$lib/stores';
 
     let value: string;
 
-    $: value && schedulesStore.set(JSON.parse(value));
+    $: value && storedSchedules.set(JSON.parse(value));
 </script>
 
 <QRCodeScanner name="Get Schedule" bind:value={value} />
