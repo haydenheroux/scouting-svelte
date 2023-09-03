@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { normalize, scale, type Point } from '$lib/types/Point';
+	import { Point, dimensionsOfCanvas, pointOfMouseEvent } from '$lib/types/Point';
     import { onMount } from 'svelte';
 	import Section from '../Section.svelte';
 
@@ -34,14 +34,14 @@
     $: points && draw()
 
     function addPoint(point: Point) {
-        const norm = normalize(point, canvas.width, canvas.height);
+        const norm = point.normalize(dimensionsOfCanvas(canvas));
 
         if (single) points = [ norm ]
         else points = [...points, norm ]
     }
 
-    function handleMouse(event: MouseEvent) {
-        const point = { x: event.offsetX, y: event.offsetY };
+    function handleMouse(mouseEvent: MouseEvent) {
+        const point = pointOfMouseEvent(mouseEvent);
 
         addPoint(point);
     }
@@ -50,7 +50,10 @@
         const left = canvas.offsetLeft;
         const top = canvas.offsetTop;
 
-        const point = { x: event.touches[0].clientX - left, y: event.touches[0].clientY - top };
+        const x = event.touches[0].clientX - left; 
+        const y = event.touches[0].clientY - top
+
+        const point = new Point(x, y);
 
         addPoint(point);
     }
@@ -65,9 +68,8 @@
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 
-        for (let norm of points) {
-
-            const point = scale(norm, canvas.width, canvas.height);
+        for (let normalizedPoint of points) {
+            const point = normalizedPoint.scale(dimensionsOfCanvas(canvas));
 
             const color = "#fafafa";
             const radius = 12;
