@@ -1,5 +1,5 @@
 import type { Participant } from "./types/Participant";
-import type { Serialized, SerializedAlliance, SerializedMatchCode } from "./types/Serialized";
+import type { Serialized, SerializedAlliance, SerializedMatchCode } from "./api/Serialized";
 import { storable } from "./util/storable";
 
 export const storedMatches = storable<Array<Serialized>>("matches", [] as Array<Serialized>);

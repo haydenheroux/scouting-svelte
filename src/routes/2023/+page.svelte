@@ -16,7 +16,8 @@
 	import { storedMatches } from '$lib/stores';
 	import type { Participant } from '$lib/types/Participant';
 	import type { Point } from '$lib/types/Point';
-	import { participantToSerializedParticipant, type Serialized } from '$lib/types/Serialized';
+	import type { Serialized } from '$lib/api/Serialized';
+	import { participantToSerializedParticipant } from '$lib/adapter/adapter';
 
 	/* participant */
 	let participant: Participant;
@@ -72,7 +73,7 @@
 			scouterName
 		};
 
-		const scouted: Serialized = {
+		const scouted = {
 			participant: participantToSerializedParticipant(participant),
 			metrics
 		}

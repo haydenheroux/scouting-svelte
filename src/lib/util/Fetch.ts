@@ -1,4 +1,4 @@
-import { getQueryString, type Serialized } from "$lib/types/Serialized";
+import { getQueryString, type Serialized } from "$lib/api/Serialized";
 
 export async function doPost(url: URL, serialized: Serialized) {
     return await fetch(`${url}?${getQueryString(serialized.participant)}`, {

@@ -1,8 +1,9 @@
 <script lang="ts">
+	import { participantToSerializedParticipant } from '$lib/adapter/adapter';
+	import { getMatchCode } from '$lib/api/Serialized';
 	import Section from '$lib/components/Section.svelte';
 	import { getTeamAndAllianceOrNull, storedParticipant } from '$lib/stores';
 	import type { Participant } from '$lib/types/Participant';
-	import { getMatchCode, participantToSerializedParticipant } from '$lib/types/Serialized';
 
     // Defaults the participant to the stored participant. Attempts to autofill.
     export let participant = attemptAutofillTeamAndAlliance(storedParticipant.get(), true);

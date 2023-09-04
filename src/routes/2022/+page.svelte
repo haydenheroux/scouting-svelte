@@ -15,7 +15,7 @@
 	import { storedMatches } from '$lib/stores';
 	import type { Participant } from '$lib/types/Participant';
 	import type { Point } from '$lib/types/Point';
-	import { participantToSerializedParticipant } from '$lib/types/Serialized';
+	import { participantToSerializedParticipant } from '$lib/adapter/adapter';
 
 	/* participant */
 	let participant: Participant;

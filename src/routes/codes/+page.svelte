@@ -2,7 +2,7 @@
 	import QRCode  from '$lib/components/sections/QRCodeDisplay.svelte';
 	import Section from "$lib/components/Section.svelte";
     import { storedMatches } from "$lib/stores";
-	import { getMatchCode } from '$lib/types/Serialized';
+	import { getMatchCode } from '$lib/api/Serialized';
 
     let matches = storedMatches.get();
 </script>
