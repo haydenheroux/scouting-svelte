@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { participantToSerializedParticipant } from '$lib/adapter/adapter';
+	import { participantToSerializedParticipant } from '$lib/adapter';
 	import { getMatchCode } from '$lib/api/Serialized';
 	import Section from '$lib/components/Section.svelte';
 	import { getTeamAndAllianceOrNull, storedParticipant } from '$lib/data/stores';
