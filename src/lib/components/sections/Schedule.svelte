@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { storedSchedules } from "$lib/stores";
+	import { storedSchedules } from "$lib/data/stores";
     import Section from "../Section.svelte";
 
     function clear() {

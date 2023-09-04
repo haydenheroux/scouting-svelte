@@ -1,6 +1,6 @@
 <script lang="ts">
 	import MultipleOptionSelector from "$lib/components/selectors/OptionSelector.svelte";
-	import type { GamePiece } from "$lib/metrics/2023";
+	import type { GamePiece } from "$lib/data/metrics/2023";
 
     export let name: string;
     export let help: string;

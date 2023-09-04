@@ -9,14 +9,13 @@
 	import CubeCone from './CubeCone.svelte';
 	import GridComponent from './GridComponent.svelte';
 	import Notes from '$lib/components/selectors/NotesComposer.svelte';
-	import { gridToObject, type ChargeStation, type GamePiece, type Grid, type Substation } from '$lib/metrics/2023';
-	import type { Defense } from '$lib/metrics/universal';
+	import { gridToObject, type ChargeStation, type GamePiece, type Grid, type Substation } from '$lib/data/metrics/2023';
+	import type { Defense } from '$lib/data/metrics/universal';
 	import { arrayToObject } from '$lib/util/array';
 	import QRCode from '$lib/components/sections/QRCodeDisplay.svelte';
-	import { storedMatches } from '$lib/stores';
+	import { storedMatches } from '$lib/data/stores';
 	import type { Participant } from '$lib/types/Participant';
 	import type { Point } from '$lib/types/Point';
-	import type { Serialized } from '$lib/api/Serialized';
 	import { participantToSerializedParticipant } from '$lib/adapter/adapter';
 
 	/* participant */

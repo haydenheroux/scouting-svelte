@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Schedule from "$lib/components/sections/Schedule.svelte";
     import ScheduleGetter from "$lib/components/sections/ScheduleGetter.svelte";
-	import { storedSchedules, schedulesPresent, type EventSchedules } from "$lib/stores";
+	import { storedSchedules, type EventSchedules } from "$lib/data/stores";
 
     let hasSchedules = false;
 

@@ -2,7 +2,7 @@
 	import { participantToSerializedParticipant } from '$lib/adapter/adapter';
 	import { getMatchCode } from '$lib/api/Serialized';
 	import Section from '$lib/components/Section.svelte';
-	import { getTeamAndAllianceOrNull, storedParticipant } from '$lib/stores';
+	import { getTeamAndAllianceOrNull, storedParticipant } from '$lib/data/stores';
 	import type { Participant } from '$lib/types/Participant';
 
     // Defaults the participant to the stored participant. Attempts to autofill.

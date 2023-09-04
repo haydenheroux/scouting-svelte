@@ -8,11 +8,11 @@
 	import NumberSelector from '$lib/components/selectors/NumberSelector.svelte';
 	import Submit from '$lib/components/sections/Submit.svelte';
 	import Notes from '$lib/components/selectors/NotesComposer.svelte';
-	import type { Defense } from '$lib/metrics/universal';
-	import type { ClimbLevel } from '$lib/metrics/2022';
+	import type { Defense } from '$lib/data/metrics/universal';
+	import type { ClimbLevel } from '$lib/data/metrics/2022';
 	import { arrayToObject } from '$lib/util/array';
 	import QRCode from '$lib/components/sections/QRCodeDisplay.svelte';
-	import { storedMatches } from '$lib/stores';
+	import { storedMatches } from '$lib/data/stores';
 	import type { Participant } from '$lib/types/Participant';
 	import type { Point } from '$lib/types/Point';
 	import { participantToSerializedParticipant } from '$lib/adapter/adapter';

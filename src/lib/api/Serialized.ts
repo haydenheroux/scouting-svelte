@@ -1,3 +1,5 @@
+// TODO Ensure compatibility between API types and API. 
+
 export type SerializedMatchType = "qm" | "qf" | "sf" | "f";
 
 export type SerializedAlliance = "red" | "blue";
@@ -10,6 +12,7 @@ export interface SerializedParticipant {
     event: string;
     alliance: SerializedAlliance;
 }
+
 export type SerializedMatchCode = string;
 
 export function getMatchCode(participant: SerializedParticipant): SerializedMatchCode {
@@ -35,10 +38,3 @@ export function getQueryString(participant: SerializedParticipant): URLSearchPar
         alliance: participant.alliance
     });
 }
-
-export type Metrics = Record<string, string>;
-
-export interface Serialized {
-    participant: SerializedParticipant;
-    metrics: Metrics;
-} 

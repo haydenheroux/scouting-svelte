@@ -1,8 +1,9 @@
-import type { Participant } from "./types/Participant";
-import type { Serialized, SerializedAlliance, SerializedMatchCode } from "./api/Serialized";
-import { storable } from "./util/storable";
+import type { SerializedAlliance, SerializedMatchCode } from "$lib/api/Serialized";
+import type { Participant } from "../types/Participant";
+import { storable } from "../util/storable";
+import type { Report } from "./Report";
 
-export const storedMatches = storable<Array<Serialized>>("matches", [] as Array<Serialized>);
+export const storedMatches = storable<Array<Report>>("matches", [] as Array<Report>);
 
 export const storedParticipant = storable<Participant>("participant", { type: "Qualification", match: 1 } as Participant);
 
