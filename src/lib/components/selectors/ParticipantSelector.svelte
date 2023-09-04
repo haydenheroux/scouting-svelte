@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { participantToSerializedParticipant } from '$lib/adapter';
-	import { getMatchCode } from '$lib/api/Serialized';
+	import { getMatchCode } from '$lib/api';
 	import Section from '$lib/components/Section.svelte';
 	import { getTeamAndAllianceOrNull, storedParticipant } from '$lib/data/stores';
 	import type { Participant } from '$lib/types/Participant';

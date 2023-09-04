@@ -1,4 +1,4 @@
-import type { SerializedAlliance, SerializedMatchCode } from "$lib/api/Serialized";
+import type { SerializedAlliance, SerializedMatchCode } from "$lib/api";
 import type { Participant } from "../types/Participant";
 import { storable } from "../util/storable";
 import type { Report } from "./Report";

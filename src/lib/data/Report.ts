@@ -1,4 +1,4 @@
-import type { SerializedParticipant } from "$lib/api/Serialized";
+import type { SerializedParticipant } from "$lib/api";
 
 export type Metrics = Record<string, string>;
 

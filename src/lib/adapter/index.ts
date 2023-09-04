@@ -1,4 +1,4 @@
-import type { SerializedAlliance, SerializedMatchType, SerializedParticipant } from "$lib/api/Serialized";
+import type { SerializedAlliance, SerializedMatchType, SerializedParticipant } from "$lib/api";
 import type { Alliance, MatchType, Participant } from "$lib/types/Participant";
 
 export function allianceToSerialAlliance(alliance: Alliance): SerializedAlliance {
