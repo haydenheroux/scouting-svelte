@@ -1,6 +1,15 @@
+import type { Point } from "$lib/types/Point";
+import { arrayToObject } from "$lib/util/array";
+import type { Metrics } from "../Report";
+import type { Defense } from "./universal";
+
 export type GamePiece = 'Cube' | 'Cone';
 
 export type Grid = Array<Array<boolean>>;
+
+export const EMPTY_GRID = [[false, false, false, false, false, false, false, false, false],
+		[false, false, false, false, false, false, false, false, false],
+		[false, false, false, false, false, false, false, false, false]];
 
 export function gridToObject(key: string, grid: Grid): Record<string, string> {
 	let object: Record<string, string> = {};
@@ -53,3 +62,33 @@ export function gridFromString(s: string): Grid {
 export type ChargeStation = 'None' | 'Attempted' | 'Docked' | 'Engaged';
 
 export type Substation = 'Single Substation' | 'Double Substation';
+
+export class Metrics2023 {
+	startingPoint: Point | null = null;
+	preload: GamePiece = 'Cube';
+	mobility: boolean = false;
+	autoScores: Grid = EMPTY_GRID;
+	autoChargeStation: ChargeStation = 'None';
+	substationPreference: Substation = 'Double Substation';
+	teleopScores: Grid = EMPTY_GRID;
+	endgameChargeStation: ChargeStation = 'None';
+	defense: Defense = 'None';
+	notes: Array<string> = [];
+	scouterName: string = '';
+
+	flatten(): Metrics {
+			return {
+			startingPoint: this.startingPoint ? this.startingPoint.toString() : '',
+			preload: this.preload,
+			mobility: this.mobility.toString(),
+			...gridToObject('autoScore', this.autoScores),
+			autoChargeStation: this.autoChargeStation,
+			substationPreference: this.substationPreference,
+			...gridToObject('teleopScore', this.teleopScores),
+			endgameChargeStation: this.endgameChargeStation,
+			defense: this.defense,
+			...arrayToObject('note', this.notes),
+			scouterName: this.scouterName
+		};
+	}
+}

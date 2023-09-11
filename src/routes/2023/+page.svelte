@@ -13,7 +13,10 @@
 		type ChargeStation,
 		type GamePiece,
 		type Grid,
-		type Substation
+		type Substation,
+
+		Metrics2023
+
 	} from '$lib/data/metrics/2023';
 	import type { Defense } from '$lib/data/metrics/universal';
 	import { arrayToObject } from '$lib/util/array';
@@ -22,64 +25,21 @@
 	import type { Participant } from '$lib/types/Participant';
 	import type { Point } from '$lib/types/Point';
 	import { participantToSerializedParticipant } from '$lib/adapter';
+	import { Metrics2022 } from '$lib/data/metrics/2022';
 
 	/* participant */
 	let participant: Participant;
 
-	/* starting position */
-	let startingPoint: Array<Point>;
-
-	/* preloaded game piece */
-	let preload: GamePiece = 'Cube';
-
-	/* mobility */
-	let mobility: boolean;
-
-	/* auto scores */
-	let autoScores: Grid;
-
-	/* auto charge station */
-	let autoChargeStation: ChargeStation = 'None';
-
-	/* substation preference */
-	let substationPreference: Substation;
-
-	/* teleop scores */
-	let teleopScores: Grid;
-
-	/* endgame charge station */
-	let endgameChargeStation: ChargeStation = 'None';
-
-	/* defense */
-	let defense: Defense = 'None';
-
-	/* notes */
-	let notes: Array<string>;
-
-	/* scouter */
-	let scouterName: string;
+	let metrics: Metrics2023 = new Metrics2023();
 
 	/* QR code */
 	let qrCode = '';
 
 	function handleSubmit() {
-		const metrics = {
-			startingPoint: startingPoint[0].toString(),
-			preload,
-			mobility: mobility.toString(),
-			...gridToObject('autoScore', autoScores),
-			autoChargeStation,
-			substationPreference,
-			...gridToObject('teleopScore', teleopScores),
-			endgameChargeStation,
-			defense,
-			...arrayToObject('note', notes),
-			scouterName
-		};
 
 		const report = {
 			participant: participantToSerializedParticipant(participant),
-			metrics
+			metrics: metrics.flatten()
 		};
 
 		qrCode = JSON.stringify(report);
@@ -90,58 +50,58 @@
 
 <ParticipantSelector bind:participant />
 <FieldSelector
-	bind:points={startingPoint}
+	bind:point={metrics.startingPoint}
 	field={field2023}
 	name="Starting Position"
 	help="Place where the robot starts the match."
 	single={true}
 />
 <CubeCone
-	bind:selected={preload}
+	bind:selected={metrics.preload}
 	name="Preloaded Game Piece"
 	help="Game piece the robot stats the match with."
 />
 <BooleanSelector
-	bind:value={mobility}
+	bind:value={metrics.mobility}
 	name="Mobility"
 	help="The robot fully leaves the community during auto."
 />
 <GridComponent
-	bind:grid={autoScores}
+	bind:grid={metrics.autoScores}
 	name="Auto Scores"
 	help="Nodes where the robot scores during auto."
 />
 <MultipleOptionSelector
-	bind:selected={autoChargeStation}
+	bind:selected={metrics.autoChargeStation}
 	name="Auto Charge Station"
 	help="Interaction between the robot and the charge station during auto."
 	options={['None', 'Attempted', 'Dock', 'Engage']}
 />
 <MultipleOptionSelector
-	bind:selected={substationPreference}
+	bind:selected={metrics.substationPreference}
 	name="Substation Preference"
 	help="The substation the robot most frequently uses during teleop."
 	options={['Single Substation', 'Double Substation']}
 />
 <GridComponent
-	bind:grid={teleopScores}
+	bind:grid={metrics.teleopScores}
 	name="Teleop Scores"
 	help="Nodes where the robot scores during teleop."
 />
 <MultipleOptionSelector
-	bind:selected={endgameChargeStation}
+	bind:selected={metrics.endgameChargeStation}
 	name="Endgame Charge Station"
 	help="Interaction between the robot and the charge station during endgame."
 	options={['None', 'Attempted', 'Dock', 'Engage']}
 />
 <MultipleOptionSelector
-	bind:selected={defense}
+	bind:selected={metrics.defense}
 	name="Defense"
 	options={['None', 'Attempted', 'Effective', 'Very Effective']}
 	help="Quality of defense played.<br/>Effective defense prevents a score.<br/>Very effective defense prevents multiple scores."
 />
-<Notes bind:notes />
-<Submit on:click={handleSubmit} bind:scouterName />
+<Notes bind:notes={metrics.notes} />
+<Submit on:click={handleSubmit} bind:scouterName={metrics.scouterName} />
 {#if qrCode.length > 0}
 	<section>
 		<QRCode value={qrCode} />
