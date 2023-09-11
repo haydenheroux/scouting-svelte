@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { participantToSerializedParticipant } from '$lib/adapter';
+	import { deserializeAlliance, participantToSerializedParticipant } from '$lib/adapter';
 	import { getMatchCode } from '$lib/api';
 	import Section from '$lib/components/Section.svelte';
 	import { getTeamAndAllianceOrNull, storedParticipant } from '$lib/data/stores';
@@ -38,7 +38,7 @@
 		if (teamAndAllianceOrNull == null) return participant;
 
 		participant.team = teamAndAllianceOrNull.team;
-		participant.alliance = serializedAllianceToSerialAlliance(teamAndAllianceOrNull.alliance);
+		participant.alliance = deserializeAlliance(teamAndAllianceOrNull.alliance);
 
 		return participant;
 	}
@@ -76,12 +76,6 @@
 		participant.match += 1;
 
 		participant = attemptAutofillTeamAndAlliance(participant, manuallyOverriding);
-	}
-
-	function serializedAllianceToSerialAlliance(
-		alliance: string
-	): import('$lib/types/Participant').Alliance | null {
-		throw new Error('Function not implemented.');
 	}
 </script>
 
