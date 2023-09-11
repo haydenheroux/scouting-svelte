@@ -1,11 +1,11 @@
 <script lang="ts">
 	import Section from '$lib/components/Section.svelte';
-	import { EMPTY_GRID, type Grid } from '$lib/data/metrics/2023';
+	import { emptyGrid, type Grid } from '$lib/data/metrics/2023';
 
 	export let name: string;
 	export let help: string;
 
-	export let grid: Grid = EMPTY_GRID;
+	export let grid: Grid = emptyGrid();
 
 	function toggle(y: number, x: number) {
 		grid[y][x] = !grid[y][x];

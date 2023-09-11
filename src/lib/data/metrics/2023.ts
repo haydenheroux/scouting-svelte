@@ -7,11 +7,19 @@ export type GamePiece = 'Cube' | 'Cone';
 
 export type Grid = Array<Array<boolean>>;
 
-export const EMPTY_GRID = [
-	[false, false, false, false, false, false, false, false, false],
-	[false, false, false, false, false, false, false, false, false],
-	[false, false, false, false, false, false, false, false, false]
-];
+export function emptyGrid() {
+	let grid = new Array(3);
+
+	for (let i = 0; i < 3; i++) {
+		grid[i] = new Array(9);
+
+		for (let j = 0; j < 9; j++) {
+			grid[i][j] = false;
+		}
+	}
+
+	return grid;
+}
 
 export function gridToObject(key: string, grid: Grid): Record<string, string> {
 	let object: Record<string, string> = {};
@@ -69,10 +77,10 @@ export class Metrics2023 {
 	startingPoint: Point | null = null;
 	preload: GamePiece = 'Cube';
 	mobility: boolean = false;
-	autoScores: Grid = EMPTY_GRID;
+	autoScores: Grid = emptyGrid();
 	autoChargeStation: ChargeStation = 'None';
 	substationPreference: Substation = 'Double Substation';
-	teleopScores: Grid = EMPTY_GRID;
+	teleopScores: Grid = emptyGrid();
 	endgameChargeStation: ChargeStation = 'None';
 	defense: Defense = 'None';
 	notes: Array<string> = [];
