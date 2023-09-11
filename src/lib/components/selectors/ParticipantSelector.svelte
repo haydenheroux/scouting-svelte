@@ -2,20 +2,20 @@
 	import { deserializeAlliance, participantToSerializedParticipant } from '$lib/adapter';
 	import { getMatchCode } from '$lib/api';
 	import Section from '$lib/components/Section.svelte';
-	import { getTeamAndAllianceOrNull, storedParticipant } from '$lib/data/stores';
+	import { getTeamAndAllianceOrNull } from '$lib/data/stores';
 	import type { Participant } from '$lib/types/Participant';
 
 	// Defaults the participant to the stored participant. Attempts to autofill.
-	export let participant = attemptAutofillTeamAndAlliance(storedParticipant.get(), true);
+	export let participant: Participant = {} as Participant;
 
 	// Whenever the participant is updated, attempt to autofill, then store the updated participant.
-	$: participant, attemptAutofillTeamAndAllianceThenStore();
+	$: participant, attemptAutofillTeamAndAllianceThenUpdate();
 
 	// Allows the user to manually override autofilling.
 	let manuallyOverriding: boolean = false;
 
 	// Whenever the manual override is changed, attempt to autofill, then store the updated participant.
-	$: manuallyOverriding, attemptAutofillTeamAndAllianceThenStore();
+	$: manuallyOverriding, attemptAutofillTeamAndAllianceThenUpdate();
 
 	/**
 	 * Attempts to automatically set a participant's team and alliance fields depending on the participant's event and match fields.
@@ -48,10 +48,8 @@
 	 *
 	 * @see attemptAutofillTeamAndAlliance
 	 */
-	function attemptAutofillTeamAndAllianceThenStore() {
+	function attemptAutofillTeamAndAllianceThenUpdate() {
 		participant = attemptAutofillTeamAndAlliance(participant, manuallyOverriding);
-
-		storedParticipant.set(participant);
 	}
 
 	/**

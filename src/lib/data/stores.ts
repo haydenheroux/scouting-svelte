@@ -32,11 +32,6 @@ export function getMetricsOrNull(participant: Participant): Metrics | null {
 	return report.metrics;
 }
 
-export const storedParticipant = storable<Participant>('participant', {
-	type: 'Qualification',
-	match: 1
-} as Participant);
-
 export type EventSchedules = Record<string, MatchSchedule>;
 
 export type MatchSchedule = Record<SerializedMatchCode, TeamAndAlliance>;
