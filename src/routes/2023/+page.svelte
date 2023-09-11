@@ -20,7 +20,7 @@
 	import type { Defense } from '$lib/data/metrics/universal';
 	import { arrayToObject } from '$lib/util/array';
 	import QRCode from '$lib/components/sections/QRCodeDisplay.svelte';
-	import { storedMatches } from '$lib/data/stores';
+	import { storedHistory } from '$lib/data/stores';
 	import type { Participant } from '$lib/types/Participant';
 	import type { Point } from '$lib/types/Point';
 	import { participantToSerializedParticipant } from '$lib/adapter';
@@ -67,16 +67,16 @@
 	let qrCode = '';
 
 	onMount(() => {
-		let matches = storedMatches.get();
+		let reports = storedHistory.get();
 
-		let matchesForParticipant = matches.filter((match) => {
+		let reportsByParticipant = reports.filter((match) => {
 			return serializedParticipantsAreEqual(
 				match.participant,
 				participantToSerializedParticipant(participant)
 			);
 		});
 
-		let match = matchesForParticipant[matchesForParticipant.length - 1];
+		let report = reportsByParticipant[reportsByParticipant.length - 1];
 	});
 
 	function handleSubmit() {
@@ -94,17 +94,17 @@
 			scouterName
 		};
 
-		const scouted = {
+		const report = {
 			participant: participantToSerializedParticipant(participant),
 			metrics
 		};
 
 		// TODO notify user
-		doPost(new URL('http://localhost/api/add-metrics'), scouted);
+		doPost(new URL('http://localhost/api/add-metrics'), report);
 
-		qrCode = JSON.stringify(scouted);
+		qrCode = JSON.stringify(report);
 
-		storedMatches.set([...storedMatches.get(), scouted]);
+		storedHistory.set([...storedHistory.get(), report]);
 	}
 </script>
 

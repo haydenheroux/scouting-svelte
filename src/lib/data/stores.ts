@@ -3,7 +3,7 @@ import type { Participant } from '../types/Participant';
 import { storable } from '../util/storable';
 import type { Report } from './Report';
 
-export const storedMatches = storable<Array<Report>>('matches', [] as Array<Report>);
+export const storedHistory = storable<Array<Report>>('history', [] as Array<Report>);
 
 export const storedParticipant = storable<Participant>('participant', {
 	type: 'Qualification',
@@ -20,12 +20,6 @@ type TeamAndAlliance = {
 };
 
 export const storedSchedules = storable<EventSchedules>('schedules', {});
-
-export function schedulesPresent(): boolean {
-	let schedules = storedSchedules.get();
-
-	return Object.keys(schedules).length > 0;
-}
 
 export function getTeamAndAllianceOrNull(
 	event: string,
