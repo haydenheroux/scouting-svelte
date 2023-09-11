@@ -1,5 +1,5 @@
 <script lang="ts">
-	import QRCode  from '$lib/components/sections/QRCodeDisplay.svelte';
+	import QRCodeDisplay from '$lib/components/sections/QRCodeDisplay.svelte';
 	import Section from "$lib/components/Section.svelte";
     import { storedMatches } from "$lib/data/stores";
 	import { getMatchCode } from '$lib/api';
@@ -9,6 +9,6 @@
 
 {#each matches as match}
     <Section name={`${match.participant.event} ${getMatchCode(match.participant)} - Team ${match.participant.teamNumber}`}>
-        <QRCode showable={true} value={JSON.stringify(match)}/>
+        <QRCodeDisplay showable={true} value={JSON.stringify(match)}/>
     </Section>
 {/each}

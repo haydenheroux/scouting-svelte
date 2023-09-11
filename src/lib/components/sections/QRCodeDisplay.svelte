@@ -50,5 +50,5 @@
 	<FullscreenableImage src={dataURL} alt={value} />
 {/if}
 {#if showable}
-	<button class="active" on:click={toggle}>{showing ? "Hide" : "Show"}</button>
+	<button class="active" on:click={toggle}>{showing ? "Hide QR Code" : "Show QR Code"}</button>
 {/if}
