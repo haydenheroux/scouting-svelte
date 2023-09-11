@@ -6,10 +6,10 @@
 
 	const QRcode = new QrCode();
 
-	export let errorCorrection = "H";
-	export let background = "#fff";
-	export let color = "#000";
-	export let value = "";
+	export let errorCorrection = 'H';
+	export let background = '#fff';
+	export let color = '#000';
+	export let value = '';
 
 	export let showable = false;
 	let showing = showable ? false : true;
@@ -17,7 +17,7 @@
 	let dataURL = '';
 
 	function generateQRCode() {
-		if (!showing) console.log("Generated QR code while not showing.");
+		if (!showing) console.log('Generated QR code while not showing.');
 
 		QRcode.set({
 			background,
@@ -25,9 +25,9 @@
 			level: errorCorrection,
 			size: 1024, // TODO
 			padding: 128, // TODO
-			value,
+			value
 		});
-		
+
 		dataURL = QRcode.toDataURL();
 	}
 
@@ -50,5 +50,5 @@
 	<FullscreenableImage src={dataURL} alt={value} />
 {/if}
 {#if showable}
-	<button class="active" on:click={toggle}>{showing ? "Hide QR Code" : "Show QR Code"}</button>
+	<button class="active" on:click={toggle}>{showing ? 'Hide QR Code' : 'Show QR Code'}</button>
 {/if}

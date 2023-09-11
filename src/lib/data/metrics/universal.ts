@@ -1,1 +1,1 @@
-export type Defense = "None" | "Attempted" | "Effective" | "Very Effective";
+export type Defense = 'None' | 'Attempted' | 'Effective' | 'Very Effective';

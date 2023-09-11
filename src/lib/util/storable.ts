@@ -1,53 +1,53 @@
-import { browser } from "$app/environment";
-import { writable, type Subscriber } from "svelte/store";
+import { browser } from '$app/environment';
+import { writable, type Subscriber } from 'svelte/store';
 
 export function storable<T>(key: string, fallback: T) {
-    const store = writable(fallback);
+	const store = writable(fallback);
 
-    if (browser) {
-        const valueOrNull = localStorage.getItem(key);
-        
-        if (valueOrNull != null) {
-            const value = JSON.parse(valueOrNull);
+	if (browser) {
+		const valueOrNull = localStorage.getItem(key);
 
-            store.set(value);
-        }
-    }
+		if (valueOrNull != null) {
+			const value = JSON.parse(valueOrNull);
 
-    return {
-        get: (): T => {
-            if (!browser) return fallback;
+			store.set(value);
+		}
+	}
 
-            const valueOrNull = localStorage.getItem(key);
+	return {
+		get: (): T => {
+			if (!browser) return fallback;
 
-            if (valueOrNull === null) {
-                console.log(`Key ${key} was null`);
+			const valueOrNull = localStorage.getItem(key);
 
-                localStorage.setItem(key, JSON.stringify(fallback));
+			if (valueOrNull === null) {
+				console.log(`Key ${key} was null`);
 
-                return fallback;
-            }
+				localStorage.setItem(key, JSON.stringify(fallback));
 
-            const value = JSON.parse(valueOrNull);
+				return fallback;
+			}
 
-            return value;
-        },
-        set: (value: T) => {
-            if (!browser) return;
+			const value = JSON.parse(valueOrNull);
 
-            store.set(value);
+			return value;
+		},
+		set: (value: T) => {
+			if (!browser) return;
 
-            localStorage.setItem(key, JSON.stringify(value));
-        },
-        clear: () => {
-            if (!browser) return;
+			store.set(value);
 
-            store.set(fallback);
+			localStorage.setItem(key, JSON.stringify(value));
+		},
+		clear: () => {
+			if (!browser) return;
 
-            localStorage.setItem(key, JSON.stringify(fallback));
-        },
-        subscribe: (subscriber: Subscriber<T>) => {
-            store.subscribe(subscriber);
-        }
-    }
+			store.set(fallback);
+
+			localStorage.setItem(key, JSON.stringify(fallback));
+		},
+		subscribe: (subscriber: Subscriber<T>) => {
+			store.subscribe(subscriber);
+		}
+	};
 }

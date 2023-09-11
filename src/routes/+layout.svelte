@@ -7,7 +7,7 @@
 
 <div class="app">
 	<Header />
-	
+
 	<main>
 		<div class="container">
 			<slot />

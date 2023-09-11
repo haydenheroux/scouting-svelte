@@ -9,7 +9,14 @@
 	import CubeCone from './CubeCone.svelte';
 	import GridComponent from './GridComponent.svelte';
 	import Notes from '$lib/components/selectors/NotesComposer.svelte';
-	import { gridToObject, type ChargeStation, type GamePiece, type Grid, type Substation, gridFromString } from '$lib/data/metrics/2023';
+	import {
+		gridToObject,
+		type ChargeStation,
+		type GamePiece,
+		type Grid,
+		type Substation,
+		gridFromString
+	} from '$lib/data/metrics/2023';
 	import type { Defense } from '$lib/data/metrics/universal';
 	import { arrayToObject } from '$lib/util/array';
 	import QRCode from '$lib/components/sections/QRCodeDisplay.svelte';
@@ -27,7 +34,7 @@
 	let startingPoint: Array<Point>;
 
 	/* preloaded game piece */
-	let preload: GamePiece = "Cube";
+	let preload: GamePiece = 'Cube';
 
 	/* mobility */
 	let mobility: boolean;
@@ -36,7 +43,7 @@
 	let autoScores: Grid;
 
 	/* auto charge station */
-	let autoChargeStation: ChargeStation = "None";
+	let autoChargeStation: ChargeStation = 'None';
 
 	/* substation preference */
 	let substationPreference: Substation;
@@ -45,54 +52,55 @@
 	let teleopScores: Grid;
 
 	/* endgame charge station */
-	let endgameChargeStation: ChargeStation = "None";
+	let endgameChargeStation: ChargeStation = 'None';
 
 	/* defense */
-	let defense: Defense = "None";
+	let defense: Defense = 'None';
 
 	/* notes */
 	let notes: Array<string>;
-	
+
 	/* scouter */
 	let scouterName: string;
 
 	/* QR code */
-	let qrCode = "";
+	let qrCode = '';
 
-	onMount(
-		() => {
-			let matches = storedMatches.get();
+	onMount(() => {
+		let matches = storedMatches.get();
 
-			let matchesForParticipant = matches.filter(match => {
-				return serializedParticipantsAreEqual(match.participant, participantToSerializedParticipant(participant));
-			});
+		let matchesForParticipant = matches.filter((match) => {
+			return serializedParticipantsAreEqual(
+				match.participant,
+				participantToSerializedParticipant(participant)
+			);
+		});
 
-			let match = matchesForParticipant[matchesForParticipant.length - 1];
-		}
-	);
+		let match = matchesForParticipant[matchesForParticipant.length - 1];
+	});
 
 	function handleSubmit() {
 		const metrics = {
 			startingPoint: startingPoint[0].toString(),
 			preload,
 			mobility: mobility.toString(),
-			...gridToObject("autoScore", autoScores),
+			...gridToObject('autoScore', autoScores),
 			autoChargeStation,
 			substationPreference,
-			...gridToObject("teleopScore", teleopScores),
+			...gridToObject('teleopScore', teleopScores),
 			endgameChargeStation,
 			defense,
-			...arrayToObject("note", notes),
+			...arrayToObject('note', notes),
 			scouterName
 		};
 
 		const scouted = {
 			participant: participantToSerializedParticipant(participant),
 			metrics
-		}
+		};
 
 		// TODO notify user
-		doPost(new URL("http://localhost/api/add-metrics"), scouted);
+		doPost(new URL('http://localhost/api/add-metrics'), scouted);
 
 		qrCode = JSON.stringify(scouted);
 
@@ -101,19 +109,61 @@
 </script>
 
 <ParticipantSelector bind:participant />
-<FieldSelector bind:points={startingPoint} field={field2023} name="Starting Position" help="Place where the robot starts the match." single={true}/>
-<CubeCone bind:selected={preload} name="Preloaded Game Piece" help="Game piece the robot stats the match with." />
-<BooleanSelector bind:value={mobility} name="Mobility" help="The robot fully leaves the community during auto." />
-<GridComponent bind:grid={autoScores} name="Auto Scores" help="Nodes where the robot scores during auto." />
-<MultipleOptionSelector bind:selected={autoChargeStation} name="Auto Charge Station" help="Interaction between the robot and the charge station during auto." options={["None", "Attempted", "Dock", "Engage"]} />
-<MultipleOptionSelector bind:selected={substationPreference} name="Substation Preference" help="The substation the robot most frequently uses during teleop." options={["Single Substation", "Double Substation"]} /> 
-<GridComponent bind:grid={teleopScores} name="Teleop Scores" help="Nodes where the robot scores during teleop." />
-<MultipleOptionSelector bind:selected={endgameChargeStation} name="Endgame Charge Station" help="Interaction between the robot and the charge station during endgame." options={["None", "Attempted", "Dock", "Engage"]} />
-<MultipleOptionSelector bind:selected={defense} name="Defense" options={["None", "Attempted", "Effective", "Very Effective"]} help="Quality of defense played.<br/>Effective defense prevents a score.<br/>Very effective defense prevents multiple scores." />
+<FieldSelector
+	bind:points={startingPoint}
+	field={field2023}
+	name="Starting Position"
+	help="Place where the robot starts the match."
+	single={true}
+/>
+<CubeCone
+	bind:selected={preload}
+	name="Preloaded Game Piece"
+	help="Game piece the robot stats the match with."
+/>
+<BooleanSelector
+	bind:value={mobility}
+	name="Mobility"
+	help="The robot fully leaves the community during auto."
+/>
+<GridComponent
+	bind:grid={autoScores}
+	name="Auto Scores"
+	help="Nodes where the robot scores during auto."
+/>
+<MultipleOptionSelector
+	bind:selected={autoChargeStation}
+	name="Auto Charge Station"
+	help="Interaction between the robot and the charge station during auto."
+	options={['None', 'Attempted', 'Dock', 'Engage']}
+/>
+<MultipleOptionSelector
+	bind:selected={substationPreference}
+	name="Substation Preference"
+	help="The substation the robot most frequently uses during teleop."
+	options={['Single Substation', 'Double Substation']}
+/>
+<GridComponent
+	bind:grid={teleopScores}
+	name="Teleop Scores"
+	help="Nodes where the robot scores during teleop."
+/>
+<MultipleOptionSelector
+	bind:selected={endgameChargeStation}
+	name="Endgame Charge Station"
+	help="Interaction between the robot and the charge station during endgame."
+	options={['None', 'Attempted', 'Dock', 'Engage']}
+/>
+<MultipleOptionSelector
+	bind:selected={defense}
+	name="Defense"
+	options={['None', 'Attempted', 'Effective', 'Very Effective']}
+	help="Quality of defense played.<br/>Effective defense prevents a score.<br/>Very effective defense prevents multiple scores."
+/>
 <Notes bind:notes />
 <Submit on:click={handleSubmit} bind:scouterName />
 {#if qrCode.length > 0}
-<section>
-	<QRCode value="{qrCode}" />
-</section>
+	<section>
+		<QRCode value={qrCode} />
+	</section>
 {/if}
