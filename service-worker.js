@@ -1,8 +1,8 @@
 const s = /* @__PURE__ */ location.pathname.split("/").slice(0, -1).join("/"), m = [
-  s + "/_app/immutable/entry/app.2dfd69b8.js",
+  s + "/_app/immutable/entry/app.fbae5441.js",
   s + "/_app/immutable/assets/0.4a3e72f3.css",
-  s + "/_app/immutable/nodes/0.0c3b94db.js",
-  s + "/_app/immutable/nodes/1.58a43e31.js",
+  s + "/_app/immutable/nodes/0.189577aa.js",
+  s + "/_app/immutable/nodes/1.96b92a79.js",
   s + "/_app/immutable/nodes/2.402123cc.js",
   s + "/_app/immutable/assets/3.f574c9fe.css",
   s + "/_app/immutable/nodes/3.21fc1e58.js",
@@ -23,9 +23,9 @@ const s = /* @__PURE__ */ location.pathname.split("/").slice(0, -1).join("/"), m
   s + "/_app/immutable/chunks/index.a3c86b5d.js",
   s + "/_app/immutable/chunks/index.f0de9234.js",
   s + "/_app/immutable/chunks/scheduler.f5c80806.js",
-  s + "/_app/immutable/chunks/singletons.d950eeb9.js",
-  s + "/_app/immutable/chunks/stores.a5f5887e.js",
-  s + "/_app/immutable/entry/start.bcba5cca.js"
+  s + "/_app/immutable/chunks/singletons.10f45c19.js",
+  s + "/_app/immutable/chunks/stores.75624db8.js",
+  s + "/_app/immutable/entry/start.b63de868.js"
 ], l = [
   s + "/.nojekyll",
   s + "/icons/icon-192x192.png",
@@ -34,7 +34,7 @@ const s = /* @__PURE__ */ location.pathname.split("/").slice(0, -1).join("/"), m
   s + "/icons/icon-512x512.png",
   s + "/manifest.webmanifest",
   s + "/robots.txt"
-], o = "1694455060130", p = `cache-${o}`, i = [...m, ...l];
+], o = "1694455690743", p = `cache-${o}`, i = [...m, ...l];
 self.addEventListener("install", (a) => {
   async function t() {
     await (await caches.open(p)).addAll(i);
