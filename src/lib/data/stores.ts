@@ -10,7 +10,7 @@ import type { Report } from './Report';
 
 export const storedReports = storable<Array<Report>>('reports', [] as Array<Report>);
 
-export function getReportByParticipant(participant: Participant): Report {
+export function getReportOrNull(participant: Participant): Report | null {
 	const serializedParticipant = participantToSerializedParticipant(participant);
 
 	const reports = storedReports.get();
@@ -18,6 +18,8 @@ export function getReportByParticipant(participant: Participant): Report {
 	const allReportsByParticipant = reports.filter((report) => {
 		return serializedParticipantsAreEqual(report.participant, serializedParticipant);
 	});
+
+	if (allReportsByParticipant.length > 1) return null;
 
 	return allReportsByParticipant[allReportsByParticipant.length - 1];
 }

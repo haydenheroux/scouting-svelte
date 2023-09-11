@@ -18,6 +18,11 @@ export class Metrics2022 {
 	notes: Array<string> = [];
 	scouterName: string = '';
 
+	static fromMetrics(metrics: Metrics): Metrics2022 {
+		// TODO
+		return new Metrics2022();
+	}
+
 	flatten(): Metrics {
 		return {
 			startingPoint: this.startingPoint ? this.startingPoint.toString() : '',

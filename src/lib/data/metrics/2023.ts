@@ -86,6 +86,11 @@ export class Metrics2023 {
 	notes: Array<string> = [];
 	scouterName: string = '';
 
+	static fromMetrics(metrics: Metrics): Metrics2023 {
+		// TODO
+		return new Metrics2023();
+	}
+
 	flatten(): Metrics {
 		return {
 			startingPoint: this.startingPoint ? this.startingPoint.toString() : '',
