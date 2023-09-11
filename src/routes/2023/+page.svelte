@@ -9,24 +9,13 @@
 	import GridComponent from './GridComponent.svelte';
 	import Notes from '$lib/components/selectors/NotesComposer.svelte';
 	import {
-		gridToObject,
-		type ChargeStation,
-		type GamePiece,
-		type Grid,
-		type Substation,
-
 		Metrics2023
-
 	} from '$lib/data/metrics/2023';
-	import type { Defense } from '$lib/data/metrics/universal';
-	import { arrayToObject } from '$lib/util/array';
 	import QRCode from '$lib/components/sections/QRCodeDisplay.svelte';
 	import { storedReports } from '$lib/data/stores';
 	import type { Participant } from '$lib/types/Participant';
-	import type { Point } from '$lib/types/Point';
 	import { participantToSerializedParticipant } from '$lib/adapter';
-	import { Metrics2022 } from '$lib/data/metrics/2022';
-
+	
 	/* participant */
 	let participant: Participant;
 
@@ -36,7 +25,6 @@
 	let qrCode = '';
 
 	function handleSubmit() {
-
 		const report = {
 			participant: participantToSerializedParticipant(participant),
 			metrics: metrics.flatten()

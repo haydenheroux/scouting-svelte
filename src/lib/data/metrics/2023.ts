@@ -1,15 +1,17 @@
-import type { Point } from "$lib/types/Point";
-import { arrayToObject } from "$lib/util/array";
-import type { Metrics } from "../Report";
-import type { Defense } from "./universal";
+import type { Point } from '$lib/types/Point';
+import { arrayToObject } from '$lib/util/array';
+import type { Metrics } from '../Report';
+import type { Defense } from './universal';
 
 export type GamePiece = 'Cube' | 'Cone';
 
 export type Grid = Array<Array<boolean>>;
 
-export const EMPTY_GRID = [[false, false, false, false, false, false, false, false, false],
-		[false, false, false, false, false, false, false, false, false],
-		[false, false, false, false, false, false, false, false, false]];
+export const EMPTY_GRID = [
+	[false, false, false, false, false, false, false, false, false],
+	[false, false, false, false, false, false, false, false, false],
+	[false, false, false, false, false, false, false, false, false]
+];
 
 export function gridToObject(key: string, grid: Grid): Record<string, string> {
 	let object: Record<string, string> = {};
@@ -77,7 +79,7 @@ export class Metrics2023 {
 	scouterName: string = '';
 
 	flatten(): Metrics {
-			return {
+		return {
 			startingPoint: this.startingPoint ? this.startingPoint.toString() : '',
 			preload: this.preload,
 			mobility: this.mobility.toString(),
