@@ -8,14 +8,12 @@
 	import CubeCone from './CubeCone.svelte';
 	import GridComponent from './GridComponent.svelte';
 	import Notes from '$lib/components/selectors/NotesComposer.svelte';
-	import {
-		Metrics2023
-	} from '$lib/data/metrics/2023';
+	import { Metrics2023 } from '$lib/data/metrics/2023';
 	import QRCode from '$lib/components/sections/QRCodeDisplay.svelte';
 	import { storedReports } from '$lib/data/stores';
 	import type { Participant } from '$lib/types/Participant';
 	import { participantToSerializedParticipant } from '$lib/adapter';
-	
+
 	/* participant */
 	let participant: Participant;
 
