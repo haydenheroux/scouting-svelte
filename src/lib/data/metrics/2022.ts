@@ -1,5 +1,5 @@
-import type { Point } from '$lib/types/Point';
-import { arrayToObject } from '$lib/util/array';
+import { pointOfString, type Point } from '$lib/types/Point';
+import { arrayToObject, stringToArray } from '$lib/util/array';
 import type { Metrics } from '../Report';
 import type { Defense } from './universal';
 
@@ -19,8 +19,21 @@ export class Metrics2022 {
 	scouterName: string = '';
 
 	static fromMetrics(metrics: Metrics): Metrics2022 {
-		// TODO
-		return new Metrics2022();
+		const metrics2022 = new Metrics2022();
+		
+		metrics2022.startingPoint = pointOfString(metrics["startingPoint"]);
+		metrics2022.taxi = metrics["taxi"] == "true";
+		metrics2022.autoCargoScored = Number(metrics["autoCargoScored"]);
+		metrics2022.teleopMakes = stringToArray("teleopMake", metrics).map(s => pointOfString(s));
+		metrics2022.teleopMisses = stringToArray("teleopMiss", metrics).map(s => pointOfString(s));
+		metrics2022.teleopLowerCargoScored = Number(metrics["teleopLowerCargoScored"]);
+		metrics2022.teleopUpperCargoScored = Number(metrics["teleopUpperCargoScored"]);
+		metrics2022.climbLevel = metrics["climbLevel"] as ClimbLevel;
+		metrics2022.defense = metrics["defense"] as Defense;
+		metrics2022.notes = stringToArray("note", metrics);
+		metrics2022.scouterName = metrics["scouterName"];
+
+		return metrics2022;
 	}
 
 	flatten(): Metrics {

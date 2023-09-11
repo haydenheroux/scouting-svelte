@@ -32,6 +32,7 @@
 
 	let canvas: HTMLCanvasElement;
 
+	$: point && draw();
 	$: points && draw();
 
 	function addPoint(p: Point) {
@@ -71,9 +72,18 @@
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
 		ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 
+		if (point) {
+			drawPoint(point.scale(dimensionsOfCanvas(canvas)), ctx);
+		}
+
 		for (let normalizedPoint of points) {
 			const point = normalizedPoint.scale(dimensionsOfCanvas(canvas));
 
+			drawPoint(point, ctx);
+		}
+	}
+
+	function drawPoint(point: Point, ctx: CanvasRenderingContext2D) {
 			const color = '#fafafa';
 			const radius = 12;
 			switch (drawStyle) {
@@ -113,7 +123,6 @@
 				default:
 					break;
 			}
-		}
 	}
 </script>
 
