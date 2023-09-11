@@ -6,7 +6,7 @@ import {
 } from '$lib/api';
 import type { Participant } from '../types/Participant';
 import { storable } from '../util/storable';
-import type { Report } from './Report';
+import type { Metrics, Report } from './Report';
 
 export const storedReports = storable<Array<Report>>('reports', [] as Array<Report>);
 
@@ -22,6 +22,14 @@ export function getReportOrNull(participant: Participant): Report | null {
 	if (allReportsByParticipant.length > 1) return null;
 
 	return allReportsByParticipant[allReportsByParticipant.length - 1];
+}
+
+export function getMetricsOrNull(participant: Participant): Metrics | null {
+	const report = getReportOrNull(participant);
+
+	if (!report) return null;
+		
+	return report.metrics;
 }
 
 export const storedParticipant = storable<Participant>('participant', {

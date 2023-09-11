@@ -10,10 +10,9 @@
 	import Notes from '$lib/components/selectors/NotesComposer.svelte';
 	import { Metrics2023 } from '$lib/data/metrics/2023';
 	import QRCode from '$lib/components/sections/QRCodeDisplay.svelte';
-	import { getReportOrNull, storedReports } from '$lib/data/stores';
+	import { getMetricsOrNull, getReportOrNull, storedReports } from '$lib/data/stores';
 	import type { Participant } from '$lib/types/Participant';
 	import { participantToSerializedParticipant } from '$lib/adapter';
-	import { onMount } from 'svelte';
 
 	/* participant */
 	let participant: Participant;
@@ -23,11 +22,11 @@
 	/* QR code */
 	let qrCode = '';
 
-	onMount(() => {
-		const report = getReportOrNull(participant);
+	$: participant && (() => {
+		const metricsOrNull = getMetricsOrNull(participant);
 
-		if (report) metrics = Metrics2023.fromMetrics(report.metrics);
-	});
+		if (metricsOrNull) metrics = Metrics2023.fromMetrics(metricsOrNull);
+	})();
 
 	function handleSubmit() {
 		const report = {
