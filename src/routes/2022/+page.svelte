@@ -8,7 +8,7 @@
 	import Submit from '$lib/components/sections/Submit.svelte';
 	import Notes from '$lib/components/selectors/NotesComposer.svelte';
 	import type { Defense } from '$lib/data/metrics/universal';
-	import type { ClimbLevel } from '$lib/data/metrics/2022';
+	import { Metrics2022, type ClimbLevel } from '$lib/data/metrics/2022';
 	import { arrayToObject } from '$lib/util/array';
 	import QRCode from '$lib/components/sections/QRCodeDisplay.svelte';
 	import { storedReports } from '$lib/data/stores';
@@ -19,59 +19,12 @@
 	/* participant */
 	let participant: Participant;
 
-	/* starting position */
-	let startingPoint: Array<Point>;
-
-	/* taxi */
-	let taxi: boolean;
-
-	/* auto cargo scored */
-	let autoCargoScored: number;
-
-	/* teleop score locations */
-	let teleopMakes: Array<Point>;
-	let teleopMisses: Array<Point>;
-
-	/* teleop cargo scored */
-	let teleopLowerCargoScored: number;
-	let teleopUpperCargoScored: number;
-
-	/* endgame climb level */
-	let climbLevel: ClimbLevel = 'None';
-
-	/* defense */
-	let defense: Defense = 'None';
-
-	/* notes */
-	let notes: Array<string>;
-
-	/* scouter */
-	let scouterName: string;
+	let metrics: Metrics2022 = new Metrics2022();
 
 	function handleSubmit() {
-		const metrics = {
-			startingPoint: startingPoint[0].toString(),
-			taxi: taxi.toString(),
-			autoCargoScored: autoCargoScored.toString(),
-			...arrayToObject(
-				'teleopMake',
-				teleopMakes.map((point) => point.toString())
-			),
-			...arrayToObject(
-				'teleopMiss',
-				teleopMisses.map((point) => point.toString())
-			),
-			teleopLowerCargoScored: teleopLowerCargoScored.toString(),
-			teleopUpperCargoScored: teleopUpperCargoScored.toString(),
-			climbLevel,
-			defense,
-			...arrayToObject('note', notes),
-			scouterName
-		};
-
 		const report = {
 			participant: participantToSerializedParticipant(participant),
-			metrics
+			metrics: metrics.flatten()
 		};
 
 		qrCode = JSON.stringify(report);
@@ -85,60 +38,60 @@
 
 <ParticipantSelector bind:participant />
 <FieldSelector
-	bind:points={startingPoint}
+	bind:point={metrics.startingPoint}
 	field={field2022}
 	name="Starting Position"
 	help="Place where the robot starts the match."
 	single={true}
 />
 <BooleanSelector
-	bind:value={taxi}
+	bind:value={metrics.taxi}
 	name="Auto Taxi"
 	help="The robot fully leaves the tarmac during auto."
 />
 <NumberSelector
-	bind:value={autoCargoScored}
+	bind:value={metrics.autoCargoScored}
 	name="Auto Cargo Scored"
 	help="Number of cargo scored by the robot during auto."
 />
 <FieldSelector
-	bind:points={teleopMakes}
+	bind:points={metrics.teleopMakes}
 	field={field2022}
 	name="Teleop Makes"
 	help="Places where the robot scores during teleop."
 	drawStyle="triangle"
 />
 <FieldSelector
-	bind:points={teleopMisses}
+	bind:points={metrics.teleopMisses}
 	field={field2022}
 	name="Teleop Misses"
 	help="Places where the robot tries scoring during teleop but misses."
 	drawStyle="cross"
 />
 <NumberSelector
-	bind:value={teleopLowerCargoScored}
+	bind:value={metrics.teleopLowerCargoScored}
 	name="Teleop Lower Hub Cargo Scored"
 	help="Cargo scored in the lower hub during teleop."
 />
 <NumberSelector
-	bind:value={teleopUpperCargoScored}
+	bind:value={metrics.teleopUpperCargoScored}
 	name="Teleop Upper Hub Cargo Scored"
 	help="Cargo scored in the upper hub during teleop."
 />
 <MultipleOptionSelector
-	bind:selected={climbLevel}
+	bind:selected={metrics.climbLevel}
 	name="Climb Level"
 	options={['None', 'Attempted', 'Low', 'Middle', 'High', 'Traversal']}
 	help="Level the robot climbed to."
 />
 <MultipleOptionSelector
-	bind:selected={defense}
+	bind:selected={metrics.defense}
 	name="Defense"
 	options={['None', 'Attempted', 'Effective', 'Very Effective']}
 	help="Quality of defense played.<br/>Effective defense prevents a score.<br/>Very effective defense prevents multiple scores."
 />
-<Notes bind:notes />
-<Submit on:click={handleSubmit} bind:scouterName />
+<Notes bind:notes={metrics.notes} />
+<Submit on:click={handleSubmit} bind:scouterName={metrics.scouterName} />
 {#if qrCode.length > 0}
 	<section>
 		<QRCode value={qrCode} />

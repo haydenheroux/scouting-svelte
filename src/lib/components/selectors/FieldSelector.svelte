@@ -9,6 +9,7 @@
 	export let field: string;
 
 	export let points: Array<Point> = [];
+	export let point: Point | null = null;
 	export let single = false;
 
 	type DrawStyle = 'dot' | 'cross' | 'triangle';
@@ -33,11 +34,13 @@
 
 	$: points && draw();
 
-	function addPoint(point: Point) {
-		const norm = point.normalize(dimensionsOfCanvas(canvas));
+	function addPoint(p: Point) {
+		const norm = p.normalize(dimensionsOfCanvas(canvas));
 
 		if (single) points = [norm];
 		else points = [...points, norm];
+
+		point = points[0] ?? null;
 	}
 
 	function handleMouse(mouseEvent: MouseEvent) {
