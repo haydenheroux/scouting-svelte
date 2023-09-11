@@ -32,7 +32,7 @@
 
 	let canvas: HTMLCanvasElement;
 
-	$: point && draw();
+	$: point && (() => { if (point) points = [point, ...points] });
 	$: points && draw();
 
 	function addPoint(p: Point) {
