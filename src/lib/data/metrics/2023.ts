@@ -40,6 +40,16 @@ export function gridToObject(key: string, grid: Grid): Record<string, string> {
     return object;
 }
 
+export function gridFromString(s: string): Grid {
+    let grid = new Array(3); 
+
+    for (let i = 0; i < 3; i++) {
+        grid[i] = new Array(9);
+    }
+
+    return grid;
+}
+
 export type ChargeStation = "None" | "Attempted" | "Docked" | "Engaged";
 
 export type Substation = "Single Substation" | "Double Substation";

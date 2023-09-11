@@ -16,6 +16,8 @@
 	import type { Participant } from '$lib/types/Participant';
 	import type { Point } from '$lib/types/Point';
 	import { participantToSerializedParticipant } from '$lib/adapter';
+	import { onMount } from 'svelte';
+	import { serializedParticipantsAreEqual } from '$lib/api';
 
 	/* participant */
 	let participant: Participant;
@@ -49,8 +51,17 @@
 	/* scouter */
 	let scouterName: string;
 
-	/* QR code */
-	let qrCode = "";
+	onMount(
+		() => {
+			let matches = storedMatches.get();
+
+			let matchesForParticipant = matches.filter(match => {
+				return serializedParticipantsAreEqual(match.participant, participantToSerializedParticipant(participant));
+			});
+
+			let match = matchesForParticipant[matchesForParticipant.length - 1];
+		}
+	);
 
 	function handleSubmit() {
 		const metrics = {
@@ -79,6 +90,9 @@
 
 		storedMatches.set([...storedMatches.get(), scouted]);
 	}
+
+	/* QR code */
+	let qrCode = "";
 </script>
 
 <ParticipantSelector bind:participant />

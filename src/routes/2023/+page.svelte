@@ -9,7 +9,7 @@
 	import CubeCone from './CubeCone.svelte';
 	import GridComponent from './GridComponent.svelte';
 	import Notes from '$lib/components/selectors/NotesComposer.svelte';
-	import { gridToObject, type ChargeStation, type GamePiece, type Grid, type Substation } from '$lib/data/metrics/2023';
+	import { gridToObject, type ChargeStation, type GamePiece, type Grid, type Substation, gridFromString } from '$lib/data/metrics/2023';
 	import type { Defense } from '$lib/data/metrics/universal';
 	import { arrayToObject } from '$lib/util/array';
 	import QRCode from '$lib/components/sections/QRCodeDisplay.svelte';
@@ -17,6 +17,8 @@
 	import type { Participant } from '$lib/types/Participant';
 	import type { Point } from '$lib/types/Point';
 	import { participantToSerializedParticipant } from '$lib/adapter';
+	import { onMount } from 'svelte';
+	import { serializedParticipantsAreEqual } from '$lib/api';
 
 	/* participant */
 	let participant: Participant;
@@ -25,7 +27,7 @@
 	let startingPoint: Array<Point>;
 
 	/* preloaded game piece */
-	let preload: GamePiece;
+	let preload: GamePiece = "Cube";
 
 	/* mobility */
 	let mobility: boolean;
@@ -56,6 +58,18 @@
 
 	/* QR code */
 	let qrCode = "";
+
+	onMount(
+		() => {
+			let matches = storedMatches.get();
+
+			let matchesForParticipant = matches.filter(match => {
+				return serializedParticipantsAreEqual(match.participant, participantToSerializedParticipant(participant));
+			});
+
+			let match = matchesForParticipant[matchesForParticipant.length - 1];
+		}
+	);
 
 	function handleSubmit() {
 		const metrics = {

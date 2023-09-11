@@ -13,6 +13,10 @@ export interface SerializedParticipant {
     alliance: SerializedAlliance;
 }
 
+export function serializedParticipantsAreEqual(sp1: SerializedParticipant, sp2: SerializedParticipant) {
+    return (sp1.teamNumber == sp2.teamNumber) && (sp1.set == sp2.set) && (sp1.number == sp2.number) && (sp1.type == sp2.type) && (sp1.event == sp2.event) && (sp1.alliance == sp2.alliance);
+}
+
 export type SerializedMatchCode = string;
 
 export function getMatchCode(participant: SerializedParticipant): SerializedMatchCode {

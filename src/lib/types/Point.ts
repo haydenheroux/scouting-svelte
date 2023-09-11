@@ -10,6 +10,8 @@ export function dimensionsOfCanvas(canvas: HTMLCanvasElement) {
     }
 }
 
+const separator = ",";
+
 export class Point {
     readonly x: number;
     readonly y: number;
@@ -45,12 +47,21 @@ export class Point {
     }
 
     toString() {
-        return `${this.x.toFixed(4)},${this.y.toFixed(4)}`;
+        return `${this.x.toFixed(4)}${separator}${this.y.toFixed(4)}`;
     }
 }
 
 export function pointOfMouseEvent(mouseEvent: MouseEvent): Point {
     return new Point(mouseEvent.offsetX, mouseEvent.offsetY);
+}
+
+export function pointOfString(s: string): Point {
+    let parts = s.split(separator);
+
+    let x = Number(parts[0]);
+    let y = Number(parts[1]);
+
+    return new Point(x, y);
 }
 
 export function pointsToString(points: Array<Point>): string {
