@@ -10,7 +10,7 @@ export function arrayToObject<T>(key: string, values: Array<T>): Record<string, 
 }
 
 export function stringToArray(key: string, object: Record<string, string>): Array<string> {
-	const matchingKeys = Object.keys(object).filter(objectKey => objectKey.startsWith(key));
+	const matchingKeys = Object.keys(object).filter((objectKey) => objectKey.startsWith(key));
 
 	const result = [] as Array<string>;
 

@@ -32,7 +32,10 @@
 
 	let canvas: HTMLCanvasElement;
 
-	$: point && (() => { if (point) points = [point, ...points] });
+	$: point &&
+		(() => {
+			if (point) points = [point, ...points];
+		});
 	$: points && draw();
 
 	function addPoint(p: Point) {
@@ -84,45 +87,45 @@
 	}
 
 	function drawPoint(point: Point, ctx: CanvasRenderingContext2D) {
-			const color = '#fafafa';
-			const radius = 12;
-			switch (drawStyle) {
-				case 'dot':
-					ctx.fillStyle = color;
+		const color = '#fafafa';
+		const radius = 12;
+		switch (drawStyle) {
+			case 'dot':
+				ctx.fillStyle = color;
 
-					ctx.beginPath();
-					ctx.arc(point.x, point.y, radius, 0, 2 * Math.PI, false);
-					ctx.fill();
-					break;
-				case 'cross':
-					ctx.strokeStyle = color;
-					ctx.lineWidth = 4;
+				ctx.beginPath();
+				ctx.arc(point.x, point.y, radius, 0, 2 * Math.PI, false);
+				ctx.fill();
+				break;
+			case 'cross':
+				ctx.strokeStyle = color;
+				ctx.lineWidth = 4;
 
-					const d = 0.5 * radius * Math.sqrt(2);
+				const d = 0.5 * radius * Math.sqrt(2);
 
-					ctx.beginPath();
+				ctx.beginPath();
 
-					ctx.moveTo(point.x - d, point.y - d);
-					ctx.lineTo(point.x + d, point.y + d);
+				ctx.moveTo(point.x - d, point.y - d);
+				ctx.lineTo(point.x + d, point.y + d);
 
-					ctx.moveTo(point.x + d, point.y - d);
-					ctx.lineTo(point.x - d, point.y + d);
-					ctx.stroke();
-					break;
-				case 'triangle':
-					ctx.fillStyle = color;
+				ctx.moveTo(point.x + d, point.y - d);
+				ctx.lineTo(point.x - d, point.y + d);
+				ctx.stroke();
+				break;
+			case 'triangle':
+				ctx.fillStyle = color;
 
-					const dx = 0.5 * Math.sqrt(3) * radius;
-					const dy = 0.5 * radius;
+				const dx = 0.5 * Math.sqrt(3) * radius;
+				const dy = 0.5 * radius;
 
-					ctx.beginPath();
-					ctx.moveTo(point.x, point.y - 2 * dy);
-					ctx.lineTo(point.x - dx, point.y + dy);
-					ctx.lineTo(point.x + dx, point.y + dy);
-					ctx.fill();
-				default:
-					break;
-			}
+				ctx.beginPath();
+				ctx.moveTo(point.x, point.y - 2 * dy);
+				ctx.lineTo(point.x - dx, point.y + dy);
+				ctx.lineTo(point.x + dx, point.y + dy);
+				ctx.fill();
+			default:
+				break;
+		}
 	}
 </script>
 

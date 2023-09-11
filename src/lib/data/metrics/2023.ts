@@ -89,17 +89,17 @@ export class Metrics2023 {
 	static fromMetrics(metrics: Metrics): Metrics2023 {
 		const metrics2023 = new Metrics2023();
 
-		metrics2023.startingPoint = pointOfString(metrics["startingPoint"]);
-		metrics2023.preload = metrics["preload"] as GamePiece;
-		metrics2023.mobility = metrics["mobility"] == "true";
+		metrics2023.startingPoint = pointOfString(metrics['startingPoint']);
+		metrics2023.preload = metrics['preload'] as GamePiece;
+		metrics2023.mobility = metrics['mobility'] == 'true';
 		metrics2023.autoScores = emptyGrid();
-		metrics2023.autoChargeStation = metrics["autoChargeStation"] as ChargeStation;
-		metrics2023.substationPreference = metrics["substationPreference"] as Substation;
+		metrics2023.autoChargeStation = metrics['autoChargeStation'] as ChargeStation;
+		metrics2023.substationPreference = metrics['substationPreference'] as Substation;
 		metrics2023.teleopScores = emptyGrid();
-		metrics2023.endgameChargeStation = metrics["endgameChargeStation"] as ChargeStation;
-		metrics2023.defense = metrics["defense"] as Defense;
-		metrics2023.notes = stringToArray("note", metrics);
-		metrics2023.scouterName = metrics["scouterName"];
+		metrics2023.endgameChargeStation = metrics['endgameChargeStation'] as ChargeStation;
+		metrics2023.defense = metrics['defense'] as Defense;
+		metrics2023.notes = stringToArray('note', metrics);
+		metrics2023.scouterName = metrics['scouterName'];
 
 		return metrics2023;
 	}

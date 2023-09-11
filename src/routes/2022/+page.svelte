@@ -18,11 +18,12 @@
 
 	let metrics: Metrics2022 = new Metrics2022();
 
-	$: participant && (() => {
-		const metricsOrNull = getMetricsOrNull(participant);
+	$: participant &&
+		(() => {
+			const metricsOrNull = getMetricsOrNull(participant);
 
-		if (metricsOrNull) metrics = Metrics2022.fromMetrics(metricsOrNull);
-	})();
+			if (metricsOrNull) metrics = Metrics2022.fromMetrics(metricsOrNull);
+		})();
 
 	function handleSubmit() {
 		const report = {

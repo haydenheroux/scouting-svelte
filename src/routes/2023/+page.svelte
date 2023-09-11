@@ -22,11 +22,12 @@
 	/* QR code */
 	let qrCode = '';
 
-	$: participant && (() => {
-		const metricsOrNull = getMetricsOrNull(participant);
+	$: participant &&
+		(() => {
+			const metricsOrNull = getMetricsOrNull(participant);
 
-		if (metricsOrNull) metrics = Metrics2023.fromMetrics(metricsOrNull);
-	})();
+			if (metricsOrNull) metrics = Metrics2023.fromMetrics(metricsOrNull);
+		})();
 
 	function handleSubmit() {
 		const report = {

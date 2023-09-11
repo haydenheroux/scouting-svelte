@@ -28,7 +28,7 @@ export function getMetricsOrNull(participant: Participant): Metrics | null {
 	const report = getReportOrNull(participant);
 
 	if (!report) return null;
-		
+
 	return report.metrics;
 }
 
