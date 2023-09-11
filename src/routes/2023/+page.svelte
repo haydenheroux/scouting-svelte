@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { doPost } from '$lib/util/fetch';
 	import field2023 from '$lib/images/fields/2023.jpg';
 	import ParticipantSelector from '$lib/components/selectors/ParticipantSelector.svelte';
 	import FieldSelector from '$lib/components/selectors/FieldSelector.svelte';
@@ -14,7 +13,7 @@
 		type ChargeStation,
 		type GamePiece,
 		type Grid,
-		type Substation,
+		type Substation
 	} from '$lib/data/metrics/2023';
 	import type { Defense } from '$lib/data/metrics/universal';
 	import { arrayToObject } from '$lib/util/array';
@@ -82,9 +81,6 @@
 			participant: participantToSerializedParticipant(participant),
 			metrics
 		};
-
-		// TODO notify user
-		doPost(new URL('http://localhost/api/add-metrics'), report);
 
 		qrCode = JSON.stringify(report);
 

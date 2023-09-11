@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { doPost } from '$lib/util/fetch';
 	import field2022 from '$lib/images/fields/2022.jpg';
 	import ParticipantSelector from '$lib/components/selectors/ParticipantSelector.svelte';
 	import FieldSelector from '$lib/components/selectors/FieldSelector.svelte';
@@ -74,9 +73,6 @@
 			participant: participantToSerializedParticipant(participant),
 			metrics
 		};
-
-		// TODO notify user
-		doPost(new URL('http://localhost/api/add-metrics'), report);
 
 		qrCode = JSON.stringify(report);
 

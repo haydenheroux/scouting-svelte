@@ -42,12 +42,3 @@ export function getMatchCode(participant: SerializedParticipant): SerializedMatc
 
 	return s;
 }
-
-export function getQueryString(participant: SerializedParticipant): URLSearchParams {
-	return new URLSearchParams({
-		team: participant.teamNumber.toString(),
-		match: getMatchCode(participant),
-		event: participant.event,
-		alliance: participant.alliance
-	});
-}
