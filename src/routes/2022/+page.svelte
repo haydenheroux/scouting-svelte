@@ -12,12 +12,10 @@
 	import type { ClimbLevel } from '$lib/data/metrics/2022';
 	import { arrayToObject } from '$lib/util/array';
 	import QRCode from '$lib/components/sections/QRCodeDisplay.svelte';
-	import { storedHistory } from '$lib/data/stores';
+	import { storedReports } from '$lib/data/stores';
 	import type { Participant } from '$lib/types/Participant';
 	import type { Point } from '$lib/types/Point';
 	import { participantToSerializedParticipant } from '$lib/adapter';
-	import { onMount } from 'svelte';
-	import { serializedParticipantsAreEqual } from '$lib/api';
 
 	/* participant */
 	let participant: Participant;
@@ -51,19 +49,6 @@
 	/* scouter */
 	let scouterName: string;
 
-	onMount(() => {
-		let reports = storedHistory.get();
-
-		let reportsByParticipant = reports.filter((match) => {
-			return serializedParticipantsAreEqual(
-				match.participant,
-				participantToSerializedParticipant(participant)
-			);
-		});
-
-		let report = reportsByParticipant[reportsByParticipant.length - 1];
-	});
-
 	function handleSubmit() {
 		const metrics = {
 			startingPoint: startingPoint[0].toString(),
@@ -95,7 +80,7 @@
 
 		qrCode = JSON.stringify(report);
 
-		storedHistory.set([...storedHistory.get(), report]);
+		storedReports.set([...storedReports.get(), report]);
 	}
 
 	/* QR code */

@@ -1,9 +1,26 @@
-import type { SerializedAlliance, SerializedMatchCode } from '$lib/api';
+import { participantToSerializedParticipant } from '$lib/adapter';
+import {
+	serializedParticipantsAreEqual,
+	type SerializedAlliance,
+	type SerializedMatchCode
+} from '$lib/api';
 import type { Participant } from '../types/Participant';
 import { storable } from '../util/storable';
 import type { Report } from './Report';
 
-export const storedHistory = storable<Array<Report>>('history', [] as Array<Report>);
+export const storedReports = storable<Array<Report>>('reports', [] as Array<Report>);
+
+export function getReportByParticipant(participant: Participant): Report {
+	const serializedParticipant = participantToSerializedParticipant(participant);
+
+	const reports = storedReports.get();
+
+	const allReportsByParticipant = reports.filter((report) => {
+		return serializedParticipantsAreEqual(report.participant, serializedParticipant);
+	});
+
+	return allReportsByParticipant[allReportsByParticipant.length - 1];
+}
 
 export const storedParticipant = storable<Participant>('participant', {
 	type: 'Qualification',

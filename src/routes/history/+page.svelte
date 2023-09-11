@@ -1,10 +1,10 @@
 <script lang="ts">
 	import QRCodeDisplay from '$lib/components/sections/QRCodeDisplay.svelte';
 	import Section from '$lib/components/Section.svelte';
-	import { storedHistory } from '$lib/data/stores';
+	import { storedReports } from '$lib/data/stores';
 	import { getMatchCode } from '$lib/api';
 
-	let history = storedHistory.get();
+	let history = storedReports.get();
 </script>
 
 {#each history as report}
