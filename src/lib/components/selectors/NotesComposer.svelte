@@ -1,6 +1,8 @@
 <script lang="ts">
 	import Section from '../Section.svelte';
 
+	export let name = "Notes";
+	export let help = "";
 	let note = '';
 
 	export let notes: Array<string> = [];
@@ -16,7 +18,7 @@
 	}
 </script>
 
-<Section name="Notes">
+<Section {name} {help}>
 	<div>
 		<input type="text" placeholder="" bind:value={note} />
 		<button class="primary add" on:click={add}>+</button>

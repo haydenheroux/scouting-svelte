@@ -16,7 +16,7 @@
 
     let metrics: Metrics2024 = new Metrics2024();
 
-    let qrCode = '';
+    let qrCode: string = "";
 
 	$: participant &&
 		(() => {
@@ -47,16 +47,42 @@
 />
 <BooleanSelector
 	bind:value={metrics.leave}
-	name="Mobility"
-	help="The robot fully leaves the Wing during auto."
+	name="Leave"
+	help="Did the robot fully leave the Wing during auto?"
+/>
+<BooleanSelector
+	bind:value={metrics.coopertition}
+	name="Coopertition"
+	help="Did the alliance activate Coopertition?"
 />
 <MultipleOptionSelector
-	bind:selected={metrics.defense}
-	name="Defense"
-	options={['None', 'Attempted', 'Effective', 'Very Effective']}
-	help="Quality of defense played.<br/>Effective defense prevents a score.<br/>Very effective defense prevents multiple scores."
+	bind:selected={metrics.trap}
+	name="Trap"
+	help="How did the robot interact with the Trap?"
+	options={['None', 'Failed', 'Success']}
 />
-<Notes bind:notes={metrics.notes} />
+<MultipleOptionSelector
+	bind:selected={metrics.climb}
+	name="Climb"
+	help="How did the robot interact with the Stage?"
+	options={['None', 'Failed', 'Success']}
+/>
+<MultipleOptionSelector
+	bind:selected={metrics.harmony}
+	name="Harmony"
+	help="Did the robot activate the Harmony bonus?"
+	options={['0', '+1', '+2']}
+/>
+<MultipleOptionSelector
+	bind:selected={metrics.highNotes}
+	name="High Notes"
+	help="Did the team's human player score any High Notes?"
+	options={['None', '0', '1', '2', '3']}
+/>
+<Notes bind:notes={metrics.defenseNotes} name="Defense" help="Did the robot play defense?" />
+<Notes bind:notes={metrics.drivingNotes} name="Driving" help="Was the robot being defended?" />
+<Notes bind:notes={metrics.downtimeNotes} name="Downtime" help="What did the robot do when they weren't scoring?" />
+<Notes bind:notes={metrics.otherNotes} name="Other" />
 <Submit on:click={handleSubmit} bind:scouterName={metrics.scouterName} />
 {#if qrCode.length > 0}
 	<section>
