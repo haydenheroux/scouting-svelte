@@ -1,5 +1,5 @@
 import { pointOfString, type Point } from '$lib/types/Point';
-import { arrayToObject, stringToArray } from '$lib/util/array';
+import { arrayToObject, stringToArray } from '$lib/util/Array';
 import type { Metrics } from '../Report';
 
 export type Trap = 'None' | 'Fail' | 'Success';
