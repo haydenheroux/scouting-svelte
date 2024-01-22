@@ -10,17 +10,17 @@
 
 	let scanner: Html5Qrcode | null = null;
 
-	let scannerIsOpen = true; // Keeps scanner element present so it can be selected
+	let closed = true;
 
 	function open() {
 		if (!browser || scanner) return;
-
-		scannerIsOpen = true;
 
 		scanner = new Html5Qrcode('scanner');
 
 		const camera = { facingMode: 'environment' };
 		const config = { fps: 10 };
+
+		closed = false;
 
 		scanner.start(
 			camera,
@@ -31,8 +31,7 @@
 
 				value = text;
 
-				// Hide the scanner on success
-				scannerIsOpen = false;
+				closed = true;
 
 				scanner.clear();
 			},
@@ -42,9 +41,7 @@
 </script>
 
 <Section {name} {help}>
-	{#if scannerIsOpen}
-		<div id="scanner" />
-	{/if}
+	<div id="scanner" style={closed ? "display: none;" : ""} />
 	<button class="active" on:click={open}>Open Scanner</button>
 </Section>
 
