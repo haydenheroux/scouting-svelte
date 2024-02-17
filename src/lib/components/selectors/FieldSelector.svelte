@@ -47,6 +47,26 @@
 		point = points[0] ?? null;
 	}
 
+	function getFlippedPoints() {
+		let flippedPoints = [];
+
+		for (let p of points) {
+			let newPoint;
+
+			if (p.x > 0.5) {
+				let distance = p.x - 0.5;
+				let newX = 0.5 - distance;
+				newPoint = new Point(newX, p.y);
+			} else {
+				newPoint = p;
+			}
+
+			flippedPoints.push(newPoint);
+		}
+
+		return flippedPoints;
+	}
+
 	function handleMouse(mouseEvent: MouseEvent) {
 		const point = pointOfMouseEvent(mouseEvent);
 
@@ -136,7 +156,7 @@
 		on:touchmove={handleTouch}
 		bind:this={canvas}
 	/>
-	<button class="primary" on:click={(e) => (points = points.slice(0, points.length - 1))}
+	<button class="primary" on:click={() => (points = points.slice(0, points.length - 1))}
 		>Undo</button
 	>
 </Section>
