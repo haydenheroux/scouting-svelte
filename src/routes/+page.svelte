@@ -12,11 +12,11 @@
 	import { participantToSerializedParticipant } from '$lib/adapter';
 	import { Metrics2024 } from '$lib/data/metrics/2024';
 
-    let participant: Participant;
+	let participant: Participant;
 
-    let metrics: Metrics2024 = new Metrics2024();
+	let metrics: Metrics2024 = new Metrics2024();
 
-    let qrCode: string = "";
+	let qrCode: string = '';
 
 	$: participant &&
 		(() => {
@@ -39,7 +39,7 @@
 
 <ParticipantSelector bind:participant />
 <FieldSelector
-	bind:point={metrics.startingPoint}
+	bind:points={metrics.startingPoint}
 	field={field2024}
 	name="Starting Position"
 	help="Place where the robot starts the match."
@@ -81,7 +81,11 @@
 />
 <Notes bind:notes={metrics.defenseNotes} name="Defense" help="Did the robot play defense?" />
 <Notes bind:notes={metrics.drivingNotes} name="Driving" help="Was the robot being defended?" />
-<Notes bind:notes={metrics.downtimeNotes} name="Downtime" help="What did the robot do when they weren't scoring?" />
+<Notes
+	bind:notes={metrics.downtimeNotes}
+	name="Downtime"
+	help="What did the robot do when they weren't scoring?"
+/>
 <Notes bind:notes={metrics.otherNotes} name="Other" />
 <Submit on:click={handleSubmit} bind:scouterName={metrics.scouterName} />
 {#if qrCode.length > 0}

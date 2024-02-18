@@ -1,69 +1,87 @@
 interface Dimensions {
-	width: number;
-	height: number;
+    width: number;
+    height: number;
 }
 
-export function dimensionsOfCanvas(canvas: HTMLCanvasElement) {
-	return {
-		width: canvas.width,
-		height: canvas.height
-	};
+export function dimensionsOfCanvas(canvas: HTMLCanvasElement): Dimensions {
+    return {
+        width: canvas.width,
+        height: canvas.height
+    };
 }
 
-const separator = ',';
+const SEPARATOR: string = ',';
 
 export class Point {
-	readonly x: number;
-	readonly y: number;
+    readonly x: number;
+    readonly y: number;
 
-	constructor(x: number, y: number) {
-		this.x = x;
-		this.y = y;
-	}
+    constructor(x: number, y: number) {
+        this.x = x;
+        this.y = y;
+    }
 
-	inverse(): Point {
-		return new Point(-this.x, -this.y);
-	}
+    static fromMouseEvent(e: MouseEvent): Point {
+        return new Point(e.offsetX, e.offsetY);
+    }
 
-	offset(offset: Point): Point {
-		const offsetX = this.x - offset.x;
-		const offsetY = this.y - offset.y;
+    static fromString(s: string): Point {
+        let parts = s.split(SEPARATOR);
 
-		return new Point(offsetX, offsetY);
-	}
+        let x = Number(parts[0]);
+        let y = Number(parts[1]);
 
-	scale(dimensions: Dimensions): Point {
-		const scaledX = this.x * dimensions.width;
-		const scaledY = this.y * dimensions.height;
+        return new Point(x, y);
+    }
 
-		return new Point(scaledX, scaledY);
-	}
+    normalize(bounds: Dimensions): NormalizedPoint {
+        const nx = this.x / bounds.width;
+        const ny = this.y / bounds.height;
 
-	normalize(dimensions: Dimensions): Point {
-		const normalizedX = this.x / dimensions.width;
-		const normalizedY = this.y / dimensions.height;
-
-		return new Point(normalizedX, normalizedY);
-	}
-
-	toString() {
-		return `${this.x.toFixed(4)}${separator}${this.y.toFixed(4)}`;
-	}
+        return new NormalizedPoint(nx, ny);
+    }
 }
 
-export function pointOfMouseEvent(mouseEvent: MouseEvent): Point {
-	return new Point(mouseEvent.offsetX, mouseEvent.offsetY);
-}
+export class NormalizedPoint {
+    readonly x: number;
+    readonly y: number;
 
-export function pointOfString(s: string): Point {
-	let parts = s.split(separator);
+    constructor(x: number, y: number) {
+        this.x = x;
+        this.y = y;
+    }
 
-	let x = Number(parts[0]);
-	let y = Number(parts[1]);
+    static fromString(s: string): NormalizedPoint {
+        let parts = s.split(SEPARATOR);
 
-	return new Point(x, y);
-}
+        let x = Number(parts[0]);
+        let y = Number(parts[1]);
 
-export function pointsToString(points: Array<Point>): string {
-	return points.map((x) => x.toString()).join(':');
+        return new NormalizedPoint(x, y);
+    }
+
+    stringify(): string {
+        return `${this.x.toFixed(4)}${SEPARATOR}${this.y.toFixed(4)}`;
+    }
+
+    flipX(): NormalizedPoint {
+        let dist = Math.abs(this.x - 0.5);
+        let fx = 0.5 - dist;
+
+        return new NormalizedPoint(fx, this.y);
+    }
+
+    flipY(): NormalizedPoint {
+        let dist = Math.abs(this.y - 0.5);
+        let fy = 0.5 - dist;
+
+        return new NormalizedPoint(this.x, fy);
+    }
+
+    scale(dimensions: Dimensions): Point {
+        const sx = this.x * dimensions.width;
+        const sy = this.y * dimensions.height;
+
+        return new Point(sx, sy);
+    }
 }

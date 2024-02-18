@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Point, dimensionsOfCanvas, pointOfMouseEvent } from '$lib/types/Point';
+	import { NormalizedPoint, Point, dimensionsOfCanvas } from '$lib/types/Point';
 	import { onMount } from 'svelte';
 	import Section from '../Section.svelte';
 
@@ -8,9 +8,9 @@
 
 	export let field: string;
 
-	export let points: Array<Point> = [];
-	export let point: Point | null = null;
 	export let single = false;
+
+	export let points: Array<NormalizedPoint>;
 
 	type DrawStyle = 'dot' | 'cross' | 'triangle';
 
@@ -32,45 +32,17 @@
 
 	let canvas: HTMLCanvasElement;
 
-	$: point &&
-		(() => {
-			if (point) points = [point, ...points];
-		});
-	$: points && draw();
-
-	function addPoint(p: Point) {
+	function push(p: Point) {
 		const norm = p.normalize(dimensionsOfCanvas(canvas));
 
 		if (single) points = [norm];
 		else points = [...points, norm];
 
-		point = points[0] ?? null;
+		draw();
 	}
 
-	function getFlippedPoints() {
-		let flippedPoints = [];
-
-		for (let p of points) {
-			let newPoint;
-
-			if (p.x > 0.5) {
-				let distance = p.x - 0.5;
-				let newX = 0.5 - distance;
-				newPoint = new Point(newX, p.y);
-			} else {
-				newPoint = p;
-			}
-
-			flippedPoints.push(newPoint);
-		}
-
-		return flippedPoints;
-	}
-
-	function handleMouse(mouseEvent: MouseEvent) {
-		const point = pointOfMouseEvent(mouseEvent);
-
-		addPoint(point);
+	function handleMouse(e: MouseEvent) {
+		push(Point.fromMouseEvent(e));
 	}
 
 	function handleTouch(event: TouchEvent) {
@@ -82,7 +54,7 @@
 
 		const point = new Point(x, y);
 
-		addPoint(point);
+		push(point);
 	}
 
 	function draw() {
@@ -94,10 +66,6 @@
 
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
 		ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-
-		if (point) {
-			drawPoint(point.scale(dimensionsOfCanvas(canvas)), ctx);
-		}
 
 		for (let normalizedPoint of points) {
 			const point = normalizedPoint.scale(dimensionsOfCanvas(canvas));
