@@ -34,7 +34,7 @@ export class Point {
         return new Point(x, y);
     }
 
-    normalize(bounds: Dimensions): NormalizedPoint {
+    normalizeTo(bounds: Dimensions): NormalizedPoint {
         const nx = this.x / bounds.width;
         const ny = this.y / bounds.height;
 
@@ -78,7 +78,7 @@ export class NormalizedPoint {
         return new NormalizedPoint(this.x, fy);
     }
 
-    scale(dimensions: Dimensions): Point {
+    scaleBy(dimensions: Dimensions): Point {
         const sx = this.x * dimensions.width;
         const sy = this.y * dimensions.height;
 

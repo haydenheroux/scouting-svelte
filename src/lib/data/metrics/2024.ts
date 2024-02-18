@@ -10,6 +10,9 @@ export type HighNotes = 'None' | '0' | '1' | '2' | '3';
 export class Metrics2024 {
     startingPoint: Array<NormalizedPoint> = [];
     leave: boolean = false;
+    pickups: Array<NormalizedPoint> = [];
+    makes: Array<NormalizedPoint> = [];
+    misses: Array<NormalizedPoint> = [];
     coopertition: boolean = false;
     trap: Trap = 'None';
     climb: Climb = 'None';
@@ -25,7 +28,10 @@ export class Metrics2024 {
         const metrics2024 = new Metrics2024();
 
         metrics2024.startingPoint = [NormalizedPoint.fromString((metrics['startingPoint'][0]))];
-        metrics2024.leave = metrics['taxi'] == 'true';
+        metrics2024.leave = metrics['leave'] == 'true';
+        metrics2024.pickups = stringToArray('pickup', metrics).map(s => NormalizedPoint.fromString(s));
+        metrics2024.makes = stringToArray('make', metrics).map(s => NormalizedPoint.fromString(s));
+        metrics2024.misses = stringToArray('miss', metrics).map(s => NormalizedPoint.fromString(s));
         metrics2024.coopertition = metrics['coopertition'] == 'true';
         metrics2024.trap = metrics['trap'] as Trap;
         metrics2024.climb = metrics['climb'] as Climb;
@@ -43,7 +49,10 @@ export class Metrics2024 {
     flatten(): Metrics {
         return {
             startingPoint: this.startingPoint ? this.startingPoint.map(p => p.stringify()).join(":") : '',
-            taxi: this.leave.toString(),
+            leave: this.leave.toString(),
+            ...arrayToObject('pickup', this.pickups.map(p => p.stringify())),
+            ...arrayToObject('make', this.makes.map(p => p.stringify())),
+            ...arrayToObject('miss', this.misses.map(p => p.stringify())),
             coopertition: this.coopertition.toString(),
             trap: this.trap,
             climb: this.climb,

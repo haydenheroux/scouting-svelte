@@ -33,7 +33,7 @@
 	let canvas: HTMLCanvasElement;
 
 	function push(p: Point) {
-		const norm = p.normalize(dimensionsOfCanvas(canvas));
+		const norm = p.normalizeTo(dimensionsOfCanvas(canvas));
 
 		if (single) points = [norm];
 		else points = [...points, norm];
@@ -67,10 +67,10 @@
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
 		ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 
-		for (let normalizedPoint of points) {
-			const point = normalizedPoint.scale(dimensionsOfCanvas(canvas));
+		for (let p of points) {
+			const sp = p.scaleBy(dimensionsOfCanvas(canvas));
 
-			drawPoint(point, ctx);
+			drawPoint(sp, ctx);
 		}
 	}
 
