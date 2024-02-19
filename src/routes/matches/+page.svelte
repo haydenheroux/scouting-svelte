@@ -12,7 +12,7 @@
 	}
 
 	function getMatch(matchKey: SerializedMatchKey) {
-		let o: MatchToAlliance = {};	
+		let o: MatchToAlliance = {};
 
 		o[matchKey] = storedMatches.get()[matchKey];
 
@@ -34,7 +34,7 @@
 				{/each}
 			</div>
 		{/each}
-		<QRCodeDisplay showable={true} value={JSON.stringify(getMatch(matchKey))}/>
+		<QRCodeDisplay showable={true} value={JSON.stringify(getMatch(matchKey))} />
 	</Section>
 {/each}
 

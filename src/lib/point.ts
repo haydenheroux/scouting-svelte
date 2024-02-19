@@ -1,99 +1,99 @@
 interface Dimensions {
-    width: number;
-    height: number;
+	width: number;
+	height: number;
 }
 
 export function dimensionsOfCanvas(canvas: HTMLCanvasElement): Dimensions {
-    return {
-        width: canvas.width,
-        height: canvas.height
-    };
+	return {
+		width: canvas.width,
+		height: canvas.height
+	};
 }
 
 const SEPARATOR: string = ',';
 
 export class Point {
-    readonly x: number;
-    readonly y: number;
+	readonly x: number;
+	readonly y: number;
 
-    constructor(x: number, y: number) {
-        this.x = x;
-        this.y = y;
-    }
+	constructor(x: number, y: number) {
+		this.x = x;
+		this.y = y;
+	}
 
-    static fromMouseEvent(e: MouseEvent): Point {
-        return new Point(e.offsetX, e.offsetY);
-    }
+	static fromMouseEvent(e: MouseEvent): Point {
+		return new Point(e.offsetX, e.offsetY);
+	}
 
-    static fromString(s: string): Point {
-        let parts = s.split(SEPARATOR);
+	static fromString(s: string): Point {
+		let parts = s.split(SEPARATOR);
 
-        let x = Number(parts[0]);
-        let y = Number(parts[1]);
+		let x = Number(parts[0]);
+		let y = Number(parts[1]);
 
-        return new Point(x, y);
-    }
+		return new Point(x, y);
+	}
 
-    normalizeTo(bounds: Dimensions): NormalizedPoint {
-        const nx = this.x / bounds.width;
-        const ny = this.y / bounds.height;
+	normalizeTo(bounds: Dimensions): NormalizedPoint {
+		const nx = this.x / bounds.width;
+		const ny = this.y / bounds.height;
 
-        return new NormalizedPoint(nx, ny);
-    }
+		return new NormalizedPoint(nx, ny);
+	}
 }
 
 export class NormalizedPoint {
-    readonly x: number;
-    readonly y: number;
+	readonly x: number;
+	readonly y: number;
 
-    constructor(x: number, y: number) {
-        this.x = x;
-        this.y = y;
-    }
+	constructor(x: number, y: number) {
+		this.x = x;
+		this.y = y;
+	}
 
-    static fromString(s: string): NormalizedPoint {
-        if (!s) return new NormalizedPoint(0, 0);
+	static fromString(s: string): NormalizedPoint {
+		if (!s) return new NormalizedPoint(0, 0);
 
-        let parts = s.split(SEPARATOR);
+		let parts = s.split(SEPARATOR);
 
-        let x = Number(parts[0]);
-        let y = Number(parts[1]);
+		let x = Number(parts[0]);
+		let y = Number(parts[1]);
 
-        return new NormalizedPoint(x, y);
-    }
+		return new NormalizedPoint(x, y);
+	}
 
-    stringify(): string {
-        return `${this.x.toFixed(4)}${SEPARATOR}${this.y.toFixed(4)}`;
-    }
+	stringify(): string {
+		return `${this.x.toFixed(4)}${SEPARATOR}${this.y.toFixed(4)}`;
+	}
 
-    flipX(): NormalizedPoint {
-        let dist = Math.abs(this.x - 0.5);
-        let fx = 0.5 - dist;
+	flipX(): NormalizedPoint {
+		let dist = Math.abs(this.x - 0.5);
+		let fx = 0.5 - dist;
 
-        return new NormalizedPoint(fx, this.y);
-    }
+		return new NormalizedPoint(fx, this.y);
+	}
 
-    flipY(): NormalizedPoint {
-        let dist = Math.abs(this.y - 0.5);
-        let fy = 0.5 - dist;
+	flipY(): NormalizedPoint {
+		let dist = Math.abs(this.y - 0.5);
+		let fy = 0.5 - dist;
 
-        return new NormalizedPoint(this.x, fy);
-    }
+		return new NormalizedPoint(this.x, fy);
+	}
 
-    scaleBy(dimensions: Dimensions): Point {
-        const sx = this.x * dimensions.width;
-        const sy = this.y * dimensions.height;
+	scaleBy(dimensions: Dimensions): Point {
+		const sx = this.x * dimensions.width;
+		const sy = this.y * dimensions.height;
 
-        return new Point(sx, sy);
-    }
+		return new Point(sx, sy);
+	}
 }
 
 export class TaggedPoint {
-    readonly tag: string;
-    readonly point: NormalizedPoint;
+	readonly tag: string;
+	readonly point: NormalizedPoint;
 
-    constructor(tag: string, point: NormalizedPoint) {
-        this.tag = tag;
-        this.point = point;
-    }
+	constructor(tag: string, point: NormalizedPoint) {
+		this.tag = tag;
+		this.point = point;
+	}
 }
