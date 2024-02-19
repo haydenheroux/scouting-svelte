@@ -1,5 +1,9 @@
 // TODO Ensure compatibility between API types and API.
 
+import { participantToSerializedParticipant } from "./adapter";
+import type { MatchMetrics } from "./metrics";
+import type { Participant } from "./participant";
+
 export type SerializedMatchType = 'qm' | 'qf' | 'sf' | 'f';
 
 export type SerializedAlliance = 'red' | 'blue';
@@ -30,7 +34,14 @@ export function getMatchCode(participant: SerializedParticipant): SerializedMatc
 
 export type SerializedMatchMetrics = Record<string, string>;
 
-export interface Report {
+export interface SerializedParticipantMetrics {
 	participant: SerializedParticipant;
 	metrics: SerializedMatchMetrics;
+}
+
+export function serialize(participant: Participant, metrics: MatchMetrics): SerializedParticipantMetrics {
+    return {
+			participant: participantToSerializedParticipant(participant),
+			metrics: metrics.serialize()
+		};
 }

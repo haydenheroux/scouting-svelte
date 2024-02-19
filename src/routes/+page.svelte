@@ -7,12 +7,11 @@
 	import BooleanSelector from '$lib/components/selectors/BooleanSelector.svelte';
 	import Notes from '$lib/components/selectors/NotesComposer.svelte';
 	import QRCode from '$lib/components/sections/QRCodeDisplay.svelte';
-	import { participantToSerializedParticipant } from '$lib/adapter';
 	import Section from '$lib/components/Section.svelte';
 	import { valuesOf } from '$lib/enum';
 	import { Trap, Climb, Harmony, HighNotes, MatchMetrics } from '$lib/metrics';
 	import type { Participant } from '$lib/participant';
-	import { storedParticipant, storedReports } from '$lib/stores';
+	import { storedParticipant, serializeAndStore } from '$lib/stores';
 
 	// TODO Move to participant selector
 	let participant: Participant = storedParticipant.get();
@@ -22,14 +21,9 @@
 	let qrCode: string = '';
 
 	function handleSubmit() {
-		const report = {
-			participant: participantToSerializedParticipant(participant),
-			metrics: metrics.serialize()
-		};
+		const serialized = serializeAndStore(participant, metrics);
 
-		qrCode = JSON.stringify(report);
-
-		storedReports.set([...storedReports.get(), report]);
+		qrCode = JSON.stringify(serialized);
 	}
 </script>
 
