@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import { onMount } from 'svelte';
 	// @ts-ignore
 	import { default as QrCode } from 'qrious';
@@ -9,12 +9,12 @@
 	export let errorCorrection = 'H';
 	export let background = '#fff';
 	export let color = '#000';
-	export let value = '';
+	export let value: string;
 
 	export let showable = false;
 	let showing = showable ? false : true;
 
-	let dataURL = '';
+	let url: string;
 
 	function generateQRCode() {
 		if (!showing) console.log('Generated QR code while not showing.');
@@ -28,7 +28,7 @@
 			value
 		});
 
-		dataURL = QRcode.toDataURL();
+		url = QRcode.toDataURL();
 	}
 
 	function toggle() {
@@ -47,7 +47,7 @@
 </script>
 
 {#if showing}
-	<FullscreenableImage src={dataURL} alt={value} />
+	<FullscreenableImage src={url} alt={value} />
 {/if}
 {#if showable}
 	<button class="active" on:click={toggle}>{showing ? 'Hide QR Code' : 'Show QR Code'}</button>
