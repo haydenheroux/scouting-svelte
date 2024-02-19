@@ -2,10 +2,10 @@ import { NormalizedPoint } from '$lib/types/Point';
 import { arrayToObject, stringToArray } from '$lib/util/Array';
 import type { Metrics } from '../Report';
 
-export type Trap = 'None' | 'Fail' | 'Success';
-export type Climb = 'None' | 'Fail' | 'Success';
-export type Harmony = '0' | '+1' | '+2';
-export type HighNotes = 'None' | '0' | '1' | '2' | '3';
+export enum Trap { NONE = 'None', FAIL = 'Fail', SUCCESS = 'Success' };
+export enum Climb { NONE = 'None', FAIL = 'Fail', SUCCESS = 'Success' };
+export enum Harmony { ZERO = '0', ONE = '+1', TWO = '+2' };
+export enum HighNotes { NONE = 'None', ZERO = '0', ONE = '1', TWO = '2', THREE = '3' };
 
 export class Metrics2024 {
     startingPoint: Array<NormalizedPoint> = [];
@@ -14,10 +14,10 @@ export class Metrics2024 {
     makes: Array<NormalizedPoint> = [];
     misses: Array<NormalizedPoint> = [];
     coopertition: boolean = false;
-    trap: Trap = 'None';
-    climb: Climb = 'None';
-    harmony: Harmony = '0';
-    highNotes: HighNotes = 'None';
+    trap: Trap = Trap.NONE;
+    climb: Climb = Climb.NONE;
+    harmony: Harmony = Harmony.ZERO;
+    highNotes: HighNotes = HighNotes.NONE;
     defenseNotes: Array<string> = [];
     drivingNotes: Array<string> = [];
     downtimeNotes: Array<string> = [];

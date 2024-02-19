@@ -10,8 +10,9 @@
 	import { getMetricsOrNull, storedReports } from '$lib/data/stores';
 	import type { Participant } from '$lib/types/Participant';
 	import { participantToSerializedParticipant } from '$lib/adapter';
-	import { Metrics2024 } from '$lib/data/metrics/2024';
+	import { Metrics2024, Trap, Climb, Harmony, HighNotes } from '$lib/data/metrics/2024';
 	import Section from '$lib/components/Section.svelte';
+	import { valuesOf } from '$lib/util/enum';
 
 	let participant: Participant;
 
@@ -53,21 +54,34 @@
 </Section>
 
 <Section name="Trap" help="How did the robot interact with the Trap?">
-	<MultipleOptionSelector bind:selected={metrics.trap} options={['None', 'Fail', 'Success']} />
+	<MultipleOptionSelector
+		bind:selected={metrics.trap}
+		options={valuesOf(Trap)}
+		fallback={Trap.NONE}
+	/>
 </Section>
 
 <Section name="Climb" help="How did the robot interact with the Stage?">
-	<MultipleOptionSelector bind:selected={metrics.climb} options={['None', 'Fail', 'Success']} />
+	<MultipleOptionSelector
+		bind:selected={metrics.climb}
+		options={valuesOf(Climb)}
+		fallback={Climb.NONE}
+	/>
 </Section>
 
 <Section name="Harmony" help="Did the robot activate the Harmony bonus?">
-	<MultipleOptionSelector bind:selected={metrics.harmony} options={['0', '+1', '+2']} />
+	<MultipleOptionSelector
+		bind:selected={metrics.harmony}
+		options={valuesOf(Harmony)}
+		fallback={Harmony.ZERO}
+	/>
 </Section>
 
 <Section name="High Notes" help="Did the team's human player score any High Notes?">
 	<MultipleOptionSelector
 		bind:selected={metrics.highNotes}
-		options={['None', '0', '1', '2', '3']}
+		options={valuesOf(HighNotes)}
+		fallback={HighNotes.NONE}
 	/>
 </Section>
 

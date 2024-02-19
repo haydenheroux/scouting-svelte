@@ -52,6 +52,8 @@ export class NormalizedPoint {
     }
 
     static fromString(s: string): NormalizedPoint {
+        if (!s) return new NormalizedPoint(0, 0);
+
         let parts = s.split(SEPARATOR);
 
         let x = Number(parts[0]);
