@@ -1,9 +1,8 @@
 <script lang="ts">
 	import Section from '$lib/components/Section.svelte';
-	import { storedParticipant } from '$lib/data/stores';
-	import type { Participant } from '$lib/types/Participant';
-	import { Alliance, MatchType, Station } from '$lib/types/Participant';
-	import { valuesOf } from '$lib/util/enum';
+	import { valuesOf } from '$lib/enum';
+	import { type Participant, Alliance, Station, MatchType } from '$lib/participant';
+	import { storedParticipant } from '$lib/stores';
 
 	export let participant: Participant;
 

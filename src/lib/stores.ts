@@ -1,6 +1,6 @@
-import { createDefaultParticipant, type Participant } from '$lib/types/Participant';
-import { storable } from '../util/storable';
-import type { Report } from './Report';
+import { createDefaultParticipant, type Participant } from '$lib/participant';
+import type { Report } from './api';
+import { storable } from './storable';
 
 export const storedParticipant = storable<Participant>('participant', createDefaultParticipant());
 

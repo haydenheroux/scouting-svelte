@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { NormalizedPoint, Point, dimensionsOfCanvas } from '$lib/types/Point';
+	import { type NormalizedPoint, Point, dimensionsOfCanvas } from '$lib/point';
 	import { onMount } from 'svelte';
 
 	export let field: string;

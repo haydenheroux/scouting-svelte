@@ -1,7 +1,7 @@
 <script lang="ts">
 	import QRCodeDisplay from '$lib/components/sections/QRCodeDisplay.svelte';
 	import Section from '$lib/components/Section.svelte';
-	import { storedReports } from '$lib/data/stores';
+	import { storedReports } from '$lib/stores';
 	import { getMatchCode } from '$lib/api';
 	import { deserializeAlliance } from '$lib/adapter';
 

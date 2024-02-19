@@ -27,3 +27,10 @@ export function getMatchCode(participant: SerializedParticipant): SerializedMatc
 
     return s;
 }
+
+export type SerializedMatchMetrics = Record<string, string>;
+
+export interface Report {
+	participant: SerializedParticipant;
+	metrics: SerializedMatchMetrics;
+}

@@ -7,24 +7,24 @@
 	import BooleanSelector from '$lib/components/selectors/BooleanSelector.svelte';
 	import Notes from '$lib/components/selectors/NotesComposer.svelte';
 	import QRCode from '$lib/components/sections/QRCodeDisplay.svelte';
-	import type { Participant } from '$lib/types/Participant';
 	import { participantToSerializedParticipant } from '$lib/adapter';
-	import { Metrics2024, Trap, Climb, Harmony, HighNotes } from '$lib/data/metrics/2024';
 	import Section from '$lib/components/Section.svelte';
-	import { valuesOf } from '$lib/util/enum';
-	import { storedParticipant, storedReports } from '$lib/data/stores';
+	import { valuesOf } from '$lib/enum';
+	import { Trap, Climb, Harmony, HighNotes, MatchMetrics } from '$lib/metrics';
+	import type { Participant } from '$lib/participant';
+	import { storedParticipant, storedReports } from '$lib/stores';
 
 	// TODO Move to participant selector
 	let participant: Participant = storedParticipant.get();
 
-	let metrics: Metrics2024 = new Metrics2024();
+	let metrics: MatchMetrics = new MatchMetrics();
 
 	let qrCode: string = '';
 
 	function handleSubmit() {
 		const report = {
 			participant: participantToSerializedParticipant(participant),
-			metrics: metrics.flatten()
+			metrics: metrics.serialize()
 		};
 
 		qrCode = JSON.stringify(report);

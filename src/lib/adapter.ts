@@ -1,5 +1,5 @@
 import type { SerializedAlliance, SerializedMatchType, SerializedParticipant } from '$lib/api';
-import { Alliance, MatchType, type Participant } from '$lib/types/Participant';
+import { Alliance, MatchType, type Participant } from '$lib/participant';
 
 export function allianceToSerialAlliance(alliance: Alliance): SerializedAlliance {
     return alliance == Alliance.RED ? 'red' : 'blue';

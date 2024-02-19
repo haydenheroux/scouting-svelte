@@ -1,19 +1,19 @@
-import { NormalizedPoint } from '$lib/types/Point';
-import { arrayToObject, stringToArray } from '$lib/util/Array';
-import type { Metrics } from '../Report';
+import type { SerializedMatchMetrics } from '$lib/api';
+import { NormalizedPoint } from '$lib/point';
+import { arrayToObject, stringToArray } from '$lib/array';
 
 export enum Trap { NONE = 'None', FAIL = 'Fail', SUCCESS = 'Success' };
 export enum Climb { NONE = 'None', FAIL = 'Fail', SUCCESS = 'Success' };
 export enum Harmony { ZERO = '0', ONE = '+1', TWO = '+2' };
 export enum HighNotes { NONE = 'None', ZERO = '0', ONE = '1', TWO = '2', THREE = '3' };
 
-export class Metrics2024 {
+export class MatchMetrics {
     startingPoint: Array<NormalizedPoint> = [];
-    leave: boolean = false;
+    leave = false;
     pickups: Array<NormalizedPoint> = [];
     makes: Array<NormalizedPoint> = [];
     misses: Array<NormalizedPoint> = [];
-    coopertition: boolean = false;
+    coopertition = false;
     trap: Trap = Trap.NONE;
     climb: Climb = Climb.NONE;
     harmony: Harmony = Harmony.ZERO;
@@ -22,31 +22,31 @@ export class Metrics2024 {
     drivingNotes: Array<string> = [];
     downtimeNotes: Array<string> = [];
     otherNotes: Array<string> = [];
-    scouterName: string = '';
+    scouterName = '';
 
-    static fromMetrics(metrics: Metrics): Metrics2024 {
-        const metrics2024 = new Metrics2024();
+    static deserialize(serialized: SerializedMatchMetrics): MatchMetrics {
+        const metrics = new MatchMetrics();
 
-        metrics2024.startingPoint = [NormalizedPoint.fromString((metrics['startingPoint'][0]))];
-        metrics2024.leave = metrics['leave'] == 'true';
-        metrics2024.pickups = stringToArray('pickup', metrics).map(s => NormalizedPoint.fromString(s));
-        metrics2024.makes = stringToArray('make', metrics).map(s => NormalizedPoint.fromString(s));
-        metrics2024.misses = stringToArray('miss', metrics).map(s => NormalizedPoint.fromString(s));
-        metrics2024.coopertition = metrics['coopertition'] == 'true';
-        metrics2024.trap = metrics['trap'] as Trap;
-        metrics2024.climb = metrics['climb'] as Climb;
-        metrics2024.harmony = metrics['harmony'] as Harmony;
-        metrics2024.highNotes = metrics['highNotes'] as HighNotes;
-        metrics2024.defenseNotes = stringToArray('defenseNote', metrics);
-        metrics2024.drivingNotes = stringToArray('drivingNote', metrics);
-        metrics2024.downtimeNotes = stringToArray('downtimeNote', metrics);
-        metrics2024.otherNotes = stringToArray('otherNote', metrics);
-        metrics2024.scouterName = metrics['scouterName'];
+        metrics.startingPoint = [NormalizedPoint.fromString((serialized['startingPoint'][0]))];
+        metrics.leave = serialized['leave'] == 'true';
+        metrics.pickups = stringToArray('pickup', serialized).map(s => NormalizedPoint.fromString(s));
+        metrics.makes = stringToArray('make', serialized).map(s => NormalizedPoint.fromString(s));
+        metrics.misses = stringToArray('miss', serialized).map(s => NormalizedPoint.fromString(s));
+        metrics.coopertition = serialized['coopertition'] == 'true';
+        metrics.trap = serialized['trap'] as Trap;
+        metrics.climb = serialized['climb'] as Climb;
+        metrics.harmony = serialized['harmony'] as Harmony;
+        metrics.highNotes = serialized['highNotes'] as HighNotes;
+        metrics.defenseNotes = stringToArray('defenseNote', serialized);
+        metrics.drivingNotes = stringToArray('drivingNote', serialized);
+        metrics.downtimeNotes = stringToArray('downtimeNote', serialized);
+        metrics.otherNotes = stringToArray('otherNote', serialized);
+        metrics.scouterName = serialized['scouterName'];
 
-        return metrics2024;
+        return metrics;
     }
 
-    flatten(): Metrics {
+    serialize(): SerializedMatchMetrics {
         return {
             startingPoint: this.startingPoint ? this.startingPoint.map(p => p.stringify()).join(":") : '',
             leave: this.leave.toString(),
