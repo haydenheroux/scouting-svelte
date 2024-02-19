@@ -13,9 +13,9 @@ export const storedParticipant = storable<Participant>('participant', createDefa
 
 export const storedMatches = storable<MatchToAlliance>('matches', {} as MatchToAlliance);
 
-type MatchToAlliance = Record<SerializedMatchCode, AllianceToStations>;
-type AllianceToStations = Record<SerializedAlliance, StationToMetrics>;
-type StationToMetrics = Record<number, Array<SerializedParticipantMetrics>>;
+export type MatchToAlliance = Record<SerializedMatchCode, AllianceToStations>;
+export type AllianceToStations = Record<SerializedAlliance, StationToMetrics>;
+export type StationToMetrics = Record<number, Array<SerializedParticipantMetrics>>;
 
 export function serializeAndStore(
 	participant: Participant,
