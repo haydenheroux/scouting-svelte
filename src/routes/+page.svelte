@@ -1,5 +1,5 @@
 <script lang="ts">
-	import field2024 from '$lib/images/fields/2024.png';
+	import field2024 from '$lib/images/2024.png';
 	import ParticipantSelector from '$lib/components/selectors/ParticipantSelector.svelte';
 	import FieldSelector from '$lib/components/selectors/FieldSelector.svelte';
 	import Submit from '$lib/components/sections/Submit.svelte';
