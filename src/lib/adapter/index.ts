@@ -1,36 +1,37 @@
 import type { SerializedAlliance, SerializedMatchType, SerializedParticipant } from '$lib/api';
-import type { Alliance, MatchType, Participant } from '$lib/types/Participant';
+import { Alliance, MatchType, type Participant } from '$lib/types/Participant';
 
 export function allianceToSerialAlliance(alliance: Alliance): SerializedAlliance {
-	return alliance == 'Red' ? 'red' : 'blue';
+    return alliance == Alliance.RED ? 'red' : 'blue';
 }
 
 export function deserializeAlliance(alliance: SerializedAlliance): Alliance {
-	return alliance == 'red' ? 'Red' : 'Blue';
+    return alliance == 'red' ? Alliance.RED : Alliance.BLUE;
 }
 
 export function matchTypeToSerializedMatchType(matchType: MatchType): SerializedMatchType {
-	switch (matchType) {
-		case 'Qualification':
-			return 'qm';
-		case 'Quarterfinal':
-			return 'qf';
-		case 'Semifinal':
-			return 'sf';
-		case 'Final':
-			return 'f';
-	}
+    switch (matchType) {
+        case MatchType.QUALIFICATION:
+            return 'qm';
+        case MatchType.QUARTERFINAL:
+            return 'qf';
+        case MatchType.SEMIFINAL:
+            return 'sf';
+        case MatchType.FINAL:
+            return 'f';
+        default:
+            return 'qm';
+    }
 }
 
 export function participantToSerializedParticipant(
-	participant: Participant
+    participant: Participant
 ): SerializedParticipant {
-	return {
-		teamNumber: participant.team ?? -1, // TODO
-		set: participant.type != 'Qualification' ? participant.set : 1,
-		number: participant.match,
-		type: matchTypeToSerializedMatchType(participant.type),
-		event: participant.event,
-		alliance: allianceToSerialAlliance(participant.alliance ?? 'Red')
-	};
+    return {
+        type: matchTypeToSerializedMatchType(participant.type),
+        set: participant.set,
+        match: participant.match,
+        alliance: allianceToSerialAlliance(participant.alliance),
+        station: participant.station
+    };
 }

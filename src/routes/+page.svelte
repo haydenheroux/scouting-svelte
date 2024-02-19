@@ -7,7 +7,7 @@
 	import BooleanSelector from '$lib/components/selectors/BooleanSelector.svelte';
 	import Notes from '$lib/components/selectors/NotesComposer.svelte';
 	import QRCode from '$lib/components/sections/QRCodeDisplay.svelte';
-	import { getMetricsOrNull, storedReports } from '$lib/data/stores';
+	import { storedReports } from '$lib/data/stores';
 	import type { Participant } from '$lib/types/Participant';
 	import { participantToSerializedParticipant } from '$lib/adapter';
 	import { Metrics2024, Trap, Climb, Harmony, HighNotes } from '$lib/data/metrics/2024';
@@ -19,13 +19,6 @@
 	let metrics: Metrics2024 = new Metrics2024();
 
 	let qrCode: string = '';
-
-	$: participant &&
-		(() => {
-			const metricsOrNull = getMetricsOrNull(participant);
-
-			if (metricsOrNull) metrics = Metrics2024.fromMetrics(metricsOrNull);
-		})();
 
 	function handleSubmit() {
 		const report = {

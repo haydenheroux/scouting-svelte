@@ -5,40 +5,25 @@ export type SerializedMatchType = 'qm' | 'qf' | 'sf' | 'f';
 export type SerializedAlliance = 'red' | 'blue';
 
 export interface SerializedParticipant {
-	teamNumber: number;
-	set: number;
-	number: number;
-	type: SerializedMatchType;
-	event: string;
-	alliance: SerializedAlliance;
-}
-
-export function serializedParticipantsAreEqual(
-	sp1: SerializedParticipant,
-	sp2: SerializedParticipant
-) {
-	return (
-		sp1.teamNumber == sp2.teamNumber &&
-		sp1.set == sp2.set &&
-		sp1.number == sp2.number &&
-		sp1.type == sp2.type &&
-		sp1.event == sp2.event &&
-		sp1.alliance == sp2.alliance
-	);
+    set: number;
+    match: number;
+    type: SerializedMatchType;
+    alliance: SerializedAlliance;
+    station: number;
 }
 
 export type SerializedMatchCode = string;
 
 export function getMatchCode(participant: SerializedParticipant): SerializedMatchCode {
-	let s = '';
-	s += participant.type;
+    let s = '';
+    s += participant.type;
 
-	if (participant.type != 'qm') {
-		s += participant.set;
-		s += 'm';
-	}
+    if (participant.type != 'qm') {
+        s += participant.set;
+        s += 'm';
+    }
 
-	s += participant.number;
+    s += participant.match;
 
-	return s;
+    return s;
 }

@@ -1,6 +1,6 @@
 <script lang="ts">
 	export let options: Array<string>;
-	export let fallback: string;
+	export let fallback: string = '';
 	export let selected: string;
 </script>
 

@@ -1,12 +1,15 @@
-export type MatchType = 'Qualification' | 'Quarterfinal' | 'Semifinal' | 'Final';
+export enum MatchType {
+    QUALIFICATION = 'Qualification', QUARTERFINAL = 'Quarterfinal', SEMIFINAL = 'Semifinal', FINAL = 'Final'
+};
 
-export type Alliance = 'Red' | 'Blue';
+export enum Alliance { RED = 'Red', BLUE = 'Blue' };
+
+export enum Station { ONE = 1, TWO = 2, THREE = 3 };
 
 export interface Participant {
-	event: string;
-	type: MatchType;
-	set: number;
-	match: number;
-	team: number | null;
-	alliance: Alliance | null;
+    type: MatchType;
+    set: number;
+    match: number;
+    alliance: Alliance;
+    station: Station;
 }
