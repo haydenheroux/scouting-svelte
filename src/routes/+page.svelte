@@ -57,7 +57,7 @@
 	<FieldSelector
 		bind:points={pickupsMakesMisses}
 		field={field2024}
-		tags={{ Pickup: DrawStyle.DOT, Make: DrawStyle.TRIANGLE, Miss: DrawStyle.CROSS }}
+		tags={{ Pickup: DrawStyle.RING, Make: DrawStyle.TRIANGLE, Miss: DrawStyle.CROSS }}
 	/>
 </Section>
 

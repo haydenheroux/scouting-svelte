@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Point, dimensionsOfCanvas, TaggedPoint } from '$lib/point';
-	import { DrawStyle } from '$lib/canvas';
+	import { DrawStyle, clearCanvas, drawImage, drawPoint } from '$lib/canvas';
 	import { onMount } from 'svelte';
 	import OptionSelector from './OptionSelector.svelte';
 
@@ -21,16 +21,16 @@
 		points && draw();
 	}
 
-	let img: HTMLImageElement | null = null;
+	let image: HTMLImageElement | null = null;
 
 	onMount(() => {
-		img = new Image();
-		img.src = field;
-		img.onload = () => {
-			if (!img) return;
+		image = new Image();
+		image.src = field;
+		image.onload = () => {
+			if (!image) return;
 
 			canvas.width = canvas.offsetWidth;
-			canvas.height = canvas.offsetWidth * (img.height / img.width);
+			canvas.height = canvas.offsetWidth * (image.height / image.width);
 			draw();
 		};
 
@@ -70,66 +70,10 @@
 	}
 
 	function draw() {
-		if (!canvas) return;
-		if (!img) return;
+		clearCanvas(canvas);
+		drawImage(image, canvas);
 
-		const ctx = canvas.getContext('2d');
-		if (!ctx) return;
-
-		ctx.clearRect(0, 0, canvas.width, canvas.height);
-		ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-
-		for (let p of points) {
-			drawPoint(p, ctx);
-		}
-	}
-
-	function drawPoint(taggedPoint: TaggedPoint, ctx: CanvasRenderingContext2D) {
-		const color = '#fafafa';
-		const radius = 12;
-
-		const np = taggedPoint.point;
-		const point = np.scaleBy(dimensionsOfCanvas(canvas));
-
-		let drawStyle = tags[taggedPoint.tag];
-
-		switch (drawStyle) {
-			case DrawStyle.DOT:
-				ctx.fillStyle = color;
-
-				ctx.beginPath();
-				ctx.arc(point.x, point.y, radius, 0, 2 * Math.PI, false);
-				ctx.fill();
-				break;
-			case DrawStyle.CROSS:
-				ctx.strokeStyle = color;
-				ctx.lineWidth = 4;
-
-				const d = 0.5 * radius * Math.sqrt(2);
-
-				ctx.beginPath();
-
-				ctx.moveTo(point.x - d, point.y - d);
-				ctx.lineTo(point.x + d, point.y + d);
-
-				ctx.moveTo(point.x + d, point.y - d);
-				ctx.lineTo(point.x - d, point.y + d);
-				ctx.stroke();
-				break;
-			case DrawStyle.TRIANGLE:
-				ctx.fillStyle = color;
-
-				const dx = 0.5 * Math.sqrt(3) * radius;
-				const dy = 0.5 * radius;
-
-				ctx.beginPath();
-				ctx.moveTo(point.x, point.y - 2 * dy);
-				ctx.lineTo(point.x - dx, point.y + dy);
-				ctx.lineTo(point.x + dx, point.y + dy);
-				ctx.fill();
-			default:
-				break;
-		}
+		points.forEach((taggedPoint) => drawPoint(taggedPoint.point, tags[taggedPoint.tag], canvas));
 	}
 </script>
 
