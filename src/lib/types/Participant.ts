@@ -13,3 +13,13 @@ export interface Participant {
     alliance: Alliance;
     station: Station;
 }
+
+export function createDefaultParticipant(): Participant {
+    return {
+        alliance: Alliance.BLUE,
+        station: Station.ONE,
+        type: MatchType.QUALIFICATION,
+        set: 0,
+        match: 1
+    }
+} 

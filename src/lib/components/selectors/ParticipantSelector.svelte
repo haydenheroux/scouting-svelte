@@ -1,17 +1,22 @@
 <script lang="ts">
 	import Section from '$lib/components/Section.svelte';
+	import { storedParticipant } from '$lib/data/stores';
 	import type { Participant } from '$lib/types/Participant';
 	import { Alliance, MatchType, Station } from '$lib/types/Participant';
 	import { valuesOf } from '$lib/util/enum';
 
-	// TODO Attempt to get stored participant
-	export let participant: Participant = {
-		type: MatchType.QUALIFICATION,
-		set: 0,
-		match: 1,
-		alliance: Alliance.BLUE,
-		station: Station.ONE
-	} as Participant;
+	export let participant: Participant;
+
+	$: {
+		updateStoredParticipant(participant);
+	}
+
+	/**
+	 * Updates the stored participant.
+	 */
+	function updateStoredParticipant(participant: Participant) {
+		storedParticipant.set(participant);
+	}
 
 	/**
 	 * Sets the participant to the previous match.
@@ -61,10 +66,6 @@
 			<div>
 				<label for="type">Type</label>
 				<select id="type" bind:value={participant.type}>
-					<option value="Qualification">Qualification</option>
-					<option value="Quarterfinal">Quarterfinal</option>
-					<option value="Semifinal">Semifinal</option>
-					<option value="Final">Final</option>
 					{#each valuesOf(MatchType) as matchType}
 						<option value={matchType}>{matchType}</option>
 					{/each}
