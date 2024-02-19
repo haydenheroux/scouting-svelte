@@ -1,16 +1,25 @@
 <script lang="ts">
-	import { type NormalizedPoint, Point, dimensionsOfCanvas } from '$lib/point';
+	import { Point, dimensionsOfCanvas, TaggedPoint } from '$lib/point';
+	import { DrawStyle } from '$lib/canvas';
 	import { onMount } from 'svelte';
+	import OptionSelector from './OptionSelector.svelte';
 
 	export let field: string;
 
 	export let single = false;
 
-	export let points: Array<NormalizedPoint>;
+	export let tags: Record<string, DrawStyle>;
 
-	type DrawStyle = 'dot' | 'cross' | 'triangle';
+	let multipleTags = true;
 
-	export let drawStyle: DrawStyle = 'dot';
+	let selectedTag: string;
+
+	export let points: Array<TaggedPoint> = [];
+
+	// Redraws points whenever they are changed, including undoing.
+	$: {
+		points && draw();
+	}
 
 	let img: HTMLImageElement | null = null;
 
@@ -24,6 +33,11 @@
 			canvas.height = canvas.offsetWidth * (img.height / img.width);
 			draw();
 		};
+
+		if (Object.keys(tags).length == 1) {
+			selectedTag = Object.keys(tags)[0];
+			multipleTags = false;
+		}
 	});
 
 	let canvas: HTMLCanvasElement;
@@ -31,8 +45,10 @@
 	function push(p: Point) {
 		const norm = p.normalizeTo(dimensionsOfCanvas(canvas));
 
-		if (single) points = [norm];
-		else points = [...points, norm];
+		const tagged = new TaggedPoint(selectedTag, norm);
+
+		if (single) points = [tagged];
+		else points = [...points, tagged];
 
 		draw();
 	}
@@ -64,24 +80,28 @@
 		ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 
 		for (let p of points) {
-			const sp = p.scaleBy(dimensionsOfCanvas(canvas));
-
-			drawPoint(sp, ctx);
+			drawPoint(p, ctx);
 		}
 	}
 
-	function drawPoint(point: Point, ctx: CanvasRenderingContext2D) {
+	function drawPoint(taggedPoint: TaggedPoint, ctx: CanvasRenderingContext2D) {
 		const color = '#fafafa';
 		const radius = 12;
+
+		const np = taggedPoint.point;
+		const point = np.scaleBy(dimensionsOfCanvas(canvas));
+
+		let drawStyle = tags[taggedPoint.tag];
+
 		switch (drawStyle) {
-			case 'dot':
+			case DrawStyle.DOT:
 				ctx.fillStyle = color;
 
 				ctx.beginPath();
 				ctx.arc(point.x, point.y, radius, 0, 2 * Math.PI, false);
 				ctx.fill();
 				break;
-			case 'cross':
+			case DrawStyle.CROSS:
 				ctx.strokeStyle = color;
 				ctx.lineWidth = 4;
 
@@ -96,7 +116,7 @@
 				ctx.lineTo(point.x - d, point.y + d);
 				ctx.stroke();
 				break;
-			case 'triangle':
+			case DrawStyle.TRIANGLE:
 				ctx.fillStyle = color;
 
 				const dx = 0.5 * Math.sqrt(3) * radius;
@@ -113,6 +133,9 @@
 	}
 </script>
 
+{#if multipleTags}
+	<OptionSelector options={Object.keys(tags)} bind:selected={selectedTag} />
+{/if}
 <canvas
 	on:click={handleMouse}
 	on:touchstart={handleTouch}
