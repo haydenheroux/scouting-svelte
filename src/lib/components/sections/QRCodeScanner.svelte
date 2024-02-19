@@ -41,7 +41,7 @@
 </script>
 
 <Section {name} {help}>
-	<div id="scanner" style={closed ? "display: none;" : ""} />
+	<div id="scanner" style={closed ? 'display: none;' : ''} />
 	<button class="active" on:click={open}>Open Scanner</button>
 </Section>
 
