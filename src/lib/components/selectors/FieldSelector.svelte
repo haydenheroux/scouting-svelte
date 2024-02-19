@@ -1,10 +1,6 @@
 <script lang="ts">
 	import { NormalizedPoint, Point, dimensionsOfCanvas } from '$lib/types/Point';
 	import { onMount } from 'svelte';
-	import Section from '../Section.svelte';
-
-	export let name: string;
-	export let help: string;
 
 	export let field: string;
 
@@ -117,14 +113,10 @@
 	}
 </script>
 
-<Section {name} {help}>
-	<canvas
-		on:click={handleMouse}
-		on:touchstart={handleTouch}
-		on:touchmove={handleTouch}
-		bind:this={canvas}
-	/>
-	<button class="primary" on:click={() => (points = points.slice(0, points.length - 1))}
-		>Undo</button
-	>
-</Section>
+<canvas
+	on:click={handleMouse}
+	on:touchstart={handleTouch}
+	on:touchmove={handleTouch}
+	bind:this={canvas}
+/>
+<button class="primary" on:click={() => (points = points.slice(0, points.length - 1))}>Undo</button>

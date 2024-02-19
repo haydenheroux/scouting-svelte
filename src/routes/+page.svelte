@@ -11,6 +11,7 @@
 	import type { Participant } from '$lib/types/Participant';
 	import { participantToSerializedParticipant } from '$lib/adapter';
 	import { Metrics2024 } from '$lib/data/metrics/2024';
+	import Section from '$lib/components/Section.svelte';
 
 	let participant: Participant;
 
@@ -38,56 +39,56 @@
 </script>
 
 <ParticipantSelector bind:participant />
-<FieldSelector
-	bind:points={metrics.startingPoint}
-	field={field2024}
-	name="Starting Position"
-	help="Place where the robot starts the match."
-	single={true}
-/>
-<BooleanSelector
-	bind:value={metrics.leave}
-	name="Leave"
-	help="Did the robot fully leave the Wing during auto?"
-/>
-<BooleanSelector
-	bind:value={metrics.coopertition}
-	name="Coopertition"
-	help="Did the alliance activate Coopertition?"
-/>
-<MultipleOptionSelector
-	bind:selected={metrics.trap}
-	name="Trap"
-	help="How did the robot interact with the Trap?"
-	options={['None', 'Failed', 'Success']}
-/>
-<MultipleOptionSelector
-	bind:selected={metrics.climb}
-	name="Climb"
-	help="How did the robot interact with the Stage?"
-	options={['None', 'Failed', 'Success']}
-/>
-<MultipleOptionSelector
-	bind:selected={metrics.harmony}
-	name="Harmony"
-	help="Did the robot activate the Harmony bonus?"
-	options={['0', '+1', '+2']}
-/>
-<MultipleOptionSelector
-	bind:selected={metrics.highNotes}
-	name="High Notes"
-	help="Did the team's human player score any High Notes?"
-	options={['None', '0', '1', '2', '3']}
-/>
-<Notes bind:notes={metrics.defenseNotes} name="Defense" help="Did the robot play defense?" />
-<Notes bind:notes={metrics.drivingNotes} name="Driving" help="Was the robot being defended?" />
-<Notes
-	bind:notes={metrics.downtimeNotes}
-	name="Downtime"
-	help="What did the robot do when they weren't scoring?"
-/>
-<Notes bind:notes={metrics.otherNotes} name="Other" />
+
+<Section name="Starting Position" help="Place where the robot starts the match.">
+	<FieldSelector bind:points={metrics.startingPoint} field={field2024} single={true} />
+</Section>
+
+<Section name="Leave" help="Did the robot fully leave the Wing during auto?">
+	<BooleanSelector bind:value={metrics.leave} />
+</Section>
+
+<Section name="Coopertition" help="Did the alliance activate Coopertition?">
+	<BooleanSelector bind:value={metrics.coopertition} />
+</Section>
+
+<Section name="Trap" help="How did the robot interact with the Trap?">
+	<MultipleOptionSelector bind:selected={metrics.trap} options={['None', 'Fail', 'Success']} />
+</Section>
+
+<Section name="Climb" help="How did the robot interact with the Stage?">
+	<MultipleOptionSelector bind:selected={metrics.climb} options={['None', 'Fail', 'Success']} />
+</Section>
+
+<Section name="Harmony" help="Did the robot activate the Harmony bonus?">
+	<MultipleOptionSelector bind:selected={metrics.harmony} options={['0', '+1', '+2']} />
+</Section>
+
+<Section name="High Notes" help="Did the team's human player score any High Notes?">
+	<MultipleOptionSelector
+		bind:selected={metrics.highNotes}
+		options={['None', '0', '1', '2', '3']}
+	/>
+</Section>
+
+<Section name="Defense" help="Did the robot play defense?">
+	<Notes bind:notes={metrics.defenseNotes} />
+</Section>
+
+<Section name="Driving" help="Was the robot being defended?">
+	<Notes bind:notes={metrics.drivingNotes} />
+</Section>
+
+<Section name="Downtime" help="What did the robot do when they weren't scoring?">
+	<Notes bind:notes={metrics.downtimeNotes} />
+</Section>
+
+<Section name="Other">
+	<Notes bind:notes={metrics.otherNotes} />
+</Section>
+
 <Submit on:click={handleSubmit} bind:scouterName={metrics.scouterName} />
+
 {#if qrCode.length > 0}
 	<section>
 		<QRCode value={qrCode} />

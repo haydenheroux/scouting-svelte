@@ -1,8 +1,4 @@
 <script lang="ts">
-	import Section from '../Section.svelte';
-
-	export let name = "Notes";
-	export let help = "";
 	let note = '';
 
 	export let notes: Array<string> = [];
@@ -18,18 +14,16 @@
 	}
 </script>
 
-<Section {name} {help}>
+<div>
+	<input type="text" placeholder="" bind:value={note} />
+	<button class="primary add" on:click={add}>+</button>
+</div>
+{#each notes as note, index}
 	<div>
-		<input type="text" placeholder="" bind:value={note} />
-		<button class="primary add" on:click={add}>+</button>
+		<input class="inactive" type="text" bind:value={note} />
+		<button class="primary remove" on:click={(_) => remove(index)}>-</button>
 	</div>
-	{#each notes as note, index}
-		<div>
-			<input class="inactive" type="text" bind:value={note} />
-			<button class="primary remove" on:click={(_) => remove(index)}>-</button>
-		</div>
-	{/each}
-</Section>
+{/each}
 
 <style>
 	div {

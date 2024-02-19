@@ -1,9 +1,4 @@
 <script lang="ts">
-	import Section from '../Section.svelte';
-
-	export let name: string;
-	export let help: string;
-
 	export let value = 0;
 
 	function minus() {
@@ -15,13 +10,11 @@
 	}
 </script>
 
-<Section {name} {help}>
-	<div>
-		<button class="primary minus" on:click={minus}>-</button>
-		<input type="number" min="0" bind:value />
-		<button class="primary plus" on:click={plus}>+</button>
-	</div>
-</Section>
+<div>
+	<button class="primary minus" on:click={minus}>-</button>
+	<input type="number" min="0" bind:value />
+	<button class="primary plus" on:click={plus}>+</button>
+</div>
 
 <style>
 	div {
