@@ -29,7 +29,7 @@ export function createDefaultParticipant(): Participant {
 		alliance: Alliance.BLUE,
 		station: Station.ONE,
 		type: MatchType.QUALIFICATION,
-		set: 0,
+		set: 1,
 		match: 1
 	};
 }

@@ -3,7 +3,7 @@
 	import type { MatchToAlliance, StationToMetrics } from '$lib/stores.ts';
 	import Section from '$lib/components/Section.svelte';
 	import { storedMatches } from '$lib/stores';
-	import type { SerializedMatchCode } from '$lib/api';
+	import { parseMatchKey, type SerializedMatchKey } from '$lib/api';
 
 	const matches = storedMatches.get();
 
@@ -11,17 +11,18 @@
 		return [1, 2, 3].map((i) => stations[i] !== undefined);
 	}
 
-	function getMatch(matchCode: SerializedMatchCode) {
+	function getMatch(matchKey: SerializedMatchKey) {
 		let o: MatchToAlliance = {};	
 
-		o[matchCode] = storedMatches.get()[matchCode];
+		o[matchKey] = storedMatches.get()[matchKey];
 
 		return o;
 	}
 </script>
 
-{#each Object.entries(matches) as [matchCode, alliances]}
-	<Section name={matchCode}>
+{#each Object.entries(matches) as [matchKey, alliances]}
+	{@const parsed = parseMatchKey(matchKey)}
+	<Section name={`${parsed.type} ${parsed.match}`}>
 		{#each Object.entries(alliances) as [alliance, stations]}
 			<div class="split">
 				{#each presentStation(stations) as present, i}
@@ -33,7 +34,7 @@
 				{/each}
 			</div>
 		{/each}
-		<QRCodeDisplay showable={true} value={JSON.stringify(getMatch(matchCode))}/>
+		<QRCodeDisplay showable={true} value={JSON.stringify(getMatch(matchKey))}/>
 	</Section>
 {/each}
 
