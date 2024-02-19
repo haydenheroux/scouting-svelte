@@ -7,9 +7,8 @@
 <header>
 	<div class="container">
 		<nav>
-			<a href="{base}/"><em>scouting-svelte</em></a>
-			<NavLink href="{base}/history">History</NavLink>
-			<NavLink href="{base}/schedule">Schedule</NavLink>
+			<a href="{base}/"><em>scout</em></a>
+			<NavLink href="{base}/matches">matches</NavLink>
 		</nav>
 	</div>
 </header>
