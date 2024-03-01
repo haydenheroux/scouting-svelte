@@ -25,6 +25,15 @@ export enum HighNotes {
 	THREE = '3'
 }
 
+const PICKUP_KEY = 'p';
+const MAKE_KEY = 'a';
+const MISS_KEY = 'i';
+
+const DEFENSE_KEY = 'e';
+const DRIVING_KEY = 'd';
+const DOWNTIME_KEY = 't';
+const OTHER_KEY = 'o';
+
 export class MatchMetrics {
 	startingPoint: Array<NormalizedPoint> = [];
 	leave = false;
@@ -47,18 +56,18 @@ export class MatchMetrics {
 
 		metrics.startingPoint = [NormalizedPoint.fromString(serialized['startingPoint'][0])];
 		metrics.leave = serialized['leave'] == 'true';
-		metrics.pickups = stringToArray('pickup', serialized).map((s) => NormalizedPoint.fromString(s));
-		metrics.makes = stringToArray('make', serialized).map((s) => NormalizedPoint.fromString(s));
-		metrics.misses = stringToArray('miss', serialized).map((s) => NormalizedPoint.fromString(s));
+		metrics.pickups = stringToArray(PICKUP_KEY, serialized).map((s) => NormalizedPoint.fromString(s));
+		metrics.makes = stringToArray(MAKE_KEY, serialized).map((s) => NormalizedPoint.fromString(s));
+		metrics.misses = stringToArray(MISS_KEY, serialized).map((s) => NormalizedPoint.fromString(s));
 		metrics.coopertition = serialized['coopertition'] == 'true';
 		metrics.trap = serialized['trap'] as Trap;
 		metrics.climb = serialized['climb'] as Climb;
 		metrics.harmony = serialized['harmony'] as Harmony;
 		metrics.highNotes = serialized['highNotes'] as HighNotes;
-		metrics.defenseNotes = stringToArray('defenseNote', serialized);
-		metrics.drivingNotes = stringToArray('drivingNote', serialized);
-		metrics.downtimeNotes = stringToArray('downtimeNote', serialized);
-		metrics.otherNotes = stringToArray('otherNote', serialized);
+		metrics.defenseNotes = stringToArray(DEFENSE_KEY, serialized);
+		metrics.drivingNotes = stringToArray(DRIVING_KEY, serialized);
+		metrics.downtimeNotes = stringToArray(DOWNTIME_KEY, serialized);
+		metrics.otherNotes = stringToArray(OTHER_KEY, serialized);
 		metrics.scouterName = serialized['scouterName'];
 
 		return metrics;
@@ -71,15 +80,15 @@ export class MatchMetrics {
 				: '',
 			leave: this.leave.toString(),
 			...arrayToObject(
-				'pickup',
+				PICKUP_KEY,
 				this.pickups.map((p) => p.stringify())
 			),
 			...arrayToObject(
-				'make',
+				MAKE_KEY,
 				this.makes.map((p) => p.stringify())
 			),
 			...arrayToObject(
-				'miss',
+				MISS_KEY,
 				this.misses.map((p) => p.stringify())
 			),
 			coopertition: this.coopertition.toString(),
@@ -87,10 +96,10 @@ export class MatchMetrics {
 			climb: this.climb,
 			harmony: this.harmony,
 			highNotes: this.highNotes,
-			...arrayToObject('defenseNote', this.defenseNotes),
-			...arrayToObject('drivingNote', this.drivingNotes),
-			...arrayToObject('downtimeNote', this.downtimeNotes),
-			...arrayToObject('otherNote', this.otherNotes),
+			...arrayToObject(DEFENSE_KEY, this.defenseNotes),
+			...arrayToObject(DRIVING_KEY, this.drivingNotes),
+			...arrayToObject(DOWNTIME_KEY, this.downtimeNotes),
+			...arrayToObject(OTHER_KEY, this.otherNotes),
 			scouterName: this.scouterName
 		};
 	}

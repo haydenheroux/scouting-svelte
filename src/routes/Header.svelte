@@ -8,6 +8,7 @@
 	<div class="container">
 		<nav>
 			<a href="{base}/"><em>scout</em></a>
+			<NavLink href="{base}/status/">status</NavLink>
 			<NavLink href="{base}/matches/">matches</NavLink>
 		</nav>
 	</div>

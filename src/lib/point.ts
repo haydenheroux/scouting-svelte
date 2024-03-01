@@ -10,7 +10,7 @@ export function dimensionsOfCanvas(canvas: HTMLCanvasElement): Dimensions {
 	};
 }
 
-const SEPARATOR: string = ',';
+const SEPARATOR = ',';
 
 export class Point {
 	readonly x: number;
@@ -26,10 +26,10 @@ export class Point {
 	}
 
 	static fromString(s: string): Point {
-		let parts = s.split(SEPARATOR);
+		const parts = s.split(SEPARATOR);
 
-		let x = Number(parts[0]);
-		let y = Number(parts[1]);
+		const x = Number(parts[0]);
+		const y = Number(parts[1]);
 
 		return new Point(x, y);
 	}
@@ -54,30 +54,16 @@ export class NormalizedPoint {
 	static fromString(s: string): NormalizedPoint {
 		if (!s) return new NormalizedPoint(0, 0);
 
-		let parts = s.split(SEPARATOR);
+		const parts = s.split(SEPARATOR);
 
-		let x = Number(parts[0]);
-		let y = Number(parts[1]);
+		const x = Number(parts[0]);
+		const y = Number(parts[1]);
 
 		return new NormalizedPoint(x, y);
 	}
 
 	stringify(): string {
-		return `${this.x.toFixed(4)}${SEPARATOR}${this.y.toFixed(4)}`;
-	}
-
-	flipX(): NormalizedPoint {
-		let dist = Math.abs(this.x - 0.5);
-		let fx = 0.5 - dist;
-
-		return new NormalizedPoint(fx, this.y);
-	}
-
-	flipY(): NormalizedPoint {
-		let dist = Math.abs(this.y - 0.5);
-		let fy = 0.5 - dist;
-
-		return new NormalizedPoint(this.x, fy);
+		return `${this.x.toFixed(4)}${SEPARATOR}${this.y.toFixed(2)}`;
 	}
 
 	scaleBy(dimensions: Dimensions): Point {
