@@ -56,7 +56,9 @@ export class MatchMetrics {
 
 		metrics.startingPoint = [NormalizedPoint.fromString(serialized['startingPoint'][0])];
 		metrics.leave = serialized['leave'] == 'true';
-		metrics.pickups = stringToArray(PICKUP_KEY, serialized).map((s) => NormalizedPoint.fromString(s));
+		metrics.pickups = stringToArray(PICKUP_KEY, serialized).map((s) =>
+			NormalizedPoint.fromString(s)
+		);
 		metrics.makes = stringToArray(MAKE_KEY, serialized).map((s) => NormalizedPoint.fromString(s));
 		metrics.misses = stringToArray(MISS_KEY, serialized).map((s) => NormalizedPoint.fromString(s));
 		metrics.coopertition = serialized['coopertition'] == 'true';

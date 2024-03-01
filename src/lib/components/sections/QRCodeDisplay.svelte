@@ -38,4 +38,3 @@
 </script>
 
 <FullscreenableImage src={url} alt={value} />
-
