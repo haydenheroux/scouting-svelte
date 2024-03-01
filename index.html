@@ -16,23 +16,30 @@
 		<meta name="viewport" content="width=device-width" />
 		<meta charset="utf-8" />
 		
-		<link href="./_app/immutable/assets/0.4a3e72f3.css" rel="stylesheet">
-		<link rel="modulepreload" href="./_app/immutable/entry/start.b63de868.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/scheduler.f5c80806.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/singletons.10f45c19.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/index.a3c86b5d.js">
-		<link rel="modulepreload" href="./_app/immutable/entry/app.fbae5441.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/index.f0de9234.js">
-		<link rel="modulepreload" href="./_app/immutable/nodes/0.189577aa.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/stores.75624db8.js">
-		<link rel="modulepreload" href="./_app/immutable/nodes/2.402123cc.js">
+		<link href="./_app/immutable/assets/0.50ca68c9.css" rel="stylesheet">
+		<link href="./_app/immutable/assets/2.a36a1326.css" rel="stylesheet">
+		<link href="./_app/immutable/assets/stores.9f5f45fb.css" rel="stylesheet">
+		<link href="./_app/immutable/assets/QRCodeDisplay.5406a6c2.css" rel="stylesheet">
+		<link rel="modulepreload" href="./_app/immutable/entry/start.5bf0f327.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/scheduler.62f984e8.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/singletons.4b59bd77.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/index.2ffdc0f3.js">
+		<link rel="modulepreload" href="./_app/immutable/entry/app.dd62a239.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/index.a8dde50a.js">
+		<link rel="modulepreload" href="./_app/immutable/nodes/0.2c2b3826.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/stores.81f288f1.js">
+		<link rel="modulepreload" href="./_app/immutable/nodes/2.49747f1a.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/each.e59479a4.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/stores.c40e84fe.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/QRCodeDisplay.715880aa.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/_commonjsHelpers.725317a4.js">
 	</head>
 	<body data-sveltekit-preload-data="hover">
-		<div style="display: contents">  <div class="app"><header><div class="container"><nav><a href="/" data-svelte-h="svelte-10k7ccz"><em>scouting-svelte</em></a> <a href="/2024">2024</a> <a href="/2023">2023</a> <a href="/2022">2022</a> <a href="/history">History</a> <a href="/schedule">Schedule</a></nav></div></header> <main><div class="container"></div></main> <footer data-svelte-h="svelte-1u07d2p"><div class="container"><p>Built by <a href="https://github.com/haydenheroux/">Hayden Heroux</a>.</p> <p>Source code on <a href="https://github.com/haydenheroux/scouting-svelte/">GitHub</a>.</p></div></footer></div> 
+		<div style="display: contents">  <div class="app"><header><div class="container"><nav><a href="/" data-svelte-h="svelte-191s0g7"><em>scout</em></a> <a href="/status/">status</a> <a href="/matches/">matches</a> <a href="/scan/">scan</a></nav></div></header> <main><div class="container"><section><div class="header svelte-1rj8pak"><h2>Select Station</h2> </div> <div class="split"><button class="svelte-1hd4edv blue" data-svelte-h="svelte-cf236w">Blue Alliance</button> <button class="svelte-1hd4edv" data-svelte-h="svelte-njj6uc">Red Alliance</button></div> <div class="split"><button class="active" data-svelte-h="svelte-17ufmc0">1</button> <button data-svelte-h="svelte-eh65ah">2</button> <button data-svelte-h="svelte-alrjq6">3</button></div> </section> <section><div class="header svelte-1rj8pak"><h2>Select Match</h2> </div> <div><div class="split"><div><label for="type" data-svelte-h="svelte-15475si">Type</label> <select id="type"><option value="Qualification">Qualification</option><option value="Quarterfinal">Quarterfinal</option><option value="Semifinal">Semifinal</option><option value="Final">Final</option></select></div>  <div><label for="match" data-svelte-h="svelte-odx92s">Match</label> <input id="match" type="number" placeholder="1" min="1" value="1"></div></div></div> <div class="split"><button class="active" data-svelte-h="svelte-14efff9">Previous Match</button> <button class="active" data-svelte-h="svelte-w3g125">Next Match</button></div> </section> <section><div class="header svelte-1rj8pak"><h2>Starting Position</h2> <div class="help svelte-1rj8pak"><span class="icon svelte-1rj8pak" data-svelte-h="svelte-qca8pv">?</span> <div class="body svelte-1rj8pak"><!-- HTML_TAG_START -->Place where the robot starts the match.<!-- HTML_TAG_END --></div></div></div> <div class="split"><button>_</button></div> <canvas></canvas> <button class="primary" data-svelte-h="svelte-1m0zplb">Undo</button> </section> <section><div class="header svelte-1rj8pak"><h2>Leave</h2> <div class="help svelte-1rj8pak"><span class="icon svelte-1rj8pak" data-svelte-h="svelte-qca8pv">?</span> <div class="body svelte-1rj8pak"><!-- HTML_TAG_START -->Did the robot fully leave the Wing during auto?<!-- HTML_TAG_END --></div></div></div> <div class="split"><button class="active">No</button> <button>Yes</button></div> </section> <section><div class="header svelte-1rj8pak"><h2>Pickups, Makes, Misses</h2> </div> <div class="split"><button>Pickup</button><button>Make</button><button>Miss</button></div> <canvas></canvas> <button class="primary" data-svelte-h="svelte-1m0zplb">Undo</button> </section> <section><div class="header svelte-1rj8pak"><h2>Coopertition</h2> <div class="help svelte-1rj8pak"><span class="icon svelte-1rj8pak" data-svelte-h="svelte-qca8pv">?</span> <div class="body svelte-1rj8pak"><!-- HTML_TAG_START -->Did the alliance activate Coopertition?<!-- HTML_TAG_END --></div></div></div> <div class="split"><button class="active">No</button> <button>Yes</button></div> </section> <section><div class="header svelte-1rj8pak"><h2>Trap</h2> <div class="help svelte-1rj8pak"><span class="icon svelte-1rj8pak" data-svelte-h="svelte-qca8pv">?</span> <div class="body svelte-1rj8pak"><!-- HTML_TAG_START -->How did the robot interact with the Trap?<!-- HTML_TAG_END --></div></div></div> <div class="split"><button class="active">None</button><button>Fail</button><button>Success</button></div> </section> <section><div class="header svelte-1rj8pak"><h2>Climb</h2> <div class="help svelte-1rj8pak"><span class="icon svelte-1rj8pak" data-svelte-h="svelte-qca8pv">?</span> <div class="body svelte-1rj8pak"><!-- HTML_TAG_START -->How did the robot interact with the Stage?<!-- HTML_TAG_END --></div></div></div> <div class="split"><button class="active">None</button><button>Fail</button><button>Success</button></div> </section> <section><div class="header svelte-1rj8pak"><h2>Harmony</h2> <div class="help svelte-1rj8pak"><span class="icon svelte-1rj8pak" data-svelte-h="svelte-qca8pv">?</span> <div class="body svelte-1rj8pak"><!-- HTML_TAG_START -->Did the robot activate the Harmony bonus?<!-- HTML_TAG_END --></div></div></div> <div class="split"><button class="active">0</button><button>+1</button><button>+2</button></div> </section> <section><div class="header svelte-1rj8pak"><h2>High Notes</h2> <div class="help svelte-1rj8pak"><span class="icon svelte-1rj8pak" data-svelte-h="svelte-qca8pv">?</span> <div class="body svelte-1rj8pak"><!-- HTML_TAG_START -->Did the team's human player score any High Notes?<!-- HTML_TAG_END --></div></div></div> <div class="split"><button class="active">None</button><button>0</button><button>1</button><button>2</button><button>3</button></div> </section> <section><div class="header svelte-1rj8pak"><h2>Defense</h2> <div class="help svelte-1rj8pak"><span class="icon svelte-1rj8pak" data-svelte-h="svelte-qca8pv">?</span> <div class="body svelte-1rj8pak"><!-- HTML_TAG_START -->Did the robot play defense?<!-- HTML_TAG_END --></div></div></div> <div class="svelte-dz04f9"><input type="text" placeholder="" value=""> <button class="primary add" data-svelte-h="svelte-1rhr61c">+</button></div>  </section> <section><div class="header svelte-1rj8pak"><h2>Driving</h2> <div class="help svelte-1rj8pak"><span class="icon svelte-1rj8pak" data-svelte-h="svelte-qca8pv">?</span> <div class="body svelte-1rj8pak"><!-- HTML_TAG_START -->Was the robot being defended?<!-- HTML_TAG_END --></div></div></div> <div class="svelte-dz04f9"><input type="text" placeholder="" value=""> <button class="primary add" data-svelte-h="svelte-1rhr61c">+</button></div>  </section> <section><div class="header svelte-1rj8pak"><h2>Downtime</h2> <div class="help svelte-1rj8pak"><span class="icon svelte-1rj8pak" data-svelte-h="svelte-qca8pv">?</span> <div class="body svelte-1rj8pak"><!-- HTML_TAG_START -->What did the robot do when they weren't scoring?<!-- HTML_TAG_END --></div></div></div> <div class="svelte-dz04f9"><input type="text" placeholder="" value=""> <button class="primary add" data-svelte-h="svelte-1rhr61c">+</button></div>  </section> <section><div class="header svelte-1rj8pak"><h2>Other</h2> </div> <div class="svelte-dz04f9"><input type="text" placeholder="" value=""> <button class="primary add" data-svelte-h="svelte-1rhr61c">+</button></div>  </section> <section><div class="header svelte-1rj8pak"><h2>Submit</h2> </div> <div><label for="scouter" data-svelte-h="svelte-1dsqkj9">Scouter Name</label> <input id="scouter" type="text" placeholder="Scouter Name" value=""></div> <button class="primary" data-svelte-h="svelte-88s059">Generate QR Code</button> </section> </div></main> <footer data-svelte-h="svelte-1u07d2p"><div class="container"><p>Built by <a href="https://github.com/haydenheroux/">Hayden Heroux</a>.</p> <p>Source code on <a href="https://github.com/haydenheroux/scouting-svelte/">GitHub</a>.</p></div></footer></div> 
 			
 			<script>
 				{
-					__sveltekit_15rpoz8 = {
+					__sveltekit_1l3egkb = {
 						base: new URL(".", location).pathname.slice(0, -1),
 						env: {}
 					};
@@ -42,8 +49,8 @@
 					const data = [null,null];
 
 					Promise.all([
-						import("./_app/immutable/entry/start.b63de868.js"),
-						import("./_app/immutable/entry/app.fbae5441.js")
+						import("./_app/immutable/entry/start.5bf0f327.js"),
+						import("./_app/immutable/entry/app.dd62a239.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 2],
