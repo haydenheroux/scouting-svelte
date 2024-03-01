@@ -349,7 +349,7 @@ section .remove {
 
 .split {
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(8em, 1fr));
+	grid-template-columns: repeat(auto-fit, minmax(4em, 1fr));
 
 	gap: var(--section-gap);
 }
