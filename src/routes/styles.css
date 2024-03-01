@@ -66,8 +66,8 @@
 
 	/* layout sizes */
 	--layout-gap: 2rem;
-	--layout-width-phone: 20em;
-	--layout-width-tablet: 40em;
+	--layout-width-phone: 100%;
+	--layout-width-tablet: 100%;
 	--layout-width-desktop: 40em;
 }
 
@@ -406,7 +406,7 @@ footer .container {
 	}
 }
 
-@media screen and (min-width: 100rem) {
+@media screen and (min-width: 1080px) {
 	/* desktop */
 	.container {
 		max-width: var(--layout-width-desktop);
