@@ -32,6 +32,7 @@ export function participantToSerializedParticipant(
 		set: participant.set,
 		match: participant.match,
 		alliance: allianceToSerialAlliance(participant.alliance),
-		station: participant.station
+		station: participant.station,
+		team: participant.team,
 	};
 }

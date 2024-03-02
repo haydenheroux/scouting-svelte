@@ -22,6 +22,7 @@ export interface Participant {
 	match: number;
 	alliance: Alliance;
 	station: Station;
+	team: number;
 }
 
 export function createDefaultParticipant(): Participant {
@@ -30,6 +31,7 @@ export function createDefaultParticipant(): Participant {
 		station: Station.ONE,
 		type: MatchType.QUALIFICATION,
 		set: 1,
-		match: 1
+		match: 1,
+		team: 0
 	};
 }

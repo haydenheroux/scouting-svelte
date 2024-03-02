@@ -3,6 +3,7 @@
 	import { valuesOf } from '$lib/enum';
 	import { type Participant, Alliance, Station, MatchType } from '$lib/participant';
 	import { storedParticipant } from '$lib/stores';
+	import NumberSelector from './NumberSelector.svelte';
 
 	export let participant: Participant;
 
@@ -32,33 +33,6 @@
 	}
 </script>
 
-<Section name="Select Station">
-	<div class="split">
-		<button
-			on:click={() => (participant.alliance = Alliance.BLUE)}
-			class:blue={participant.alliance == Alliance.BLUE}>Blue Alliance</button
-		>
-		<button
-			on:click={() => (participant.alliance = Alliance.RED)}
-			class:red={participant.alliance == Alliance.RED}>Red Alliance</button
-		>
-	</div>
-	<div class="split">
-		<button
-			on:click={() => (participant.station = Station.ONE)}
-			class:active={participant.station == Station.ONE}>1</button
-		>
-		<button
-			on:click={() => (participant.station = Station.TWO)}
-			class:active={participant.station == Station.TWO}>2</button
-		>
-		<button
-			on:click={() => (participant.station = Station.THREE)}
-			class:active={participant.station == Station.THREE}>3</button
-		>
-	</div>
-</Section>
-
 <Section name="Select Match">
 	<div>
 		<div class="split">
@@ -86,6 +60,37 @@
 		<button class="active" on:click={previousMatch}>Previous Match</button>
 		<button class="active" on:click={nextMatch}>Next Match</button>
 	</div>
+</Section>
+
+<Section name="Select Station">
+	<div class="split">
+		<button
+			on:click={() => (participant.alliance = Alliance.BLUE)}
+			class:blue={participant.alliance == Alliance.BLUE}>Blue Alliance</button
+		>
+		<button
+			on:click={() => (participant.alliance = Alliance.RED)}
+			class:red={participant.alliance == Alliance.RED}>Red Alliance</button
+		>
+	</div>
+	<div class="split">
+		<button
+			on:click={() => (participant.station = Station.ONE)}
+			class:active={participant.station == Station.ONE}>1</button
+		>
+		<button
+			on:click={() => (participant.station = Station.TWO)}
+			class:active={participant.station == Station.TWO}>2</button
+		>
+		<button
+			on:click={() => (participant.station = Station.THREE)}
+			class:active={participant.station == Station.THREE}>3</button
+		>
+	</div>
+</Section>
+
+<Section name="Select Team">
+	<NumberSelector bind:value={participant.team} />
 </Section>
 
 <style>

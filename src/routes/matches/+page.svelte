@@ -2,8 +2,9 @@
 	import QRCodeDisplay from '$lib/components/sections/QRCodeDisplay.svelte';
 	import Section from '$lib/components/Section.svelte';
 	import { storedMatches } from '$lib/stores';
-	import { parseMatchKey } from '$lib/api';
+	import { parseMatchKey, type SerializedParticipantMetrics } from '$lib/api';
 	import Showable from '$lib/components/Showable.svelte';
+	import { MatchMetrics } from '$lib/metrics';
 
 	const matches = storedMatches.get();
 </script>
@@ -16,13 +17,25 @@
 				>{alliance === 'blue' ? 'Blue Alliance' : 'Red Alliance'}</button
 			>
 			{#each Object.entries(stations) as station, index}
+				{@const data = station[1][0]}
+				{@const metrics = MatchMetrics.deserialize(data.metrics)}
 				<div class="split">
-					<b>Station {index + 1}</b>
+					<div>
+						<b>{JSON.stringify(data.participant.team)} (Station {index + 1})</b>
+						<p>Left?: {metrics.leave}</p>
+						<p>Pickups: {metrics.pickups.length}</p>
+						<p>Makes: {metrics.makes.length} ({metrics.pickups.length != 0 ? (100 * metrics.makes.length / metrics.pickups.length).toFixed(0) : 0}%)</p>
+						<p>Misses: {metrics.misses.length} ({metrics.pickups.length != 0 ? (100 * metrics.misses.length / metrics.pickups.length).toFixed(0) : 0}%)</p>
+						<p>Coopertition?: {metrics.coopertition}</p>
+						<p>Trap: {metrics.trap}</p>
+						<p>Climb: {metrics.climb}</p>
+						<p>Harmony: {metrics.harmony}</p>
+					</div>
 					<Showable subject="JSON">
-						<p>{JSON.stringify(station[1][0])}</p>
+						<p>{JSON.stringify(data)}</p>
 					</Showable>
 					<Showable subject="QR Code">
-						<QRCodeDisplay value={JSON.stringify(station[1][0])} />
+						<QRCodeDisplay value={JSON.stringify(data)} />
 					</Showable>
 				</div>
 			{/each}

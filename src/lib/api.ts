@@ -14,6 +14,7 @@ export interface SerializedParticipant {
 	type: SerializedMatchType;
 	alliance: SerializedAlliance;
 	station: number;
+	team: number;
 }
 
 export type SerializedMatchKey = string;
