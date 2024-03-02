@@ -19,7 +19,7 @@
 			{#each Object.entries(stations) as station, index}
 				{@const data = station[1][0]}
 				{@const metrics = MatchMetrics.deserialize(data.metrics)}
-				<div class="split">
+				<div style="display: flex; flex-direction: column; gap: var(--layout-gap);">
 					<div>
 						<b>{JSON.stringify(data.participant.team)} (Station {index + 1})</b>
 						<p>Left?: {metrics.leave}</p>
@@ -31,12 +31,14 @@
 						<p>Climb: {metrics.climb}</p>
 						<p>Harmony: {metrics.harmony}</p>
 					</div>
-					<Showable subject="JSON">
-						<p>{JSON.stringify(data)}</p>
-					</Showable>
-					<Showable subject="QR Code">
-						<QRCodeDisplay value={JSON.stringify(data)} />
-					</Showable>
+					<div class="split">
+						<Showable subject="JSON">
+							<p>{JSON.stringify(data)}</p>
+						</Showable>
+						<Showable subject="QR Code">
+							<QRCodeDisplay value={JSON.stringify(data)} />
+						</Showable>
+					</div>
 				</div>
 			{/each}
 		{/each}
