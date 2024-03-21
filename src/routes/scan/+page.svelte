@@ -1,6 +1,4 @@
 <script lang="ts">
-	import { Participant } from './../../lib/participant.ts';
-	import { serializeAndStore } from '$lib/stores';
 	import { browser } from '$app/environment';
 	import { Html5Qrcode, type Html5QrcodeResult } from 'html5-qrcode';
 

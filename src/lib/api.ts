@@ -1,90 +1,91 @@
-// TODO Ensure compatibility between API types and API.
+export enum Alliance {
+	RED = 'Red',
+	BLUE = 'Blue'
+}
 
-import { participantToSerializedParticipant } from './adapter';
-import type { MatchMetrics } from './metrics';
-import { MatchType, type Participant } from './participant';
+export enum Station {
+	ONE = 1,
+	TWO = 2,
+	THREE = 3
+}
 
-export type SerializedMatchType = 'qm' | 'qf' | 'sf' | 'f';
-
-export type SerializedAlliance = 'red' | 'blue';
-
-export interface SerializedParticipant {
-	set: number;
-	match: number;
-	type: SerializedMatchType;
-	alliance: SerializedAlliance;
-	station: number;
+export interface Participant {
+	alliance: Alliance;
+	matchKey: MatchKey;
+	station: Station;
 	team: number;
 }
 
-export type SerializedMatchKey = string;
+type TBAEventCode = string;
 
-export function getMatchKey(participant: SerializedParticipant): SerializedMatchKey {
-	let s = '';
-	s += participant.type;
-
-	if (participant.type != 'qm') {
-		s += participant.set;
-		s += 'm';
-	}
-
-	s += participant.match;
-
-	return s;
+export enum MatchType {
+	QUALIFICATION = 'Qualification',
+	QUARTERFINAL = 'Quarterfinal',
+	SEMIFINAL = 'Semifinal',
+	FINAL = 'Final'
 }
 
-const matchTypeOf: Record<SerializedMatchType, MatchType> = {
-	qm: MatchType.QUALIFICATION,
-	qf: MatchType.QUARTERFINAL,
-	sf: MatchType.SEMIFINAL,
-	f: MatchType.FINAL
+export enum TBAMatchType {
+	QUALIFICATION = 'qm',
+	QUARTERFINAL = 'qf',
+	SEMIFINAL = 'sf',
+	FINAL = 'f'
+}
+
+const matchTypeOf: Record<TBAMatchType, MatchType> = {
+	[TBAMatchType.QUALIFICATION]: MatchType.QUALIFICATION,
+	[TBAMatchType.QUARTERFINAL]: MatchType.QUARTERFINAL,
+	[TBAMatchType.SEMIFINAL]: MatchType.SEMIFINAL,
+	[TBAMatchType.FINAL]: MatchType.FINAL
 };
 
-interface ParseMatchKeyResult {
-	set: number;
-	match: number;
-	type: MatchType;
+const tbaMatchTypeOf: Record<MatchType, TBAMatchType> = {
+	[MatchType.QUALIFICATION]: TBAMatchType.QUALIFICATION,
+	[MatchType.QUARTERFINAL]: TBAMatchType.QUARTERFINAL,
+	[MatchType.SEMIFINAL]: TBAMatchType.SEMIFINAL,
+	[MatchType.FINAL]: TBAMatchType.FINAL,
 }
 
-export function parseMatchKey(matchKey: SerializedMatchKey): ParseMatchKeyResult {
-	const regex = new RegExp('(?:.*_)?(qm|qf|sf|f)(\\d{1,2})(?:m(\\d{1,2}))?');
-	const match = regex.exec(matchKey);
+type MatchNumber = number;
 
-	if (match !== null) {
-		const [, type, matchNum, setNum] = match;
-		const isQualificationMatch = type === 'qm';
+type SetNumber = number;
 
-		const safe_type: SerializedMatchType = type as SerializedMatchType;
+class MatchKey {
+	eventCode: TBAEventCode;
+	match: MatchNumber;
+	matchType: MatchType;
+	set: SetNumber;
 
-		if (isQualificationMatch) {
-			const set = 1; // default value for set in TBA is 1
-			const match = parseInt(matchNum);
-			const type = matchTypeOf[safe_type];
-			return { set, match, type };
-		} else {
-			const set = parseInt(matchNum);
-			const match = parseInt(setNum);
-			const type = matchTypeOf[safe_type];
-			return { set, match, type };
-		}
+	constructor(eventCode: TBAEventCode, matchType: MatchType, set: SetNumber, match: MatchNumber) {
+		this.eventCode = eventCode;
+		this.match = match;
+		this.matchType = matchType;
+		this.set = set;
 	}
 
-	return { set: 1, match: 1, type: MatchType.QUALIFICATION };
-}
+	static parse(string: string): MatchKey | null {
+		const regex = new RegExp("(?:.*_)?(qm|qf|sf|f)(\\d{1,2})(?:m(\\d{1,2}))?");
+		const parsedMatch = regex.exec(string);
 
-export type SerializedMatchMetrics = Record<string, string>;
+		if (parsedMatch === null) return null;
 
-export interface SerializedParticipantMetrics {
-	participant: SerializedParticipant;
-	metrics: SerializedMatchMetrics;
-}
+		const [tbaEvent, tbaMatchType, firstNumber, secondNumber] = parsedMatch;
 
-export function serialize(
-	participant: Participant,
-	metrics: MatchMetrics
-): SerializedParticipantMetrics {
-	return {
-		participant: participantToSerializedParticipant(participant),
-		metrics: metrics.serialize()
-	};
+		const matchType = matchTypeOf[tbaMatchType as TBAMatchType];
+		const set = matchType === MatchType.QUALIFICATION ? 1 : parseInt(secondNumber);
+		const match = matchType === MatchType.QUALIFICATION ? parseInt(firstNumber) : parseInt(secondNumber);
+
+		return new MatchKey(tbaEvent, matchType, set, match);
+	}
+
+	string(): string {
+		const tbaMatchType = tbaMatchTypeOf[this.matchType];
+
+		if (this.matchType== MatchType.QUALIFICATION) {
+			return `${this.eventCode}_${tbaMatchType}${this.match}`;
+		}
+
+		return `${this.eventCode}_${tbaMatchType}${this.set}m${this.match}`
+	}
+
 }

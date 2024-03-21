@@ -1,12 +1,8 @@
 <script lang="ts">
 	import QRCodeDisplay from '$lib/components/sections/QRCodeDisplay.svelte';
 	import Section from '$lib/components/Section.svelte';
-	import { storedMatches } from '$lib/stores';
-	import { parseMatchKey, type SerializedParticipantMetrics } from '$lib/api';
 	import Showable from '$lib/components/Showable.svelte';
 	import { MatchMetrics } from '$lib/metrics';
-
-	const matches = storedMatches.get();
 </script>
 
 {#each Object.entries(matches) as [matchKey, alliances]}

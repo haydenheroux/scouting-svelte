@@ -1,22 +1,17 @@
 <script lang="ts">
-	import type { MatchToAlliance, StationToMetrics } from '$lib/stores.ts';
 	import Section from '$lib/components/Section.svelte';
-	import { storedMatches } from '$lib/stores';
-	import { parseMatchKey, type SerializedMatchKey } from '$lib/api';
 
-	const matches = storedMatches.get();
+	// function presentStation(stations: StationToMetrics): boolean[] {
+	// 	return [1, 2, 3].map((i) => stations[i] !== undefined);
+	// }
 
-	function presentStation(stations: StationToMetrics): boolean[] {
-		return [1, 2, 3].map((i) => stations[i] !== undefined);
-	}
+	// function getMatch(matchKey: SerializedMatchKey) {
+	// 	let o: MatchToAlliance = {};
 
-	function getMatch(matchKey: SerializedMatchKey) {
-		let o: MatchToAlliance = {};
+	// 	o[matchKey] = storedMatches.get()[matchKey];
 
-		o[matchKey] = storedMatches.get()[matchKey];
-
-		return o;
-	}
+	// 	return o;
+	// }
 </script>
 
 {#each Object.entries(matches) as [matchKey, alliances]}

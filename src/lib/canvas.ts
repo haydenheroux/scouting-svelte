@@ -60,7 +60,7 @@ export function drawPoint(
 			ctx.arc(point.x, point.y, radius, 0, 2 * Math.PI);
 			ctx.stroke();
 			break;
-		case DrawStyle.CROSS:
+		case DrawStyle.CROSS: {
 			ctx.strokeStyle = color;
 			ctx.lineWidth = 4;
 
@@ -75,7 +75,8 @@ export function drawPoint(
 			ctx.lineTo(point.x - d, point.y + d);
 			ctx.stroke();
 			break;
-		case DrawStyle.TRIANGLE:
+		}
+		case DrawStyle.TRIANGLE: {
 			ctx.fillStyle = color;
 
 			const dx = 0.5 * Math.sqrt(3) * size;
@@ -86,6 +87,8 @@ export function drawPoint(
 			ctx.lineTo(point.x - dx, point.y + dy);
 			ctx.lineTo(point.x + dx, point.y + dy);
 			ctx.fill();
+			break;
+		}
 		default:
 			break;
 	}

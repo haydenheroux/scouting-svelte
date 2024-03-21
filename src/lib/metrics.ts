@@ -1,4 +1,3 @@
-import type { SerializedMatchMetrics } from '$lib/api';
 import { NormalizedPoint } from '$lib/point';
 import { arrayToObject, stringToArray } from '$lib/array';
 
@@ -51,7 +50,7 @@ export class MatchMetrics {
 	otherNotes: Array<string> = [];
 	scouterName = '';
 
-	static deserialize(serialized: SerializedMatchMetrics): MatchMetrics {
+	static deserialize(serialized: Record<string, string>): MatchMetrics {
 		const metrics = new MatchMetrics();
 
 		metrics.startingPoint = [NormalizedPoint.fromString(serialized['startingPoint'][0])];
@@ -75,7 +74,7 @@ export class MatchMetrics {
 		return metrics;
 	}
 
-	serialize(): SerializedMatchMetrics {
+	serialize(): Record<string, string> {
 		return {
 			startingPoint: this.startingPoint
 				? this.startingPoint.map((p) => p.stringify()).join(':')

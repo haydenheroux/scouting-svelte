@@ -1,5 +1,5 @@
 export function arrayToObject(key: string, values: Array<string>): Record<string, string> {
-	let o: Record<string, string> = {};
+	const o: Record<string, string> = {};
 
 	for (const [k, v] of values.entries()) {
 		o[`${key}${k}`] = v;
@@ -14,7 +14,7 @@ export function stringToArray(key: string, obj: Record<string, string>): Array<s
 	const result = [] as Array<string>;
 
 	for (key of matching) {
-		let value = obj[key];
+		const value = obj[key];
 		result.push(value);
 	}
 

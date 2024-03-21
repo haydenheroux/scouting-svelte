@@ -1,6 +1,5 @@
 <script lang="ts">
 	import field2024 from '$lib/images/2024.png';
-	import ParticipantSelector from '$lib/components/selectors/ParticipantSelector.svelte';
 	import FieldSelector from '$lib/components/selectors/FieldSelector.svelte';
 	import Submit from '$lib/components/sections/Submit.svelte';
 	import MultipleOptionSelector from '$lib/components/selectors/OptionSelector.svelte';
@@ -10,13 +9,8 @@
 	import Section from '$lib/components/Section.svelte';
 	import { valuesOf } from '$lib/enum';
 	import { Trap, Climb, Harmony, HighNotes, MatchMetrics } from '$lib/metrics';
-	import type { Participant } from '$lib/participant';
-	import { storedParticipant, serializeAndStore } from '$lib/stores';
 	import { DrawStyle } from '$lib/canvas';
 	import type { TaggedPoint } from '$lib/point';
-
-	// TODO Move to participant selector
-	let participant: Participant = storedParticipant.get();
 
 	let startingPoint: Array<TaggedPoint>;
 
@@ -32,13 +26,13 @@
 		metrics.makes = pickupsMakesMisses.filter((tp) => tp.tag === 'Make').map((tp) => tp.point);
 		metrics.misses = pickupsMakesMisses.filter((tp) => tp.tag === 'Miss').map((tp) => tp.point);
 
-		const serialized = serializeAndStore(participant, metrics);
+		// const serialized = serializeAndStore(participant, metrics);
 
-		qrCode = JSON.stringify(serialized);
+		// qrCode = JSON.stringify(serialized);
 	}
 </script>
 
-<ParticipantSelector bind:participant />
+<!-- <ParticipantSelector bind:null /> -->
 
 <Section name="Starting Position" help="Place where the robot starts the match.">
 	<FieldSelector
