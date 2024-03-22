@@ -1,12 +1,13 @@
 <script lang="ts">
 	import {
-		DriverStation,
-		MatchKey,
+		createMatchKey,
+		driverStationOf,
 		MatchType,
-		Event,
 		StationEnum,
+		type Event,
+		type Participant,
 		driverStations,
-		type Participant
+		stringifyDriverStation
 	} from "$lib/api";
 	import Section from "$lib/components/Section.svelte";
 	import { valuesOf } from "$lib/enum";
@@ -18,8 +19,8 @@
 
 	function transform(selected: FormData): Participant {
 		return {
-			match: new MatchKey(selected.event, selected.type, selected.set, selected.match),
-			driverStation: DriverStation.of(selected.station),
+			match: createMatchKey(selected.event, selected.type, selected.set, selected.match),
+			driverStation: driverStationOf(selected.station),
 			team: selected.team
 		};
 	}
@@ -106,7 +107,8 @@
 <Section name="Select Station">
 	<select bind:value={formData.station}>
 		{#each driverStations as driverStation}
-			<option value={driverStation}>{DriverStation.of(driverStation).toString()}</option>
+			<option value={driverStation}>{stringifyDriverStation(driverStationOf(driverStation))}</option
+			>
 		{/each}
 	</select>
 </Section>

@@ -8,7 +8,7 @@
 	import QRCode from "$lib/components/sections/QRCodeDisplay.svelte";
 	import Section from "$lib/components/Section.svelte";
 	import { valuesOf } from "$lib/enum";
-	import { Trap, Climb, Harmony, MatchMetrics } from "$lib/metrics";
+	import { Trap, Climb, Harmony, type Metrics, serialize } from "$lib/metrics";
 	import { DrawStyle } from "$lib/canvas";
 	import ParticipantSelector from "$lib/components/selectors/ParticipantSelector.svelte";
 	import type { Participant } from "$lib/api";
@@ -20,7 +20,7 @@
 
 	let startingPoint: Array<TaggedPoint>;
 
-	let metrics: MatchMetrics = new MatchMetrics();
+	let metrics: Metrics = {} as Metrics;
 
 	let qrCodeData = "";
 
@@ -38,9 +38,7 @@
 
 		storeMetrics(metrics);
 
-		const serialized = JSON.stringify(metrics.serialize());
-
-		qrCodeData = serialized;
+		qrCodeData = JSON.stringify(serialize(metrics));
 	}
 </script>
 

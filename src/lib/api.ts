@@ -23,55 +23,51 @@ export const driverStations = [
 	StationEnum.BLUE_3
 ];
 
-export class DriverStation {
+export type DriverStation = {
 	alliance: Alliance;
 	station: StationNumber;
+};
 
-	constructor(alliance: Alliance, station: StationNumber) {
-		this.alliance = alliance;
-		this.station = station;
-	}
+export function createDriverStation(alliance: Alliance, station: StationNumber): DriverStation {
+	return {
+		alliance,
+		station
+	};
+}
 
-	static of(stationEnum: StationEnum): DriverStation {
-		switch (stationEnum) {
-			case StationEnum.RED_1:
-				return new DriverStation(Alliance.RED, 1);
-			case StationEnum.RED_2:
-				return new DriverStation(Alliance.RED, 2);
-			case StationEnum.RED_3:
-				return new DriverStation(Alliance.RED, 3);
-			case StationEnum.BLUE_1:
-				return new DriverStation(Alliance.BLUE, 1);
-			case StationEnum.BLUE_2:
-				return new DriverStation(Alliance.BLUE, 2);
-			case StationEnum.BLUE_3:
-				return new DriverStation(Alliance.BLUE, 3);
-		}
-	}
+export function stringifyDriverStation(driverStation: DriverStation): string {
+	return `${driverStation.alliance} ${driverStation.station}`;
+}
 
-	isRed(): boolean {
-		return this.alliance === Alliance.RED;
-	}
-
-	isBlue(): boolean {
-		return this.alliance === Alliance.BLUE;
-	}
-
-	toString(): string {
-		return `${this.alliance} ${this.station}`;
+export function driverStationOf(stationEnum: StationEnum): DriverStation {
+	switch (stationEnum) {
+		case StationEnum.RED_1:
+			return createDriverStation(Alliance.RED, 1);
+		case StationEnum.RED_2:
+			return createDriverStation(Alliance.RED, 2);
+		case StationEnum.RED_3:
+			return createDriverStation(Alliance.RED, 3);
+		case StationEnum.BLUE_1:
+			return createDriverStation(Alliance.BLUE, 1);
+		case StationEnum.BLUE_2:
+			return createDriverStation(Alliance.BLUE, 2);
+		case StationEnum.BLUE_3:
+			return createDriverStation(Alliance.BLUE, 3);
 	}
 }
 
 export type TBAEventCode = string;
 
-export class Event {
+export type Event = {
 	code: TBAEventCode;
 	name: string | null;
+};
 
-	constructor(code: TBAEventCode, name: string | null) {
-		this.code = code;
-		this.name = name;
-	}
+export function createEvent(code: TBAEventCode, name: string | null): Event {
+	return {
+		code,
+		name
+	};
 }
 
 export function validateEvent(obj: object | null): Event | null {
@@ -87,6 +83,7 @@ export function validateEvent(obj: object | null): Event | null {
 }
 
 function getEventOrNull(eventCode: TBAEventCode): Event | null {
+	// TODO
 	const eventCodeToName: Record<TBAEventCode, string> = {
 		"2024necmp": "New England FIRST District Championship 2024"
 	};
@@ -94,7 +91,7 @@ function getEventOrNull(eventCode: TBAEventCode): Event | null {
 	const nameOrNull = eventCodeToName[eventCode];
 
 	// eventCode not stored
-	if (nameOrNull == null) return new Event(eventCode, null);
+	if (nameOrNull == null) return createEvent(eventCode, null);
 
 	return null;
 }
@@ -131,54 +128,61 @@ export type MatchNumber = number;
 
 export type SetNumber = number;
 
-export class MatchKey {
+export type MatchKey = {
 	event: Event | null;
 	match: MatchNumber;
 	matchType: MatchType;
 	set: SetNumber;
+};
 
-	constructor(event: Event | null, matchType: MatchType, set: SetNumber, match: MatchNumber) {
-		this.event = event;
-		this.match = match;
-		this.matchType = matchType;
-		this.set = set;
-	}
+export function createMatchKey(
+	event: Event | null,
+	matchType: MatchType,
+	set: SetNumber,
+	match: MatchNumber
+): MatchKey {
+	return {
+		event,
+		match,
+		matchType,
+		set
+	};
+}
 
-	static parse(string: string): MatchKey | null {
-		const regex = new RegExp("(?:.*_)?(qm|qf|sf|f)(\\d{1,2})(?:m(\\d{1,2}))?");
-		const parsedMatch = regex.exec(string);
+export function parseMatchKey(string: string): MatchKey | null {
+	const regex = new RegExp("(?:.*_)?(qm|qf|sf|f)(\\d{1,2})(?:m(\\d{1,2}))?");
+	const parsedMatch = regex.exec(string);
 
-		if (parsedMatch === null) return null;
+	if (parsedMatch === null) return null;
 
-		const [tbaEvent, tbaMatchType, firstNumber, secondNumber] = parsedMatch;
+	const [tbaEvent, tbaMatchType, firstNumber, secondNumber] = parsedMatch;
 
-		const eventOrNull = getEventOrNull(tbaEvent);
+	const eventOrNull = getEventOrNull(tbaEvent);
 
-		const matchType = matchTypeOf[tbaMatchType as TBAMatchType];
-		const set = matchType === MatchType.QUALIFICATION ? 1 : parseInt(secondNumber);
-		const match =
-			matchType === MatchType.QUALIFICATION ? parseInt(firstNumber) : parseInt(secondNumber);
+	const matchType = matchTypeOf[tbaMatchType as TBAMatchType];
+	const set = matchType === MatchType.QUALIFICATION ? 1 : parseInt(secondNumber);
+	const match =
+		matchType === MatchType.QUALIFICATION ? parseInt(firstNumber) : parseInt(secondNumber);
 
-		return new MatchKey(eventOrNull, matchType, set, match);
-	}
+	return createMatchKey(eventOrNull, matchType, set, match);
+}
 
-	toString(): string {
-		const tbaMatchType = tbaMatchTypeOf[this.matchType];
+export function stringifyMatchKey(matchKey: MatchKey): string {
+	const tbaMatchType = tbaMatchTypeOf[matchKey.matchType];
 
-		if (this.matchType == MatchType.QUALIFICATION) {
-			if (this.event == null) {
-				return `${tbaMatchType}${this.match}`;
-			}
-
-			return `${this.event.code}_${tbaMatchType}${this.match}`;
+	if (matchKey.matchType == MatchType.QUALIFICATION) {
+		if (matchKey.event == null) {
+			return `${tbaMatchType}${matchKey.match}`;
 		}
 
-		if (this.event == null) {
-			return `${tbaMatchType}${this.set}m${this.match}`;
-		}
-
-		return `${this.event.code}_${tbaMatchType}${this.set}m${this.match}`;
+		return `${matchKey.event.code}_${tbaMatchType}${matchKey.match}`;
 	}
+
+	if (matchKey.event == null) {
+		return `${tbaMatchType}${matchKey.set}m${matchKey.match}`;
+	}
+
+	return `${matchKey.event.code}_${tbaMatchType}${matchKey.set}m${matchKey.match}`;
 }
 
 export type Participant = {

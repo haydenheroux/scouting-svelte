@@ -3,7 +3,7 @@
 import { storable } from "./storable";
 
 import type { Event } from "./api";
-import type { MatchMetrics } from "./metrics";
+import type { Metrics } from "./metrics";
 
 export const storedEvents = storable<Array<Event>>("events", [] as Array<Event>);
 
@@ -37,9 +37,9 @@ export function storeEvent(newEvent: Event) {
 	storedEvents.set(events);
 }
 
-export const storedMetrics = storable<Array<MatchMetrics>>("metrics", [] as Array<MatchMetrics>);
+export const storedMetrics = storable<Array<Metrics>>("metrics", [] as Array<Metrics>);
 
-export function storeMetrics(newMetrics: MatchMetrics) {
+export function storeMetrics(newMetrics: Metrics) {
 	const metrics = storedMetrics.get();
 
 	metrics.push(newMetrics);

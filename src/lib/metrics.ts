@@ -1,6 +1,6 @@
 import { NormalizedPoint } from "$lib/point";
 import { arrayToObject, stringToArray } from "$lib/array";
-import { MatchKey, type Alliance } from "./api";
+import { type MatchKey, type Alliance, parseMatchKey, stringifyMatchKey } from "./api";
 
 export enum Trap {
 	NONE = "None",
@@ -59,123 +59,123 @@ const OTHER_KEY = "oth";
 
 const NAME_KEY = "name";
 
-export class MatchMetrics {
-	match: MatchKey | null = null;
+export type Metrics = {
+	match: MatchKey | null;
 
-	alliance: Alliance | null = null;
-	station: number | null = null;
+	alliance: Alliance | null;
+	station: number | null;
 
-	team: number | null = null;
+	team: number | null;
 
-	start: NormalizedPoint | null = null;
+	start: NormalizedPoint | null;
 
-	leave = false;
+	leave: boolean;
 
-	autoAmpMakes = 0;
-	autoAmpMisses = 0;
+	autoAmpMakes: number;
+	autoAmpMisses: number;
 
-	autoSpeakerMakes = 0;
-	autoSpeakerMisses = 0;
+	autoSpeakerMakes: number;
+	autoSpeakerMisses: number;
 
-	teleopAmpMakes = 0;
-	teleopAmpMisses = 0;
+	teleopAmpMakes: number;
+	teleopAmpMisses: number;
 
-	teleopSpeakerMakes = 0;
-	teleopSpeakerMisses = 0;
+	teleopSpeakerMakes: number;
+	teleopSpeakerMisses: number;
 
-	coopertition = false;
+	coopertition: boolean;
 
-	trap: Trap = Trap.NONE;
-	climb: Climb = Climb.NONE;
-	harmony: Harmony = Harmony.ZERO;
+	trap: Trap;
+	climb: Climb;
+	harmony: Harmony;
 
-	defenseNotes: Array<string> = [];
-	drivingNotes: Array<string> = [];
-	downtimeNotes: Array<string> = [];
-	otherNotes: Array<string> = [];
+	defenseNotes: Array<string>;
+	drivingNotes: Array<string>;
+	downtimeNotes: Array<string>;
+	otherNotes: Array<string>;
 
-	name = "";
+	name: string;
+};
 
-	static deserialize(serialized: Record<string, string>): MatchMetrics {
-		const metrics = new MatchMetrics();
+export function deserialize(serialized: Record<string, string>): Metrics {
+	const metrics = {} as Metrics;
 
-		metrics.match = MatchKey.parse(serialized[MATCH_KEY]);
+	metrics.match = parseMatchKey(serialized[MATCH_KEY]);
 
-		metrics.alliance = serialized[ALLIANCE_KEY] as Alliance;
-		metrics.station = Number.parseInt(serialized[STATION_KEY]);
+	metrics.alliance = serialized[ALLIANCE_KEY] as Alliance;
+	metrics.station = Number.parseInt(serialized[STATION_KEY]);
 
-		metrics.team = Number.parseInt(serialized[TEAM_KEY]);
+	metrics.team = Number.parseInt(serialized[TEAM_KEY]);
 
-		metrics.start = NormalizedPoint.fromString(serialized[START_KEY]);
+	metrics.start = NormalizedPoint.fromString(serialized[START_KEY]);
 
-		metrics.leave = serialized[LEAVE_KEY] == "true";
+	metrics.leave = serialized[LEAVE_KEY] == "true";
 
-		metrics.autoAmpMakes = Number.parseInt(serialized[AUTO_AMP_MAKE_KEY]);
-		metrics.autoAmpMisses = Number.parseInt(serialized[AUTO_AMP_MISS_KEY]);
+	metrics.autoAmpMakes = Number.parseInt(serialized[AUTO_AMP_MAKE_KEY]);
+	metrics.autoAmpMisses = Number.parseInt(serialized[AUTO_AMP_MISS_KEY]);
 
-		metrics.autoSpeakerMakes = Number.parseInt(serialized[AUTO_SPEAKER_MAKE_KEY]);
-		metrics.autoSpeakerMisses = Number.parseInt(serialized[AUTO_SPEAKER_MISS_KEY]);
+	metrics.autoSpeakerMakes = Number.parseInt(serialized[AUTO_SPEAKER_MAKE_KEY]);
+	metrics.autoSpeakerMisses = Number.parseInt(serialized[AUTO_SPEAKER_MISS_KEY]);
 
-		metrics.teleopAmpMakes = Number.parseInt(serialized[TELEOP_AMP_MAKE_KEY]);
-		metrics.teleopAmpMisses = Number.parseInt(serialized[TELEOP_AMP_MISS_KEY]);
+	metrics.teleopAmpMakes = Number.parseInt(serialized[TELEOP_AMP_MAKE_KEY]);
+	metrics.teleopAmpMisses = Number.parseInt(serialized[TELEOP_AMP_MISS_KEY]);
 
-		metrics.teleopSpeakerMakes = Number.parseInt(serialized[TELEOP_SPEAKER_MAKE_KEY]);
-		metrics.teleopSpeakerMisses = Number.parseInt(serialized[TELEOP_SPEAKER_MISS_KEY]);
+	metrics.teleopSpeakerMakes = Number.parseInt(serialized[TELEOP_SPEAKER_MAKE_KEY]);
+	metrics.teleopSpeakerMisses = Number.parseInt(serialized[TELEOP_SPEAKER_MISS_KEY]);
 
-		metrics.coopertition = serialized[COOPERTITION_KEY] == "true";
+	metrics.coopertition = serialized[COOPERTITION_KEY] == "true";
 
-		metrics.trap = serialized[TRAP_KEY] as Trap;
-		metrics.climb = serialized[CLIMB_KEY] as Climb;
-		metrics.harmony = serialized[HARMONY_KEY] as Harmony;
+	metrics.trap = serialized[TRAP_KEY] as Trap;
+	metrics.climb = serialized[CLIMB_KEY] as Climb;
+	metrics.harmony = serialized[HARMONY_KEY] as Harmony;
 
-		metrics.defenseNotes = stringToArray(DEFENSE_KEY, serialized);
-		metrics.drivingNotes = stringToArray(DRIVING_KEY, serialized);
-		metrics.downtimeNotes = stringToArray(DOWNTIME_KEY, serialized);
-		metrics.otherNotes = stringToArray(OTHER_KEY, serialized);
+	metrics.defenseNotes = stringToArray(DEFENSE_KEY, serialized);
+	metrics.drivingNotes = stringToArray(DRIVING_KEY, serialized);
+	metrics.downtimeNotes = stringToArray(DOWNTIME_KEY, serialized);
+	metrics.otherNotes = stringToArray(OTHER_KEY, serialized);
 
-		metrics.name = serialized[NAME_KEY];
+	metrics.name = serialized[NAME_KEY];
 
-		return metrics;
-	}
+	return metrics;
+}
 
-	serialize(): Record<string, string> {
-		return {
-			[MATCH_KEY]: this.match ? this.match.toString() : "",
+export function serialize(metrics: Metrics): Record<string, string> {
+	return {
+		[MATCH_KEY]: metrics.match ? stringifyMatchKey(metrics.match) : "",
 
-			[ALLIANCE_KEY]: this.alliance ? this.alliance.toString() : "",
+		[ALLIANCE_KEY]: metrics.alliance ? metrics.alliance.toString() : "",
 
-			[STATION_KEY]: this.station ? this.station.toString() : "",
+		[STATION_KEY]: metrics.station ? metrics.station.toString() : "",
 
-			[TEAM_KEY]: this.team ? this.team.toString() : "",
+		[TEAM_KEY]: metrics.team ? metrics.team.toString() : "",
 
-			[START_KEY]: this.start ? this.start.stringify() : "",
+		[START_KEY]: metrics.start ? metrics.start.stringify() : "",
 
-			[LEAVE_KEY]: this.leave.toString(),
+		[LEAVE_KEY]: metrics.leave.toString(),
 
-			[AUTO_AMP_MAKE_KEY]: this.autoAmpMakes.toString(),
-			[AUTO_AMP_MISS_KEY]: this.autoAmpMisses.toString(),
+		[AUTO_AMP_MAKE_KEY]: metrics.autoAmpMakes.toString(),
+		[AUTO_AMP_MISS_KEY]: metrics.autoAmpMisses.toString(),
 
-			[AUTO_SPEAKER_MAKE_KEY]: this.autoSpeakerMakes.toString(),
-			[AUTO_SPEAKER_MISS_KEY]: this.autoSpeakerMisses.toString(),
+		[AUTO_SPEAKER_MAKE_KEY]: metrics.autoSpeakerMakes.toString(),
+		[AUTO_SPEAKER_MISS_KEY]: metrics.autoSpeakerMisses.toString(),
 
-			[TELEOP_AMP_MAKE_KEY]: this.teleopAmpMakes.toString(),
-			[TELEOP_AMP_MISS_KEY]: this.teleopAmpMisses.toString(),
+		[TELEOP_AMP_MAKE_KEY]: metrics.teleopAmpMakes.toString(),
+		[TELEOP_AMP_MISS_KEY]: metrics.teleopAmpMisses.toString(),
 
-			[TELEOP_SPEAKER_MAKE_KEY]: this.teleopSpeakerMakes.toString(),
-			[TELEOP_SPEAKER_MISS_KEY]: this.teleopSpeakerMisses.toString(),
+		[TELEOP_SPEAKER_MAKE_KEY]: metrics.teleopSpeakerMakes.toString(),
+		[TELEOP_SPEAKER_MISS_KEY]: metrics.teleopSpeakerMisses.toString(),
 
-			[COOPERTITION_KEY]: this.coopertition.toString(),
+		[COOPERTITION_KEY]: metrics.coopertition.toString(),
 
-			[TRAP_KEY]: this.trap,
-			[CLIMB_KEY]: this.climb,
-			[HARMONY_KEY]: this.harmony,
+		[TRAP_KEY]: metrics.trap,
+		[CLIMB_KEY]: metrics.climb,
+		[HARMONY_KEY]: metrics.harmony,
 
-			...arrayToObject(DEFENSE_KEY, this.defenseNotes),
-			...arrayToObject(DRIVING_KEY, this.drivingNotes),
-			...arrayToObject(DOWNTIME_KEY, this.downtimeNotes),
-			...arrayToObject(OTHER_KEY, this.otherNotes),
+		...arrayToObject(DEFENSE_KEY, metrics.defenseNotes),
+		...arrayToObject(DRIVING_KEY, metrics.drivingNotes),
+		...arrayToObject(DOWNTIME_KEY, metrics.downtimeNotes),
+		...arrayToObject(OTHER_KEY, metrics.otherNotes),
 
-			[NAME_KEY]: this.name
-		};
-	}
+		[NAME_KEY]: metrics.name
+	};
 }
