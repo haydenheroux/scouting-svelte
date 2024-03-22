@@ -158,20 +158,20 @@ export class MatchKey {
 				return `${tbaMatchType}${this.match}`
 			}
 
-			return `${this.event}_${tbaMatchType}${this.match}`;
+			return `${this.event.code}_${tbaMatchType}${this.match}`;
 		}
 
 		if (this.event == null) {
 			return `${tbaMatchType}${this.set}m${this.match}`;
 		}
 
-		return `${this.event}_${tbaMatchType}${this.set}m${this.match}`
+		return `${this.event.code}_${tbaMatchType}${this.set}m${this.match}`
 	}
 
 }
 
 export type Participant = {
-	matchKey: MatchKey;
+	match: MatchKey;
 	driverStation: DriverStation;
 	team: number | null;
 }

@@ -9,7 +9,7 @@
 
 	function transform(selected: FormData): Participant {
 		return {
-			matchKey: new MatchKey(selected.event, selected.type, selected.set, selected.match),
+			match: new MatchKey(selected.event, selected.type, selected.set, selected.match),
 			driverStation: DriverStation.of(selected.station),
 			team: selected.team,
 		}

@@ -7,7 +7,7 @@
 <Section name="Submit">
 	<div>
 		<label for="scouter">Scouter Name</label>
-		<input id="scouter" type="text" placeholder="Scouter Name" bind:value={scouterName} />
+		<input id="scouter" type="text" bind:value={scouterName} />
 	</div>
 	<button class="primary" on:click>Generate QR Code</button>
 </Section>

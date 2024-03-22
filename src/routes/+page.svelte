@@ -10,29 +10,36 @@
 	import { valuesOf } from '$lib/enum';
 	import { Trap, Climb, Harmony, HighNotes, MatchMetrics } from '$lib/metrics';
 	import { DrawStyle } from '$lib/canvas';
-	import type { TaggedPoint } from '$lib/point';
 	import ParticipantSelector from '$lib/components/selectors/ParticipantSelector.svelte';
 	import type { Participant } from '$lib/api';
+	import NumberSelector from '$lib/components/selectors/NumberSelector.svelte';
+	import type { TaggedPoint } from '$lib/point';
 
 	let participant: Participant;
 
 	let startingPoint: Array<TaggedPoint>;
 
-	let pickupsMakesMisses: Array<TaggedPoint>;
-
 	let metrics: MatchMetrics = new MatchMetrics();
 
-	let qrCode: string = '';
+	let qrCodeData: string = '';
 
 	function handleSubmit() {
-		metrics.startingPoint = [startingPoint[0].point];
-		metrics.pickups = pickupsMakesMisses.filter((tp) => tp.tag === 'Pickup').map((tp) => tp.point);
-		metrics.makes = pickupsMakesMisses.filter((tp) => tp.tag === 'Make').map((tp) => tp.point);
-		metrics.misses = pickupsMakesMisses.filter((tp) => tp.tag === 'Miss').map((tp) => tp.point);
+		const haveStartingPoint = startingPoint.length > 0;
 
-		// const serialized = serializeAndStore(participant, metrics);
+		metrics.match = participant.match;
 
-		// qrCode = JSON.stringify(serialized);
+		metrics.alliance = participant.driverStation.alliance;
+		metrics.station = participant.driverStation.station;
+
+		metrics.team = participant.team;
+
+		metrics.start = haveStartingPoint ? startingPoint[0].point : null;
+
+		const serialized = JSON.stringify(metrics.serialize());
+
+		qrCodeData = serialized;
+
+		console.log(serialized);
 	}
 </script>
 
@@ -51,12 +58,18 @@
 	<BooleanSelector bind:value={metrics.leave} />
 </Section>
 
-<Section name="Pickups, Makes, Misses">
-	<FieldSelector
-		bind:points={pickupsMakesMisses}
-		field={field2024}
-		tags={{ Pickup: DrawStyle.RING, Make: DrawStyle.TRIANGLE, Miss: DrawStyle.CROSS }}
-	/>
+<Section name="Autonomous Scoring">
+	<NumberSelector name="Amp Makes" bind:value={metrics.autoAmpMakes} />
+	<NumberSelector name="Amp Misses" bind:value={metrics.autoAmpMisses} />
+	<NumberSelector name="Speaker Makes" bind:value={metrics.autoSpeakerMakes} />
+	<NumberSelector name="Speaker Misses" bind:value={metrics.autoSpeakerMisses} />
+</Section>
+
+<Section name="Teleop Scoring">
+	<NumberSelector name="Amp Makes" bind:value={metrics.teleopAmpMakes} />
+	<NumberSelector name="Amp Misses" bind:value={metrics.teleopAmpMisses} />
+	<NumberSelector name="Speaker Makes" bind:value={metrics.teleopSpeakerMakes} />
+	<NumberSelector name="Speaker Misses" bind:value={metrics.teleopSpeakerMisses} />
 </Section>
 
 <Section name="Coopertition" help="Did the alliance activate Coopertition?">
@@ -87,14 +100,6 @@
 	/>
 </Section>
 
-<Section name="High Notes" help="Did the team's human player score any High Notes?">
-	<MultipleOptionSelector
-		bind:selected={metrics.highNotes}
-		options={valuesOf(HighNotes)}
-		fallback={HighNotes.NONE}
-	/>
-</Section>
-
 <Section name="Defense" help="Did the robot play defense?">
 	<Notes bind:notes={metrics.defenseNotes} />
 </Section>
@@ -111,10 +116,10 @@
 	<Notes bind:notes={metrics.otherNotes} />
 </Section>
 
-<Submit on:click={handleSubmit} bind:scouterName={metrics.scouterName} />
+<Submit on:click={handleSubmit} bind:scouterName={metrics.name} />
 
-{#if qrCode.length > 0}
+{#if qrCodeData.length > 0}
 	<section>
-		<QRCode value={qrCode} />
+		<QRCode value={qrCodeData} />
 	</section>
 {/if}

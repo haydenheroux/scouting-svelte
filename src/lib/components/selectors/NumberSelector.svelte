@@ -1,6 +1,8 @@
 <script lang="ts">
 	export let value = 0;
 
+	export let name = "";
+
 	function minus() {
 		if (value > 0) value--;
 	}
@@ -11,13 +13,19 @@
 </script>
 
 <div>
-	<button class="primary minus" on:click={minus}>-</button>
-	<input type="number" min="0" bind:value />
-	<button class="primary plus" on:click={plus}>+</button>
+	{#if name.length > 0}
+		<!-- svelte-ignore a11y-label-has-associated-control -->
+		<label>{name}</label>
+	{/if}
+	<div class="split">
+		<button class="primary minus" on:click={minus}>-</button>
+		<input type="number" min="0" bind:value />
+		<button class="primary plus" on:click={plus}>+</button>
+	</div>
 </div>
 
 <style>
-	div {
+	div.split {
 		display: flex;
 		flex-direction: row;
 
