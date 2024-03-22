@@ -74,6 +74,18 @@ export class Event {
 	}
 }
 
+export function validateEvent(obj: object | null): Event | null {
+	if (obj === null || obj === undefined) return null;
+
+	if (
+		Object.prototype.hasOwnProperty.call(obj, "code") &&
+		Object.prototype.hasOwnProperty.call(obj, "name")
+	)
+		return obj as Event;
+
+	return null;
+}
+
 function getEventOrNull(eventCode: TBAEventCode): Event | null {
 	const eventCodeToName: Record<TBAEventCode, string> = {
 		"2024necmp": "New England FIRST District Championship 2024"

@@ -1,5 +1,41 @@
 // export const storedParticipant = storable<Participant>('participant', createDefaultParticipant());
 
+import { storable } from "./storable";
+
+import type { Event } from "./api";
+
+export const storedEvents = storable<Array<Event>>("events", [] as Array<Event>);
+
+export function storeEvent(newEvent: Event) {
+	const overwriteDuplicates = true;
+
+	const events = storedEvents.get();
+
+	console.info(`Attempting to store new event ${JSON.stringify(newEvent)}`);
+
+	for (let i = 0; i < events.length; i++) {
+		if (events[i].code === newEvent.code) {
+			console.warn(
+				`Duplicate event key ${newEvent.code}; ${JSON.stringify({
+					overwriteDuplicates
+				})}`
+			);
+
+			if (overwriteDuplicates) {
+				events[i] = newEvent;
+				storedEvents.set(events);
+				return;
+			}
+
+			break;
+		}
+	}
+
+	events.push(newEvent);
+
+	storedEvents.set(events);
+}
+
 // TODO
 // export const storedMatches = storable<MatchToAlliance>('matches', {} as MatchToAlliance);
 

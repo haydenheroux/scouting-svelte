@@ -10,6 +10,7 @@
 	} from "$lib/api";
 	import Section from "$lib/components/Section.svelte";
 	import { valuesOf } from "$lib/enum";
+	import { storedEvents } from "$lib/stores";
 
 	let formData: FormData = getDefaultFormData();
 
@@ -35,7 +36,7 @@
 	// TODO
 	function getDefaultFormData(): FormData {
 		return {
-			event: getDefaultEvent(),
+			event: null,
 			type: MatchType.QUALIFICATION,
 			set: 1,
 			match: 1,
@@ -48,17 +49,8 @@
 		participant = transform(formData);
 	}
 
-	// TODO
-	function getStoredEvents(): Event[] {
-		return [new Event("2024necmp", "New England FIRST District Championship 2024")];
-	}
-
-	function getDefaultEvent(): Event | null {
-		return null;
-	}
-
 	function clearEvent() {
-		formData.event = getDefaultEvent();
+		formData.event = null;
 	}
 
 	function previousMatch() {
@@ -72,7 +64,7 @@
 
 <Section name="Select Event">
 	<select bind:value={formData.event}>
-		{#each getStoredEvents() as event}
+		{#each storedEvents.get() as event}
 			{#if event.name}
 				<option value={event}>{event.name}</option>
 			{:else}
