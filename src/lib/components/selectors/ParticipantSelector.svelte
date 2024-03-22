@@ -4,7 +4,6 @@
 		MatchKey,
 		MatchType,
 		Event,
-		type TBAEventCode,
 		StationEnum,
 		driverStations,
 		type Participant
@@ -74,7 +73,11 @@
 <Section name="Select Event">
 	<select bind:value={formData.event}>
 		{#each getStoredEvents() as event}
-			<option value={event}>{event.name} ({event.code})</option>
+			{#if event.name}
+				<option value={event}>{event.name}</option>
+			{:else}
+				<option value={event}>{event.code}</option>
+			{/if}
 		{/each}
 	</select>
 	<button class="active" on:click={clearEvent}>Clear</button>
