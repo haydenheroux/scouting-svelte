@@ -1,7 +1,7 @@
 <script lang="ts">
 	export let value = 0;
 
-	export let name = "";
+	export let name = '';
 
 	function minus() {
 		if (value > 0) value--;

@@ -1,5 +1,14 @@
 <script lang="ts">
-	import { DriverStation, MatchKey, MatchType, Event, type TBAEventCode, StationEnum, driverStations, type Participant } from '$lib/api';
+	import {
+		DriverStation,
+		MatchKey,
+		MatchType,
+		Event,
+		type TBAEventCode,
+		StationEnum,
+		driverStations,
+		type Participant
+	} from '$lib/api';
 	import Section from '$lib/components/Section.svelte';
 	import { valuesOf } from '$lib/enum';
 
@@ -11,8 +20,8 @@
 		return {
 			match: new MatchKey(selected.event, selected.type, selected.set, selected.match),
 			driverStation: DriverStation.of(selected.station),
-			team: selected.team,
-		}
+			team: selected.team
+		};
 	}
 
 	type FormData = {
@@ -22,7 +31,7 @@
 		match: number;
 		station: StationEnum;
 		team: number | null;
-	}
+	};
 
 	// TODO
 	function getDefaultFormData(): FormData {
@@ -42,7 +51,7 @@
 
 	// TODO
 	function getStoredEvents(): Event[] {
-		return [new Event("2024necmp", "New England FIRST District Championship 2024")];
+		return [new Event('2024necmp', 'New England FIRST District Championship 2024')];
 	}
 
 	function getDefaultEvent(): Event | null {

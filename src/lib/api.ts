@@ -12,7 +12,7 @@ export enum StationEnum {
 	BLUE_1,
 	BLUE_2,
 	BLUE_3
-};
+}
 
 export const driverStations = [
 	StationEnum.RED_1,
@@ -20,7 +20,7 @@ export const driverStations = [
 	StationEnum.RED_3,
 	StationEnum.BLUE_1,
 	StationEnum.BLUE_2,
-	StationEnum.BLUE_3,
+	StationEnum.BLUE_3
 ];
 
 export class DriverStation {
@@ -60,7 +60,7 @@ export class DriverStation {
 	toString(): string {
 		return `${this.alliance} ${this.station}`;
 	}
-};
+}
 
 export type TBAEventCode = string;
 
@@ -76,7 +76,7 @@ export class Event {
 
 function getEventOrNull(eventCode: TBAEventCode): Event | null {
 	const eventCodeToName: Record<TBAEventCode, string> = {
-		"2024necmp": "New England FIRST District Championship 2024"
+		'2024necmp': 'New England FIRST District Championship 2024'
 	};
 
 	const nameOrNull = eventCodeToName[eventCode];
@@ -86,7 +86,6 @@ function getEventOrNull(eventCode: TBAEventCode): Event | null {
 
 	return null;
 }
-
 
 export enum MatchType {
 	QUALIFICATION = 'Qualification',
@@ -113,8 +112,8 @@ const tbaMatchTypeOf: Record<MatchType, TBAMatchType> = {
 	[MatchType.QUALIFICATION]: TBAMatchType.QUALIFICATION,
 	[MatchType.QUARTERFINAL]: TBAMatchType.QUARTERFINAL,
 	[MatchType.SEMIFINAL]: TBAMatchType.SEMIFINAL,
-	[MatchType.FINAL]: TBAMatchType.FINAL,
-}
+	[MatchType.FINAL]: TBAMatchType.FINAL
+};
 
 export type MatchNumber = number;
 
@@ -134,7 +133,7 @@ export class MatchKey {
 	}
 
 	static parse(string: string): MatchKey | null {
-		const regex = new RegExp("(?:.*_)?(qm|qf|sf|f)(\\d{1,2})(?:m(\\d{1,2}))?");
+		const regex = new RegExp('(?:.*_)?(qm|qf|sf|f)(\\d{1,2})(?:m(\\d{1,2}))?');
 		const parsedMatch = regex.exec(string);
 
 		if (parsedMatch === null) return null;
@@ -145,7 +144,8 @@ export class MatchKey {
 
 		const matchType = matchTypeOf[tbaMatchType as TBAMatchType];
 		const set = matchType === MatchType.QUALIFICATION ? 1 : parseInt(secondNumber);
-		const match = matchType === MatchType.QUALIFICATION ? parseInt(firstNumber) : parseInt(secondNumber);
+		const match =
+			matchType === MatchType.QUALIFICATION ? parseInt(firstNumber) : parseInt(secondNumber);
 
 		return new MatchKey(eventOrNull, matchType, set, match);
 	}
@@ -155,7 +155,7 @@ export class MatchKey {
 
 		if (this.matchType == MatchType.QUALIFICATION) {
 			if (this.event == null) {
-				return `${tbaMatchType}${this.match}`
+				return `${tbaMatchType}${this.match}`;
 			}
 
 			return `${this.event.code}_${tbaMatchType}${this.match}`;
@@ -165,13 +165,12 @@ export class MatchKey {
 			return `${tbaMatchType}${this.set}m${this.match}`;
 		}
 
-		return `${this.event.code}_${tbaMatchType}${this.set}m${this.match}`
+		return `${this.event.code}_${tbaMatchType}${this.set}m${this.match}`;
 	}
-
 }
 
 export type Participant = {
 	match: MatchKey;
 	driverStation: DriverStation;
 	team: number | null;
-}
+};
