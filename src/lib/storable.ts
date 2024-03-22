@@ -1,5 +1,5 @@
-import { browser } from '$app/environment';
-import { writable, type Subscriber } from 'svelte/store';
+import { browser } from "$app/environment";
+import { writable, type Subscriber } from "svelte/store";
 
 export function storable<T>(key: string, fallback: T) {
 	const store = writable(fallback);

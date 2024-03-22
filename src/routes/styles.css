@@ -1,8 +1,8 @@
 :root {
 	/* fonts */
-	--open-sans: 'Open Sans', sans-serif;
-	--rubik: 'Rubik', sans-serif;
-	--mono: 'IBM Plex Mono', monospace;
+	--open-sans: "Open Sans", sans-serif;
+	--rubik: "Rubik", sans-serif;
+	--mono: "IBM Plex Mono", monospace;
 
 	/* font families */
 	--ff-main: var(--open-sans);

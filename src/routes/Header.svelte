@@ -1,7 +1,5 @@
 <script>
-	import NavLink from '$lib/components/NavLink.svelte';
-
-	import { base } from '$app/paths';
+	import { base } from "$app/paths";
 </script>
 
 <header>

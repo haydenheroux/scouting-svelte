@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { storedSchedules } from '$lib/data/stores';
-	import Section from '../Section.svelte';
+	import { storedSchedules } from "$lib/data/stores";
+	import Section from "../Section.svelte";
 
 	function clear() {
 		storedSchedules.clear();
@@ -22,9 +22,9 @@
 					<tr>
 						<td>{match}</td>
 						<td>{teamAndAlliance.team}</td>
-						{#if teamAndAlliance.alliance == 'red'}
+						{#if teamAndAlliance.alliance == "red"}
 							<td class="red">{teamAndAlliance.alliance}</td>
-						{:else if teamAndAlliance.alliance == 'blue'}
+						{:else if teamAndAlliance.alliance == "blue"}
 							<td class="blue">{teamAndAlliance.alliance}</td>
 						{:else}
 							<td>{teamAndAlliance.alliance}</td>

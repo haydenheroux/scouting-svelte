@@ -10,7 +10,7 @@ export function dimensionsOfCanvas(canvas: HTMLCanvasElement): Dimensions {
 	};
 }
 
-const SEPARATOR = ',';
+const SEPARATOR = ",";
 
 export class Point {
 	readonly x: number;

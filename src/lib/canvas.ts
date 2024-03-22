@@ -1,4 +1,4 @@
-import { dimensionsOfCanvas, type NormalizedPoint } from './point';
+import { dimensionsOfCanvas, type NormalizedPoint } from "./point";
 
 export enum DrawStyle {
 	DOT,
@@ -10,7 +10,7 @@ export enum DrawStyle {
 export function clearCanvas(canvas: HTMLCanvasElement) {
 	if (!canvas) return;
 
-	const ctx = canvas.getContext('2d');
+	const ctx = canvas.getContext("2d");
 	if (!ctx) return;
 
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -20,7 +20,7 @@ export function drawImage(image: HTMLImageElement | null, canvas: HTMLCanvasElem
 	if (!canvas) return;
 	if (!image) return;
 
-	const ctx = canvas.getContext('2d');
+	const ctx = canvas.getContext("2d");
 	if (!ctx) return;
 
 	ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
@@ -33,10 +33,10 @@ export function drawPoint(
 ) {
 	if (!canvas) return;
 
-	const ctx = canvas.getContext('2d');
+	const ctx = canvas.getContext("2d");
 	if (!ctx) return;
 
-	const color = '#fafafa';
+	const color = "#fafafa";
 
 	const size = 12;
 	// Since round objects appear larger, slightly downsize them

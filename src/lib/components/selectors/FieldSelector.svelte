@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { Point, dimensionsOfCanvas, TaggedPoint } from '$lib/point';
-	import { DrawStyle, clearCanvas, drawImage, drawPoint } from '$lib/canvas';
-	import { onMount } from 'svelte';
-	import OptionSelector from './OptionSelector.svelte';
+	import { Point, dimensionsOfCanvas, TaggedPoint } from "$lib/point";
+	import { DrawStyle, clearCanvas, drawImage, drawPoint } from "$lib/canvas";
+	import { onMount } from "svelte";
+	import OptionSelector from "./OptionSelector.svelte";
 
 	export let field: string;
 

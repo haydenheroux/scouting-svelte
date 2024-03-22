@@ -1,6 +1,6 @@
 <script lang="ts">
-	import QRCodeScanner from '$lib/components/sections/QRCodeScanner.svelte';
-	import { storedSchedules } from '$lib/data/stores';
+	import QRCodeScanner from "$lib/components/sections/QRCodeScanner.svelte";
+	import { storedSchedules } from "$lib/data/stores";
 
 	let value: string;
 

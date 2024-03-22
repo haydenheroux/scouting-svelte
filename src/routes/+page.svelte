@@ -1,19 +1,19 @@
 <script lang="ts">
-	import field2024 from '$lib/images/2024.png';
-	import FieldSelector from '$lib/components/selectors/FieldSelector.svelte';
-	import Submit from '$lib/components/sections/Submit.svelte';
-	import MultipleOptionSelector from '$lib/components/selectors/OptionSelector.svelte';
-	import BooleanSelector from '$lib/components/selectors/BooleanSelector.svelte';
-	import Notes from '$lib/components/selectors/NotesComposer.svelte';
-	import QRCode from '$lib/components/sections/QRCodeDisplay.svelte';
-	import Section from '$lib/components/Section.svelte';
-	import { valuesOf } from '$lib/enum';
-	import { Trap, Climb, Harmony, HighNotes, MatchMetrics } from '$lib/metrics';
-	import { DrawStyle } from '$lib/canvas';
-	import ParticipantSelector from '$lib/components/selectors/ParticipantSelector.svelte';
-	import type { Participant } from '$lib/api';
-	import NumberSelector from '$lib/components/selectors/NumberSelector.svelte';
-	import type { TaggedPoint } from '$lib/point';
+	import field2024 from "$lib/images/2024.png";
+	import FieldSelector from "$lib/components/selectors/FieldSelector.svelte";
+	import Submit from "$lib/components/sections/Submit.svelte";
+	import MultipleOptionSelector from "$lib/components/selectors/OptionSelector.svelte";
+	import BooleanSelector from "$lib/components/selectors/BooleanSelector.svelte";
+	import Notes from "$lib/components/selectors/NotesComposer.svelte";
+	import QRCode from "$lib/components/sections/QRCodeDisplay.svelte";
+	import Section from "$lib/components/Section.svelte";
+	import { valuesOf } from "$lib/enum";
+	import { Trap, Climb, Harmony, MatchMetrics } from "$lib/metrics";
+	import { DrawStyle } from "$lib/canvas";
+	import ParticipantSelector from "$lib/components/selectors/ParticipantSelector.svelte";
+	import type { Participant } from "$lib/api";
+	import NumberSelector from "$lib/components/selectors/NumberSelector.svelte";
+	import type { TaggedPoint } from "$lib/point";
 
 	let participant: Participant;
 
@@ -21,7 +21,7 @@
 
 	let metrics: MatchMetrics = new MatchMetrics();
 
-	let qrCodeData: string = '';
+	let qrCodeData = "";
 
 	function handleSubmit() {
 		const haveStartingPoint = startingPoint.length > 0;

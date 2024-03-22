@@ -1,6 +1,6 @@
 <script lang="ts">
 	export let name: string;
-	export let help = '';
+	export let help = "";
 </script>
 
 <section>
@@ -10,7 +10,7 @@
 			<div class="help">
 				<span class="icon">?</span>
 				<div class="body">
-					{@html help}
+					{help}
 				</div>
 			</div>
 		{/if}

@@ -7,9 +7,9 @@
 		StationEnum,
 		driverStations,
 		type Participant
-	} from '$lib/api';
-	import Section from '$lib/components/Section.svelte';
-	import { valuesOf } from '$lib/enum';
+	} from "$lib/api";
+	import Section from "$lib/components/Section.svelte";
+	import { valuesOf } from "$lib/enum";
 
 	let formData: FormData = getDefaultFormData();
 
@@ -50,7 +50,7 @@
 
 	// TODO
 	function getStoredEvents(): Event[] {
-		return [new Event('2024necmp', 'New England FIRST District Championship 2024')];
+		return [new Event("2024necmp", "New England FIRST District Championship 2024")];
 	}
 
 	function getDefaultEvent(): Event | null {
@@ -94,7 +94,7 @@
 		</select>
 	</div>
 	<div class="split">
-		{#if formData.type != 'Qualification'}
+		{#if formData.type != "Qualification"}
 			<div>
 				<label for="set">Set</label>
 				<input id="set" type="number" min="1" bind:value={formData.set} />

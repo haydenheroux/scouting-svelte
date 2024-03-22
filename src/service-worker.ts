@@ -3,7 +3,7 @@
 /// <reference lib="esnext" />
 /// <reference lib="webworker" />
 
-import { build, files, version } from '$service-worker';
+import { build, files, version } from "$service-worker";
 
 const sw = self as unknown as ServiceWorkerGlobalScope;
 
@@ -11,7 +11,7 @@ const CACHE = `cache-${version}`;
 
 const ASSETS = [...build, ...files];
 
-self.addEventListener('install', (event) => {
+self.addEventListener("install", (event) => {
 	// Create a new cache and add all files to it
 	async function addFilesToCache() {
 		const cache = await caches.open(CACHE);
@@ -21,7 +21,7 @@ self.addEventListener('install', (event) => {
 	event.waitUntil(addFilesToCache());
 });
 
-self.addEventListener('activate', (event) => {
+self.addEventListener("activate", (event) => {
 	async function deleteOldCaches() {
 		for (const key of await caches.keys()) {
 			if (key !== CACHE) await caches.delete(key);
@@ -31,8 +31,8 @@ self.addEventListener('activate', (event) => {
 	event.waitUntil(deleteOldCaches());
 });
 
-self.addEventListener('fetch', (event) => {
-	if (event.request.method !== 'GET') return;
+self.addEventListener("fetch", (event) => {
+	if (event.request.method !== "GET") return;
 
 	async function respond() {
 		const url = new URL(event.request.url);

@@ -1,63 +1,63 @@
-import { NormalizedPoint } from '$lib/point';
-import { arrayToObject, stringToArray } from '$lib/array';
-import { MatchKey, type Alliance } from './api';
+import { NormalizedPoint } from "$lib/point";
+import { arrayToObject, stringToArray } from "$lib/array";
+import { MatchKey, type Alliance } from "./api";
 
 export enum Trap {
-	NONE = 'None',
-	FAIL = 'Fail',
-	SUCCESS = 'Success'
+	NONE = "None",
+	FAIL = "Fail",
+	SUCCESS = "Success"
 }
 export enum Climb {
-	NONE = 'None',
-	FAIL = 'Fail',
-	SUCCESS = 'Success'
+	NONE = "None",
+	FAIL = "Fail",
+	SUCCESS = "Success"
 }
 export enum Harmony {
-	ZERO = 'None',
-	ONE = '+1',
-	TWO = '+2'
+	ZERO = "None",
+	ONE = "+1",
+	TWO = "+2"
 }
 export enum HighNotes {
-	NONE = 'None',
-	ZERO = '0',
-	ONE = '1',
-	TWO = '2',
-	THREE = '3'
+	NONE = "None",
+	ZERO = "0",
+	ONE = "1",
+	TWO = "2",
+	THREE = "3"
 }
 
-const MATCH_KEY = 'm';
+const MATCH_KEY = "m";
 
-const ALLIANCE_KEY = 'a';
-const STATION_KEY = 's';
+const ALLIANCE_KEY = "a";
+const STATION_KEY = "s";
 
-const TEAM_KEY = 't';
+const TEAM_KEY = "t";
 
-const START_KEY = 'sp';
+const START_KEY = "sp";
 
-const LEAVE_KEY = 'lv';
+const LEAVE_KEY = "lv";
 
-const AUTO_AMP_MAKE_KEY = 'aa_make';
-const AUTO_AMP_MISS_KEY = 'aa_miss';
-const AUTO_SPEAKER_MAKE_KEY = 'as_make';
-const AUTO_SPEAKER_MISS_KEY = 'as_miss';
+const AUTO_AMP_MAKE_KEY = "aa_make";
+const AUTO_AMP_MISS_KEY = "aa_miss";
+const AUTO_SPEAKER_MAKE_KEY = "as_make";
+const AUTO_SPEAKER_MISS_KEY = "as_miss";
 
-const TELEOP_AMP_MAKE_KEY = 'ta_make';
-const TELEOP_AMP_MISS_KEY = 'ta_miss';
-const TELEOP_SPEAKER_MAKE_KEY = 'ts_make';
-const TELEOP_SPEAKER_MISS_KEY = 'ts_miss';
+const TELEOP_AMP_MAKE_KEY = "ta_make";
+const TELEOP_AMP_MISS_KEY = "ta_miss";
+const TELEOP_SPEAKER_MAKE_KEY = "ts_make";
+const TELEOP_SPEAKER_MISS_KEY = "ts_miss";
 
-const COOPERTITION_KEY = 'coop';
+const COOPERTITION_KEY = "coop";
 
-const TRAP_KEY = 'trap';
-const CLIMB_KEY = 'clmb';
-const HARMONY_KEY = 'harm';
+const TRAP_KEY = "trap";
+const CLIMB_KEY = "clmb";
+const HARMONY_KEY = "harm";
 
-const DEFENSE_KEY = 'def';
-const DRIVING_KEY = 'drv';
-const DOWNTIME_KEY = 'dwn';
-const OTHER_KEY = 'oth';
+const DEFENSE_KEY = "def";
+const DRIVING_KEY = "drv";
+const DOWNTIME_KEY = "dwn";
+const OTHER_KEY = "oth";
 
-const NAME_KEY = 'name';
+const NAME_KEY = "name";
 
 export class MatchMetrics {
 	match: MatchKey | null = null;
@@ -94,7 +94,7 @@ export class MatchMetrics {
 	downtimeNotes: Array<string> = [];
 	otherNotes: Array<string> = [];
 
-	name = '';
+	name = "";
 
 	static deserialize(serialized: Record<string, string>): MatchMetrics {
 		const metrics = new MatchMetrics();
@@ -108,7 +108,7 @@ export class MatchMetrics {
 
 		metrics.start = NormalizedPoint.fromString(serialized[START_KEY]);
 
-		metrics.leave = serialized[LEAVE_KEY] == 'true';
+		metrics.leave = serialized[LEAVE_KEY] == "true";
 
 		metrics.autoAmpMakes = Number.parseInt(serialized[AUTO_AMP_MAKE_KEY]);
 		metrics.autoAmpMisses = Number.parseInt(serialized[AUTO_AMP_MISS_KEY]);
@@ -122,7 +122,7 @@ export class MatchMetrics {
 		metrics.teleopSpeakerMakes = Number.parseInt(serialized[TELEOP_SPEAKER_MAKE_KEY]);
 		metrics.teleopSpeakerMisses = Number.parseInt(serialized[TELEOP_SPEAKER_MISS_KEY]);
 
-		metrics.coopertition = serialized[COOPERTITION_KEY] == 'true';
+		metrics.coopertition = serialized[COOPERTITION_KEY] == "true";
 
 		metrics.trap = serialized[TRAP_KEY] as Trap;
 		metrics.climb = serialized[CLIMB_KEY] as Climb;
@@ -140,15 +140,15 @@ export class MatchMetrics {
 
 	serialize(): Record<string, string> {
 		return {
-			[MATCH_KEY]: this.match ? this.match.toString() : '',
+			[MATCH_KEY]: this.match ? this.match.toString() : "",
 
-			[ALLIANCE_KEY]: this.alliance ? this.alliance.toString() : '',
+			[ALLIANCE_KEY]: this.alliance ? this.alliance.toString() : "",
 
-			[STATION_KEY]: this.station ? this.station.toString() : '',
+			[STATION_KEY]: this.station ? this.station.toString() : "",
 
-			[TEAM_KEY]: this.team ? this.team.toString() : '',
+			[TEAM_KEY]: this.team ? this.team.toString() : "",
 
-			[START_KEY]: this.start ? this.start.stringify() : '',
+			[START_KEY]: this.start ? this.start.stringify() : "",
 
 			[LEAVE_KEY]: this.leave.toString(),
 

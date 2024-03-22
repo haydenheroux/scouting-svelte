@@ -1,8 +1,8 @@
 <script lang="ts">
 	export let value = false;
 
-	export let negative = 'No';
-	export let positive = 'Yes';
+	export let negative = "No";
+	export let positive = "Yes";
 </script>
 
 <div class="split">

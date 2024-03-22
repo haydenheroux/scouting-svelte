@@ -1,14 +1,13 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
-	// @ts-ignore
-	import { default as QrCode } from 'qrious';
-	import FullscreenableImage from '../FullscreenableImage.svelte';
+	import { onMount } from "svelte";
+	import { default as QrCode } from "qrious";
+	import FullscreenableImage from "../FullscreenableImage.svelte";
 
 	const QRcode = new QrCode();
 
-	export let errorCorrection = 'L';
-	export let background = '#fff';
-	export let color = '#000';
+	export let errorCorrection = "L";
+	export let background = "#fff";
+	export let color = "#000";
 	export let value: string;
 
 	let url: string;

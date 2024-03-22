@@ -1,6 +1,6 @@
 export enum Alliance {
-	RED = 'Red',
-	BLUE = 'Blue'
+	RED = "Red",
+	BLUE = "Blue"
 }
 
 export type StationNumber = 1 | 2 | 3;
@@ -76,7 +76,7 @@ export class Event {
 
 function getEventOrNull(eventCode: TBAEventCode): Event | null {
 	const eventCodeToName: Record<TBAEventCode, string> = {
-		'2024necmp': 'New England FIRST District Championship 2024'
+		"2024necmp": "New England FIRST District Championship 2024"
 	};
 
 	const nameOrNull = eventCodeToName[eventCode];
@@ -88,17 +88,17 @@ function getEventOrNull(eventCode: TBAEventCode): Event | null {
 }
 
 export enum MatchType {
-	QUALIFICATION = 'Qualification',
-	QUARTERFINAL = 'Quarterfinal',
-	SEMIFINAL = 'Semifinal',
-	FINAL = 'Final'
+	QUALIFICATION = "Qualification",
+	QUARTERFINAL = "Quarterfinal",
+	SEMIFINAL = "Semifinal",
+	FINAL = "Final"
 }
 
 export enum TBAMatchType {
-	QUALIFICATION = 'qm',
-	QUARTERFINAL = 'qf',
-	SEMIFINAL = 'sf',
-	FINAL = 'f'
+	QUALIFICATION = "qm",
+	QUARTERFINAL = "qf",
+	SEMIFINAL = "sf",
+	FINAL = "f"
 }
 
 const matchTypeOf: Record<TBAMatchType, MatchType> = {
@@ -133,7 +133,7 @@ export class MatchKey {
 	}
 
 	static parse(string: string): MatchKey | null {
-		const regex = new RegExp('(?:.*_)?(qm|qf|sf|f)(\\d{1,2})(?:m(\\d{1,2}))?');
+		const regex = new RegExp("(?:.*_)?(qm|qf|sf|f)(\\d{1,2})(?:m(\\d{1,2}))?");
 		const parsedMatch = regex.exec(string);
 
 		if (parsedMatch === null) return null;

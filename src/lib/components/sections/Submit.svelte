@@ -1,7 +1,7 @@
 <script lang="ts">
-	import Section from '../Section.svelte';
+	import Section from "../Section.svelte";
 
-	export let scouterName = '';
+	export let scouterName = "";
 </script>
 
 <Section name="Submit">
