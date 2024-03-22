@@ -11,6 +11,10 @@
 	import { Trap, Climb, Harmony, HighNotes, MatchMetrics } from '$lib/metrics';
 	import { DrawStyle } from '$lib/canvas';
 	import type { TaggedPoint } from '$lib/point';
+	import ParticipantSelector from '$lib/components/selectors/ParticipantSelector.svelte';
+	import type { Participant } from '$lib/api';
+
+	let participant: Participant;
 
 	let startingPoint: Array<TaggedPoint>;
 
@@ -32,7 +36,7 @@
 	}
 </script>
 
-<!-- <ParticipantSelector bind:null /> -->
+<ParticipantSelector bind:participant />
 
 <Section name="Starting Position" help="Place where the robot starts the match.">
 	<FieldSelector

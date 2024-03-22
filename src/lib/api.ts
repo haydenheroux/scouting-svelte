@@ -3,20 +3,90 @@ export enum Alliance {
 	BLUE = 'Blue'
 }
 
-export enum Station {
-	ONE = 1,
-	TWO = 2,
-	THREE = 3
-}
+export type StationNumber = 1 | 2 | 3;
 
-export interface Participant {
+export enum StationEnum {
+	RED_1,
+	RED_2,
+	RED_3,
+	BLUE_1,
+	BLUE_2,
+	BLUE_3
+};
+
+export const driverStations = [
+	StationEnum.RED_1,
+	StationEnum.RED_2,
+	StationEnum.RED_3,
+	StationEnum.BLUE_1,
+	StationEnum.BLUE_2,
+	StationEnum.BLUE_3,
+];
+
+export class DriverStation {
 	alliance: Alliance;
-	matchKey: MatchKey;
-	station: Station;
-	team: number;
+	station: StationNumber;
+
+	constructor(alliance: Alliance, station: StationNumber) {
+		this.alliance = alliance;
+		this.station = station;
+	}
+
+	static of(stationEnum: StationEnum): DriverStation {
+		switch (stationEnum) {
+			case StationEnum.RED_1:
+				return new DriverStation(Alliance.RED, 1);
+			case StationEnum.RED_2:
+				return new DriverStation(Alliance.RED, 2);
+			case StationEnum.RED_3:
+				return new DriverStation(Alliance.RED, 3);
+			case StationEnum.BLUE_1:
+				return new DriverStation(Alliance.BLUE, 1);
+			case StationEnum.BLUE_2:
+				return new DriverStation(Alliance.BLUE, 2);
+			case StationEnum.BLUE_3:
+				return new DriverStation(Alliance.BLUE, 3);
+		}
+	}
+
+	isRed(): boolean {
+		return this.alliance === Alliance.RED;
+	}
+
+	isBlue(): boolean {
+		return this.alliance === Alliance.BLUE;
+	}
+
+	toString(): string {
+		return `${this.alliance} ${this.station}`;
+	}
+};
+
+export type TBAEventCode = string;
+
+export class Event {
+	code: TBAEventCode;
+	name: string | null;
+
+	constructor(code: TBAEventCode, name: string | null) {
+		this.code = code;
+		this.name = name;
+	}
 }
 
-type TBAEventCode = string;
+function getEventOrNull(eventCode: TBAEventCode): Event | null {
+	const eventCodeToName: Record<TBAEventCode, string> = {
+		"2024necmp": "New England FIRST District Championship 2024"
+	};
+
+	const nameOrNull = eventCodeToName[eventCode];
+
+	// eventCode not stored
+	if (nameOrNull == null) return new Event(eventCode, null);
+
+	return null;
+}
+
 
 export enum MatchType {
 	QUALIFICATION = 'Qualification',
@@ -46,18 +116,18 @@ const tbaMatchTypeOf: Record<MatchType, TBAMatchType> = {
 	[MatchType.FINAL]: TBAMatchType.FINAL,
 }
 
-type MatchNumber = number;
+export type MatchNumber = number;
 
-type SetNumber = number;
+export type SetNumber = number;
 
-class MatchKey {
-	eventCode: TBAEventCode;
+export class MatchKey {
+	event: Event | null;
 	match: MatchNumber;
 	matchType: MatchType;
 	set: SetNumber;
 
-	constructor(eventCode: TBAEventCode, matchType: MatchType, set: SetNumber, match: MatchNumber) {
-		this.eventCode = eventCode;
+	constructor(event: Event | null, matchType: MatchType, set: SetNumber, match: MatchNumber) {
+		this.event = event;
 		this.match = match;
 		this.matchType = matchType;
 		this.set = set;
@@ -71,21 +141,37 @@ class MatchKey {
 
 		const [tbaEvent, tbaMatchType, firstNumber, secondNumber] = parsedMatch;
 
+		const eventOrNull = getEventOrNull(tbaEvent);
+
 		const matchType = matchTypeOf[tbaMatchType as TBAMatchType];
 		const set = matchType === MatchType.QUALIFICATION ? 1 : parseInt(secondNumber);
 		const match = matchType === MatchType.QUALIFICATION ? parseInt(firstNumber) : parseInt(secondNumber);
 
-		return new MatchKey(tbaEvent, matchType, set, match);
+		return new MatchKey(eventOrNull, matchType, set, match);
 	}
 
-	string(): string {
+	toString(): string {
 		const tbaMatchType = tbaMatchTypeOf[this.matchType];
 
-		if (this.matchType== MatchType.QUALIFICATION) {
-			return `${this.eventCode}_${tbaMatchType}${this.match}`;
+		if (this.matchType == MatchType.QUALIFICATION) {
+			if (this.event == null) {
+				return `${tbaMatchType}${this.match}`
+			}
+
+			return `${this.event}_${tbaMatchType}${this.match}`;
 		}
 
-		return `${this.eventCode}_${tbaMatchType}${this.set}m${this.match}`
+		if (this.event == null) {
+			return `${tbaMatchType}${this.set}m${this.match}`;
+		}
+
+		return `${this.event}_${tbaMatchType}${this.set}m${this.match}`
 	}
 
+}
+
+export type Participant = {
+	matchKey: MatchKey;
+	driverStation: DriverStation;
+	team: number | null;
 }

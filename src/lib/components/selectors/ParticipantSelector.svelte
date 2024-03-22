@@ -1,59 +1,96 @@
 <script lang="ts">
+	import { DriverStation, MatchKey, MatchType, Event, type TBAEventCode, StationEnum, driverStations, type Participant } from '$lib/api';
 	import Section from '$lib/components/Section.svelte';
 	import { valuesOf } from '$lib/enum';
-	import { type Participant, Alliance, Station, MatchType } from '$lib/participant';
-	import { storedParticipant } from '$lib/stores';
-	import NumberSelector from './NumberSelector.svelte';
 
-	export let participant: Participant;
+	let formData: FormData = getDefaultFormData();
+
+	export let participant: Participant = transform(formData);
+
+	function transform(selected: FormData): Participant {
+		return {
+			matchKey: new MatchKey(selected.event, selected.type, selected.set, selected.match),
+			driverStation: DriverStation.of(selected.station),
+			team: selected.team,
+		}
+	}
+
+	type FormData = {
+		event: Event | null;
+		type: MatchType;
+		set: number;
+		match: number;
+		station: StationEnum;
+		team: number | null;
+	}
+
+	// TODO
+	function getDefaultFormData(): FormData {
+		return {
+			event: getDefaultEvent(),
+			type: MatchType.QUALIFICATION,
+			set: 1,
+			match: 1,
+			station: StationEnum.RED_1,
+			team: null
+		};
+	}
 
 	$: {
-		updateStoredParticipant(participant);
+		participant = transform(formData);
 	}
 
-	/**
-	 * Updates the stored participant.
-	 */
-	function updateStoredParticipant(participant: Participant) {
-		storedParticipant.set(participant);
+	// TODO
+	function getStoredEvents(): Event[] {
+		return [new Event("2024necmp", "New England FIRST District Championship 2024")];
 	}
 
-	/**
-	 * Sets the participant to the previous match.
-	 */
+	function getDefaultEvent(): Event | null {
+		return null;
+	}
+
+	function clearEvent() {
+		formData.event = getDefaultEvent();
+	}
+
 	function previousMatch() {
-		if (participant.match > 1) participant.match -= 1;
+		if (formData.match > 1) formData.match -= 1;
 	}
 
-	/**
-	 * Sets the participant to the next match.
-	 */
 	function nextMatch() {
-		participant.match += 1;
+		formData.match += 1;
 	}
 </script>
 
+<Section name="Select Event">
+	<select bind:value={formData.event}>
+		{#each getStoredEvents() as event}
+			<option value={event}>{event.name} ({event.code})</option>
+		{/each}
+	</select>
+	<button class="active" on:click={clearEvent}>Clear</button>
+</Section>
+
 <Section name="Select Match">
 	<div>
-		<div class="split">
+		<!-- TODO qualification only option? -->
+		<label for="type">Type</label>
+		<select id="type" bind:value={formData.type}>
+			{#each valuesOf(MatchType) as matchType}
+				<option value={matchType}>{matchType}</option>
+			{/each}
+		</select>
+	</div>
+	<div class="split">
+		{#if formData.type != 'Qualification'}
 			<div>
-				<label for="type">Type</label>
-				<select id="type" bind:value={participant.type}>
-					{#each valuesOf(MatchType) as matchType}
-						<option value={matchType}>{matchType}</option>
-					{/each}
-				</select>
+				<label for="set">Set</label>
+				<input id="set" type="number" min="1" bind:value={formData.set} />
 			</div>
-			{#if participant.type != 'Qualification'}
-				<div>
-					<label for="set">Set</label>
-					<input id="set" type="number" placeholder="1" min="1" bind:value={participant.set} />
-				</div>
-			{/if}
-			<div>
-				<label for="match">Match</label>
-				<input id="match" type="number" placeholder="1" min="1" bind:value={participant.match} />
-			</div>
+		{/if}
+		<div>
+			<label for="match">Match</label>
+			<input id="match" type="number" min="1" bind:value={formData.match} />
 		</div>
 	</div>
 	<div class="split">
@@ -63,51 +100,13 @@
 </Section>
 
 <Section name="Select Station">
-	<div class="split">
-		<button
-			on:click={() => (participant.alliance = Alliance.BLUE)}
-			class:blue={participant.alliance == Alliance.BLUE}>Blue Alliance</button
-		>
-		<button
-			on:click={() => (participant.alliance = Alliance.RED)}
-			class:red={participant.alliance == Alliance.RED}>Red Alliance</button
-		>
-	</div>
-	<div class="split">
-		<button
-			on:click={() => (participant.station = Station.ONE)}
-			class:active={participant.station == Station.ONE}>1</button
-		>
-		<button
-			on:click={() => (participant.station = Station.TWO)}
-			class:active={participant.station == Station.TWO}>2</button
-		>
-		<button
-			on:click={() => (participant.station = Station.THREE)}
-			class:active={participant.station == Station.THREE}>3</button
-		>
-	</div>
+	<select bind:value={formData.station}>
+		{#each driverStations as driverStation}
+			<option value={driverStation}>{DriverStation.of(driverStation).toString()}</option>
+		{/each}
+	</select>
 </Section>
 
 <Section name="Select Team">
-	<NumberSelector bind:value={participant.team} />
+	<input type="number" min="0" bind:value={formData.team} />
 </Section>
-
-<style>
-	.red,
-	.blue {
-		color: var(--clr-foreground);
-	}
-
-	.red {
-		background-color: var(--clr-red);
-
-		border-color: var(--clr-red);
-	}
-
-	.blue {
-		background-color: var(--clr-blue);
-
-		border-color: var(--clr-blue);
-	}
-</style>
