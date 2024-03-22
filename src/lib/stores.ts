@@ -3,11 +3,12 @@
 import { storable } from "./storable";
 
 import type { Event } from "./api";
+import type { MatchMetrics } from "./metrics";
 
 export const storedEvents = storable<Array<Event>>("events", [] as Array<Event>);
 
 export function storeEvent(newEvent: Event) {
-	const overwriteDuplicates = true;
+	const OVERWRITE_DUPLICATES = true;
 
 	const events = storedEvents.get();
 
@@ -17,11 +18,11 @@ export function storeEvent(newEvent: Event) {
 		if (events[i].code === newEvent.code) {
 			console.warn(
 				`Duplicate event key ${newEvent.code}; ${JSON.stringify({
-					overwriteDuplicates
+					overwriteDuplicates: OVERWRITE_DUPLICATES
 				})}`
 			);
 
-			if (overwriteDuplicates) {
+			if (OVERWRITE_DUPLICATES) {
 				events[i] = newEvent;
 				storedEvents.set(events);
 				return;
@@ -34,6 +35,16 @@ export function storeEvent(newEvent: Event) {
 	events.push(newEvent);
 
 	storedEvents.set(events);
+}
+
+export const storedMetrics = storable<Array<MatchMetrics>>("metrics", [] as Array<MatchMetrics>);
+
+export function storeMetrics(newMetrics: MatchMetrics) {
+	const metrics = storedMetrics.get();
+
+	metrics.push(newMetrics);
+
+	storedMetrics.set(metrics);
 }
 
 // TODO

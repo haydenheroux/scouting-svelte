@@ -14,6 +14,7 @@
 	import type { Participant } from "$lib/api";
 	import NumberSelector from "$lib/components/selectors/NumberSelector.svelte";
 	import type { TaggedPoint } from "$lib/point";
+	import { storeMetrics } from "$lib/stores";
 
 	let participant: Participant;
 
@@ -35,11 +36,11 @@
 
 		metrics.start = haveStartingPoint ? startingPoint[0].point : null;
 
+		storeMetrics(metrics);
+
 		const serialized = JSON.stringify(metrics.serialize());
 
 		qrCodeData = serialized;
-
-		console.log(serialized);
 	}
 </script>
 
