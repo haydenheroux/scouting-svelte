@@ -1,9 +1,11 @@
 <script lang="ts">
+	import QRCodeDisplay from "./../../lib/components/sections/QRCodeDisplay.svelte";
 	import { storedEvents } from "$lib/stores";
 	import { validateEvent } from "$lib/api";
 	import Section from "$lib/components/Section.svelte";
 	import QrCodeScanner from "$lib/components/sections/QRCodeScanner.svelte";
 	import { storeEvent } from "$lib/stores";
+	import Showable from "$lib/components/Showable.svelte";
 
 	let events = storedEvents.get();
 
@@ -35,7 +37,9 @@
 	{@const name = event.name ? event.name : event.code}
 	<Section {name}>
 		<!-- TODO Fill in additional event details, matches, etc. -->
-		{JSON.stringify(event)}
+		<Showable subject="QR Code">
+			<QRCodeDisplay value={JSON.stringify(event)} />
+		</Showable>
 	</Section>
 {/each}
 
