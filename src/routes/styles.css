@@ -205,7 +205,7 @@ section button {
 section button.primary,
 section button.active {
 	background-color: var(--clr-inverted-background);
-	color: var(--clr-inverted-foreground);
+	color: var(--clr-neutral-900);
 
 	border-color: var(--clr-inverted-background);
 }

@@ -18,9 +18,13 @@
 		<label>{name}</label>
 	{/if}
 	<div class="split">
-		<button class="primary minus" on:click={minus}>-</button>
+		<button class="primary" on:click={minus}
+			><span class="material-symbols-rounded">remove</span></button
+		>
 		<input type="number" min="0" bind:value />
-		<button class="primary plus" on:click={plus}>+</button>
+		<button class="primary" on:click={plus}>
+			<span class="material-symbols-rounded"> add </span>
+		</button>
 	</div>
 </div>
 
@@ -32,11 +36,8 @@
 		gap: var(--section-gap);
 	}
 
-	.minus,
-	.plus {
-		font-size: var(--fs-300);
-		font-weight: var(--fw-main);
-
-		width: 2.5rem;
+	button {
+		height: var(--section-input-height);
+		width: var(--section-input-height);
 	}
 </style>

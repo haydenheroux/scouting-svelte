@@ -16,12 +16,16 @@
 
 <div>
 	<input type="text" placeholder="" bind:value={note} />
-	<button class="primary add" on:click={add}>+</button>
+	<button class="primary" on:click={add}>
+		<span class="material-symbols-rounded"> save </span>
+	</button>
 </div>
 {#each notes as note, index}
 	<div>
 		<input class="inactive" type="text" bind:value={note} />
-		<button class="primary remove" on:click={() => remove(index)}>-</button>
+		<button class="primary" on:click={() => remove(index)}>
+			<span class="material-symbols-rounded"> delete </span>
+		</button>
 	</div>
 {/each}
 
@@ -35,5 +39,10 @@
 
 	.inactive {
 		color: var(--clr-neutral-300);
+	}
+
+	button {
+		height: var(--section-input-height);
+		width: var(--section-input-height);
 	}
 </style>

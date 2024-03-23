@@ -1,14 +1,16 @@
 <script lang="ts">
 	export let name: string;
 	export let help = "";
+
+	const showHelp = false;
 </script>
 
 <section>
 	<div class="header">
 		<h2>{name}</h2>
-		{#if help.length > 0}
+		{#if help.length > 0 && showHelp}
 			<div class="help">
-				<span class="icon">?</span>
+				<span class="icon material-symbols-rounded"> help_center </span>
 				<div class="body">
 					{help}
 				</div>
@@ -28,25 +30,22 @@
 	.help {
 		position: relative;
 		width: fit-content;
-	}
-
-	.icon {
-		color: var(--clr-border);
 
 		font-family: var(--ff-main);
 		font-weight: var(--fw-main);
 		font-size: var(--fs-400);
+	}
 
-		border: 1px solid var(--clr-border);
-		border-radius: var(--radius-element);
+	.help span {
+		color: var(--clr-border);
+
+		aspect-ratio: 1;
+		height: var(--section-input-height);
+		width: var(--section-input-height);
 
 		display: flex;
 		justify-content: center;
 		align-items: center;
-
-		aspect-ratio: 1;
-		width: calc(var(--section-input-height) - 0.5rem);
-		height: calc(var(--section-input-height) - 0.5rem);
 	}
 
 	.body {
