@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Point, dimensionsOfCanvas, flipPoint, NormalizedPoint } from "$lib/point";
-	import { DrawStyle, clearCanvas, drawImage, drawPoint } from "$lib/canvas";
+	import { clearCanvas, drawImage, drawPoint } from "$lib/canvas";
 	import { onMount } from "svelte";
 
 	export let field: string;
@@ -77,5 +77,5 @@
 	on:touchmove={handleTouch}
 	bind:this={canvas}
 />
-<button class="primary" on:click={() => point = null}>Clear</button>
+<button class="primary" on:click={() => (point = null)}>Clear</button>
 <button class="primary" on:click={flip}>Flip</button>

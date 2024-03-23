@@ -7,9 +7,7 @@
 	import Notes from "$lib/components/selectors/NotesComposer.svelte";
 	import QRCode from "$lib/components/sections/QRCodeDisplay.svelte";
 	import Section from "$lib/components/Section.svelte";
-	import { valuesOf } from "$lib/enum";
 	import { Trap, Climb, Harmony, type Metrics, serialize } from "$lib/metrics";
-	import { DrawStyle } from "$lib/canvas";
 	import ParticipantSelector from "$lib/components/selectors/ParticipantSelector.svelte";
 	import type { Participant } from "$lib/api";
 	import NumberSelector from "$lib/components/selectors/NumberSelector.svelte";
@@ -43,10 +41,7 @@
 <ParticipantSelector bind:participant />
 
 <Section name="Starting Position" help="Place where the robot starts the match.">
-	<FieldSelector
-		bind:point={startingPoint}
-		field={field2024}
-	/>
+	<FieldSelector bind:point={startingPoint} field={field2024} />
 </Section>
 
 <Section name="Autonomous Scoring">
@@ -72,7 +67,7 @@
 <Section name="Trap" help="How did the robot interact with the Trap?">
 	<MultipleOptionSelector
 		bind:selected={metrics.trap}
-		options={valuesOf(Trap)}
+		options={[Trap.NONE, Trap.FAIL, Trap.SUCCESS]}
 		fallback={Trap.NONE}
 	/>
 </Section>
@@ -80,7 +75,7 @@
 <Section name="Climb" help="How did the robot interact with the Stage?">
 	<MultipleOptionSelector
 		bind:selected={metrics.climb}
-		options={valuesOf(Climb)}
+		options={[Climb.NONE, Climb.FAIL, Climb.SUCCESS]}
 		fallback={Climb.NONE}
 	/>
 </Section>
@@ -88,7 +83,7 @@
 <Section name="Harmony" help="Did the robot activate the Harmony bonus?">
 	<MultipleOptionSelector
 		bind:selected={metrics.harmony}
-		options={valuesOf(Harmony)}
+		options={[Harmony.ZERO, Harmony.ONE, Harmony.TWO]}
 		fallback={Harmony.ZERO}
 	/>
 </Section>

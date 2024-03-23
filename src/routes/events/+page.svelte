@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { storedEvents, storedMetrics } from "$lib/stores";
+	import { storedEvents } from "$lib/stores";
 	import { validateEvent } from "$lib/api";
 	import Section from "$lib/components/Section.svelte";
 	import QrCodeScanner from "$lib/components/sections/QRCodeScanner.svelte";

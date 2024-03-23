@@ -1,7 +1,5 @@
 <script lang="ts">
 	import { storedMetrics } from "$lib/stores";
-	import QRCodeDisplay from "$lib/components/sections/QRCodeDisplay.svelte";
-	import Showable from "$lib/components/Showable.svelte";
 	import {
 		tbaMatchKey,
 		type Event,
@@ -11,13 +9,9 @@
 		stationNumbers,
 		parseMatchKey
 	} from "$lib/api";
-	import Section from "$lib/components/Section.svelte";
 	import type { Metrics } from "$lib/metrics";
 
 	export let event: Event | null;
-	let eventName: string;
-
-	$: eventName = event ? event.name : "No Event";
 
 	function getMetricsByEvent(event: Event | null): Metrics[] {
 		const metrics = storedMetrics.get();

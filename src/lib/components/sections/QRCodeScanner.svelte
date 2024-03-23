@@ -1,8 +1,7 @@
 <script lang="ts">
 	import { browser } from "$app/environment";
 	import { Html5Qrcode, type Html5QrcodeResult } from "html5-qrcode";
-
-	let result: Record<any, any> | null = null;
+	import type { Html5QrcodeError } from "html5-qrcode/esm/core";
 
 	export let onScan: (result: object) => void;
 
@@ -24,12 +23,10 @@
 
 		closed = false;
 
-		result = null;
-
 		scanner.start(
 			camera,
 			config,
-			(text: string, result: Html5QrcodeResult) => {
+			(text: string, _: Html5QrcodeResult) => {
 				// Ignore scans if the scanner is not initialized
 				if (!scanner) return;
 				if (scanned) return;
@@ -43,7 +40,9 @@
 
 				scanner = null;
 			},
-			(e) => {}
+			(message: string, _: Html5QrcodeError) => {
+				console.error(`$QR scanner error ${message}`);
+			}
 		);
 	}
 </script>

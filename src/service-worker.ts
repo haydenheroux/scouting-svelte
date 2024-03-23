@@ -5,7 +5,7 @@
 
 import { build, files, version } from "$service-worker";
 
-const sw = self as unknown as ServiceWorkerGlobalScope;
+// const sw = self as unknown as ServiceWorkerGlobalScope;
 
 const CACHE = `cache-${version}`;
 

@@ -10,7 +10,6 @@
 		stringifyDriverStation
 	} from "$lib/api";
 	import Section from "$lib/components/Section.svelte";
-	import { valuesOf } from "$lib/enum";
 	import { storedEvents } from "$lib/stores";
 	import EventSelector from "./EventSelector.svelte";
 
@@ -51,10 +50,6 @@
 		participant = transform(formData);
 	}
 
-	function clearEvent() {
-		formData.event = null;
-	}
-
 	function previousMatch() {
 		if (formData.match > 1) formData.match -= 1;
 	}
@@ -70,16 +65,15 @@
 
 <Section name="Select Match">
 	<div>
-		<!-- TODO qualification only option? -->
 		<label for="type">Type</label>
 		<select id="type" bind:value={formData.type}>
-			{#each valuesOf(MatchType) as matchType}
+			{#each [MatchType.QUALIFICATION] as matchType}
 				<option value={matchType}>{matchType}</option>
 			{/each}
 		</select>
 	</div>
 	<div class="split">
-		{#if formData.type != "Qualification"}
+		{#if formData.type != MatchType.QUALIFICATION}
 			<div>
 				<label for="set">Set</label>
 				<input id="set" type="number" min="1" bind:value={formData.set} />
