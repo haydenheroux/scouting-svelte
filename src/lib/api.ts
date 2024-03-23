@@ -7,6 +7,8 @@ export enum Alliance {
 
 export type StationNumber = 1 | 2 | 3;
 
+export const stationNumbers: StationNumber[] = [1, 2, 3];
+
 export enum StationEnum {
 	RED_1,
 	RED_2,
@@ -150,9 +152,11 @@ export function createMatchKey(
 	};
 }
 
-export function parseMatchKey(string: string): MatchKey | null {
+export type TBAMatchKey = string;
+
+export function parseMatchKey(matchKey: TBAMatchKey): MatchKey | null {
 	const regex = new RegExp("(?:.*_)?(qm|qf|sf|f)(\\d{1,2})(?:m(\\d{1,2}))?");
-	const parsedMatch = regex.exec(string);
+	const parsedMatch = regex.exec(matchKey);
 
 	if (parsedMatch === null) return null;
 
@@ -168,7 +172,7 @@ export function parseMatchKey(string: string): MatchKey | null {
 	return createMatchKey(eventOrNull, matchType, set, match);
 }
 
-export function stringifyMatchKey(matchKey: MatchKey): string {
+export function tbaMatchKey(matchKey: MatchKey): TBAMatchKey {
 	const tbaMatchType = tbaMatchTypeOf[matchKey.matchType];
 
 	if (matchKey.matchType == MatchType.QUALIFICATION) {

@@ -1,6 +1,12 @@
 import { NormalizedPoint } from "$lib/point";
 import { arrayToObject, stringToArray } from "$lib/array";
-import { type MatchKey, type Alliance, parseMatchKey, stringifyMatchKey } from "./api";
+import {
+	type MatchKey,
+	type Alliance,
+	parseMatchKey,
+	tbaMatchKey,
+	type StationNumber
+} from "./api";
 
 export enum Trap {
 	NONE = "None",
@@ -63,7 +69,7 @@ export type Metrics = {
 	match: MatchKey | null;
 
 	alliance: Alliance | null;
-	station: number | null;
+	station: StationNumber | null;
 
 	team: number | null;
 
@@ -103,7 +109,7 @@ export function deserialize(serialized: Record<string, string>): Metrics {
 	metrics.match = parseMatchKey(serialized[MATCH_KEY]);
 
 	metrics.alliance = serialized[ALLIANCE_KEY] as Alliance;
-	metrics.station = Number.parseInt(serialized[STATION_KEY]);
+	metrics.station = Number.parseInt(serialized[STATION_KEY]) as StationNumber;
 
 	metrics.team = Number.parseInt(serialized[TEAM_KEY]);
 
@@ -141,7 +147,7 @@ export function deserialize(serialized: Record<string, string>): Metrics {
 
 export function serialize(metrics: Metrics): Record<string, string> {
 	return {
-		[MATCH_KEY]: metrics.match ? stringifyMatchKey(metrics.match) : "",
+		[MATCH_KEY]: metrics.match ? tbaMatchKey(metrics.match) : "",
 
 		[ALLIANCE_KEY]: metrics.alliance ? metrics.alliance.toString() : "",
 
