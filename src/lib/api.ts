@@ -1,3 +1,5 @@
+import { storedEvents } from "./stores";
+
 export enum Alliance {
 	RED = "Red",
 	BLUE = "Blue"
@@ -82,8 +84,16 @@ export function validateEvent(obj: object | null): Event | null {
 	return null;
 }
 
+// TODO Test
 function getEventOrNull(eventCode: TBAEventCode): Event | null {
-	// TODO
+	const events = storedEvents.get();
+
+	for (const event of events) {
+		if (event.code === eventCode) {
+			return event;
+		}
+	}
+
 	return null;
 }
 
