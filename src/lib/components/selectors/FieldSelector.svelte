@@ -5,21 +5,12 @@
 
 	export let field: string;
 
-	export let single = false;
-
 	let flipped = false;
 
-	export let tags: Record<string, DrawStyle>;
+	export let point: NormalizedPoint | null;
 
-	let multipleTags = true;
-
-	let selectedTag: string;
-
-	export let points: Array<NormalizedPoint> = [];
-
-	// Redraws points whenever they are changed, including undoing.
 	$: {
-		points && draw();
+		point, draw();
 	}
 
 	let image: HTMLImageElement | null = null;
@@ -34,26 +25,20 @@
 			canvas.height = canvas.offsetWidth * (image.height / image.width);
 			draw();
 		};
-
-		if (Object.keys(tags).length == 1) {
-			selectedTag = Object.keys(tags)[0];
-			multipleTags = false;
-		}
 	});
 
 	let canvas: HTMLCanvasElement;
 
-	function push(p: Point) {
-		const norm = p.normalizeTo(dimensionsOfCanvas(canvas));
+	function updatePoint(p: Point) {
+		const normalizedPoint = p.normalizeTo(dimensionsOfCanvas(canvas));
 
-		if (single) points = [norm];
-		else points = [...points, norm];
+		point = normalizedPoint;
 
 		draw();
 	}
 
 	function handleMouse(e: MouseEvent) {
-		push(Point.fromMouseEvent(e));
+		updatePoint(Point.fromMouseEvent(e));
 	}
 
 	function handleTouch(event: TouchEvent) {
@@ -65,18 +50,21 @@
 
 		const point = new Point(x, y);
 
-		push(point);
+		updatePoint(point);
 	}
 
 	function draw() {
 		clearCanvas(canvas);
 		drawImage(image, canvas, flipped);
-
-		points.forEach((p) => drawPoint(p, canvas, flipped));
+		if (point) {
+			drawPoint(point, canvas, flipped);
+		}
 	}
 
 	function flip() {
-		points = points.map(flipPoint);
+		if (point) {
+			point = flipPoint(point);
+		}
 
 		flipped = !flipped;
 		draw();
@@ -89,5 +77,5 @@
 	on:touchmove={handleTouch}
 	bind:this={canvas}
 />
+<button class="primary" on:click={() => point = null}>Clear</button>
 <button class="primary" on:click={flip}>Flip</button>
-<button class="primary" on:click={() => (points = points.slice(0, points.length - 1))}>Undo</button>

@@ -13,20 +13,18 @@
 	import ParticipantSelector from "$lib/components/selectors/ParticipantSelector.svelte";
 	import type { Participant } from "$lib/api";
 	import NumberSelector from "$lib/components/selectors/NumberSelector.svelte";
-	import type { TaggedPoint } from "$lib/point";
+	import type { NormalizedPoint } from "$lib/point";
 	import { storeMetrics } from "$lib/stores";
 
 	let participant: Participant;
 
-	let startingPoint: Array<TaggedPoint>;
+	let startingPoint: NormalizedPoint | null;
 
 	let metrics: Metrics = {} as Metrics;
 
 	let qrCodeData = "";
 
 	function handleSubmit() {
-		const haveStartingPoint = startingPoint.length > 0;
-
 		metrics.match = participant.match;
 
 		metrics.alliance = participant.driverStation.alliance;
@@ -34,7 +32,7 @@
 
 		metrics.team = participant.team;
 
-		metrics.start = haveStartingPoint ? startingPoint[0].point : null;
+		metrics.start = startingPoint;
 
 		storeMetrics(metrics);
 
@@ -46,10 +44,8 @@
 
 <Section name="Starting Position" help="Place where the robot starts the match.">
 	<FieldSelector
-		bind:points={startingPoint}
-		tags={{ _: DrawStyle.DOT }}
+		bind:point={startingPoint}
 		field={field2024}
-		single={true}
 	/>
 </Section>
 
