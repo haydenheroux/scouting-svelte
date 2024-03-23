@@ -11,7 +11,7 @@
 	} from "$lib/api";
 	import Section from "$lib/components/Section.svelte";
 	import { valuesOf } from "$lib/enum";
-	import { storedEvents } from "$lib/stores";
+	import EventSelector from "./EventSelector.svelte";
 
 	let formData: FormData = getDefaultFormData();
 
@@ -64,16 +64,7 @@
 </script>
 
 <Section name="Select Event">
-	<select bind:value={formData.event}>
-		{#each storedEvents.get() as event}
-			{#if event.name}
-				<option value={event}>{event.name}</option>
-			{:else}
-				<option value={event}>{event.code}</option>
-			{/if}
-		{/each}
-	</select>
-	<button class="active" on:click={clearEvent}>Clear</button>
+	<EventSelector bind:event={formData.event} />
 </Section>
 
 <Section name="Select Match">

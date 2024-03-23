@@ -15,8 +15,9 @@
 	import type { Metrics } from "$lib/metrics";
 
 	export let event: Event | null;
+	let eventName: string;
 
-	let name = event ? event.name : "No Event";
+	$: eventName = event ? event.name : "No Event";
 
 	function getMetricsByEvent(event: Event | null): Metrics[] {
 		const metrics = storedMetrics.get();
@@ -71,25 +72,22 @@
 	}
 </script>
 
-<Section {name}>
-	{@const alliancesByMatch = sortMetricsByMatch(getMetricsByEvent(event))}
-	{#each [...alliancesByMatch] as [matchKey, stationsByAlliance]}
-		{@const match = parseMatchKey(matchKey)}
-		<b>{match?.matchType} {match?.match}</b>
-		{#each [...stationsByAlliance] as [alliance, metricsByStation]}
-			<div class="split">
-				{#each stationNumbers as station}
-					{@const metrics = metricsByStation.get(station)}
-					{#if metrics}
-						<button class={alliance === Alliance.RED ? "red" : "blue"}>{metrics.team}</button>
-					{:else}
-						<button>?</button>
-					{/if}
-				{/each}
-			</div>
-		{/each}
+{#each [...sortMetricsByMatch(getMetricsByEvent(event))] as [matchKey, stationsByAlliance]}
+	{@const match = parseMatchKey(matchKey)}
+	<b>{match?.matchType} {match?.match}</b>
+	{#each [...stationsByAlliance] as [alliance, metricsByStation]}
+		<div class="split">
+			{#each stationNumbers as station}
+				{@const metrics = metricsByStation.get(station)}
+				{#if metrics}
+					<button class={alliance === Alliance.RED ? "red" : "blue"}>{metrics.team}</button>
+				{:else}
+					<button>?</button>
+				{/if}
+			{/each}
+		</div>
 	{/each}
-</Section>
+{/each}
 
 <style>
 	/* TODO extend active button */

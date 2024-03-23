@@ -5,6 +5,10 @@
 	import QrCodeScanner from "$lib/components/sections/QRCodeScanner.svelte";
 	import { storeEvent } from "$lib/stores";
 	import EventInformation from "$lib/components/sections/EventInformation.svelte";
+	import EventSelector from "$lib/components/selectors/EventSelector.svelte";
+	import type { Event } from "$lib/api";
+
+	let selectedEvent: Event | null = null;
 
 	let events = storedEvents.get();
 
@@ -34,14 +38,13 @@
 	}
 </script>
 
-{#each events as event}
-	<EventInformation {event} />
-{/each}
-
-<EventInformation event={null} />
-
 {#if !scanned}
 	<Section name="Add Event">
 		<QrCodeScanner {onScan} />
 	</Section>
 {/if}
+
+<Section name="View Event">
+	<EventSelector bind:event={selectedEvent} />
+	<EventInformation bind:event={selectedEvent} />
+</Section>
