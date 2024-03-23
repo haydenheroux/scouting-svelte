@@ -52,8 +52,6 @@ const TELEOP_AMP_MISS_KEY = "ta_miss";
 const TELEOP_SPEAKER_MAKE_KEY = "ts_make";
 const TELEOP_SPEAKER_MISS_KEY = "ts_miss";
 
-const COOPERTITION_KEY = "coop";
-
 const TRAP_KEY = "trap";
 const CLIMB_KEY = "clmb";
 const HARMONY_KEY = "harm";
@@ -74,22 +72,19 @@ export type Metrics = {
 	team: number | null;
 
 	start: NormalizedPoint | null;
-
-	leave: boolean;
-
 	autoAmpMakes: number;
 	autoAmpMisses: number;
 
 	autoSpeakerMakes: number;
 	autoSpeakerMisses: number;
 
+	leave: boolean;
+
 	teleopAmpMakes: number;
 	teleopAmpMisses: number;
 
 	teleopSpeakerMakes: number;
 	teleopSpeakerMisses: number;
-
-	coopertition: boolean;
 
 	trap: Trap;
 	climb: Climb;
@@ -115,21 +110,19 @@ export function deserialize(serialized: Record<string, string>): Metrics {
 
 	metrics.start = NormalizedPoint.fromString(serialized[START_KEY]);
 
-	metrics.leave = serialized[LEAVE_KEY] == "true";
-
 	metrics.autoAmpMakes = Number.parseInt(serialized[AUTO_AMP_MAKE_KEY]);
 	metrics.autoAmpMisses = Number.parseInt(serialized[AUTO_AMP_MISS_KEY]);
 
 	metrics.autoSpeakerMakes = Number.parseInt(serialized[AUTO_SPEAKER_MAKE_KEY]);
 	metrics.autoSpeakerMisses = Number.parseInt(serialized[AUTO_SPEAKER_MISS_KEY]);
 
+	metrics.leave = serialized[LEAVE_KEY] == "true";
+
 	metrics.teleopAmpMakes = Number.parseInt(serialized[TELEOP_AMP_MAKE_KEY]);
 	metrics.teleopAmpMisses = Number.parseInt(serialized[TELEOP_AMP_MISS_KEY]);
 
 	metrics.teleopSpeakerMakes = Number.parseInt(serialized[TELEOP_SPEAKER_MAKE_KEY]);
 	metrics.teleopSpeakerMisses = Number.parseInt(serialized[TELEOP_SPEAKER_MISS_KEY]);
-
-	metrics.coopertition = serialized[COOPERTITION_KEY] == "true";
 
 	metrics.trap = serialized[TRAP_KEY] as Trap;
 	metrics.climb = serialized[CLIMB_KEY] as Climb;
@@ -157,21 +150,19 @@ export function serialize(metrics: Metrics): Record<string, string> {
 
 		[START_KEY]: metrics.start ? metrics.start.stringify() : "",
 
-		[LEAVE_KEY]: metrics.leave.toString(),
-
 		[AUTO_AMP_MAKE_KEY]: metrics.autoAmpMakes.toString(),
 		[AUTO_AMP_MISS_KEY]: metrics.autoAmpMisses.toString(),
 
 		[AUTO_SPEAKER_MAKE_KEY]: metrics.autoSpeakerMakes.toString(),
 		[AUTO_SPEAKER_MISS_KEY]: metrics.autoSpeakerMisses.toString(),
 
+		[LEAVE_KEY]: metrics.leave.toString(),
+
 		[TELEOP_AMP_MAKE_KEY]: metrics.teleopAmpMakes.toString(),
 		[TELEOP_AMP_MISS_KEY]: metrics.teleopAmpMisses.toString(),
 
 		[TELEOP_SPEAKER_MAKE_KEY]: metrics.teleopSpeakerMakes.toString(),
 		[TELEOP_SPEAKER_MISS_KEY]: metrics.teleopSpeakerMisses.toString(),
-
-		[COOPERTITION_KEY]: metrics.coopertition.toString(),
 
 		[TRAP_KEY]: metrics.trap,
 		[CLIMB_KEY]: metrics.climb,

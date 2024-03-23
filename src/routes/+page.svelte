@@ -53,10 +53,6 @@
 	/>
 </Section>
 
-<Section name="Leave" help="Did the robot fully leave the Wing during auto?">
-	<BooleanSelector bind:value={metrics.leave} />
-</Section>
-
 <Section name="Autonomous Scoring">
 	<NumberSelector name="Amp Makes" bind:value={metrics.autoAmpMakes} />
 	<NumberSelector name="Amp Misses" bind:value={metrics.autoAmpMisses} />
@@ -64,15 +60,15 @@
 	<NumberSelector name="Speaker Misses" bind:value={metrics.autoSpeakerMisses} />
 </Section>
 
+<Section name="Leave" help="Did the robot fully leave the Wing during auto?">
+	<BooleanSelector bind:value={metrics.leave} />
+</Section>
+
 <Section name="Teleop Scoring">
 	<NumberSelector name="Amp Makes" bind:value={metrics.teleopAmpMakes} />
 	<NumberSelector name="Amp Misses" bind:value={metrics.teleopAmpMisses} />
 	<NumberSelector name="Speaker Makes" bind:value={metrics.teleopSpeakerMakes} />
 	<NumberSelector name="Speaker Misses" bind:value={metrics.teleopSpeakerMisses} />
-</Section>
-
-<Section name="Coopertition" help="Did the alliance activate Coopertition?">
-	<BooleanSelector bind:value={metrics.coopertition} />
 </Section>
 
 <Section name="Trap" help="How did the robot interact with the Trap?">
