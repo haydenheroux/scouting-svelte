@@ -64,14 +64,14 @@ const OTHER_KEY = "oth";
 const NAME_KEY = "name";
 
 export type Metrics = {
-	match: MatchKey | null;
+	match: MatchKey;
 
-	alliance: Alliance | null;
-	station: StationNumber | null;
+	alliance: Alliance;
+	station: StationNumber;
 
-	team: number | null;
+	team: number;
 
-	start: NormalizedPoint | null;
+	start: NormalizedPoint;
 	autoAmpMakes: number;
 	autoAmpMisses: number;
 
@@ -98,10 +98,16 @@ export type Metrics = {
 	name: string;
 };
 
-export function deserialize(serialized: Record<string, string>): Metrics {
+export function deserialize(serialized: Record<string, string>): Metrics | null {
 	const metrics = {} as Metrics;
 
-	metrics.match = parseMatchKey(serialized[MATCH_KEY]);
+	const match = parseMatchKey(serialized[MATCH_KEY]);
+
+	if (!match) {
+		return null;
+	}
+
+	metrics.match = match;
 
 	metrics.alliance = serialized[ALLIANCE_KEY] as Alliance;
 	metrics.station = Number.parseInt(serialized[STATION_KEY]) as StationNumber;

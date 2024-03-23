@@ -9,28 +9,39 @@
 	import Section from "$lib/components/Section.svelte";
 	import { Trap, Climb, Harmony, type Metrics, serialize } from "$lib/metrics";
 	import ParticipantSelector from "$lib/components/selectors/ParticipantSelector.svelte";
-	import type { Participant } from "$lib/api";
 	import NumberSelector from "$lib/components/selectors/NumberSelector.svelte";
 	import type { NormalizedPoint } from "$lib/point";
 	import { storeMetrics } from "$lib/stores";
+	import { createMatchKey, driverStationOf, type Participant } from "$lib/api";
 
 	let participant: Participant;
 
-	let startingPoint: NormalizedPoint | null;
+	let point: NormalizedPoint | null;
 
 	let metrics: Metrics = {} as Metrics;
 
 	let qrCodeData = "";
 
 	function handleSubmit() {
-		metrics.match = participant.match;
+		metrics.match = createMatchKey(
+			participant.event,
+			participant.type,
+			participant.set,
+			participant.match
+		);
 
-		metrics.alliance = participant.driverStation.alliance;
-		metrics.station = participant.driverStation.station;
+		const driverStation = driverStationOf(participant.station);
+
+		metrics.alliance = driverStation.alliance;
+		metrics.station = driverStation.station;
+
+		if (!participant.team || !point) {
+			return;
+		}
 
 		metrics.team = participant.team;
 
-		metrics.start = startingPoint;
+		metrics.start = point;
 
 		storeMetrics(metrics);
 
@@ -41,7 +52,7 @@
 <ParticipantSelector bind:participant />
 
 <Section name="Starting Position" help="Place where the robot starts the match.">
-	<FieldSelector bind:point={startingPoint} field={field2024} />
+	<FieldSelector bind:point field={field2024} />
 </Section>
 
 <Section name="Autonomous Scoring">

@@ -86,8 +86,9 @@ export function validateEvent(obj: object | null): Event | null {
 	return null;
 }
 
-// TODO Test
-function getEventOrNull(eventCode: TBAEventCode): Event | null {
+function getEvent(eventCode: TBAEventCode): Event {
+	console.log(`calling get event with ${eventCode}`);
+
 	const events = storedEvents.get();
 
 	for (const event of events) {
@@ -96,7 +97,13 @@ function getEventOrNull(eventCode: TBAEventCode): Event | null {
 		}
 	}
 
-	return null;
+	const newEvent = createEvent(eventCode, "");
+
+	events.push(newEvent);
+
+	storedEvents.set(events);
+
+	return newEvent;
 }
 
 export enum MatchType {
@@ -155,21 +162,22 @@ export function createMatchKey(
 export type TBAMatchKey = string;
 
 export function parseMatchKey(matchKey: TBAMatchKey): MatchKey | null {
-	const regex = new RegExp("(?:.*_)?(qm|qf|sf|f)(\\d{1,2})(?:m(\\d{1,2}))?");
+	const regex = new RegExp("([^_]*)?_?(qm|qf|sf|f)(\\d{1,2})(?:m(\\d{1,2}))?");
 	const parsedMatch = regex.exec(matchKey);
 
 	if (parsedMatch === null) return null;
 
-	const [tbaEvent, tbaMatchType, firstNumber, secondNumber] = parsedMatch;
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
+	const [_, tbaEvent, tbaMatchType, firstNumber, secondNumber] = parsedMatch;
 
-	const eventOrNull = getEventOrNull(tbaEvent);
+	const event = getEvent(tbaEvent);
 
 	const matchType = matchTypeOf[tbaMatchType as TBAMatchType];
 	const set = matchType === MatchType.QUALIFICATION ? 1 : parseInt(secondNumber);
 	const match =
 		matchType === MatchType.QUALIFICATION ? parseInt(firstNumber) : parseInt(secondNumber);
 
-	return createMatchKey(eventOrNull, matchType, set, match);
+	return createMatchKey(event, matchType, set, match);
 }
 
 export function tbaMatchKey(matchKey: MatchKey): TBAMatchKey {
@@ -191,7 +199,31 @@ export function tbaMatchKey(matchKey: MatchKey): TBAMatchKey {
 }
 
 export type Participant = {
-	match: MatchKey;
-	driverStation: DriverStation;
+	event: Event | null;
+	type: MatchType;
+	set: number;
+	match: number;
+	station: StationEnum;
 	team: number | null;
 };
+
+export function defaultParticipant(): Participant {
+	let defaultEvent: Event | null;
+
+	const events = storedEvents.get();
+
+	if (events.length == 0) {
+		defaultEvent = null;
+	} else {
+		defaultEvent = events[0];
+	}
+
+	return {
+		event: defaultEvent,
+		type: MatchType.QUALIFICATION,
+		set: 1,
+		match: 1,
+		station: StationEnum.RED_1,
+		team: null
+	};
+}

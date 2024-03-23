@@ -36,6 +36,7 @@
 				// TODO Repeatedly fires
 				onScan(JSON.parse(text));
 
+				scanner.stop();
 				scanner.clear();
 
 				scanner = null;
