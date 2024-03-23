@@ -56,6 +56,7 @@
 <Section name="Autonomous Scoring">
 	<NumberSelector name="Amp Makes" bind:value={metrics.autoAmpMakes} />
 	<NumberSelector name="Amp Misses" bind:value={metrics.autoAmpMisses} />
+	<hr />
 	<NumberSelector name="Speaker Makes" bind:value={metrics.autoSpeakerMakes} />
 	<NumberSelector name="Speaker Misses" bind:value={metrics.autoSpeakerMisses} />
 </Section>
@@ -67,6 +68,7 @@
 <Section name="Teleop Scoring">
 	<NumberSelector name="Amp Makes" bind:value={metrics.teleopAmpMakes} />
 	<NumberSelector name="Amp Misses" bind:value={metrics.teleopAmpMisses} />
+	<hr />
 	<NumberSelector name="Speaker Makes" bind:value={metrics.teleopSpeakerMakes} />
 	<NumberSelector name="Speaker Misses" bind:value={metrics.teleopSpeakerMisses} />
 </Section>
