@@ -4,6 +4,6 @@
 	export let href: string;
 </script>
 
-<a {href} class:active={$page.url.pathname === href}>
+<a {href} class:active={$page.url.pathname === href || $page.url.pathname === href + "/"}>
 	<slot />
 </a>
