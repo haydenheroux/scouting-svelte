@@ -60,10 +60,10 @@ export type TBAEventCode = string;
 
 export type Event = {
 	code: TBAEventCode;
-	name: string | null;
+	name: string;
 };
 
-export function createEvent(code: TBAEventCode, name: string | null): Event {
+export function createEvent(code: TBAEventCode, name: string): Event {
 	return {
 		code,
 		name
@@ -84,15 +84,6 @@ export function validateEvent(obj: object | null): Event | null {
 
 function getEventOrNull(eventCode: TBAEventCode): Event | null {
 	// TODO
-	const eventCodeToName: Record<TBAEventCode, string> = {
-		"2024necmp": "New England FIRST District Championship 2024"
-	};
-
-	const nameOrNull = eventCodeToName[eventCode];
-
-	// eventCode not stored
-	if (nameOrNull == null) return createEvent(eventCode, null);
-
 	return null;
 }
 

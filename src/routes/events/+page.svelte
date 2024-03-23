@@ -1,11 +1,10 @@
 <script lang="ts">
-	import QRCodeDisplay from "$lib/components/sections/QRCodeDisplay.svelte";
 	import { storedEvents, storedMetrics } from "$lib/stores";
-	import { stringifyMatchKey, validateEvent } from "$lib/api";
+	import { validateEvent } from "$lib/api";
 	import Section from "$lib/components/Section.svelte";
 	import QrCodeScanner from "$lib/components/sections/QRCodeScanner.svelte";
 	import { storeEvent } from "$lib/stores";
-	import Showable from "$lib/components/Showable.svelte";
+	import EventInformation from "$lib/components/sections/EventInformation.svelte";
 
 	let events = storedEvents.get();
 
@@ -36,29 +35,10 @@
 </script>
 
 {#each events as event}
-	{@const name = event.name ? event.name : event.code}
-	{@const eventMetrics = metrics.filter(
-		(matchMetrics) => matchMetrics.match?.event?.code === event.code
-	)}
-	<Section {name}>
-		{#each eventMetrics as eventMatchMetrics}
-			<div class="split">
-				{#if eventMatchMetrics.match != null}
-					<p>
-						{stringifyMatchKey(eventMatchMetrics.match)}
-					</p>
-				{/if}
-				<Showable>
-					<QRCodeDisplay value={JSON.stringify(eventMatchMetrics)} />
-				</Showable>
-			</div>
-		{/each}
-		<!-- TODO Fill in additional event details, matches, etc. -->
-		<Showable subject="QR Code">
-			<QRCodeDisplay value={JSON.stringify(event)} />
-		</Showable>
-	</Section>
+	<EventInformation {event} />
 {/each}
+
+<EventInformation event={null} />
 
 {#if !scanned}
 	<Section name="Add Event">
