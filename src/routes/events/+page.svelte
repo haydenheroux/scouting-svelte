@@ -12,13 +12,7 @@
 
 	let events = storedEvents.get();
 
-	let scanned = false;
-
 	function onScan(result: object) {
-		if (scanned) {
-			return;
-		}
-
 		const scannedEvent = validateEvent(result);
 
 		if (scannedEvent != null) {
@@ -27,19 +21,15 @@
 			events = storedEvents.get();
 
 			selectedEvent = selectedEvent;
-
-			scanned = true;
 		} else {
 			console.error(`Could not validate event ${scannedEvent}`);
 		}
 	}
 </script>
 
-{#if !scanned}
-	<Section name="Add Event">
-		<QrCodeScanner {onScan} />
-	</Section>
-{/if}
+<Section name="Add Event">
+	<QrCodeScanner {onScan} />
+</Section>
 
 <Section name="View Event">
 	<EventSelector bind:events bind:event={selectedEvent} />
