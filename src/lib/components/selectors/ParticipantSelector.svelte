@@ -11,6 +11,7 @@
 	} from "$lib/api";
 	import Section from "$lib/components/Section.svelte";
 	import { valuesOf } from "$lib/enum";
+	import { storedEvents } from "$lib/stores";
 	import EventSelector from "./EventSelector.svelte";
 
 	let formData: FormData = getDefaultFormData();
@@ -64,7 +65,7 @@
 </script>
 
 <Section name="Select Event">
-	<EventSelector bind:event={formData.event} />
+	<EventSelector bind:event={formData.event} events={storedEvents.get()} />
 </Section>
 
 <Section name="Select Match">

@@ -1,12 +1,13 @@
 <script lang="ts">
-	import { storedEvents } from "$lib/stores";
 	import type { Event } from "$lib/api";
 
 	export let event: Event | null;
+
+	export let events: Array<Event>;
 </script>
 
 <select bind:value={event}>
-	{#each storedEvents.get() as event}
+	{#each events as event}
 		{#if event.name}
 			<option value={event}>{event.name}</option>
 		{:else}

@@ -12,15 +12,10 @@
 
 	let events = storedEvents.get();
 
-	let metrics = storedMetrics.get();
-
 	let scanned = false;
 
 	function onScan(result: object) {
-		console.log("Got new scanned event");
-
 		if (scanned) {
-			console.log("Already processed, ignoring...");
 			return;
 		}
 
@@ -30,6 +25,8 @@
 			storeEvent(scannedEvent);
 
 			events = storedEvents.get();
+
+			selectedEvent = selectedEvent;
 
 			scanned = true;
 		} else {
@@ -45,6 +42,6 @@
 {/if}
 
 <Section name="View Event">
-	<EventSelector bind:event={selectedEvent} />
+	<EventSelector bind:events bind:event={selectedEvent} />
 	<EventInformation bind:event={selectedEvent} />
 </Section>
