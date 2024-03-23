@@ -74,6 +74,10 @@ export class NormalizedPoint {
 	}
 }
 
+export function flipPoint(point: NormalizedPoint): NormalizedPoint {
+	return new NormalizedPoint(1 - point.x, 1 - point.y);
+}
+
 export class TaggedPoint {
 	readonly tag: string;
 	readonly point: NormalizedPoint;

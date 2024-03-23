@@ -1,12 +1,13 @@
 <script lang="ts">
-	import { Point, dimensionsOfCanvas, TaggedPoint } from "$lib/point";
+	import { Point, dimensionsOfCanvas, flipPoint, NormalizedPoint } from "$lib/point";
 	import { DrawStyle, clearCanvas, drawImage, drawPoint } from "$lib/canvas";
 	import { onMount } from "svelte";
-	import OptionSelector from "./OptionSelector.svelte";
 
 	export let field: string;
 
 	export let single = false;
+
+	let flipped = false;
 
 	export let tags: Record<string, DrawStyle>;
 
@@ -14,7 +15,7 @@
 
 	let selectedTag: string;
 
-	export let points: Array<TaggedPoint> = [];
+	export let points: Array<NormalizedPoint> = [];
 
 	// Redraws points whenever they are changed, including undoing.
 	$: {
@@ -45,10 +46,8 @@
 	function push(p: Point) {
 		const norm = p.normalizeTo(dimensionsOfCanvas(canvas));
 
-		const tagged = new TaggedPoint(selectedTag, norm);
-
-		if (single) points = [tagged];
-		else points = [...points, tagged];
+		if (single) points = [norm];
+		else points = [...points, norm];
 
 		draw();
 	}
@@ -71,19 +70,24 @@
 
 	function draw() {
 		clearCanvas(canvas);
-		drawImage(image, canvas);
+		drawImage(image, canvas, flipped);
 
-		points.forEach((taggedPoint) => drawPoint(taggedPoint.point, tags[taggedPoint.tag], canvas));
+		points.forEach((p) => drawPoint(p, canvas, flipped));
+	}
+
+	function flip() {
+		points = points.map(flipPoint);
+
+		flipped = !flipped;
+		draw();
 	}
 </script>
 
-{#if multipleTags}
-	<OptionSelector options={Object.keys(tags)} bind:selected={selectedTag} />
-{/if}
 <canvas
 	on:click={handleMouse}
 	on:touchstart={handleTouch}
 	on:touchmove={handleTouch}
 	bind:this={canvas}
 />
+<button class="primary" on:click={flip}>Flip</button>
 <button class="primary" on:click={() => (points = points.slice(0, points.length - 1))}>Undo</button>
