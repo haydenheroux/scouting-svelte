@@ -216,6 +216,6 @@ export function defaultParticipant(): Participant {
 		set: 1,
 		match: 1,
 		station: StationEnum.RED_1,
-		team: 0,
+		team: 0
 	};
 }

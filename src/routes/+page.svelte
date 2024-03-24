@@ -1,9 +1,9 @@
 <script lang="ts">
-	import MetricsQRCode from '$lib/components/sections/MetricsQRCode.svelte';
+	import MetricsQRCode from "$lib/components/sections/MetricsQRCode.svelte";
 	import { storeMetrics } from "$lib/stores";
 	import MetricsSelector from "$lib/components/sections/MetricsSelector.svelte";
 	import Section from "$lib/components/Section.svelte";
-	import type { Metrics } from '$lib/metrics';
+	import type { Metrics } from "$lib/metrics";
 
 	let metrics: Metrics = {} as Metrics;
 

@@ -5,9 +5,6 @@
 
 <div class="split">
 	{#each options as option}
-		<button
-			on:click={() => (selected = option)}
-			class:active={selected == option}>{option}</button
-		>
+		<button on:click={() => (selected = option)} class:active={selected == option}>{option}</button>
 	{/each}
 </div>

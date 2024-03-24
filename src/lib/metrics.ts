@@ -171,6 +171,6 @@ export function serializeMetrics(metrics: Metrics): Record<string, string> {
 		...arrayToObject(DEFENSE_KEY, metrics.defenseNotes),
 		...arrayToObject(DRIVING_KEY, metrics.drivingNotes),
 		...arrayToObject(DOWNTIME_KEY, metrics.downtimeNotes),
-		...arrayToObject(OTHER_KEY, metrics.otherNotes),
+		...arrayToObject(OTHER_KEY, metrics.otherNotes)
 	};
 }

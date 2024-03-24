@@ -6,9 +6,7 @@
 		stringifyDriverStation,
 		type Participant,
 		defaultParticipant,
-
 		getEventByEventCode
-
 	} from "$lib/api";
 	import Section from "$lib/components/Section.svelte";
 	import { storedEvents } from "$lib/stores";
@@ -36,7 +34,10 @@
 </script>
 
 <Section name="Select Event">
-	<EventSelector bind:selectedEventCode eventCodes={storedEvents.get().map((event) => event.code)} />
+	<EventSelector
+		bind:selectedEventCode
+		eventCodes={storedEvents.get().map((event) => event.code)}
+	/>
 </Section>
 
 <Section name="Select Match">

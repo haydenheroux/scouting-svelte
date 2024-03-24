@@ -14,7 +14,7 @@
 
 	export let metrics: Metrics;
 
-    $: {
+	$: {
 		metrics.match = createMatchKey(
 			participant.event,
 			participant.type,
@@ -28,7 +28,7 @@
 		metrics.station = driverStation.station;
 
 		metrics.team = participant.team;
-    }
+	}
 </script>
 
 <ParticipantSelector bind:participant />

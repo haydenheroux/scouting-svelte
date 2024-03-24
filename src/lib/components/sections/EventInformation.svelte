@@ -10,8 +10,7 @@
 		parseMatchKey
 	} from "$lib/api";
 	import type { Metrics } from "$lib/metrics";
-  	import { Modal, Content, Trigger } from "sv-popup"
-	import QrCodeDisplay from "./QRCodeDisplay.svelte";
+	import { Modal, Content, Trigger } from "sv-popup";
 	import MetricsQrCode from "./MetricsQRCode.svelte";
 
 	export let event: Event | null;
