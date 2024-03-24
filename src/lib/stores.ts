@@ -12,8 +12,6 @@ export function storeEvent(newEvent: Event) {
 
 	const events = storedEvents.get();
 
-	console.info(`Attempting to store new event ${JSON.stringify(newEvent)}`);
-
 	for (let i = 0; i < events.length; i++) {
 		if (events[i].code === newEvent.code) {
 			console.warn(

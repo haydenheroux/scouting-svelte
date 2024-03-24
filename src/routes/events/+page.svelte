@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { storedEvents } from "$lib/stores";
-	import { validateEvent } from "$lib/api";
+	import { getEventByEventCode, validateEvent } from "$lib/api";
 	import Section from "$lib/components/Section.svelte";
 	import QrCodeScanner from "$lib/components/sections/QRCodeScanner.svelte";
 	import { storeEvent } from "$lib/stores";
@@ -9,6 +9,16 @@
 	import type { Event } from "$lib/api";
 
 	let selectedEvent: Event | null = null;
+
+	let selectedEventCode: string | null;
+
+	$: {
+		if (selectedEventCode == null) {
+			selectedEvent = null;
+		} else {
+			selectedEvent = getEventByEventCode(selectedEventCode);
+		}
+	}
 
 	let events = storedEvents.get();
 
@@ -32,6 +42,6 @@
 </Section>
 
 <Section name="View Event">
-	<EventSelector bind:events bind:event={selectedEvent} />
+	<EventSelector eventCodes={events.map((event) => event.code)} bind:selectedEventCode />
 	<EventInformation bind:event={selectedEvent} />
 </Section>

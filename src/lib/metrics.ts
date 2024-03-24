@@ -61,8 +61,6 @@ const DRIVING_KEY = "drv";
 const DOWNTIME_KEY = "dwn";
 const OTHER_KEY = "oth";
 
-const NAME_KEY = "name";
-
 export type Metrics = {
 	match: MatchKey;
 
@@ -94,11 +92,9 @@ export type Metrics = {
 	drivingNotes: Array<string>;
 	downtimeNotes: Array<string>;
 	otherNotes: Array<string>;
-
-	name: string;
 };
 
-export function deserialize(serialized: Record<string, string>): Metrics | null {
+export function deserializeMetrics(serialized: Record<string, string>): Metrics | null {
 	const metrics = {} as Metrics;
 
 	const match = parseMatchKey(serialized[MATCH_KEY]);
@@ -139,12 +135,10 @@ export function deserialize(serialized: Record<string, string>): Metrics | null 
 	metrics.downtimeNotes = stringToArray(DOWNTIME_KEY, serialized);
 	metrics.otherNotes = stringToArray(OTHER_KEY, serialized);
 
-	metrics.name = serialized[NAME_KEY];
-
 	return metrics;
 }
 
-export function serialize(metrics: Metrics): Record<string, string> {
+export function serializeMetrics(metrics: Metrics): Record<string, string> {
 	return {
 		[MATCH_KEY]: metrics.match ? tbaMatchKey(metrics.match) : "",
 
@@ -178,7 +172,5 @@ export function serialize(metrics: Metrics): Record<string, string> {
 		...arrayToObject(DRIVING_KEY, metrics.drivingNotes),
 		...arrayToObject(DOWNTIME_KEY, metrics.downtimeNotes),
 		...arrayToObject(OTHER_KEY, metrics.otherNotes),
-
-		[NAME_KEY]: metrics.name
 	};
 }

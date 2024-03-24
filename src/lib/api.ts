@@ -86,9 +86,7 @@ export function validateEvent(obj: object | null): Event | null {
 	return null;
 }
 
-function getEvent(eventCode: TBAEventCode): Event {
-	console.log(`calling get event with ${eventCode}`);
-
+export function getEventByEventCode(eventCode: TBAEventCode): Event | null {
 	const events = storedEvents.get();
 
 	for (const event of events) {
@@ -97,13 +95,7 @@ function getEvent(eventCode: TBAEventCode): Event {
 		}
 	}
 
-	const newEvent = createEvent(eventCode, "");
-
-	events.push(newEvent);
-
-	storedEvents.set(events);
-
-	return newEvent;
+	return null;
 }
 
 export enum MatchType {
@@ -170,7 +162,7 @@ export function parseMatchKey(matchKey: TBAMatchKey): MatchKey | null {
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const [_, tbaEvent, tbaMatchType, firstNumber, secondNumber] = parsedMatch;
 
-	const event = getEvent(tbaEvent);
+	const event = getEventByEventCode(tbaEvent);
 
 	const matchType = matchTypeOf[tbaMatchType as TBAMatchType];
 	const set = matchType === MatchType.QUALIFICATION ? 1 : parseInt(secondNumber);
@@ -204,7 +196,7 @@ export type Participant = {
 	set: number;
 	match: number;
 	station: StationEnum;
-	team: number | null;
+	team: number;
 };
 
 export function defaultParticipant(): Participant {
@@ -224,6 +216,6 @@ export function defaultParticipant(): Participant {
 		set: 1,
 		match: 1,
 		station: StationEnum.RED_1,
-		team: null
+		team: 0,
 	};
 }

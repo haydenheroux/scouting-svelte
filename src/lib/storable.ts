@@ -21,8 +21,6 @@ export function storable<T>(key: string, fallback: T) {
 			const valueOrNull = localStorage.getItem(key);
 
 			if (valueOrNull === null) {
-				console.log(`Key ${key} was null`);
-
 				localStorage.setItem(key, JSON.stringify(fallback));
 
 				return fallback;

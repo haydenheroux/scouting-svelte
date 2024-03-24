@@ -5,13 +5,26 @@
 		driverStations,
 		stringifyDriverStation,
 		type Participant,
-		defaultParticipant
+		defaultParticipant,
+
+		getEventByEventCode
+
 	} from "$lib/api";
 	import Section from "$lib/components/Section.svelte";
 	import { storedEvents } from "$lib/stores";
 	import EventSelector from "./EventSelector.svelte";
 
 	export let participant: Participant = defaultParticipant();
+
+	let selectedEventCode: string | null;
+
+	$: {
+		if (selectedEventCode == null) {
+			participant.event = null;
+		} else {
+			participant.event = getEventByEventCode(selectedEventCode);
+		}
+	}
 
 	function previousMatch() {
 		if (participant.match > 1) participant.match -= 1;
@@ -23,7 +36,7 @@
 </script>
 
 <Section name="Select Event">
-	<EventSelector bind:event={participant.event} events={storedEvents.get()} />
+	<EventSelector bind:selectedEventCode eventCodes={storedEvents.get().map((event) => event.code)} />
 </Section>
 
 <Section name="Select Match">
