@@ -1,27 +1,26 @@
 <script lang="ts">
-	import Submit from "$lib/components/sections/Submit.svelte";
-	import QRCode from "$lib/components/sections/QRCodeDisplay.svelte";
+	import MetricsQRCode from '$lib/components/sections/MetricsQRCode.svelte';
 	import { storeMetrics } from "$lib/stores";
 	import MetricsSelector from "$lib/components/sections/MetricsSelector.svelte";
-	import { serializeMetrics, type Metrics } from "$lib/metrics";
+	import Section from "$lib/components/Section.svelte";
+	import type { Metrics } from '$lib/metrics';
 
 	let metrics: Metrics = {} as Metrics;
 
-	let qrCodeData = "";
+	let showQRCode = false;
 
 	function handleSubmit() {
 		storeMetrics(metrics);
 
-		qrCodeData = JSON.stringify(serializeMetrics(metrics));
+		showQRCode = true;
 	}
 </script>
 
 <MetricsSelector bind:metrics />
 
-<Submit on:click={handleSubmit} />
-
-{#if qrCodeData.length > 0}
-	<section>
-		<QRCode value={qrCodeData} />
-	</section>
-{/if}
+<Section name="Submit">
+	<button class="primary" on:click={handleSubmit}>Submit</button>
+	{#if showQRCode}
+		<MetricsQRCode bind:metrics />
+	{/if}
+</Section>

@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { onMount } from "svelte";
 	import { default as QrCode } from "qrious";
-	import FullscreenableImage from "../FullscreenableImage.svelte";
 
 	const QRcode = new QrCode();
 
@@ -36,4 +35,4 @@
 	});
 </script>
 
-<FullscreenableImage src={url} alt={value} />
+<img src={url} alt={value} />

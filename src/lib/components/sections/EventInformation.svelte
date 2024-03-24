@@ -12,6 +12,7 @@
 	import type { Metrics } from "$lib/metrics";
   	import { Modal, Content, Trigger } from "sv-popup"
 	import QrCodeDisplay from "./QRCodeDisplay.svelte";
+	import MetricsQrCode from "./MetricsQRCode.svelte";
 
 	export let event: Event | null;
 
@@ -78,7 +79,7 @@
 				{#if metrics}
 					<Modal small button={false}>
 						<Content>
-							<QrCodeDisplay value={JSON.stringify(metrics)} />
+							<MetricsQrCode {metrics} />
 						</Content>
 						<Trigger>
 							<button class={alliance === Alliance.RED ? "red" : "blue"}>{metrics.team}</button>

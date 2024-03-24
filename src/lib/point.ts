@@ -62,10 +62,6 @@ export class NormalizedPoint {
 		return new NormalizedPoint(x, y);
 	}
 
-	stringify(): string {
-		return `${this.x.toFixed(4)}${SEPARATOR}${this.y.toFixed(2)}`;
-	}
-
 	scaleBy(dimensions: Dimensions): Point {
 		const sx = this.x * dimensions.width;
 		const sy = this.y * dimensions.height;
@@ -76,6 +72,10 @@ export class NormalizedPoint {
 
 export function flipPoint(point: NormalizedPoint): NormalizedPoint {
 	return new NormalizedPoint(1 - point.x, 1 - point.y);
+}
+
+export function stringifyPoint(point: NormalizedPoint): string {
+	return `${point.x.toFixed(4)}${SEPARATOR}${point.y.toFixed(2)}`;
 }
 
 export class TaggedPoint {

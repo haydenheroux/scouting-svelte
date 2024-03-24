@@ -1,4 +1,4 @@
-import { NormalizedPoint } from "$lib/point";
+import { NormalizedPoint, stringifyPoint } from "$lib/point";
 import { arrayToObject, stringToArray } from "$lib/array";
 import {
 	type MatchKey,
@@ -148,7 +148,7 @@ export function serializeMetrics(metrics: Metrics): Record<string, string> {
 
 		[TEAM_KEY]: metrics.team ? metrics.team.toString() : "",
 
-		[START_KEY]: metrics.start ? metrics.start.stringify() : "",
+		[START_KEY]: metrics.start ? stringifyPoint(metrics.start) : "",
 
 		[AUTO_AMP_MAKE_KEY]: metrics.autoAmpMakes.toString(),
 		[AUTO_AMP_MISS_KEY]: metrics.autoAmpMisses.toString(),
