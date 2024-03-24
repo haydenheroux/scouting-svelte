@@ -20,7 +20,7 @@
 {#each notes.slice(1) as note, index}
 	<div>
 		<input class="inactive" type="text" bind:value={note} />
-		<button class="primary" on:click={() => remove(index)}>
+		<button class="primary" on:click={() => remove(index + 1)}>
 			<span class="material-symbols-rounded">close</span>
 		</button>
 	</div>
