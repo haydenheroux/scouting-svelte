@@ -10,6 +10,8 @@
 		parseMatchKey
 	} from "$lib/api";
 	import type { Metrics } from "$lib/metrics";
+  	import { Modal, Content, Trigger } from "sv-popup"
+	import QrCodeDisplay from "./QRCodeDisplay.svelte";
 
 	export let event: Event | null;
 
@@ -74,7 +76,14 @@
 			{#each stationNumbers as station}
 				{@const metrics = metricsByStation.get(station)}
 				{#if metrics}
-					<button class={alliance === Alliance.RED ? "red" : "blue"}>{metrics.team}</button>
+					<Modal small button={false}>
+						<Content>
+							<QrCodeDisplay value={JSON.stringify(metrics)} />
+						</Content>
+						<Trigger>
+							<button class={alliance === Alliance.RED ? "red" : "blue"}>{metrics.team}</button>
+						</Trigger>
+					</Modal>
 				{:else}
 					<button>?</button>
 				{/if}
