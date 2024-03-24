@@ -1,11 +1,8 @@
 <script lang="ts">
-	let note = "";
-
 	export let notes: Array<string> = [];
 
 	function add() {
-		notes = [...notes, note];
-		note = "";
+		notes = ["", ...notes];
 	}
 
 	function remove(index: number) {
@@ -15,16 +12,16 @@
 </script>
 
 <div>
-	<input type="text" placeholder="" bind:value={note} />
+	<input type="text" placeholder="" bind:value={notes[0]} />
 	<button class="primary" on:click={add}>
-		<span class="material-symbols-rounded"> save </span>
+		<span class="material-symbols-rounded">done</span>
 	</button>
 </div>
-{#each notes as note, index}
+{#each notes.slice(1) as note, index}
 	<div>
 		<input class="inactive" type="text" bind:value={note} />
 		<button class="primary" on:click={() => remove(index)}>
-			<span class="material-symbols-rounded"> delete </span>
+			<span class="material-symbols-rounded">close</span>
 		</button>
 	</div>
 {/each}
