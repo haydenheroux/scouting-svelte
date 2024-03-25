@@ -19,16 +19,20 @@
 
 <div>
 	<input type="text" placeholder="" {readonly} bind:value={notes[0]} />
-	<button class="primary" on:click={add}>
-		<span class="material-symbols-rounded">done</span>
-	</button>
+	{#if !readonly}
+		<button class="primary" on:click={add}>
+			<span class="material-symbols-rounded">done</span>
+		</button>
+	{/if}
 </div>
 {#each notes.slice(1) as note, index}
 	<div>
 		<input class="inactive" type="text" bind:value={note} />
-		<button class="primary" on:click={() => remove(index + 1)}>
-			<span class="material-symbols-rounded">close</span>
-		</button>
+		{#if !readonly}
+			<button class="primary" on:click={() => remove(index + 1)}>
+				<span class="material-symbols-rounded">close</span>
+			</button>
+		{/if}
 	</div>
 {/each}
 

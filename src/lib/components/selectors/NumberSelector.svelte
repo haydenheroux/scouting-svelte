@@ -24,13 +24,17 @@
 		<label>{name}</label>
 	{/if}
 	<div class="split">
-		<button class="primary" on:click={minus}
-			><span class="material-symbols-rounded">remove</span></button
-		>
+		{#if !readonly}
+			<button class="primary" on:click={minus}
+				><span class="material-symbols-rounded">remove</span>
+			</button>
+		{/if}
 		<input type="number" min="0" {readonly} bind:value />
-		<button class="primary" on:click={plus}>
-			<span class="material-symbols-rounded"> add </span>
-		</button>
+		{#if !readonly}
+			<button class="primary" on:click={plus}>
+				<span class="material-symbols-rounded"> add </span>
+			</button>
+		{/if}
 	</div>
 </div>
 

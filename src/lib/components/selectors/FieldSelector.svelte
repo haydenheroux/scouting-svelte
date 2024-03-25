@@ -89,5 +89,7 @@
 </script>
 
 <canvas on:click={handleMouseEvent} on:touchstart|passive={handleTouchEvent} bind:this={canvas} />
-<button class="primary" on:click={() => updatePoint(null)}>Clear</button>
+{#if !readonly}
+	<button class="primary" on:click={() => updatePoint(null)}>Clear</button>
+{/if}
 <button class="primary" on:click={() => (flipped = !flipped)}>Flip</button>
