@@ -77,7 +77,7 @@
 	</Section>
 
 	<Section name="Select Station">
-		<select bind:value={selectedStation}>
+		<select disabled={readonly} bind:value={selectedStation}>
 			{#each driverStations as driverStation}
 				<option value={driverStation}>{stringifyDriverStation(driverStationOf(driverStation))}</option
 				>

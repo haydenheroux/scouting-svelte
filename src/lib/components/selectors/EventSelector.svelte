@@ -8,7 +8,7 @@
 	export let eventCodes: Array<TBAEventCode>;
 </script>
 
-<select bind:value={selectedEventCode}>
+<select disabled={readonly} bind:value={selectedEventCode}>
 	{#each eventCodes as eventCode}
 		{@const event = getEventByEventCode(eventCode)}
 		{#if event && event.name && event.name.length > 0}
