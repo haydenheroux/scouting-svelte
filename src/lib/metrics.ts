@@ -40,7 +40,7 @@ const TEAM_KEY = "t";
 
 const START_KEY = "sp";
 
-const LEAVE_KEY = "lv";
+const LEAVE_KEY = "leave";
 
 const AUTO_AMP_MAKE_KEY = "aa_make";
 const AUTO_AMP_MISS_KEY = "aa_miss";
@@ -56,10 +56,7 @@ const TRAP_KEY = "trap";
 const CLIMB_KEY = "clmb";
 const HARMONY_KEY = "harm";
 
-const DEFENSE_KEY = "def";
-const DRIVING_KEY = "drv";
-const DOWNTIME_KEY = "dwn";
-const OTHER_KEY = "oth";
+const NOTES_KEY = "note";
 
 export type Metrics = {
 	match: MatchKey;
@@ -88,10 +85,7 @@ export type Metrics = {
 	climb: Climb;
 	harmony: Harmony;
 
-	defenseNotes: Array<string>;
-	drivingNotes: Array<string>;
-	downtimeNotes: Array<string>;
-	otherNotes: Array<string>;
+	notes: Array<string>;
 };
 
 export function deserializeMetrics(serialized: Record<string, string>): Metrics | null {
@@ -130,10 +124,7 @@ export function deserializeMetrics(serialized: Record<string, string>): Metrics 
 	metrics.climb = serialized[CLIMB_KEY] as Climb;
 	metrics.harmony = serialized[HARMONY_KEY] as Harmony;
 
-	metrics.defenseNotes = stringToArray(DEFENSE_KEY, serialized);
-	metrics.drivingNotes = stringToArray(DRIVING_KEY, serialized);
-	metrics.downtimeNotes = stringToArray(DOWNTIME_KEY, serialized);
-	metrics.otherNotes = stringToArray(OTHER_KEY, serialized);
+	metrics.notes = stringToArray(NOTES_KEY, serialized);
 
 	return metrics;
 }
@@ -168,9 +159,6 @@ export function serializeMetrics(metrics: Metrics): Record<string, string> {
 		[CLIMB_KEY]: metrics.climb,
 		[HARMONY_KEY]: metrics.harmony,
 
-		...arrayToObject(DEFENSE_KEY, metrics.defenseNotes),
-		...arrayToObject(DRIVING_KEY, metrics.drivingNotes),
-		...arrayToObject(DOWNTIME_KEY, metrics.downtimeNotes),
-		...arrayToObject(OTHER_KEY, metrics.otherNotes)
+		...arrayToObject(NOTES_KEY, metrics.notes)
 	};
 }

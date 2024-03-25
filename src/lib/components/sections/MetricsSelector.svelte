@@ -33,7 +33,7 @@
 
 <ParticipantSelector bind:participant />
 
-<Section name="Starting Position" help="Place where the robot starts the match.">
+<Section name="Starting Position">
 	<FieldSelector bind:point={metrics.start} field={field2024} />
 </Section>
 
@@ -45,7 +45,7 @@
 	<NumberSelector name="Speaker Misses" bind:value={metrics.autoSpeakerMisses} />
 </Section>
 
-<Section name="Leave" help="Did the robot fully leave the Wing during auto?">
+<Section name="Leave">
 	<BooleanSelector bind:value={metrics.leave} />
 </Section>
 
@@ -57,39 +57,27 @@
 	<NumberSelector name="Speaker Misses" bind:value={metrics.teleopSpeakerMisses} />
 </Section>
 
-<Section name="Trap" help="How did the robot interact with the Trap?">
+<Section name="Trap">
 	<MultipleOptionSelector
 		bind:selected={metrics.trap}
 		options={[Trap.NONE, Trap.FAIL, Trap.SUCCESS]}
 	/>
 </Section>
 
-<Section name="Climb" help="How did the robot interact with the Stage?">
+<Section name="Climb">
 	<MultipleOptionSelector
 		bind:selected={metrics.climb}
 		options={[Climb.NONE, Climb.FAIL, Climb.SUCCESS]}
 	/>
 </Section>
 
-<Section name="Harmony" help="Did the robot activate the Harmony bonus?">
+<Section name="Harmony">
 	<MultipleOptionSelector
 		bind:selected={metrics.harmony}
 		options={[Harmony.ZERO, Harmony.ONE, Harmony.TWO]}
 	/>
 </Section>
 
-<Section name="Defense" help="Did the robot play defense?">
-	<Notes bind:notes={metrics.defenseNotes} />
-</Section>
-
-<Section name="Driving" help="Was the robot being defended?">
-	<Notes bind:notes={metrics.drivingNotes} />
-</Section>
-
-<Section name="Downtime" help="What did the robot do when they weren't scoring?">
-	<Notes bind:notes={metrics.downtimeNotes} />
-</Section>
-
-<Section name="Other">
-	<Notes bind:notes={metrics.otherNotes} />
+<Section name="Notes">
+	<Notes bind:notes={metrics.notes} />
 </Section>
