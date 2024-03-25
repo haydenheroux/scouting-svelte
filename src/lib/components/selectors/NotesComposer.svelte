@@ -1,11 +1,17 @@
 <script lang="ts">
 	export let notes: Array<string> = [];
 
+	export let readonly: boolean = false;
+
 	function add() {
+		if (readonly) return;
+
 		notes = ["", ...notes];
 	}
 
 	function remove(index: number) {
+		if (readonly) return;
+
 		notes.splice(index, 1);
 		notes = notes;
 	}

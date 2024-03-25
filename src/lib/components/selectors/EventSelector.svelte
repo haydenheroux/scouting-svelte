@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { getEventByEventCode, type TBAEventCode } from "$lib/api";
 
+	export let readonly: boolean = false;
+
 	export let selectedEventCode: TBAEventCode | null;
 
 	export let eventCodes: Array<TBAEventCode>;

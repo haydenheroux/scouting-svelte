@@ -5,6 +5,8 @@
 
 	export let field: string;
 
+	export let readonly: boolean = false;
+
 	let image: HTMLImageElement | null = null;
 
 	let canvas: HTMLCanvasElement;
@@ -41,7 +43,16 @@
 		}
 	}
 
-	function updatePoint(newPoint: Point) {
+	function updatePoint(newPoint: Point | null) {
+		if (readonly) {
+			return;
+		}
+
+		if (newPoint === null) {
+			point = null;
+			return;
+		}
+
 		const dimensions = clientDimensionsOfCanvas(canvas);
 
 		const normalizedPoint = normalizePoint(newPoint, dimensions);
@@ -75,5 +86,5 @@
 	on:touchstart|passive={handleTouchEvent}
 	bind:this={canvas}
 />
-<button class="primary" on:click={() => (point = null)}>Clear</button>
+<button class="primary" on:click={() => updatePoint(null)}>Clear</button>
 <button class="primary" on:click={() => flipped = !flipped}>Flip</button>

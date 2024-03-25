@@ -3,11 +3,17 @@
 
 	export let name = "";
 
+	export let readonly: boolean = false;
+
 	function minus() {
+		if (readonly) return;
+
 		if (value > 0) value--;
 	}
 
 	function plus() {
+		if (readonly) return;
+
 		value++;
 	}
 </script>
@@ -21,7 +27,7 @@
 		<button class="primary" on:click={minus}
 			><span class="material-symbols-rounded">remove</span></button
 		>
-		<input type="number" min="0" bind:value />
+		<input type="number" min="0" {readonly} bind:value />
 		<button class="primary" on:click={plus}>
 			<span class="material-symbols-rounded"> add </span>
 		</button>

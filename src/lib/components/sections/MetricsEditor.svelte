@@ -7,14 +7,18 @@
 	import Section from "$lib/components/Section.svelte";
 	import { Trap, Climb, Harmony, type Metrics } from "$lib/metrics";
 	import NumberSelector from "$lib/components/selectors/NumberSelector.svelte";
-	import { driverStationOf, type Event, StationEnum, getEventByEventCode, driverStations, stringifyDriverStation, createQualificationMatchKey } from "$lib/api";
+	import { driverStationOf, type Event, type MatchNumber, StationEnum, getEventByEventCode, driverStations, stringifyDriverStation, createQualificationMatchKey } from "$lib/api";
 	import { storedEvents } from "$lib/stores";
 	import EventSelector from "../selectors/EventSelector.svelte";
+
+	export let readonly: boolean = false;
+
+	export let hideParticipant: boolean = false;
 
 	export let metrics: Metrics;
 
 	let event: Event | null;
-	let match: number = 1;
+	let match: MatchNumber = 1;
 
 	$: {
 		metrics.match = createQualificationMatchKey(
@@ -34,10 +38,14 @@
 	}
 
 	function previousMatch() {
+		if (readonly) return;
+
 		if (match > 1) match -= 1;
 	}
 
 	function nextMatch() {
+		if (readonly) return;
+
 		match += 1;
 	}
 
@@ -51,62 +59,67 @@
 	}
 </script>
 
-<Section name="Select Event">
-	<EventSelector
-		bind:selectedEventCode
-		eventCodes={storedEvents.get().map((event) => event.code)}
-	/>
-</Section>
+{#if !hideParticipant}
+	<Section name="Select Event">
+		<EventSelector
+			{readonly}
+			bind:selectedEventCode
+			eventCodes={storedEvents.get().map((event) => event.code)}
+		/>
+	</Section>
 
-<Section name="Select Match">
-	<input type="number" min="1" bind:value={match} />
-	<div class="split">
-		<button class="active" on:click={previousMatch}>Previous Match</button>
-		<button class="active" on:click={nextMatch}>Next Match</button>
-	</div>
-</Section>
+	<Section name="Select Match">
+		<input type="number" min="1" {readonly} bind:value={match} />
+		<div class="split">
+			<button class="active" on:click={previousMatch}>Previous Match</button>
+			<button class="active" on:click={nextMatch}>Next Match</button>
+		</div>
+	</Section>
 
-<Section name="Select Station">
-	<select bind:value={selectedStation}>
-		{#each driverStations as driverStation}
-			<option value={driverStation}>{stringifyDriverStation(driverStationOf(driverStation))}</option
-			>
-		{/each}
-	</select>
-</Section>
+	<Section name="Select Station">
+		<select bind:value={selectedStation}>
+			{#each driverStations as driverStation}
+				<option value={driverStation}>{stringifyDriverStation(driverStationOf(driverStation))}</option
+				>
+			{/each}
+		</select>
+	</Section>
 
-<Section name="Select Team">
-	<input type="number" min="0" bind:value={metrics.team} />
-</Section>
+	<Section name="Select Team">
+		<input type="number" min="0" {readonly} bind:value={metrics.team} />
+	</Section>
+{/if}
+
 
 <Section name="Starting Position">
-	<FieldSelector bind:point={metrics.start} field={field2024} />
+	<FieldSelector {readonly} bind:point={metrics.start} field={field2024} />
 </Section>
 
 <Section name="Autonomous Scoring">
-	<NumberSelector name="Amp Makes" bind:value={metrics.autoAmpMakes} />
-	<NumberSelector name="Amp Misses" bind:value={metrics.autoAmpMisses} />
+	<NumberSelector name="Amp Makes" {readonly} bind:value={metrics.autoAmpMakes} />
+	<NumberSelector name="Amp Misses" {readonly} bind:value={metrics.autoAmpMisses} />
 	<hr />
-	<NumberSelector name="Speaker Makes" bind:value={metrics.autoSpeakerMakes} />
-	<NumberSelector name="Speaker Misses" bind:value={metrics.autoSpeakerMisses} />
+	<NumberSelector name="Speaker Makes" {readonly} bind:value={metrics.autoSpeakerMakes} />
+	<NumberSelector name="Speaker Misses" {readonly} bind:value={metrics.autoSpeakerMisses} />
 </Section>
 
 <Section name="Leave">
-	<BooleanSelector bind:value={metrics.leave} />
+	<BooleanSelector {readonly} bind:value={metrics.leave} />
 </Section>
 
 <Section name="Teleop Scoring">
-	<NumberSelector name="Amp Makes" bind:value={metrics.teleopAmpMakes} />
-	<NumberSelector name="Amp Misses" bind:value={metrics.teleopAmpMisses} />
+	<NumberSelector name="Amp Makes" {readonly} bind:value={metrics.teleopAmpMakes} />
+	<NumberSelector name="Amp Misses" {readonly} bind:value={metrics.teleopAmpMisses} />
 	<hr />
-	<NumberSelector name="Speaker Makes" bind:value={metrics.teleopSpeakerMakes} />
-	<NumberSelector name="Speaker Misses" bind:value={metrics.teleopSpeakerMisses} />
+	<NumberSelector name="Speaker Makes" {readonly} bind:value={metrics.teleopSpeakerMakes} />
+	<NumberSelector name="Speaker Misses" {readonly} bind:value={metrics.teleopSpeakerMisses} />
 </Section>
 
 <Section name="Trap">
 	<MultipleOptionSelector
 		bind:selected={metrics.trap}
 		options={[Trap.NONE, Trap.FAIL, Trap.SUCCESS]}
+		{readonly}
 	/>
 </Section>
 
@@ -114,6 +127,7 @@
 	<MultipleOptionSelector
 		bind:selected={metrics.climb}
 		options={[Climb.NONE, Climb.FAIL, Climb.SUCCESS]}
+		{readonly}
 	/>
 </Section>
 
@@ -121,9 +135,10 @@
 	<MultipleOptionSelector
 		bind:selected={metrics.harmony}
 		options={[Harmony.ZERO, Harmony.ONE, Harmony.TWO]}
+		{readonly}
 	/>
 </Section>
 
 <Section name="Notes">
-	<Notes bind:notes={metrics.notes} />
+	<Notes {readonly} bind:notes={metrics.notes} />
 </Section>

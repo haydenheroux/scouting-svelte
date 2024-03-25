@@ -35,13 +35,16 @@
     }
 </script>
 
-<Section name="Select">
+<Section name="Select Event">
     <EventSelector bind:selectedEventCode eventCodes={storedEvents.get().map((event) => event.code)} />
-    {#if metricsForSelectedEventCode.length > 0}
-        <MetricsSelector bind:metrics={metricsForSelectedEventCode} bind:selectedMetrics />
-    {/if}
 </Section>
 
+{#if metricsForSelectedEventCode.length > 0}
+    <Section name="Select Match">
+        <MetricsSelector bind:metrics={metricsForSelectedEventCode} bind:selectedMetrics />
+    </Section>
+{/if}
+
 {#if selectedMetrics != null}
-    <MetricsEditor metrics={selectedMetrics} />
+    <MetricsEditor readonly hideParticipant metrics={selectedMetrics} />
 {/if}
