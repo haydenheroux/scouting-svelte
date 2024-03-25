@@ -1,6 +1,6 @@
 <script>
-	import { base } from "$app/paths";
-	import NavLink from "$lib/components/NavLink.svelte";
+	import { base } from "$app/paths"
+	import NavLink from "$lib/components/NavLink.svelte"
 </script>
 
 <header>

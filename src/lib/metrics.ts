@@ -1,12 +1,6 @@
-import { arrayToObject, stringToArray } from "$lib/array";
-import {
-	type MatchKey,
-	type Alliance,
-	parseMatchKey,
-	tbaMatchKey,
-	type StationNumber
-} from "./api";
-import { createNormalizedPointFromString, stringifyPoint, type NormalizedPoint } from "./point";
+import { arrayToObject, stringToArray } from "$lib/array"
+import { type MatchKey, type Alliance, parseMatchKey, tbaMatchKey, type StationNumber } from "./api"
+import { createNormalizedPointFromString, stringifyPoint, type NormalizedPoint } from "./point"
 
 export enum Trap {
 	NONE = "None",
@@ -31,102 +25,102 @@ export enum HighNotes {
 	THREE = "3"
 }
 
-const MATCH_KEY = "m";
+const MATCH_KEY = "m"
 
-const ALLIANCE_KEY = "a";
-const STATION_KEY = "s";
+const ALLIANCE_KEY = "a"
+const STATION_KEY = "s"
 
-const TEAM_KEY = "t";
+const TEAM_KEY = "t"
 
-const START_KEY = "sp";
+const START_KEY = "sp"
 
-const LEAVE_KEY = "leave";
+const LEAVE_KEY = "leave"
 
-const AUTO_AMP_MAKE_KEY = "aa_make";
-const AUTO_AMP_MISS_KEY = "aa_miss";
-const AUTO_SPEAKER_MAKE_KEY = "as_make";
-const AUTO_SPEAKER_MISS_KEY = "as_miss";
+const AUTO_AMP_MAKE_KEY = "aa_make"
+const AUTO_AMP_MISS_KEY = "aa_miss"
+const AUTO_SPEAKER_MAKE_KEY = "as_make"
+const AUTO_SPEAKER_MISS_KEY = "as_miss"
 
-const TELEOP_AMP_MAKE_KEY = "ta_make";
-const TELEOP_AMP_MISS_KEY = "ta_miss";
-const TELEOP_SPEAKER_MAKE_KEY = "ts_make";
-const TELEOP_SPEAKER_MISS_KEY = "ts_miss";
+const TELEOP_AMP_MAKE_KEY = "ta_make"
+const TELEOP_AMP_MISS_KEY = "ta_miss"
+const TELEOP_SPEAKER_MAKE_KEY = "ts_make"
+const TELEOP_SPEAKER_MISS_KEY = "ts_miss"
 
-const TRAP_KEY = "trap";
-const CLIMB_KEY = "clmb";
-const HARMONY_KEY = "harm";
+const TRAP_KEY = "trap"
+const CLIMB_KEY = "clmb"
+const HARMONY_KEY = "harm"
 
-const NOTES_KEY = "note";
+const NOTES_KEY = "note"
 
 export type Metrics = {
-	match: MatchKey;
+	match: MatchKey
 
-	alliance: Alliance;
-	station: StationNumber;
+	alliance: Alliance
+	station: StationNumber
 
-	team: number;
+	team: number
 
-	start: NormalizedPoint;
-	autoAmpMakes: number;
-	autoAmpMisses: number;
+	start: NormalizedPoint
+	autoAmpMakes: number
+	autoAmpMisses: number
 
-	autoSpeakerMakes: number;
-	autoSpeakerMisses: number;
+	autoSpeakerMakes: number
+	autoSpeakerMisses: number
 
-	leave: boolean;
+	leave: boolean
 
-	teleopAmpMakes: number;
-	teleopAmpMisses: number;
+	teleopAmpMakes: number
+	teleopAmpMisses: number
 
-	teleopSpeakerMakes: number;
-	teleopSpeakerMisses: number;
+	teleopSpeakerMakes: number
+	teleopSpeakerMisses: number
 
-	trap: Trap;
-	climb: Climb;
-	harmony: Harmony;
+	trap: Trap
+	climb: Climb
+	harmony: Harmony
 
-	notes: Array<string>;
-};
+	notes: Array<string>
+}
 
 export function deserializeMetrics(serialized: Record<string, string>): Metrics | null {
-	const metrics = {} as Metrics;
+	const metrics = {} as Metrics
 
-	const match = parseMatchKey(serialized[MATCH_KEY]);
+	const match = parseMatchKey(serialized[MATCH_KEY])
 
 	if (!match) {
-		return null;
+		return null
 	}
 
-	metrics.match = match;
+	metrics.match = match
 
-	metrics.alliance = serialized[ALLIANCE_KEY] as Alliance;
-	metrics.station = Number.parseInt(serialized[STATION_KEY]) as StationNumber;
+	metrics.alliance = serialized[ALLIANCE_KEY] as Alliance
+	metrics.station = Number.parseInt(serialized[STATION_KEY]) as StationNumber
 
-	metrics.team = Number.parseInt(serialized[TEAM_KEY]);
+	metrics.team = Number.parseInt(serialized[TEAM_KEY])
 
-	metrics.start = createNormalizedPointFromString(serialized[START_KEY]);
+	metrics.start = createNormalizedPointFromString(serialized[START_KEY])
 
-	metrics.autoAmpMakes = Number.parseInt(serialized[AUTO_AMP_MAKE_KEY]);
-	metrics.autoAmpMisses = Number.parseInt(serialized[AUTO_AMP_MISS_KEY]);
+	metrics.autoAmpMakes = Number.parseInt(serialized[AUTO_AMP_MAKE_KEY])
+	metrics.autoAmpMisses = Number.parseInt(serialized[AUTO_AMP_MISS_KEY])
 
-	metrics.autoSpeakerMakes = Number.parseInt(serialized[AUTO_SPEAKER_MAKE_KEY]);
-	metrics.autoSpeakerMisses = Number.parseInt(serialized[AUTO_SPEAKER_MISS_KEY]);
+	metrics.autoSpeakerMakes = Number.parseInt(serialized[AUTO_SPEAKER_MAKE_KEY])
+	metrics.autoSpeakerMisses = Number.parseInt(serialized[AUTO_SPEAKER_MISS_KEY])
 
-	metrics.leave = serialized[LEAVE_KEY] == "true";
+	metrics.leave = serialized[LEAVE_KEY] == "true"
 
-	metrics.teleopAmpMakes = Number.parseInt(serialized[TELEOP_AMP_MAKE_KEY]);
-	metrics.teleopAmpMisses = Number.parseInt(serialized[TELEOP_AMP_MISS_KEY]);
+	metrics.teleopAmpMakes = Number.parseInt(serialized[TELEOP_AMP_MAKE_KEY])
+	metrics.teleopAmpMisses = Number.parseInt(serialized[TELEOP_AMP_MISS_KEY])
 
-	metrics.teleopSpeakerMakes = Number.parseInt(serialized[TELEOP_SPEAKER_MAKE_KEY]);
-	metrics.teleopSpeakerMisses = Number.parseInt(serialized[TELEOP_SPEAKER_MISS_KEY]);
+	metrics.teleopSpeakerMakes = Number.parseInt(serialized[TELEOP_SPEAKER_MAKE_KEY])
+	metrics.teleopSpeakerMisses = Number.parseInt(serialized[TELEOP_SPEAKER_MISS_KEY])
 
-	metrics.trap = serialized[TRAP_KEY] as Trap;
-	metrics.climb = serialized[CLIMB_KEY] as Climb;
-	metrics.harmony = serialized[HARMONY_KEY] as Harmony;
+	metrics.trap = serialized[TRAP_KEY] as Trap
+	metrics.climb = serialized[CLIMB_KEY] as Climb
+	metrics.harmony = serialized[HARMONY_KEY] as Harmony
 
-	metrics.notes = stringToArray(NOTES_KEY, serialized);
+	metrics.notes = stringToArray(NOTES_KEY, serialized)
 
-	return metrics;
+	return metrics
 }
 
 export function serializeMetrics(metrics: Metrics): Record<string, string> {
@@ -160,5 +154,5 @@ export function serializeMetrics(metrics: Metrics): Record<string, string> {
 		[HARMONY_KEY]: metrics.harmony,
 
 		...arrayToObject(NOTES_KEY, metrics.notes)
-	};
+	}
 }

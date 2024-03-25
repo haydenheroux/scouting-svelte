@@ -1,11 +1,11 @@
 <script lang="ts">
-	import { getEventByEventCode, type TBAEventCode } from "$lib/api";
+	import { getEventByEventCode, type TBAEventCode } from "$lib/api"
 
-	export let readonly: boolean = false;
+	export let readonly: boolean = false
 
-	export let selectedEventCode: TBAEventCode | null;
+	export let selectedEventCode: TBAEventCode | null
 
-	export let eventCodes: Array<TBAEventCode>;
+	export let eventCodes: Array<TBAEventCode>
 </script>
 
 <select disabled={readonly} bind:value={selectedEventCode}>

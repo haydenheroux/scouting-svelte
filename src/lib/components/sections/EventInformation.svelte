@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { storedMetrics } from "$lib/stores";
+	import { storedMetrics } from "$lib/stores"
 	import {
 		tbaMatchKey,
 		type Event,
@@ -8,63 +8,63 @@
 		type StationNumber,
 		stationNumbers,
 		parseMatchKey
-	} from "$lib/api";
-	import type { Metrics } from "$lib/metrics";
-	import { Modal, Content, Trigger } from "sv-popup";
-	import MetricsQrCode from "./MetricsQRCode.svelte";
+	} from "$lib/api"
+	import type { Metrics } from "$lib/metrics"
+	import { Modal, Content, Trigger } from "sv-popup"
+	import MetricsQrCode from "./MetricsQRCode.svelte"
 
-	export let event: Event | null;
+	export let event: Event | null
 
 	function getMetricsByEvent(event: Event | null): Metrics[] {
-		const metrics = storedMetrics.get();
+		const metrics = storedMetrics.get()
 
-		if (event === null) return metrics.filter((matchMetrics) => matchMetrics.match?.event === null);
+		if (event === null) return metrics.filter((matchMetrics) => matchMetrics.match?.event === null)
 
-		return metrics.filter((matchMetrics) => matchMetrics.match?.event?.code === event.code);
+		return metrics.filter((matchMetrics) => matchMetrics.match?.event?.code === event.code)
 	}
 
 	type MetricsByAllianceByStation = Map<
 		TBAMatchKey,
 		Map<Alliance, Map<StationNumber, Metrics | null>>
-	>;
+	>
 
 	function sortMetricsByMatch(metrics: Metrics[]): MetricsByAllianceByStation {
-		const matchKeyMap: MetricsByAllianceByStation = new Map();
+		const matchKeyMap: MetricsByAllianceByStation = new Map()
 
 		for (const metric of metrics) {
 			if (!metric || !metric.match) {
-				console.warn(`Metric ${JSON.stringify(metric)} is invalid or has null match`);
-				continue;
+				console.warn(`Metric ${JSON.stringify(metric)} is invalid or has null match`)
+				continue
 			}
 
-			const matchKey = tbaMatchKey(metric.match);
+			const matchKey = tbaMatchKey(metric.match)
 
-			let allianceMap = matchKeyMap.get(matchKey);
+			let allianceMap = matchKeyMap.get(matchKey)
 			if (!allianceMap) {
-				allianceMap = new Map();
-				matchKeyMap.set(matchKey, allianceMap);
+				allianceMap = new Map()
+				matchKeyMap.set(matchKey, allianceMap)
 			}
 
 			if (!metric.alliance) {
-				console.warn(`Metric ${JSON.stringify(metric)} has null alliance`);
-				continue;
+				console.warn(`Metric ${JSON.stringify(metric)} has null alliance`)
+				continue
 			}
 
-			let stationMetricsMap = allianceMap.get(metric.alliance);
+			let stationMetricsMap = allianceMap.get(metric.alliance)
 			if (!stationMetricsMap) {
-				stationMetricsMap = new Map();
-				allianceMap.set(metric.alliance, stationMetricsMap);
+				stationMetricsMap = new Map()
+				allianceMap.set(metric.alliance, stationMetricsMap)
 			}
 
 			if (metric.station === null) {
-				console.warn(`Metric ${JSON.stringify(metric)} has null stationNumber`);
-				continue;
+				console.warn(`Metric ${JSON.stringify(metric)} has null stationNumber`)
+				continue
 			}
 
-			stationMetricsMap.set(metric.station, metric);
+			stationMetricsMap.set(metric.station, metric)
 		}
 
-		return matchKeyMap;
+		return matchKeyMap
 	}
 </script>
 

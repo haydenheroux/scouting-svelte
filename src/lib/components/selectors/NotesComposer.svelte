@@ -1,19 +1,19 @@
 <script lang="ts">
-	export let notes: Array<string> = [];
+	export let notes: Array<string> = []
 
-	export let readonly: boolean = false;
+	export let readonly: boolean = false
 
 	function add() {
-		if (readonly) return;
+		if (readonly) return
 
-		notes = ["", ...notes];
+		notes = ["", ...notes]
 	}
 
 	function remove(index: number) {
-		if (readonly) return;
+		if (readonly) return
 
-		notes.splice(index, 1);
-		notes = notes;
+		notes.splice(index, 1)
+		notes = notes
 	}
 </script>
 

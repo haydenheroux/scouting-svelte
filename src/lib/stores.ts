@@ -1,16 +1,16 @@
 // export const storedParticipant = storable<Participant>('participant', createDefaultParticipant());
 
-import { storable } from "./storable";
+import { storable } from "./storable"
 
-import type { Event } from "./api";
-import type { Metrics } from "./metrics";
+import type { Event } from "./api"
+import type { Metrics } from "./metrics"
 
-export const storedEvents = storable<Array<Event>>("events", [] as Array<Event>);
+export const storedEvents = storable<Array<Event>>("events", [] as Array<Event>)
 
 export function storeEvent(newEvent: Event) {
-	const OVERWRITE_DUPLICATES = true;
+	const OVERWRITE_DUPLICATES = true
 
-	const events = storedEvents.get();
+	const events = storedEvents.get()
 
 	for (let i = 0; i < events.length; i++) {
 		if (events[i].code === newEvent.code) {
@@ -18,31 +18,31 @@ export function storeEvent(newEvent: Event) {
 				`Duplicate event key ${newEvent.code}; ${JSON.stringify({
 					overwriteDuplicates: OVERWRITE_DUPLICATES
 				})}`
-			);
+			)
 
 			if (OVERWRITE_DUPLICATES) {
-				events[i] = newEvent;
-				storedEvents.set(events);
-				return;
+				events[i] = newEvent
+				storedEvents.set(events)
+				return
 			}
 
-			break;
+			break
 		}
 	}
 
-	events.push(newEvent);
+	events.push(newEvent)
 
-	storedEvents.set(events);
+	storedEvents.set(events)
 }
 
-export const storedMetrics = storable<Array<Metrics>>("metrics", [] as Array<Metrics>);
+export const storedMetrics = storable<Array<Metrics>>("metrics", [] as Array<Metrics>)
 
 export function storeMetrics(newMetrics: Metrics) {
-	const metrics = storedMetrics.get();
+	const metrics = storedMetrics.get()
 
-	metrics.push(newMetrics);
+	metrics.push(newMetrics)
 
-	storedMetrics.set(metrics);
+	storedMetrics.set(metrics)
 }
 
 // TODO

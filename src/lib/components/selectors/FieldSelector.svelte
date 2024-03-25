@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { clearCanvas, clientDimensionsOfCanvas, drawImage, drawPoint } from "$lib/canvas";
+	import { clearCanvas, clientDimensionsOfCanvas, drawImage, drawPoint } from "$lib/canvas"
 	import {
 		createPoint,
 		createPointFromMouseEvent,
@@ -7,84 +7,84 @@
 		type NormalizedPoint,
 		type Point,
 		flipPoint
-	} from "$lib/point";
-	import { onMount } from "svelte";
+	} from "$lib/point"
+	import { onMount } from "svelte"
 
-	export let field: string;
+	export let field: string
 
-	export let readonly: boolean = false;
+	export let readonly: boolean = false
 
-	let image: HTMLImageElement | null = null;
+	let image: HTMLImageElement | null = null
 
-	let canvas: HTMLCanvasElement;
+	let canvas: HTMLCanvasElement
 
-	let flipped = false;
+	let flipped = false
 
 	onMount(() => {
-		image = new Image();
-		image.src = field;
+		image = new Image()
+		image.src = field
 		image.onload = () => {
-			if (!image) return;
+			if (!image) return
 
-			canvas.width = image.width;
-			canvas.height = image.height;
-			draw();
-		};
-	});
+			canvas.width = image.width
+			canvas.height = image.height
+			draw()
+		}
+	})
 
-	export let point: NormalizedPoint | null;
+	export let point: NormalizedPoint | null
 
 	$: {
-		point, draw();
+		point, draw()
 	}
 
 	$: {
-		flipped, draw();
+		flipped, draw()
 	}
 
 	function draw() {
-		clearCanvas(canvas);
-		drawImage(image, canvas, flipped);
+		clearCanvas(canvas)
+		drawImage(image, canvas, flipped)
 		if (point) {
-			drawPoint(point, canvas, flipped);
+			drawPoint(point, canvas, flipped)
 		}
 	}
 
 	function updatePoint(newPoint: Point | null) {
 		if (readonly) {
-			return;
+			return
 		}
 
 		if (newPoint === null) {
-			point = null;
-			return;
+			point = null
+			return
 		}
 
-		const dimensions = clientDimensionsOfCanvas(canvas);
+		const dimensions = clientDimensionsOfCanvas(canvas)
 
-		const normalizedPoint = normalizePoint(newPoint, dimensions);
+		const normalizedPoint = normalizePoint(newPoint, dimensions)
 
 		if (flipped) {
-			const flippedPoint = flipPoint(normalizedPoint);
+			const flippedPoint = flipPoint(normalizedPoint)
 
-			point = flippedPoint;
+			point = flippedPoint
 		} else {
-			point = normalizedPoint;
+			point = normalizedPoint
 		}
 	}
 
 	function handleMouseEvent(mouseEvent: MouseEvent) {
-		updatePoint(createPointFromMouseEvent(mouseEvent));
+		updatePoint(createPointFromMouseEvent(mouseEvent))
 	}
 
 	function handleTouchEvent(touchEvent: TouchEvent) {
-		const left = canvas.offsetLeft;
-		const top = canvas.offsetTop;
+		const left = canvas.offsetLeft
+		const top = canvas.offsetTop
 
-		const x = touchEvent.touches[0].clientX - left;
-		const y = touchEvent.touches[0].clientY - top;
+		const x = touchEvent.touches[0].clientX - left
+		const y = touchEvent.touches[0].clientY - top
 
-		updatePoint(createPoint(x, y));
+		updatePoint(createPoint(x, y))
 	}
 </script>
 

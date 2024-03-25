@@ -1,4 +1,4 @@
-import { type NormalizedPoint, flipPoint, type Dimensions, scalePoint } from "./point";
+import { type NormalizedPoint, flipPoint, type Dimensions, scalePoint } from "./point"
 
 export enum DrawStyle {
 	DOT,
@@ -11,23 +11,23 @@ export function clientDimensionsOfCanvas(canvas: HTMLCanvasElement): Dimensions 
 	return {
 		width: canvas.clientWidth,
 		height: canvas.clientHeight
-	};
+	}
 }
 
 export function renderDimensionsOfCanvas(canvas: HTMLCanvasElement): Dimensions {
 	return {
 		width: canvas.width,
 		height: canvas.height
-	};
+	}
 }
 
 export function clearCanvas(canvas: HTMLCanvasElement) {
-	if (!canvas) return;
+	if (!canvas) return
 
-	const ctx = canvas.getContext("2d");
-	if (!ctx) return;
+	const ctx = canvas.getContext("2d")
+	if (!ctx) return
 
-	ctx.clearRect(0, 0, canvas.width, canvas.height);
+	ctx.clearRect(0, 0, canvas.width, canvas.height)
 }
 
 export function drawImage(
@@ -35,19 +35,19 @@ export function drawImage(
 	canvas: HTMLCanvasElement,
 	flipped: boolean
 ) {
-	if (!canvas) return;
-	if (!image) return;
+	if (!canvas) return
+	if (!image) return
 
-	const ctx = canvas.getContext("2d");
-	if (!ctx) return;
+	const ctx = canvas.getContext("2d")
+	if (!ctx) return
 
-	ctx.resetTransform();
+	ctx.resetTransform()
 
 	if (flipped) {
-		ctx.scale(-1, -1);
-		ctx.drawImage(image, -canvas.width, -canvas.height, canvas.width, canvas.height);
+		ctx.scale(-1, -1)
+		ctx.drawImage(image, -canvas.width, -canvas.height, canvas.width, canvas.height)
 	} else {
-		ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+		ctx.drawImage(image, 0, 0, canvas.width, canvas.height)
 	}
 }
 
@@ -56,33 +56,33 @@ export function drawPoint(
 	canvas: HTMLCanvasElement,
 	flipped: boolean
 ) {
-	if (!canvas) return;
+	if (!canvas) return
 
-	const ctx = canvas.getContext("2d");
-	if (!ctx) return;
+	const ctx = canvas.getContext("2d")
+	if (!ctx) return
 
-	ctx.resetTransform();
+	ctx.resetTransform()
 
-	ctx.fillStyle = "#fafafa";
+	ctx.fillStyle = "#fafafa"
 
-	const radius = 20;
+	const radius = 20
 
-	ctx.beginPath();
+	ctx.beginPath()
 
-	const dimensions = renderDimensionsOfCanvas(canvas);
+	const dimensions = renderDimensionsOfCanvas(canvas)
 
 	if (flipped) {
-		const flippedPoint = flipPoint(normalizedPoint);
+		const flippedPoint = flipPoint(normalizedPoint)
 
-		const point = scalePoint(flippedPoint, dimensions);
+		const point = scalePoint(flippedPoint, dimensions)
 
-		ctx.scale(-1, -1);
-		ctx.arc(-point.x, -point.y, radius, 0, 2 * Math.PI);
+		ctx.scale(-1, -1)
+		ctx.arc(-point.x, -point.y, radius, 0, 2 * Math.PI)
 	} else {
-		const point = scalePoint(normalizedPoint, dimensions);
+		const point = scalePoint(normalizedPoint, dimensions)
 
-		ctx.arc(point.x, point.y, radius, 0, 2 * Math.PI);
+		ctx.arc(point.x, point.y, radius, 0, 2 * Math.PI)
 	}
 
-	ctx.fill();
+	ctx.fill()
 }

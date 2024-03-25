@@ -1,51 +1,51 @@
-import { browser } from "$app/environment";
-import { writable, type Subscriber } from "svelte/store";
+import { browser } from "$app/environment"
+import { writable, type Subscriber } from "svelte/store"
 
 export function storable<T>(key: string, fallback: T) {
-	const store = writable(fallback);
+	const store = writable(fallback)
 
 	if (browser) {
-		const valueOrNull = localStorage.getItem(key);
+		const valueOrNull = localStorage.getItem(key)
 
 		if (valueOrNull != null) {
-			const value = JSON.parse(valueOrNull);
+			const value = JSON.parse(valueOrNull)
 
-			store.set(value);
+			store.set(value)
 		}
 	}
 
 	return {
 		get: (): T => {
-			if (!browser) return fallback;
+			if (!browser) return fallback
 
-			const valueOrNull = localStorage.getItem(key);
+			const valueOrNull = localStorage.getItem(key)
 
 			if (valueOrNull === null) {
-				localStorage.setItem(key, JSON.stringify(fallback));
+				localStorage.setItem(key, JSON.stringify(fallback))
 
-				return fallback;
+				return fallback
 			}
 
-			const value = JSON.parse(valueOrNull);
+			const value = JSON.parse(valueOrNull)
 
-			return value;
+			return value
 		},
 		set: (value: T) => {
-			if (!browser) return;
+			if (!browser) return
 
-			store.set(value);
+			store.set(value)
 
-			localStorage.setItem(key, JSON.stringify(value));
+			localStorage.setItem(key, JSON.stringify(value))
 		},
 		clear: () => {
-			if (!browser) return;
+			if (!browser) return
 
-			store.set(fallback);
+			store.set(fallback)
 
-			localStorage.setItem(key, JSON.stringify(fallback));
+			localStorage.setItem(key, JSON.stringify(fallback))
 		},
 		subscribe: (subscriber: Subscriber<T>) => {
-			store.subscribe(subscriber);
+			store.subscribe(subscriber)
 		}
-	};
+	}
 }

@@ -1,20 +1,20 @@
 <script lang="ts">
-	export let value = 0;
+	export let value = 0
 
-	export let name = "";
+	export let name = ""
 
-	export let readonly: boolean = false;
+	export let readonly: boolean = false
 
 	function minus() {
-		if (readonly) return;
+		if (readonly) return
 
-		if (value > 0) value--;
+		if (value > 0) value--
 	}
 
 	function plus() {
-		if (readonly) return;
+		if (readonly) return
 
-		value++;
+		value++
 	}
 </script>
 

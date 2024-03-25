@@ -1,9 +1,9 @@
 <script lang="ts">
-	import type { Metrics } from "$lib/metrics";
+	import type { Metrics } from "$lib/metrics"
 
-	export let metrics: Metrics[];
+	export let metrics: Metrics[]
 
-	export let selectedMetrics: Metrics | null = null;
+	export let selectedMetrics: Metrics | null = null
 </script>
 
 <select bind:value={selectedMetrics}>

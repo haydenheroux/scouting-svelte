@@ -1,7 +1,7 @@
 <script lang="ts">
-	let showing = false;
+	let showing = false
 
-	export let subject = "";
+	export let subject = ""
 </script>
 
 <div class="vertical">

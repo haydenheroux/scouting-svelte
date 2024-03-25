@@ -1,19 +1,19 @@
 <script lang="ts">
-	import { storeMetrics } from "$lib/stores";
-	import MetricsEditor from "$lib/components/sections/MetricsEditor.svelte";
-	import Section from "$lib/components/Section.svelte";
-	import type { Metrics } from "$lib/metrics";
-	import { Modal, Content, Trigger } from "sv-popup";
-	import MetricsQrCode from "$lib/components/sections/MetricsQRCode.svelte";
+	import { storeMetrics } from "$lib/stores"
+	import MetricsEditor from "$lib/components/sections/MetricsEditor.svelte"
+	import Section from "$lib/components/Section.svelte"
+	import type { Metrics } from "$lib/metrics"
+	import { Modal, Content, Trigger } from "sv-popup"
+	import MetricsQrCode from "$lib/components/sections/MetricsQRCode.svelte"
 
-	let metrics: Metrics = {} as Metrics;
+	let metrics: Metrics = {} as Metrics
 
-	let showQRCode = false;
+	let showQRCode = false
 
 	function handleSubmit() {
-		storeMetrics(metrics);
+		storeMetrics(metrics)
 
-		showQRCode = true;
+		showQRCode = true
 	}
 </script>
 

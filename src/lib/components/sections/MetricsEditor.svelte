@@ -1,12 +1,12 @@
 <script lang="ts">
-	import field2024 from "$lib/images/2024.png";
-	import FieldSelector from "$lib/components/selectors/FieldSelector.svelte";
-	import MultipleOptionSelector from "$lib/components/selectors/OptionSelector.svelte";
-	import BooleanSelector from "$lib/components/selectors/BooleanSelector.svelte";
-	import Notes from "$lib/components/selectors/NotesComposer.svelte";
-	import Section from "$lib/components/Section.svelte";
-	import { Trap, Climb, Harmony, type Metrics } from "$lib/metrics";
-	import NumberSelector from "$lib/components/selectors/NumberSelector.svelte";
+	import field2024 from "$lib/images/2024.png"
+	import FieldSelector from "$lib/components/selectors/FieldSelector.svelte"
+	import MultipleOptionSelector from "$lib/components/selectors/OptionSelector.svelte"
+	import BooleanSelector from "$lib/components/selectors/BooleanSelector.svelte"
+	import Notes from "$lib/components/selectors/NotesComposer.svelte"
+	import Section from "$lib/components/Section.svelte"
+	import { Trap, Climb, Harmony, type Metrics } from "$lib/metrics"
+	import NumberSelector from "$lib/components/selectors/NumberSelector.svelte"
 	import {
 		driverStationOf,
 		type Event,
@@ -16,52 +16,52 @@
 		driverStations,
 		stringifyDriverStation,
 		createQualificationMatchKey
-	} from "$lib/api";
-	import { storedEvents } from "$lib/stores";
-	import EventSelector from "../selectors/EventSelector.svelte";
+	} from "$lib/api"
+	import { storedEvents } from "$lib/stores"
+	import EventSelector from "../selectors/EventSelector.svelte"
 
-	export let readonly: boolean = false;
+	export let readonly: boolean = false
 
-	export let hideParticipant: boolean = false;
+	export let hideParticipant: boolean = false
 
-	export let metrics: Metrics;
+	export let metrics: Metrics
 
-	let event: Event | null;
-	let match: MatchNumber = 1;
+	let event: Event | null
+	let match: MatchNumber = 1
 
 	$: {
-		metrics.match = createQualificationMatchKey(event, match);
+		metrics.match = createQualificationMatchKey(event, match)
 	}
 
-	let selectedEventCode: string | null = null;
+	let selectedEventCode: string | null = null
 
 	$: {
 		if (selectedEventCode == null) {
-			event = null;
+			event = null
 		} else {
-			event = getEventByEventCode(selectedEventCode);
+			event = getEventByEventCode(selectedEventCode)
 		}
 	}
 
 	function previousMatch() {
-		if (readonly) return;
+		if (readonly) return
 
-		if (match > 1) match -= 1;
+		if (match > 1) match -= 1
 	}
 
 	function nextMatch() {
-		if (readonly) return;
+		if (readonly) return
 
-		match += 1;
+		match += 1
 	}
 
-	let selectedStation: StationEnum = StationEnum.RED_1;
+	let selectedStation: StationEnum = StationEnum.RED_1
 
 	$: {
-		const driverStation = driverStationOf(selectedStation);
+		const driverStation = driverStationOf(selectedStation)
 
-		metrics.alliance = driverStation.alliance;
-		metrics.station = driverStation.station;
+		metrics.alliance = driverStation.alliance
+		metrics.station = driverStation.station
 	}
 </script>
 
