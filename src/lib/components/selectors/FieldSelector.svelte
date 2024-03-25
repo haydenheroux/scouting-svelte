@@ -72,7 +72,7 @@
 
 <canvas
 	on:click={handleMouseEvent}
-	on:touchstart={handleTouchEvent}
+	on:touchstart|passive={handleTouchEvent}
 	bind:this={canvas}
 />
 <button class="primary" on:click={() => (point = null)}>Clear</button>
