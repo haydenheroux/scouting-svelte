@@ -3,7 +3,14 @@ interface Dimensions {
 	height: number;
 }
 
-export function dimensionsOfCanvas(canvas: HTMLCanvasElement): Dimensions {
+export function clientDimensionsOfCanvas(canvas: HTMLCanvasElement): Dimensions {
+	return {
+		width: canvas.clientWidth,
+		height: canvas.clientHeight
+	};
+}
+
+export function renderDimensionsOfCanvas(canvas: HTMLCanvasElement): Dimensions {
 	return {
 		width: canvas.width,
 		height: canvas.height

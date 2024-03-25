@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Point, dimensionsOfCanvas, flipPoint, NormalizedPoint } from "$lib/point";
+	import { Point, clientDimensionsOfCanvas, flipPoint, NormalizedPoint } from "$lib/point";
 	import { clearCanvas, drawImage, drawPoint } from "$lib/canvas";
 	import { onMount } from "svelte";
 
@@ -21,8 +21,8 @@
 		image.onload = () => {
 			if (!image) return;
 
-			canvas.width = canvas.offsetWidth;
-			canvas.height = canvas.offsetWidth * (image.height / image.width);
+			canvas.width = image.width;
+			canvas.height = image.height;
 			draw();
 		};
 	});
@@ -30,7 +30,11 @@
 	let canvas: HTMLCanvasElement;
 
 	function updatePoint(p: Point) {
-		const normalizedPoint = p.normalizeTo(dimensionsOfCanvas(canvas));
+		let normalizedPoint = p.normalizeTo(clientDimensionsOfCanvas(canvas));
+
+		if (flipped) {
+			normalizedPoint = flipPoint(normalizedPoint);
+		}
 
 		point = normalizedPoint;
 
@@ -38,7 +42,9 @@
 	}
 
 	function handleMouse(e: MouseEvent) {
-		updatePoint(Point.fromMouseEvent(e));
+		const point = Point.fromMouseEvent(e);
+
+		updatePoint(point);
 	}
 
 	function handleTouch(event: TouchEvent) {
@@ -62,10 +68,6 @@
 	}
 
 	function flip() {
-		if (point) {
-			point = flipPoint(point);
-		}
-
 		flipped = !flipped;
 		draw();
 	}
