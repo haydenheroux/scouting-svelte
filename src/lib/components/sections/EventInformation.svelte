@@ -77,13 +77,12 @@
 				{@const metrics = metricsByStation.get(station)}
 				{#if metrics}
 					<button class={alliance === Alliance.RED ? "red" : "blue"}>
-						<p>{metrics.team}</p>
 						<Modal small button={false}>
 							<Content>
 								<MetricsQrCode {metrics} />
 							</Content>
 							<Trigger>
-									<span class="material-symbols-rounded icon" style="">qr_code_2</span>
+								<p>{metrics.team}</p>
 							</Trigger>
 						</Modal>
 					</button>
@@ -113,16 +112,6 @@
 	}
 
 	button {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-	}
-
-	button > *:not(:last-child), .icon.border {
-		border-right: 1px solid var(--clr-foreground);
-	}
-
-	.icon {
 		display: flex;
 		align-items: center;
 		justify-content: center;
