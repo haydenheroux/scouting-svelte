@@ -1,10 +1,24 @@
-import { renderDimensionsOfCanvas, type NormalizedPoint, flipPoint } from "./point";
+import { type NormalizedPoint, flipPoint, type Dimensions, scalePoint } from "./point";
 
 export enum DrawStyle {
 	DOT,
 	RING,
 	CROSS,
 	TRIANGLE
+}
+
+export function clientDimensionsOfCanvas(canvas: HTMLCanvasElement): Dimensions {
+	return {
+		width: canvas.clientWidth,
+		height: canvas.clientHeight
+	};
+}
+
+export function renderDimensionsOfCanvas(canvas: HTMLCanvasElement): Dimensions {
+	return {
+		width: canvas.width,
+		height: canvas.height
+	};
 }
 
 export function clearCanvas(canvas: HTMLCanvasElement) {
@@ -55,13 +69,17 @@ export function drawPoint(
 
 	ctx.beginPath();
 
+	const dimensions = renderDimensionsOfCanvas(canvas);
+
 	if (flipped) {
-		const flippedPoint = flipPoint(normalizedPoint).scaleBy(renderDimensionsOfCanvas(canvas));
+		const flippedPoint = flipPoint(normalizedPoint);
+
+		const point = scalePoint(flippedPoint, dimensions);
 
 		ctx.scale(-1, -1);
-		ctx.arc(-flippedPoint.x, -flippedPoint.y, radius, 0, 2 * Math.PI);
+		ctx.arc(-point.x, -point.y, radius, 0, 2 * Math.PI);
 	} else {
-		const point = normalizedPoint.scaleBy(renderDimensionsOfCanvas(canvas));
+		const point = scalePoint(normalizedPoint, dimensions);
 
 		ctx.arc(point.x, point.y, radius, 0, 2 * Math.PI);
 	}

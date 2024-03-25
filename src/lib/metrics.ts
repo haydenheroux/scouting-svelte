@@ -1,4 +1,3 @@
-import { NormalizedPoint, stringifyPoint } from "$lib/point";
 import { arrayToObject, stringToArray } from "$lib/array";
 import {
 	type MatchKey,
@@ -7,6 +6,7 @@ import {
 	tbaMatchKey,
 	type StationNumber
 } from "./api";
+import { createNormalizedPointFromString, stringifyPoint, type NormalizedPoint } from "./point";
 
 export enum Trap {
 	NONE = "None",
@@ -104,7 +104,7 @@ export function deserializeMetrics(serialized: Record<string, string>): Metrics 
 
 	metrics.team = Number.parseInt(serialized[TEAM_KEY]);
 
-	metrics.start = NormalizedPoint.fromString(serialized[START_KEY]);
+	metrics.start = createNormalizedPointFromString(serialized[START_KEY]);
 
 	metrics.autoAmpMakes = Number.parseInt(serialized[AUTO_AMP_MAKE_KEY]);
 	metrics.autoAmpMisses = Number.parseInt(serialized[AUTO_AMP_MISS_KEY]);

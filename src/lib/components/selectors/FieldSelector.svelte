@@ -1,19 +1,15 @@
 <script lang="ts">
-	import { Point, clientDimensionsOfCanvas, flipPoint, NormalizedPoint } from "$lib/point";
-	import { clearCanvas, drawImage, drawPoint } from "$lib/canvas";
+	import { clearCanvas, clientDimensionsOfCanvas, drawImage, drawPoint } from "$lib/canvas";
+	import { createPoint, createPointFromMouseEvent, normalizePoint, type NormalizedPoint, type Point, flipPoint } from "$lib/point";
 	import { onMount } from "svelte";
 
 	export let field: string;
 
-	let flipped = false;
-
-	export let point: NormalizedPoint | null;
-
-	$: {
-		point, draw();
-	}
-
 	let image: HTMLImageElement | null = null;
+
+	let canvas: HTMLCanvasElement;
+
+	let flipped = false;
 
 	onMount(() => {
 		image = new Image();
@@ -27,36 +23,14 @@
 		};
 	});
 
-	let canvas: HTMLCanvasElement;
+	export let point: NormalizedPoint | null;
 
-	function updatePoint(p: Point) {
-		let normalizedPoint = p.normalizeTo(clientDimensionsOfCanvas(canvas));
-
-		if (flipped) {
-			normalizedPoint = flipPoint(normalizedPoint);
-		}
-
-		point = normalizedPoint;
-
-		draw();
+	$: {
+		point, draw();
 	}
 
-	function handleMouse(e: MouseEvent) {
-		const point = Point.fromMouseEvent(e);
-
-		updatePoint(point);
-	}
-
-	function handleTouch(event: TouchEvent) {
-		const left = canvas.offsetLeft;
-		const top = canvas.offsetTop;
-
-		const x = event.touches[0].clientX - left;
-		const y = event.touches[0].clientY - top;
-
-		const point = new Point(x, y);
-
-		updatePoint(point);
+	$: {
+		flipped, draw();
 	}
 
 	function draw() {
@@ -67,17 +41,39 @@
 		}
 	}
 
-	function flip() {
-		flipped = !flipped;
-		draw();
+	function updatePoint(newPoint: Point) {
+		const dimensions = clientDimensionsOfCanvas(canvas);
+
+		const normalizedPoint = normalizePoint(newPoint, dimensions);
+
+		if (flipped) {
+			const flippedPoint = flipPoint(normalizedPoint);
+
+			point = flippedPoint;
+		} else {
+			point = normalizedPoint;
+		}
+	}
+
+	function handleMouseEvent(mouseEvent: MouseEvent) {
+		updatePoint(createPointFromMouseEvent(mouseEvent));
+	}
+
+	function handleTouchEvent(touchEvent: TouchEvent) {
+		const left = canvas.offsetLeft;
+		const top = canvas.offsetTop;
+
+		const x = touchEvent.touches[0].clientX - left;
+		const y = touchEvent.touches[0].clientY - top;
+
+		updatePoint(createPoint(x, y));
 	}
 </script>
 
 <canvas
-	on:click={handleMouse}
-	on:touchstart={handleTouch}
-	on:touchmove={handleTouch}
+	on:click={handleMouseEvent}
+	on:touchstart={handleTouchEvent}
 	bind:this={canvas}
 />
 <button class="primary" on:click={() => (point = null)}>Clear</button>
-<button class="primary" on:click={flip}>Flip</button>
+<button class="primary" on:click={() => flipped = !flipped}>Flip</button>
