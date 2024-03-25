@@ -1,3 +1,4 @@
+import type { Metrics } from "./metrics";
 import { storedEvents } from "./stores";
 
 export enum Alliance {
@@ -59,6 +60,33 @@ export function driverStationOf(stationEnum: StationEnum): DriverStation {
 			return createDriverStation(Alliance.BLUE, 3);
 	}
 }
+
+export function stationEnumOf(metrics: Metrics): StationEnum | null {
+    switch (metrics.alliance) {
+        case Alliance.RED:
+            switch (metrics.station) {
+                case 1:
+                    return StationEnum.RED_1;
+                case 2:
+                    return StationEnum.RED_2;
+                case 3:
+                    return StationEnum.RED_3;
+            }
+            break;
+        case Alliance.BLUE:
+            switch (metrics.station) {
+                case 1:
+                    return StationEnum.BLUE_1;
+                case 2:
+                    return StationEnum.BLUE_2;
+                case 3:
+                    return StationEnum.BLUE_3;
+            }
+            break;
+    }
+    return null; // Return null if the provided DriverStation is invalid
+}
+
 
 export type TBAEventCode = string;
 
@@ -218,4 +246,25 @@ export function defaultParticipant(): Participant {
 		station: StationEnum.RED_1,
 		team: 0
 	};
+}
+
+export function participantFromMetrics(metrics: Metrics): Participant {
+	const stationEnumOrNull = stationEnumOf(metrics);
+
+	const fallback = defaultParticipant();
+
+	if (!metrics || !metrics.match) {
+		return fallback;
+	}
+
+	const hasEvent = metrics.match && metrics.match.event;
+
+	return {
+		event: hasEvent ? metrics.match.event : fallback.event,
+		type: metrics.match.matchType,
+		set: metrics.match.set,
+		match: metrics.match.match,
+		station: stationEnumOrNull ? stationEnumOrNull : fallback.station,
+		team: metrics.team,
+	}
 }

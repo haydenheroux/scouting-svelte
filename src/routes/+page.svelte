@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { storeMetrics } from "$lib/stores";
-	import MetricsSelector from "$lib/components/sections/MetricsSelector.svelte";
+	import MetricsEditor from "$lib/components/sections/MetricsEditor.svelte";
 	import Section from "$lib/components/Section.svelte";
 	import type { Metrics } from "$lib/metrics";
 	import { Modal, Content, Trigger } from "sv-popup";
@@ -17,7 +17,7 @@
 	}
 </script>
 
-<MetricsSelector bind:metrics />
+<MetricsEditor bind:metrics />
 
 <Section name="Submit">
 	<Modal small button={false}>

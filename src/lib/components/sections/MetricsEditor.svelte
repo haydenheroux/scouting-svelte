@@ -8,13 +8,15 @@
 	import { Trap, Climb, Harmony, type Metrics } from "$lib/metrics";
 	import ParticipantSelector from "$lib/components/selectors/ParticipantSelector.svelte";
 	import NumberSelector from "$lib/components/selectors/NumberSelector.svelte";
-	import { createMatchKey, defaultParticipant, driverStationOf, type Participant } from "$lib/api";
-
-	let participant: Participant = defaultParticipant();
+	import { createMatchKey, driverStationOf, participantFromMetrics, type Participant } from "$lib/api";
 
 	export let metrics: Metrics;
 
+	let participant: Participant;
+
 	$: {
+		participant = participantFromMetrics(metrics);
+
 		metrics.match = createMatchKey(
 			participant.event,
 			participant.type,
