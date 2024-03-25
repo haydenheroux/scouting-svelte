@@ -161,8 +161,6 @@ nav {
 }
 
 nav em {
-	color: var(--clr-foreground);
-
 	font-size: var(--fs-400);
 	font-style: normal;
 }

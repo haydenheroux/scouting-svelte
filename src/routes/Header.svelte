@@ -6,7 +6,7 @@
 <header>
 	<div class="container">
 		<nav>
-			<a href="{base}/"><em>scout</em></a>
+			<NavLink href="{base}/"><em>scout</em></NavLink>
 			<NavLink href="{base}/events">events</NavLink>
 			<NavLink href="{base}/view">view</NavLink>
 		</nav>
