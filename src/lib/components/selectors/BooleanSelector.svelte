@@ -8,14 +8,20 @@
 </script>
 
 <div class="split">
-	<button on:click={() => {
-		if (readonly) return;
+	<button
+		on:click={() => {
+			if (readonly) return;
 
-		value = false
-	}} class:active={value === false}>{negative}</button>
-	<button on:click={() => {
-		if (readonly) return;
+			value = false;
+		}}
+		class:active={value === false}>{negative}</button
+	>
+	<button
+		on:click={() => {
+			if (readonly) return;
 
-		value = true
-	}} class:active={value}>{positive}</button>
+			value = true;
+		}}
+		class:active={value}>{positive}</button
+	>
 </div>

@@ -7,7 +7,16 @@
 	import Section from "$lib/components/Section.svelte";
 	import { Trap, Climb, Harmony, type Metrics } from "$lib/metrics";
 	import NumberSelector from "$lib/components/selectors/NumberSelector.svelte";
-	import { driverStationOf, type Event, type MatchNumber, StationEnum, getEventByEventCode, driverStations, stringifyDriverStation, createQualificationMatchKey } from "$lib/api";
+	import {
+		driverStationOf,
+		type Event,
+		type MatchNumber,
+		StationEnum,
+		getEventByEventCode,
+		driverStations,
+		stringifyDriverStation,
+		createQualificationMatchKey
+	} from "$lib/api";
 	import { storedEvents } from "$lib/stores";
 	import EventSelector from "../selectors/EventSelector.svelte";
 
@@ -21,10 +30,7 @@
 	let match: MatchNumber = 1;
 
 	$: {
-		metrics.match = createQualificationMatchKey(
-			event,
-			match
-		);
+		metrics.match = createQualificationMatchKey(event, match);
 	}
 
 	let selectedEventCode: string | null = null;
@@ -79,7 +85,8 @@
 	<Section name="Select Station">
 		<select disabled={readonly} bind:value={selectedStation}>
 			{#each driverStations as driverStation}
-				<option value={driverStation}>{stringifyDriverStation(driverStationOf(driverStation))}</option
+				<option value={driverStation}
+					>{stringifyDriverStation(driverStationOf(driverStation))}</option
 				>
 			{/each}
 		</select>
@@ -89,7 +96,6 @@
 		<input type="number" min="0" {readonly} bind:value={metrics.team} />
 	</Section>
 {/if}
-
 
 <Section name="Starting Position">
 	<FieldSelector {readonly} bind:point={metrics.start} field={field2024} />

@@ -1,6 +1,13 @@
 <script lang="ts">
 	import { clearCanvas, clientDimensionsOfCanvas, drawImage, drawPoint } from "$lib/canvas";
-	import { createPoint, createPointFromMouseEvent, normalizePoint, type NormalizedPoint, type Point, flipPoint } from "$lib/point";
+	import {
+		createPoint,
+		createPointFromMouseEvent,
+		normalizePoint,
+		type NormalizedPoint,
+		type Point,
+		flipPoint
+	} from "$lib/point";
 	import { onMount } from "svelte";
 
 	export let field: string;
@@ -81,10 +88,6 @@
 	}
 </script>
 
-<canvas
-	on:click={handleMouseEvent}
-	on:touchstart|passive={handleTouchEvent}
-	bind:this={canvas}
-/>
+<canvas on:click={handleMouseEvent} on:touchstart|passive={handleTouchEvent} bind:this={canvas} />
 <button class="primary" on:click={() => updatePoint(null)}>Clear</button>
-<button class="primary" on:click={() => flipped = !flipped}>Flip</button>
+<button class="primary" on:click={() => (flipped = !flipped)}>Flip</button>

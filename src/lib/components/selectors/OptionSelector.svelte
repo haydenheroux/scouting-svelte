@@ -7,10 +7,13 @@
 
 <div class="split">
 	{#each options as option}
-		<button on:click={() => {
-			if (readonly) return;
-			
-			selected = option
-		}} class:active={selected == option}>{option}</button>
+		<button
+			on:click={() => {
+				if (readonly) return;
+
+				selected = option;
+			}}
+			class:active={selected == option}>{option}</button
+		>
 	{/each}
 </div>

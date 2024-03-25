@@ -7,8 +7,9 @@ const SEPARATOR = ",";
 
 export function createPoint(x: number, y: number): Point {
 	return {
-		x, y
-	}
+		x,
+		y
+	};
 }
 
 export function createPointFromMouseEvent(mouseEvent: MouseEvent): Point {
@@ -20,8 +21,9 @@ export function normalizePoint(point: Point, dimensions: Dimensions): Normalized
 	const v = point.y / dimensions.height;
 
 	return {
-		u, v
-	}
+		u,
+		v
+	};
 }
 
 export function scalePoint(point: NormalizedPoint, dimensions: Dimensions): Point {
@@ -43,8 +45,9 @@ export interface NormalizedPoint {
 
 export function createNormalizedPoint(u: number, v: number): NormalizedPoint {
 	return {
-		u, v
-	}
+		u,
+		v
+	};
 }
 
 export function createNormalizedPointFromString(s: string): NormalizedPoint {

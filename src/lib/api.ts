@@ -61,31 +61,30 @@ export function driverStationOf(stationEnum: StationEnum): DriverStation {
 }
 
 export function stationEnumOf(alliance: Alliance, station: StationNumber): StationEnum | null {
-    switch (alliance) {
-        case Alliance.RED:
-            switch (station) {
-                case 1:
-                    return StationEnum.RED_1;
-                case 2:
-                    return StationEnum.RED_2;
-                case 3:
-                    return StationEnum.RED_3;
-            }
-            break;
-        case Alliance.BLUE:
-            switch (station) {
-                case 1:
-                    return StationEnum.BLUE_1;
-                case 2:
-                    return StationEnum.BLUE_2;
-                case 3:
-                    return StationEnum.BLUE_3;
-            }
-            break;
-    }
-    return null; // Return null if the provided DriverStation is invalid
+	switch (alliance) {
+		case Alliance.RED:
+			switch (station) {
+				case 1:
+					return StationEnum.RED_1;
+				case 2:
+					return StationEnum.RED_2;
+				case 3:
+					return StationEnum.RED_3;
+			}
+			break;
+		case Alliance.BLUE:
+			switch (station) {
+				case 1:
+					return StationEnum.BLUE_1;
+				case 2:
+					return StationEnum.BLUE_2;
+				case 3:
+					return StationEnum.BLUE_3;
+			}
+			break;
+	}
+	return null; // Return null if the provided DriverStation is invalid
 }
-
 
 export type TBAEventCode = string;
 
@@ -197,8 +196,7 @@ export function parseMatchKey(matchKey: TBAMatchKey): MatchKey | null {
 
 	const type = typeOf[tbaMatchType as TBAMatchType];
 	const set = type === MatchType.QUALIFICATION ? 1 : parseInt(secondNumber);
-	const match =
-		type === MatchType.QUALIFICATION ? parseInt(firstNumber) : parseInt(secondNumber);
+	const match = type === MatchType.QUALIFICATION ? parseInt(firstNumber) : parseInt(secondNumber);
 
 	return createMatchKey(event, type, set, match);
 }
