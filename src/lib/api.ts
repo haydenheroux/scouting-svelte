@@ -1,4 +1,3 @@
-import type { Metrics } from "./metrics";
 import { storedEvents } from "./stores";
 
 export enum Alliance {
@@ -61,10 +60,10 @@ export function driverStationOf(stationEnum: StationEnum): DriverStation {
 	}
 }
 
-export function stationEnumOf(metrics: Metrics): StationEnum | null {
-    switch (metrics.alliance) {
+export function stationEnumOf(alliance: Alliance, station: StationNumber): StationEnum | null {
+    switch (alliance) {
         case Alliance.RED:
-            switch (metrics.station) {
+            switch (station) {
                 case 1:
                     return StationEnum.RED_1;
                 case 2:
@@ -74,7 +73,7 @@ export function stationEnumOf(metrics: Metrics): StationEnum | null {
             }
             break;
         case Alliance.BLUE:
-            switch (metrics.station) {
+            switch (station) {
                 case 1:
                     return StationEnum.BLUE_1;
                 case 2:
@@ -140,14 +139,14 @@ export enum TBAMatchType {
 	FINAL = "f"
 }
 
-const matchTypeOf: Record<TBAMatchType, MatchType> = {
+const typeOf: Record<TBAMatchType, MatchType> = {
 	[TBAMatchType.QUALIFICATION]: MatchType.QUALIFICATION,
 	[TBAMatchType.QUARTERFINAL]: MatchType.QUARTERFINAL,
 	[TBAMatchType.SEMIFINAL]: MatchType.SEMIFINAL,
 	[TBAMatchType.FINAL]: MatchType.FINAL
 };
 
-const tbaMatchTypeOf: Record<MatchType, TBAMatchType> = {
+const tbaTypeOf: Record<MatchType, TBAMatchType> = {
 	[MatchType.QUALIFICATION]: TBAMatchType.QUALIFICATION,
 	[MatchType.QUARTERFINAL]: TBAMatchType.QUARTERFINAL,
 	[MatchType.SEMIFINAL]: TBAMatchType.SEMIFINAL,
@@ -161,22 +160,26 @@ export type SetNumber = number;
 export type MatchKey = {
 	event: Event | null;
 	match: MatchNumber;
-	matchType: MatchType;
+	type: MatchType;
 	set: SetNumber;
 };
 
-export function createMatchKey(
+function createMatchKey(
 	event: Event | null,
-	matchType: MatchType,
+	type: MatchType,
 	set: SetNumber,
 	match: MatchNumber
 ): MatchKey {
 	return {
 		event,
 		match,
-		matchType,
+		type,
 		set
 	};
+}
+
+export function createQualificationMatchKey(event: Event | null, match: MatchNumber) {
+	return createMatchKey(event, MatchType.QUALIFICATION, 1, match);
 }
 
 export type TBAMatchKey = string;
@@ -192,18 +195,18 @@ export function parseMatchKey(matchKey: TBAMatchKey): MatchKey | null {
 
 	const event = getEventByEventCode(tbaEvent);
 
-	const matchType = matchTypeOf[tbaMatchType as TBAMatchType];
-	const set = matchType === MatchType.QUALIFICATION ? 1 : parseInt(secondNumber);
+	const type = typeOf[tbaMatchType as TBAMatchType];
+	const set = type === MatchType.QUALIFICATION ? 1 : parseInt(secondNumber);
 	const match =
-		matchType === MatchType.QUALIFICATION ? parseInt(firstNumber) : parseInt(secondNumber);
+		type === MatchType.QUALIFICATION ? parseInt(firstNumber) : parseInt(secondNumber);
 
-	return createMatchKey(event, matchType, set, match);
+	return createMatchKey(event, type, set, match);
 }
 
 export function tbaMatchKey(matchKey: MatchKey): TBAMatchKey {
-	const tbaMatchType = tbaMatchTypeOf[matchKey.matchType];
+	const tbaMatchType = tbaTypeOf[matchKey.type];
 
-	if (matchKey.matchType == MatchType.QUALIFICATION) {
+	if (matchKey.type == MatchType.QUALIFICATION) {
 		if (matchKey.event == null) {
 			return `${tbaMatchType}${matchKey.match}`;
 		}
@@ -216,55 +219,4 @@ export function tbaMatchKey(matchKey: MatchKey): TBAMatchKey {
 	}
 
 	return `${matchKey.event.code}_${tbaMatchType}${matchKey.set}m${matchKey.match}`;
-}
-
-export type Participant = {
-	event: Event | null;
-	type: MatchType;
-	set: number;
-	match: number;
-	station: StationEnum;
-	team: number;
-};
-
-export function defaultParticipant(): Participant {
-	let defaultEvent: Event | null;
-
-	const events = storedEvents.get();
-
-	if (events.length == 0) {
-		defaultEvent = null;
-	} else {
-		defaultEvent = events[0];
-	}
-
-	return {
-		event: defaultEvent,
-		type: MatchType.QUALIFICATION,
-		set: 1,
-		match: 1,
-		station: StationEnum.RED_1,
-		team: 0
-	};
-}
-
-export function participantFromMetrics(metrics: Metrics): Participant {
-	const stationEnumOrNull = stationEnumOf(metrics);
-
-	const fallback = defaultParticipant();
-
-	if (!metrics || !metrics.match) {
-		return fallback;
-	}
-
-	const hasEvent = metrics.match && metrics.match.event;
-
-	return {
-		event: hasEvent ? metrics.match.event : fallback.event,
-		type: metrics.match.matchType,
-		set: metrics.match.set,
-		match: metrics.match.match,
-		station: stationEnumOrNull ? stationEnumOrNull : fallback.station,
-		team: metrics.team,
-	}
 }

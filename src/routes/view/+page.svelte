@@ -43,5 +43,5 @@
 </Section>
 
 {#if selectedMetrics != null}
-    <MetricsEditor bind:metrics={selectedMetrics} />
+    <MetricsEditor metrics={selectedMetrics} />
 {/if}

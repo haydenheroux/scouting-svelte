@@ -70,7 +70,7 @@
 
 {#each [...sortMetricsByMatch(getMetricsByEvent(event))] as [matchKey, stationsByAlliance]}
 	{@const match = parseMatchKey(matchKey)}
-	<b>{match?.matchType} {match?.match}</b>
+	<b>{match?.type} {match?.match}</b>
 	{#each [...stationsByAlliance] as [alliance, metricsByStation]}
 		<div class="split">
 			{#each stationNumbers as station}

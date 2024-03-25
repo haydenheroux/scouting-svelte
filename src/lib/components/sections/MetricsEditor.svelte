@@ -6,34 +6,78 @@
 	import Notes from "$lib/components/selectors/NotesComposer.svelte";
 	import Section from "$lib/components/Section.svelte";
 	import { Trap, Climb, Harmony, type Metrics } from "$lib/metrics";
-	import ParticipantSelector from "$lib/components/selectors/ParticipantSelector.svelte";
 	import NumberSelector from "$lib/components/selectors/NumberSelector.svelte";
-	import { createMatchKey, driverStationOf, participantFromMetrics, type Participant } from "$lib/api";
+	import { driverStationOf, type Event, StationEnum, getEventByEventCode, driverStations, stringifyDriverStation, createQualificationMatchKey } from "$lib/api";
+	import { storedEvents } from "$lib/stores";
+	import EventSelector from "../selectors/EventSelector.svelte";
 
 	export let metrics: Metrics;
 
-	let participant: Participant;
+	let event: Event | null;
+	let match: number = 1;
 
 	$: {
-		participant = participantFromMetrics(metrics);
-
-		metrics.match = createMatchKey(
-			participant.event,
-			participant.type,
-			participant.set,
-			participant.match
+		metrics.match = createQualificationMatchKey(
+			event,
+			match
 		);
+	}
 
-		const driverStation = driverStationOf(participant.station);
+	let selectedEventCode: string | null = null;
+
+	$: {
+		if (selectedEventCode == null) {
+			event = null;
+		} else {
+			event = getEventByEventCode(selectedEventCode);
+		}
+	}
+
+	function previousMatch() {
+		if (match > 1) match -= 1;
+	}
+
+	function nextMatch() {
+		match += 1;
+	}
+
+	let selectedStation: StationEnum = StationEnum.RED_1;
+
+	$: {
+		const driverStation = driverStationOf(selectedStation);
 
 		metrics.alliance = driverStation.alliance;
 		metrics.station = driverStation.station;
-
-		metrics.team = participant.team;
 	}
 </script>
 
-<ParticipantSelector bind:participant />
+<Section name="Select Event">
+	<EventSelector
+		bind:selectedEventCode
+		eventCodes={storedEvents.get().map((event) => event.code)}
+	/>
+</Section>
+
+<Section name="Select Match">
+	<input type="number" min="1" bind:value={match} />
+	<div class="split">
+		<button class="active" on:click={previousMatch}>Previous Match</button>
+		<button class="active" on:click={nextMatch}>Next Match</button>
+	</div>
+</Section>
+
+<Section name="Select Station">
+	<select bind:value={selectedStation}>
+		{#each driverStations as driverStation}
+			<option value={driverStation}>{stringifyDriverStation(driverStationOf(driverStation))}</option
+			>
+		{/each}
+	</select>
+</Section>
+
+<Section name="Select Team">
+	<input type="number" min="0" bind:value={metrics.team} />
+</Section>
 
 <Section name="Starting Position">
 	<FieldSelector bind:point={metrics.start} field={field2024} />
