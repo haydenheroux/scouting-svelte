@@ -1,11 +1,20 @@
 <script lang="ts">
 	import { getEventByEventCode, type TBAEventCode } from "$lib/api"
+	import { onMount } from "svelte"
 
 	export let readonly: boolean = false
 
 	export let eventCodes: Array<TBAEventCode | null>
 
 	export let selectedEventCode: TBAEventCode | null
+
+	onMount(() => {
+		if (eventCodes.length > 0) {
+			selectedEventCode = eventCodes[0];
+		} else {
+			selectedEventCode = null;
+		}
+	});
 </script>
 
 <select disabled={readonly} bind:value={selectedEventCode}>

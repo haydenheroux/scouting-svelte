@@ -6,7 +6,7 @@
 	import { Modal, Content, Trigger } from "sv-popup"
 	import MetricsQrCode from "$lib/components/sections/MetricsQRCode.svelte"
 
-	let metrics: Metrics = createDefaultMetrics();
+	let metrics: Metrics = createDefaultMetrics()
 
 	let showQRCode = false
 

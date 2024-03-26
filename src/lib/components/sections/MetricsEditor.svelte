@@ -20,7 +20,7 @@
 		getAllEventCodes
 
 	} from "$lib/api"
-	import { storedEvents } from "$lib/stores"
+
 	import EventSelector from "../selectors/EventSelector.svelte"
 
 	export let readonly: boolean = false
