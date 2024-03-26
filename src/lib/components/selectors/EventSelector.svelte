@@ -17,5 +17,7 @@
 			<option value={eventCode}>{eventCode}</option>
 		{/if}
 	{/each}
-	<option value={null}>Unknown Event</option>
+	{#if eventCodes.length == 0}
+		<option value={null}>Unknown Event</option>
+	{/if}
 </select>

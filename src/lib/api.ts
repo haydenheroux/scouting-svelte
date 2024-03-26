@@ -1,4 +1,5 @@
-import { storedEvents } from "./stores"
+import type { Metrics } from "./metrics"
+import { storedEvents, storedMetrics } from "./stores"
 
 export enum Alliance {
 	RED = "Red",
@@ -122,6 +123,78 @@ export function getEventByEventCode(eventCode: TBAEventCode): Event | null {
 	}
 
 	return null
+}
+
+export function getMetricsByEventCode(eventCode: TBAEventCode | null): Metrics[] {
+	return storedMetrics.get().filter((matchMetrics) => matchMetrics.match?.eventCode === eventCode)
+}
+
+export function getEventCodesWithMetrics(): TBAEventCode[] {
+	return storedEvents.get().map((event) => event.code).filter((eventCode) => getMetricsByEventCode(eventCode).length > 0)
+}
+
+export function sortMetricsByMatch(metrics: Metrics[]): Map<TBAMatchKey, Array<Metrics>> {
+	const matchKeyMap: Map<TBAMatchKey, Array<Metrics>> = new Map()
+
+	for (const metric of metrics) {
+		const matchKey = tbaMatchKey(metric.match);
+
+		let matchMetrics = matchKeyMap.get(matchKey);
+
+		if (!matchMetrics) {
+			matchMetrics = [];
+		}
+
+		matchMetrics.push(metric);
+
+		matchKeyMap.set(matchKey, matchMetrics);
+	}
+
+	return matchKeyMap;
+}
+
+export type MetricsByAllianceByStation = Map<
+	TBAMatchKey,
+	Map<Alliance, Map<StationNumber, Metrics | null>>
+>
+
+export function sortMetricsByMatchAllianceStation(metrics: Metrics[]): MetricsByAllianceByStation {
+	const matchKeyMap: MetricsByAllianceByStation = new Map()
+
+	for (const metric of metrics) {
+		if (!metric || !metric.match) {
+			console.warn(`Metric ${JSON.stringify(metric)} is invalid or has null match`)
+			continue
+		}
+
+		const matchKey = tbaMatchKey(metric.match)
+
+		let allianceMap = matchKeyMap.get(matchKey)
+		if (!allianceMap) {
+			allianceMap = new Map()
+			matchKeyMap.set(matchKey, allianceMap)
+		}
+
+		if (!metric.alliance) {
+			console.warn(`Metric ${JSON.stringify(metric)} has null alliance`)
+			continue
+		}
+
+		let stationMetricsMap = allianceMap.get(metric.alliance)
+		if (!stationMetricsMap) {
+			stationMetricsMap = new Map()
+			allianceMap.set(metric.alliance, stationMetricsMap)
+		}
+
+		if (metric.station === null) {
+			console.warn(`Metric ${JSON.stringify(metric)} has null stationNumber`)
+			continue
+		}
+
+		stationMetricsMap.set(metric.station, metric)
+	}
+
+	return matchKeyMap
 }
 
 export enum MatchType {
