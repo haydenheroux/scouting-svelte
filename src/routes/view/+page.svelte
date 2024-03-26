@@ -5,23 +5,33 @@
 	import type { Metrics } from "$lib/metrics"
 	import MetricsSelector from "$lib/components/selectors/MetricsSelector.svelte"
 	import MetricsEditor from "$lib/components/sections/MetricsEditor.svelte"
-	import { getEventCodesWithMetrics } from "$lib/api"
+	import { getEventCodesWithMetrics, type MatchNumber } from "$lib/api"
 
 	let selectedEventCode: string | null
 
 	let metricsForSelectedEventCode: Metrics[]
 
+	let match: MatchNumber = 1;
+
+	function previousMatch() {
+		if (match > 1) match -= 1
+	}
+
+	function nextMatch() {
+		match += 1
+	}
+
 	let selectedMetrics: Metrics | null
 
 	$: {
-		metricsForSelectedEventCode = getMetricsForEventCode(selectedEventCode)
+		metricsForSelectedEventCode = getMetricsForEventCode(selectedEventCode, match)
 	}
 
-	function getMetricsForEventCode(eventCode: string | null): Metrics[] {
+	function getMetricsForEventCode(eventCode: string | null, match: MatchNumber): Metrics[] {
 		const metrics = storedMetrics.get()
 
 		const filtered = metrics.filter((metrics) => {
-			return metrics.match.eventCode === eventCode
+			return metrics.match.eventCode === eventCode && metrics.match.match === match
 		})
 
 		return filtered
@@ -32,12 +42,20 @@
 	<EventSelector bind:selectedEventCode eventCodes={getEventCodesWithMetrics()} />
 </Section>
 
+<Section name="Select Match">
+	<input type="number" min="1" bind:value={match} />
+	<div class="split">
+		<button class="active" on:click={previousMatch}>Previous Match</button>
+		<button class="active" on:click={nextMatch}>Next Match</button>
+	</div>
+</Section>
+
 {#if metricsForSelectedEventCode.length > 0}
 	<Section name="Select Metrics">
 		<MetricsSelector bind:metrics={metricsForSelectedEventCode} bind:selectedMetrics />
 	</Section>
 {/if}
 
-{#if selectedMetrics != null}
+{#if metricsForSelectedEventCode.length > 0 && selectedMetrics != null}
 	<MetricsEditor readonly hideParticipant metrics={selectedMetrics} />
 {/if}
