@@ -84,7 +84,7 @@
 		<input type="text" {readonly} bind:value={metrics.team} />
 	</Section>
 
-	<hr/>
+	<hr />
 {/if}
 
 <Section name="Starting Position">

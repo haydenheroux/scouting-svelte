@@ -24,7 +24,7 @@
 					<button class={alliance === Alliance.RED ? "red" : "blue"}>
 						<Modal small button={false}>
 							<Content>
-									<MetricsQrCode {metrics} />
+								<MetricsQrCode {metrics} />
 							</Content>
 							<Trigger>
 								<p>{metrics.team}</p>

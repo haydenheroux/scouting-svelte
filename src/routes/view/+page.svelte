@@ -4,13 +4,19 @@
 	import EventSelector from "$lib/components/selectors/EventSelector.svelte"
 	import type { Metrics } from "$lib/metrics"
 	import MetricsEditor from "$lib/components/sections/MetricsEditor.svelte"
-	import { getEventCodesWithMetrics, stringifyDriverStation, type MatchNumber, driverStationOf, createDriverStation } from "$lib/api"
+	import {
+		getEventCodesWithMetrics,
+		stringifyDriverStation,
+		type MatchNumber,
+		driverStationOf,
+		createDriverStation
+	} from "$lib/api"
 
 	let selectedEventCode: string | null
 
 	let metricsForSelectedEventCode: Metrics[]
 
-	let match: MatchNumber = 1;
+	let match: MatchNumber = 1
 
 	function previousMatch() {
 		if (match > 1) match -= 1
@@ -62,7 +68,7 @@
 {/if}
 
 {#if metricsForSelectedEventCode.length > 0 && selectedMetrics != null}
-	<hr/>
+	<hr />
 
 	<MetricsEditor readonly hideParticipant metrics={selectedMetrics} />
 {/if}

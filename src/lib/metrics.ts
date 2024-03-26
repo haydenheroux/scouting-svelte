@@ -58,7 +58,7 @@ export type Metrics = {
 	alliance: Alliance
 	station: StationNumber
 
-	team: string;
+	team: string
 
 	start: NormalizedPoint
 
