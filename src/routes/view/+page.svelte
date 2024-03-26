@@ -3,9 +3,8 @@
 	import Section from "$lib/components/Section.svelte"
 	import EventSelector from "$lib/components/selectors/EventSelector.svelte"
 	import type { Metrics } from "$lib/metrics"
-	import MetricsSelector from "$lib/components/selectors/MetricsSelector.svelte"
 	import MetricsEditor from "$lib/components/sections/MetricsEditor.svelte"
-	import { getEventCodesWithMetrics, type MatchNumber } from "$lib/api"
+	import { getEventCodesWithMetrics, stringifyDriverStation, type MatchNumber, driverStationOf, createDriverStation } from "$lib/api"
 
 	let selectedEventCode: string | null
 
@@ -51,8 +50,14 @@
 </Section>
 
 {#if metricsForSelectedEventCode.length > 0}
-	<Section name="Select Metrics">
-		<MetricsSelector bind:metrics={metricsForSelectedEventCode} bind:selectedMetrics />
+	<Section name="Select Team">
+		<select bind:value={selectedMetrics}>
+			{#each metricsForSelectedEventCode as metrics}
+				<option value={metrics}>
+					{metrics.team}
+				</option>
+			{/each}
+		</select>
 	</Section>
 {/if}
 
