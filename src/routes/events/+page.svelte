@@ -7,6 +7,7 @@
 	import EventInformation from "$lib/components/sections/EventInformation.svelte"
 	import EventSelector from "$lib/components/selectors/EventSelector.svelte"
 	import type { Event } from "$lib/api"
+	import EventCreator from "$lib/components/sections/EventCreator.svelte"
 
 	let selectedEvent: Event | null = null
 
@@ -38,6 +39,10 @@
 </script>
 
 <Section name="Add Event">
+	<EventCreator on:create={() => (events = storedEvents.get())} />
+</Section>
+
+<Section name="Scan Event">
 	<QrCodeScanner {onScan} />
 </Section>
 

@@ -18,7 +18,7 @@
 </script>
 
 <div>
-	<input type="text" placeholder="" {readonly} bind:value={notes[0]} />
+	<input type="text" {readonly} bind:value={notes[0]} />
 	{#if !readonly}
 		<button class="primary" on:click={add}>
 			<span class="material-symbols-rounded">done</span>

@@ -9,7 +9,8 @@
 <select bind:value={selectedMetrics}>
 	{#each metrics as _metrics}
 		<option value={_metrics}>
-			{_metrics.match.type} {_metrics.match.match} - Team {_metrics.team}
+			{_metrics.match.type}
+			{_metrics.match.match} - Team {_metrics.team}
 		</option>
 	{/each}
 </select>

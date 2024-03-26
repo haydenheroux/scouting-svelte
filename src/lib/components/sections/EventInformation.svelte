@@ -18,9 +18,10 @@
 	function getMetricsByEvent(event: Event | null): Metrics[] {
 		const metrics = storedMetrics.get()
 
-		if (event === null) return metrics.filter((matchMetrics) => matchMetrics.match?.event === null)
+		if (event === null)
+			return metrics.filter((matchMetrics) => matchMetrics.match?.eventCode === null)
 
-		return metrics.filter((matchMetrics) => matchMetrics.match?.event?.code === event.code)
+		return metrics.filter((matchMetrics) => matchMetrics.match?.eventCode === event.code)
 	}
 
 	type MetricsByAllianceByStation = Map<

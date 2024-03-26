@@ -157,28 +157,28 @@ export type MatchNumber = number
 export type SetNumber = number
 
 export type MatchKey = {
-	event: Event | null
+	eventCode: TBAEventCode | null
 	match: MatchNumber
 	type: MatchType
 	set: SetNumber
 }
 
 function createMatchKey(
-	event: Event | null,
+	eventCode: TBAEventCode | null,
 	type: MatchType,
 	set: SetNumber,
 	match: MatchNumber
 ): MatchKey {
 	return {
-		event,
+		eventCode,
 		match,
 		type,
 		set
 	}
 }
 
-export function createQualificationMatchKey(event: Event | null, match: MatchNumber) {
-	return createMatchKey(event, MatchType.QUALIFICATION, 1, match)
+export function createQualificationMatchKey(eventCode: TBAEventCode | null, match: MatchNumber) {
+	return createMatchKey(eventCode, MatchType.QUALIFICATION, 1, match)
 }
 
 export type TBAMatchKey = string
@@ -192,29 +192,27 @@ export function parseMatchKey(matchKey: TBAMatchKey): MatchKey | null {
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const [_, tbaEvent, tbaMatchType, firstNumber, secondNumber] = parsedMatch
 
-	const event = getEventByEventCode(tbaEvent)
-
 	const type = typeOf[tbaMatchType as TBAMatchType]
 	const set = type === MatchType.QUALIFICATION ? 1 : parseInt(secondNumber)
 	const match = type === MatchType.QUALIFICATION ? parseInt(firstNumber) : parseInt(secondNumber)
 
-	return createMatchKey(event, type, set, match)
+	return createMatchKey(tbaEvent, type, set, match)
 }
 
 export function tbaMatchKey(matchKey: MatchKey): TBAMatchKey {
 	const tbaMatchType = tbaTypeOf[matchKey.type]
 
 	if (matchKey.type == MatchType.QUALIFICATION) {
-		if (matchKey.event == null) {
+		if (matchKey.eventCode == null) {
 			return `${tbaMatchType}${matchKey.match}`
 		}
 
-		return `${matchKey.event.code}_${tbaMatchType}${matchKey.match}`
+		return `${matchKey.eventCode}_${tbaMatchType}${matchKey.match}`
 	}
 
-	if (matchKey.event == null) {
+	if (matchKey.eventCode == null) {
 		return `${tbaMatchType}${matchKey.set}m${matchKey.match}`
 	}
 
-	return `${matchKey.event.code}_${tbaMatchType}${matchKey.set}m${matchKey.match}`
+	return `${matchKey.eventCode}_${tbaMatchType}${matchKey.set}m${matchKey.match}`
 }

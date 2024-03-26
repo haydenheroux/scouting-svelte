@@ -20,15 +20,7 @@
 		const metrics = storedMetrics.get()
 
 		const filtered = metrics.filter((metrics) => {
-			if (metrics.match.event === null) {
-				if (eventCode === null) {
-					return true
-				} else {
-					return false
-				}
-			} else {
-				return metrics.match.event.code === eventCode
-			}
+			return metrics.match.eventCode === eventCode
 		})
 
 		return filtered
