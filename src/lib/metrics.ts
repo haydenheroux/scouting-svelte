@@ -1,5 +1,5 @@
 import { arrayToObject, stringToArray } from "$lib/array"
-import { type MatchKey, type Alliance, parseMatchKey, tbaMatchKey, type StationNumber } from "./api"
+import { type MatchKey, Alliance, parseMatchKey, tbaMatchKey, type StationNumber } from "./api"
 import { createNormalizedPointFromString, stringifyPoint, type NormalizedPoint } from "./point"
 
 export enum Trap {
@@ -85,6 +85,9 @@ export type Metrics = {
 
 export function createDefaultMetrics(): Metrics {
 	return {
+		alliance: Alliance.RED,
+		station: 1,
+		team: 0,
 		trap: Trap.NONE,
 		climb: Climb.NONE,
 		harmony: Harmony.ZERO
