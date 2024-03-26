@@ -113,6 +113,16 @@ export function validateEvent(obj: object | null): Event | null {
 	return null
 }
 
+export function getAllEventCodes(): Array<TBAEventCode | null> {
+	const events = storedEvents.get().map((event) => event.code);
+
+	if (events.length == 0) {
+		return [null];
+	}
+
+	return events;
+}
+
 export function getEventByEventCode(eventCode: TBAEventCode): Event | null {
 	const events = storedEvents.get()
 
@@ -129,8 +139,16 @@ export function getMetricsByEventCode(eventCode: TBAEventCode | null): Metrics[]
 	return storedMetrics.get().filter((matchMetrics) => matchMetrics.match?.eventCode === eventCode)
 }
 
-export function getEventCodesWithMetrics(): TBAEventCode[] {
-	return storedEvents.get().map((event) => event.code).filter((eventCode) => getMetricsByEventCode(eventCode).length > 0)
+export function getEventCodesWithMetrics(): Array<TBAEventCode | null> {
+	const eventsWithMetrics: Array<TBAEventCode | null> = storedEvents.get().map((event) => event.code).filter((eventCode) => getMetricsByEventCode(eventCode).length > 0);
+
+	const nullHasMetrics = getMetricsByEventCode(null).length > 0;
+
+	if (nullHasMetrics) {
+		eventsWithMetrics.push(null);
+	}
+
+	return eventsWithMetrics;
 }
 
 export function sortMetricsByMatch(metrics: Metrics[]): Map<TBAMatchKey, Array<Metrics>> {

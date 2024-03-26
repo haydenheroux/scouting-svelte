@@ -15,7 +15,10 @@
 		getEventByEventCode,
 		driverStations,
 		stringifyDriverStation,
-		createQualificationMatchKey
+		createQualificationMatchKey,
+
+		getAllEventCodes
+
 	} from "$lib/api"
 	import { storedEvents } from "$lib/stores"
 	import EventSelector from "../selectors/EventSelector.svelte"
@@ -61,7 +64,7 @@
 		<EventSelector
 			{readonly}
 			bind:selectedEventCode
-			eventCodes={storedEvents.get().map((event) => event.code)}
+			eventCodes={getAllEventCodes()}
 		/>
 	</Section>
 
