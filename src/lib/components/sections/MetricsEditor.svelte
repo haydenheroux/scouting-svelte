@@ -83,6 +83,8 @@
 	<Section name="Select Team">
 		<input type="number" min="0" {readonly} bind:value={metrics.team} />
 	</Section>
+
+	<hr/>
 {/if}
 
 <Section name="Starting Position">

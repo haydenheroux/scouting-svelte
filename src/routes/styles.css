@@ -190,7 +190,7 @@ section {
 	background-color: var(--clr-background);;
 }
 
-section hr {
+hr {
 	border-top: none;
 	border-color: var(--clr-border);
 

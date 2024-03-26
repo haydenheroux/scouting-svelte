@@ -57,5 +57,7 @@
 {/if}
 
 {#if metricsForSelectedEventCode.length > 0 && selectedMetrics != null}
+	<hr/>
+
 	<MetricsEditor readonly hideParticipant metrics={selectedMetrics} />
 {/if}
