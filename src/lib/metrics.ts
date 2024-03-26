@@ -168,3 +168,7 @@ export function serializeMetrics(metrics: Metrics): Record<string, string> {
 		...arrayToObject(NOTES_KEY, metrics.notes)
 	}
 }
+
+export function stringifyMetricsIdentifier(metrics: Metrics): string {
+	return `${metrics.match.type} ${metrics.match.match} - Team ${metrics.team}`
+}

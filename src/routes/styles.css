@@ -186,6 +186,8 @@ a {
 section {
 	border: 1px solid var(--clr-border);
 	border-radius: var(--radius-layout);
+
+	background-color: var(--clr-background);;
 }
 
 section hr {

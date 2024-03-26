@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Metrics } from "$lib/metrics"
+	import { stringifyMetricsIdentifier, type Metrics } from "$lib/metrics"
 
 	export let metrics: Metrics[]
 
@@ -9,8 +9,7 @@
 <select bind:value={selectedMetrics}>
 	{#each metrics as _metrics}
 		<option value={_metrics}>
-			{_metrics.match.type}
-			{_metrics.match.match} - Team {_metrics.team}
+			{stringifyMetricsIdentifier(_metrics)}
 		</option>
 	{/each}
 </select>
