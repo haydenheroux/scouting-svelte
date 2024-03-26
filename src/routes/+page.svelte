@@ -2,11 +2,11 @@
 	import { storeMetrics } from "$lib/stores"
 	import MetricsEditor from "$lib/components/sections/MetricsEditor.svelte"
 	import Section from "$lib/components/Section.svelte"
-	import type { Metrics } from "$lib/metrics"
+	import { createDefaultMetrics, type Metrics } from "$lib/metrics"
 	import { Modal, Content, Trigger } from "sv-popup"
 	import MetricsQrCode from "$lib/components/sections/MetricsQRCode.svelte"
 
-	let metrics: Metrics = {} as Metrics
+	let metrics: Metrics = createDefaultMetrics();
 
 	let showQRCode = false
 

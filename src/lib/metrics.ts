@@ -61,6 +61,7 @@ export type Metrics = {
 	team: number
 
 	start: NormalizedPoint
+
 	autoAmpMakes: number
 	autoAmpMisses: number
 
@@ -80,6 +81,14 @@ export type Metrics = {
 	harmony: Harmony
 
 	notes: Array<string>
+}
+
+export function createDefaultMetrics(): Metrics {
+	return {
+		trap: Trap.NONE,
+		climb: Climb.NONE,
+		harmony: Harmony.ZERO,
+	} as Metrics
 }
 
 export function deserializeMetrics(serialized: Record<string, string>): Metrics | null {
