@@ -10,11 +10,11 @@
 
 	onMount(() => {
 		if (eventCodes.length > 0) {
-			selectedEventCode = eventCodes[0];
+			selectedEventCode = eventCodes[0]
 		} else {
-			selectedEventCode = null;
+			selectedEventCode = null
 		}
-	});
+	})
 </script>
 
 <select disabled={readonly} bind:value={selectedEventCode}>

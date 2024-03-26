@@ -11,4 +11,3 @@
 	<EventSelector eventCodes={getEventCodesWithMetrics()} bind:selectedEventCode />
 	<EventInformation bind:eventCode={selectedEventCode} />
 </Section>
-

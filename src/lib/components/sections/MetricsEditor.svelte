@@ -16,9 +16,7 @@
 		driverStations,
 		stringifyDriverStation,
 		createQualificationMatchKey,
-
 		getAllEventCodes
-
 	} from "$lib/api"
 
 	import EventSelector from "../selectors/EventSelector.svelte"
@@ -61,11 +59,7 @@
 
 {#if !hideParticipant}
 	<Section name="Select Event">
-		<EventSelector
-			{readonly}
-			bind:selectedEventCode
-			eventCodes={getAllEventCodes()}
-		/>
+		<EventSelector {readonly} bind:selectedEventCode eventCodes={getAllEventCodes()} />
 	</Section>
 
 	<Section name="Select Match">

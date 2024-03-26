@@ -114,13 +114,13 @@ export function validateEvent(obj: object | null): Event | null {
 }
 
 export function getAllEventCodes(): Array<TBAEventCode | null> {
-	const events = storedEvents.get().map((event) => event.code);
+	const events = storedEvents.get().map((event) => event.code)
 
 	if (events.length == 0) {
-		return [null];
+		return [null]
 	}
 
-	return events;
+	return events
 }
 
 export function getEventByEventCode(eventCode: TBAEventCode): Event | null {
@@ -140,35 +140,38 @@ export function getMetricsByEventCode(eventCode: TBAEventCode | null): Metrics[]
 }
 
 export function getEventCodesWithMetrics(): Array<TBAEventCode | null> {
-	const eventsWithMetrics: Array<TBAEventCode | null> = storedEvents.get().map((event) => event.code).filter((eventCode) => getMetricsByEventCode(eventCode).length > 0);
+	const eventsWithMetrics: Array<TBAEventCode | null> = storedEvents
+		.get()
+		.map((event) => event.code)
+		.filter((eventCode) => getMetricsByEventCode(eventCode).length > 0)
 
-	const nullHasMetrics = getMetricsByEventCode(null).length > 0;
+	const nullHasMetrics = getMetricsByEventCode(null).length > 0
 
 	if (nullHasMetrics) {
-		eventsWithMetrics.push(null);
+		eventsWithMetrics.push(null)
 	}
 
-	return eventsWithMetrics;
+	return eventsWithMetrics
 }
 
 export function sortMetricsByMatch(metrics: Metrics[]): Map<TBAMatchKey, Array<Metrics>> {
 	const matchKeyMap: Map<TBAMatchKey, Array<Metrics>> = new Map()
 
 	for (const metric of metrics) {
-		const matchKey = tbaMatchKey(metric.match);
+		const matchKey = tbaMatchKey(metric.match)
 
-		let matchMetrics = matchKeyMap.get(matchKey);
+		let matchMetrics = matchKeyMap.get(matchKey)
 
 		if (!matchMetrics) {
-			matchMetrics = [];
+			matchMetrics = []
 		}
 
-		matchMetrics.push(metric);
+		matchMetrics.push(metric)
 
-		matchKeyMap.set(matchKey, matchMetrics);
+		matchKeyMap.set(matchKey, matchMetrics)
 	}
 
-	return matchKeyMap;
+	return matchKeyMap
 }
 
 export type MetricsByAllianceByStation = Map<

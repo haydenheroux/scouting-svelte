@@ -29,10 +29,7 @@
 </script>
 
 <Section name="Select Event">
-	<EventSelector
-		bind:selectedEventCode
-		eventCodes={getEventCodesWithMetrics()}
-	/>
+	<EventSelector bind:selectedEventCode eventCodes={getEventCodesWithMetrics()} />
 </Section>
 
 {#if metricsForSelectedEventCode.length > 0}

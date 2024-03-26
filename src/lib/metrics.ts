@@ -87,7 +87,7 @@ export function createDefaultMetrics(): Metrics {
 	return {
 		trap: Trap.NONE,
 		climb: Climb.NONE,
-		harmony: Harmony.ZERO,
+		harmony: Harmony.ZERO
 	} as Metrics
 }
 
