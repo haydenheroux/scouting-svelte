@@ -26,22 +26,13 @@
 
 	export let metrics: Metrics
 
-	let event: Event | null
 	let match: MatchNumber = 1
 
 	$: {
-		metrics.match = createQualificationMatchKey(event, match)
+		metrics.match = createQualificationMatchKey(selectedEventCode, match)
 	}
 
 	let selectedEventCode: string | null = null
-
-	$: {
-		if (selectedEventCode == null) {
-			event = null
-		} else {
-			event = getEventByEventCode(selectedEventCode)
-		}
-	}
 
 	function previousMatch() {
 		if (readonly) return
