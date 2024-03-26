@@ -81,7 +81,7 @@
 	</Section>
 
 	<Section name="Select Team">
-		<input type="number" min="0" {readonly} bind:value={metrics.team} />
+		<input type="text" {readonly} bind:value={metrics.team} />
 	</Section>
 
 	<hr/>

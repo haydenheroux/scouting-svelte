@@ -58,7 +58,7 @@ export type Metrics = {
 	alliance: Alliance
 	station: StationNumber
 
-	team: number
+	team: string;
 
 	start: NormalizedPoint
 
@@ -87,7 +87,7 @@ export function createDefaultMetrics(): Metrics {
 	return {
 		alliance: Alliance.RED,
 		station: 1,
-		team: 0,
+		team: "",
 		trap: Trap.NONE,
 		climb: Climb.NONE,
 		harmony: Harmony.ZERO
@@ -108,7 +108,7 @@ export function deserializeMetrics(serialized: Record<string, string>): Metrics 
 	metrics.alliance = serialized[ALLIANCE_KEY] as Alliance
 	metrics.station = Number.parseInt(serialized[STATION_KEY]) as StationNumber
 
-	metrics.team = Number.parseInt(serialized[TEAM_KEY])
+	metrics.team = serialized[TEAM_KEY]
 
 	metrics.start = createNormalizedPointFromString(serialized[START_KEY])
 
@@ -143,7 +143,7 @@ export function serializeMetrics(metrics: Metrics): Record<string, string> {
 
 		[STATION_KEY]: metrics.station ? metrics.station.toString() : "",
 
-		[TEAM_KEY]: metrics.team ? metrics.team.toString() : "",
+		[TEAM_KEY]: metrics.team,
 
 		[START_KEY]: metrics.start ? stringifyPoint(metrics.start) : "",
 
