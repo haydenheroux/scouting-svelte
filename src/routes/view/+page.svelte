@@ -33,7 +33,7 @@
 </Section>
 
 {#if metricsForSelectedEventCode.length > 0}
-	<Section name="Select Match">
+	<Section name="Select Metrics">
 		<MetricsSelector bind:metrics={metricsForSelectedEventCode} bind:selectedMetrics />
 	</Section>
 {/if}
