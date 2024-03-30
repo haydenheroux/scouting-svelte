@@ -278,7 +278,7 @@ export function createQualificationMatchKey(eventCode: TBAEventCode | null, matc
 export type TBAMatchKey = string
 
 export function parseMatchKey(matchKey: TBAMatchKey): MatchKey | null {
-	const regex = new RegExp("([^_]*)?_?(qm|qf|sf|f)(\\d{1,2})(?:m(\\d{1,2}))?")
+	const regex = new RegExp("([^_]*)?_?(qm|qf|sf|f)(\\d{1,3})(?:m(\\d{1,3}))?")
 	const parsedMatch = regex.exec(matchKey)
 
 	if (parsedMatch === null) return null
