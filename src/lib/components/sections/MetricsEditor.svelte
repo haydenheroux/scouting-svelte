@@ -20,6 +20,8 @@
 	} from "$lib/api"
 
 	import EventSelector from "../selectors/EventSelector.svelte"
+	import MetricsQrCode from "./MetricsQRCode.svelte"
+	import { Modal, Content, Trigger } from "sv-popup"
 
 	export let readonly: boolean = false
 
@@ -138,3 +140,14 @@
 <Section name="Notes">
 	<Notes {readonly} bind:notes={metrics.notes} />
 </Section>
+
+{#if readonly}
+	<Modal small button={false}>
+		<Content>
+			<MetricsQrCode {metrics} />
+		</Content>
+		<Trigger>
+			<MetricsQrCode {metrics} />
+		</Trigger>
+	</Modal>
+{/if}
