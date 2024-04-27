@@ -1,8 +1,8 @@
 :root {
 	/* fonts */
-	--open-sans: 'Open Sans', sans-serif;
-	--rubik: 'Rubik', sans-serif;
-	--mono: 'IBM Plex Mono', monospace;
+	--open-sans: "Open Sans", sans-serif;
+	--rubik: "Rubik", sans-serif;
+	--mono: "IBM Plex Mono", monospace;
 
 	/* font families */
 	--ff-main: var(--open-sans);
@@ -17,6 +17,7 @@
 	/* font sizes */
 	--fs-100: 0.875rem;
 	--fs-200: 1rem;
+	--fs-250: 1.15rem;
 	--fs-300: 1.25rem;
 	--fs-400: 1.5rem;
 	--fs-500: 1.75rem;
@@ -160,8 +161,6 @@ nav {
 }
 
 nav em {
-	color: var(--clr-foreground);
-
 	font-size: var(--fs-400);
 	font-style: normal;
 }
@@ -187,6 +186,15 @@ a {
 section {
 	border: 1px solid var(--clr-border);
 	border-radius: var(--radius-layout);
+
+	background-color: var(--clr-background);
+}
+
+hr {
+	border-top: none;
+	border-color: var(--clr-border);
+
+	margin-block: calc(var(--section-gap) / 2);
 }
 
 section button {
@@ -252,8 +260,8 @@ section h2 {
 
 section label {
 	font-family: var(--ff-main);
-	font-weight: var(--fw-main);
-	font-size: var(--fs-200);
+	font-weight: 700;
+	font-size: var(--fs-250);
 }
 
 footer {
@@ -381,11 +389,7 @@ footer .container {
 @media screen and (max-width: 40rem) {
 	/* phone */
 	header nav {
-		display: grid;
-		grid-auto-flow: column;
-		grid-auto-columns: 1fr;
-
-		overflow-x: scroll;
+		overflow-x: auto;
 		scroll-snap-type: x mandatory;
 		scroll-padding: var(--header-gap);
 	}

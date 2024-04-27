@@ -1,108 +1,174 @@
-import type { SerializedMatchMetrics } from '$lib/api';
-import { NormalizedPoint } from '$lib/point';
-import { arrayToObject, stringToArray } from '$lib/array';
+import { arrayToObject, stringToArray } from "$lib/array"
+import { type MatchKey, Alliance, parseMatchKey, tbaMatchKey, type StationNumber } from "./api"
+import { createNormalizedPointFromString, stringifyPoint, type NormalizedPoint } from "./point"
 
 export enum Trap {
-	NONE = 'None',
-	FAIL = 'Fail',
-	SUCCESS = 'Success'
+	NONE = "None",
+	FAIL = "Fail",
+	SUCCESS = "Success"
 }
 export enum Climb {
-	NONE = 'None',
-	FAIL = 'Fail',
-	SUCCESS = 'Success'
+	NONE = "None",
+	FAIL = "Fail",
+	SUCCESS = "Success"
 }
 export enum Harmony {
-	ZERO = '0',
-	ONE = '+1',
-	TWO = '+2'
+	ZERO = "None",
+	ONE = "+1",
+	TWO = "+2"
 }
 export enum HighNotes {
-	NONE = 'None',
-	ZERO = '0',
-	ONE = '1',
-	TWO = '2',
-	THREE = '3'
+	NONE = "None",
+	ZERO = "0",
+	ONE = "1",
+	TWO = "2",
+	THREE = "3"
 }
 
-const PICKUP_KEY = 'p';
-const MAKE_KEY = 'a';
-const MISS_KEY = 'i';
+const MATCH_KEY = "m"
 
-const DEFENSE_KEY = 'e';
-const DRIVING_KEY = 'd';
-const DOWNTIME_KEY = 't';
-const OTHER_KEY = 'o';
+const ALLIANCE_KEY = "a"
+const STATION_KEY = "s"
 
-export class MatchMetrics {
-	startingPoint: Array<NormalizedPoint> = [];
-	leave = false;
-	pickups: Array<NormalizedPoint> = [];
-	makes: Array<NormalizedPoint> = [];
-	misses: Array<NormalizedPoint> = [];
-	coopertition = false;
-	trap: Trap = Trap.NONE;
-	climb: Climb = Climb.NONE;
-	harmony: Harmony = Harmony.ZERO;
-	highNotes: HighNotes = HighNotes.NONE;
-	defenseNotes: Array<string> = [];
-	drivingNotes: Array<string> = [];
-	downtimeNotes: Array<string> = [];
-	otherNotes: Array<string> = [];
-	scouterName = '';
+const TEAM_KEY = "t"
 
-	static deserialize(serialized: SerializedMatchMetrics): MatchMetrics {
-		const metrics = new MatchMetrics();
+const START_KEY = "sp"
 
-		metrics.startingPoint = [NormalizedPoint.fromString(serialized['startingPoint'][0])];
-		metrics.leave = serialized['leave'] == 'true';
-		metrics.pickups = stringToArray(PICKUP_KEY, serialized).map((s) =>
-			NormalizedPoint.fromString(s)
-		);
-		metrics.makes = stringToArray(MAKE_KEY, serialized).map((s) => NormalizedPoint.fromString(s));
-		metrics.misses = stringToArray(MISS_KEY, serialized).map((s) => NormalizedPoint.fromString(s));
-		metrics.coopertition = serialized['coopertition'] == 'true';
-		metrics.trap = serialized['trap'] as Trap;
-		metrics.climb = serialized['climb'] as Climb;
-		metrics.harmony = serialized['harmony'] as Harmony;
-		metrics.highNotes = serialized['highNotes'] as HighNotes;
-		metrics.defenseNotes = stringToArray(DEFENSE_KEY, serialized);
-		metrics.drivingNotes = stringToArray(DRIVING_KEY, serialized);
-		metrics.downtimeNotes = stringToArray(DOWNTIME_KEY, serialized);
-		metrics.otherNotes = stringToArray(OTHER_KEY, serialized);
-		metrics.scouterName = serialized['scouterName'];
+const LEAVE_KEY = "leave"
 
-		return metrics;
+const AUTO_AMP_MAKE_KEY = "aa_make"
+const AUTO_AMP_MISS_KEY = "aa_miss"
+const AUTO_SPEAKER_MAKE_KEY = "as_make"
+const AUTO_SPEAKER_MISS_KEY = "as_miss"
+
+const TELEOP_AMP_MAKE_KEY = "ta_make"
+const TELEOP_AMP_MISS_KEY = "ta_miss"
+const TELEOP_SPEAKER_MAKE_KEY = "ts_make"
+const TELEOP_SPEAKER_MISS_KEY = "ts_miss"
+
+const TRAP_KEY = "trap"
+const CLIMB_KEY = "clmb"
+const HARMONY_KEY = "harm"
+
+const NOTES_KEY = "note"
+
+export type Metrics = {
+	match: MatchKey
+
+	alliance: Alliance
+	station: StationNumber
+
+	team: string
+
+	start: NormalizedPoint
+
+	autoAmpMakes: number
+	autoAmpMisses: number
+
+	autoSpeakerMakes: number
+	autoSpeakerMisses: number
+
+	leave: boolean
+
+	teleopAmpMakes: number
+	teleopAmpMisses: number
+
+	teleopSpeakerMakes: number
+	teleopSpeakerMisses: number
+
+	trap: Trap
+	climb: Climb
+	harmony: Harmony
+
+	notes: Array<string>
+}
+
+export function createDefaultMetrics(): Metrics {
+	return {
+		alliance: Alliance.RED,
+		station: 1,
+		team: "",
+		trap: Trap.NONE,
+		climb: Climb.NONE,
+		harmony: Harmony.ZERO
+	} as Metrics
+}
+
+export function deserializeMetrics(serialized: Record<string, string>): Metrics | null {
+	const metrics = {} as Metrics
+
+	const match = parseMatchKey(serialized[MATCH_KEY])
+
+	if (!match) {
+		return null
 	}
 
-	serialize(): SerializedMatchMetrics {
-		return {
-			startingPoint: this.startingPoint
-				? this.startingPoint.map((p) => p.stringify()).join(':')
-				: '',
-			leave: this.leave.toString(),
-			...arrayToObject(
-				PICKUP_KEY,
-				this.pickups.map((p) => p.stringify())
-			),
-			...arrayToObject(
-				MAKE_KEY,
-				this.makes.map((p) => p.stringify())
-			),
-			...arrayToObject(
-				MISS_KEY,
-				this.misses.map((p) => p.stringify())
-			),
-			coopertition: this.coopertition.toString(),
-			trap: this.trap,
-			climb: this.climb,
-			harmony: this.harmony,
-			highNotes: this.highNotes,
-			...arrayToObject(DEFENSE_KEY, this.defenseNotes),
-			...arrayToObject(DRIVING_KEY, this.drivingNotes),
-			...arrayToObject(DOWNTIME_KEY, this.downtimeNotes),
-			...arrayToObject(OTHER_KEY, this.otherNotes),
-			scouterName: this.scouterName
-		};
+	metrics.match = match
+
+	metrics.alliance = serialized[ALLIANCE_KEY] as Alliance
+	metrics.station = Number.parseInt(serialized[STATION_KEY]) as StationNumber
+
+	metrics.team = serialized[TEAM_KEY]
+
+	metrics.start = createNormalizedPointFromString(serialized[START_KEY])
+
+	metrics.autoAmpMakes = Number.parseInt(serialized[AUTO_AMP_MAKE_KEY])
+	metrics.autoAmpMisses = Number.parseInt(serialized[AUTO_AMP_MISS_KEY])
+
+	metrics.autoSpeakerMakes = Number.parseInt(serialized[AUTO_SPEAKER_MAKE_KEY])
+	metrics.autoSpeakerMisses = Number.parseInt(serialized[AUTO_SPEAKER_MISS_KEY])
+
+	metrics.leave = serialized[LEAVE_KEY] == "true"
+
+	metrics.teleopAmpMakes = Number.parseInt(serialized[TELEOP_AMP_MAKE_KEY])
+	metrics.teleopAmpMisses = Number.parseInt(serialized[TELEOP_AMP_MISS_KEY])
+
+	metrics.teleopSpeakerMakes = Number.parseInt(serialized[TELEOP_SPEAKER_MAKE_KEY])
+	metrics.teleopSpeakerMisses = Number.parseInt(serialized[TELEOP_SPEAKER_MISS_KEY])
+
+	metrics.trap = serialized[TRAP_KEY] as Trap
+	metrics.climb = serialized[CLIMB_KEY] as Climb
+	metrics.harmony = serialized[HARMONY_KEY] as Harmony
+
+	metrics.notes = stringToArray(NOTES_KEY, serialized)
+
+	return metrics
+}
+
+export function serializeMetrics(metrics: Metrics): Record<string, string> {
+	return {
+		[MATCH_KEY]: metrics.match ? tbaMatchKey(metrics.match) : "",
+
+		[ALLIANCE_KEY]: metrics.alliance ? metrics.alliance.toString() : "",
+
+		[STATION_KEY]: metrics.station ? metrics.station.toString() : "",
+
+		[TEAM_KEY]: metrics.team,
+
+		[START_KEY]: metrics.start ? stringifyPoint(metrics.start) : "",
+
+		[AUTO_AMP_MAKE_KEY]: metrics.autoAmpMakes.toString(),
+		[AUTO_AMP_MISS_KEY]: metrics.autoAmpMisses.toString(),
+
+		[AUTO_SPEAKER_MAKE_KEY]: metrics.autoSpeakerMakes.toString(),
+		[AUTO_SPEAKER_MISS_KEY]: metrics.autoSpeakerMisses.toString(),
+
+		[LEAVE_KEY]: metrics.leave.toString(),
+
+		[TELEOP_AMP_MAKE_KEY]: metrics.teleopAmpMakes.toString(),
+		[TELEOP_AMP_MISS_KEY]: metrics.teleopAmpMisses.toString(),
+
+		[TELEOP_SPEAKER_MAKE_KEY]: metrics.teleopSpeakerMakes.toString(),
+		[TELEOP_SPEAKER_MISS_KEY]: metrics.teleopSpeakerMisses.toString(),
+
+		[TRAP_KEY]: metrics.trap,
+		[CLIMB_KEY]: metrics.climb,
+		[HARMONY_KEY]: metrics.harmony,
+
+		...arrayToObject(NOTES_KEY, metrics.notes)
 	}
+}
+
+export function stringifyMetricsIdentifier(metrics: Metrics): string {
+	return `${metrics.match.type} ${metrics.match.match} - Team ${metrics.team}`
 }

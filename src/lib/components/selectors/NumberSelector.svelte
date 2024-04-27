@@ -1,34 +1,53 @@
 <script lang="ts">
-	export let value = 0;
+	export let value = 0
+
+	export let name = ""
+
+	export let readonly: boolean = false
 
 	function minus() {
-		if (value > 0) value--;
+		if (readonly) return
+
+		if (value > 0) value--
 	}
 
 	function plus() {
-		value++;
+		if (readonly) return
+
+		value++
 	}
 </script>
 
 <div>
-	<button class="primary minus" on:click={minus}>-</button>
-	<input type="number" min="0" bind:value />
-	<button class="primary plus" on:click={plus}>+</button>
+	{#if name.length > 0}
+		<!-- svelte-ignore a11y-label-has-associated-control -->
+		<label>{name}</label>
+	{/if}
+	<div class="split">
+		{#if !readonly}
+			<button class="primary" on:click={minus}
+				><span class="material-symbols-rounded">remove</span>
+			</button>
+		{/if}
+		<input type="number" min="0" {readonly} bind:value />
+		{#if !readonly}
+			<button class="primary" on:click={plus}>
+				<span class="material-symbols-rounded"> add </span>
+			</button>
+		{/if}
+	</div>
 </div>
 
 <style>
-	div {
+	div.split {
 		display: flex;
 		flex-direction: row;
 
 		gap: var(--section-gap);
 	}
 
-	.minus,
-	.plus {
-		font-size: var(--fs-300);
-		font-weight: var(--fw-main);
-
-		width: 2.5rem;
+	button {
+		height: var(--section-input-height);
+		width: var(--section-input-height);
 	}
 </style>

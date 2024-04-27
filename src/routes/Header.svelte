@@ -1,16 +1,15 @@
 <script>
-	import NavLink from '$lib/components/NavLink.svelte';
-
-	import { base } from '$app/paths';
+	import { base } from "$app/paths"
+	import NavLink from "$lib/components/NavLink.svelte"
 </script>
 
 <header>
 	<div class="container">
 		<nav>
-			<a href="{base}/"><em>scout</em></a>
-			<NavLink href="{base}/status/">status</NavLink>
-			<NavLink href="{base}/matches/">matches</NavLink>
-			<NavLink href="{base}/scan/">scan</NavLink>
+			<NavLink href="{base}/"><em>scout</em></NavLink>
+			<NavLink href="{base}/status">status</NavLink>
+			<NavLink href="{base}/view">view</NavLink>
+			<NavLink href="{base}/events">events</NavLink>
 		</nav>
 	</div>
 </header>

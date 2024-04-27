@@ -1,27 +1,38 @@
 <script lang="ts">
-	let note = '';
+	export let notes: Array<string> = []
 
-	export let notes: Array<string> = [];
+	export let readonly: boolean = false
 
 	function add() {
-		notes = [...notes, note];
-		note = '';
+		if (readonly) return
+
+		notes = ["", ...notes]
 	}
 
 	function remove(index: number) {
-		notes.splice(index, 1);
-		notes = notes;
+		if (readonly) return
+
+		notes.splice(index, 1)
+		notes = notes
 	}
 </script>
 
 <div>
-	<input type="text" placeholder="" bind:value={note} />
-	<button class="primary add" on:click={add}>+</button>
+	<input type="text" {readonly} bind:value={notes[0]} />
+	{#if !readonly}
+		<button class="primary" on:click={add}>
+			<span class="material-symbols-rounded">done</span>
+		</button>
+	{/if}
 </div>
-{#each notes as note, index}
+{#each notes.slice(1) as note, index}
 	<div>
 		<input class="inactive" type="text" bind:value={note} />
-		<button class="primary remove" on:click={(_) => remove(index)}>-</button>
+		{#if !readonly}
+			<button class="primary" on:click={() => remove(index + 1)}>
+				<span class="material-symbols-rounded">close</span>
+			</button>
+		{/if}
 	</div>
 {/each}
 
@@ -35,5 +46,10 @@
 
 	.inactive {
 		color: var(--clr-neutral-300);
+	}
+
+	button {
+		height: var(--section-input-height);
+		width: var(--section-input-height);
 	}
 </style>
